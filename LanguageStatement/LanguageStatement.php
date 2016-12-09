@@ -11,6 +11,7 @@
  *  http://php.net/manual/zh/reserved.php,
  *  http://php.net/manual/zh/language.types.intro.php
  */
+namespace LanguageStatement;
 
 class LanguageStatement
 {

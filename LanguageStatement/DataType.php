@@ -11,6 +11,8 @@
  *  http://php.net/manual/zh/language.types.intro.php
  */
 
+namespace LanguageStatement;
+
 class DataType
 {
     /* 数据类型转换 其他参考(强制类型转换)
