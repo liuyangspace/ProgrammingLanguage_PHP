@@ -1,0 +1,7 @@
+{
+    "name": "liuyang/programming-language-php",
+    "description": "this is PHPer's conslusions for PHP.",
+    "type": "project",
+    "license": "MIT",
+    "require": {}
+}
