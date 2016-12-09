@@ -1,22 +1,19 @@
 {
     "name": "liuyang/programming-php",
-    "description": "this is PHPer's conslusions for PHP.",
+    "description": "this is a PHPer's conslusions for PHP.",
     "type": "project",
     "version": "1.0.1",
     "license": "MIT",
     "keywords":          [
         "liuyang",
-        "php",
-        "programming language"
+        "php"
     ],
     "authors": [
         {
             "name":     "liuyang",
-            "email":    "ocramius@gmail.com",
-            "homepage": "http://ocramius.github.com/"
+            "email":    "ocramius@gmail.com"
         }
     ],
-    "require": {},
     "autoload":{
         "psr-0": { "LanguageStatement": "LanguageStatement/" }
     },

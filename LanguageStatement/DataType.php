@@ -15,6 +15,20 @@ namespace LanguageStatement;
 
 class DataType
 {
+    /*
+     * PHP 支持 8 种原始数据类型。
+     */
+    public static $dataTypes = array(
+        //四种标量类型
+        'boolean',          'integer',          'float',            'string',
+        //两种复合类型
+        'array',            'object',
+        //两种特殊类型
+        'resource',         'NULL',
+        //伪类型
+        'mixed',            'number',           'callback',
+    );
+
     /* 数据类型转换 其他参考(强制类型转换)
      * @param mixed $var 变量
      * @param string $type 目标类型 ['boolean','integer','float','string','array','object','null']
@@ -38,6 +52,5 @@ class DataType
     public static function gettype($var){
         return gettype($var);
     }
-
 
 }

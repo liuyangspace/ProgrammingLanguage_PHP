@@ -107,7 +107,7 @@ class LanguageStatement
     /*
      * PHP 支持 8 种原始数据类型。
      */
-    protected static $dataTypes = array(
+    public static $dataTypes = array(
         //四种标量类型
         'boolean',          'integer',          'float',            'string',
         //两种复合类型
