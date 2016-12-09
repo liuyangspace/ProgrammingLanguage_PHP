@@ -1,7 +1,6 @@
 {
     "name": "liuyang/programming-php",
-    "description": "this is a PHPer's conslusions for PHP.",
-    "type": "project",
+    "description": "this is a PHPer's conslusions for PHP.",:
     "version": "1.0.1",
     "license": "MIT",
     "keywords":          [
