@@ -15,6 +15,7 @@ class CharString
     /*
      * printf() - 输出格式化字符串, using %b, %032b or %064b as the format
 6. sprintf() , using %b, %032b or %064b as the format
-
+base64_encode
+    strval()
      */
 }

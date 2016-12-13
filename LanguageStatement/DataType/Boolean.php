@@ -32,37 +32,20 @@ class Boolean
     /*
      * 获取弱比较下的false数组
      * Array getFalse()
-     * @return Array
      */
-    public static function getFalseType(){
-        return self::$falseType;
-    }
+    public static function getFalseType(){ return self::$falseType; }
 
     /*
      * 类型转换为boolean
-     * bool toBoolean/toBool ( mixed $var )
-     * @param $var 要转换的变量
-     * @return true 是,false 否
      */
-    public static function toBoolean ( $var ){
-        return (boolean)$var;
-    }
-    public static function toBool ( $var ){
-        return (bool)$var;
-    }
+    public static function toBoolean ( $var ){ return (boolean)$var; }
+    public static function toBool ( $var ){ return (bool)$var; }
 
     /*
      * 类型判断是否为boolean
-     * bool isBoolean/isBool ( mixed $var )
-     * @param $var 要转换的变量
-     * @return true 是,false 否
      */
-    public static function isBoolean ( $var ){
-        return is_bool($var);
-    }
-    public static function isBool ( $var ){
-        return is_bool($var);
-    }
+    public static function isBoolean ( $var ){ return is_bool($var); }
+    public static function isBool ( $var ){ return is_bool($var); }
 
     /*
      *  常用逻辑运算

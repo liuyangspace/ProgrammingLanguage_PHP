@@ -77,12 +77,10 @@ class DataType
      * @return string 目标类型
      *  ['boolean','integer','double','string','array','object','resource','NULL','unknown type']
      */
-    public static function gettype ($var){
-        return gettype($var);
-    }
+    public static function gettype ($var){ return gettype($var); }
 
     /*
-     * is_*()函数
+     * is_*()函数,以下是php函数简单封装，建议使用php内置函数以提高效率
      * bool is_*( mixed $var )
      * @return bool 如果是目标类型返回true，否则返回false
      */
@@ -101,25 +99,10 @@ class DataType
     public static function isResource( $var ){ return is_resource($var); }
     public static function isScalar( $var ){ return is_scalar($var); }
     public static function isString( $var ){ return is_string($var); }
-    public static function isA( $object, $className, $allowString ){ return is_a($object, $className, $allowString); }
+    public static function isA( $object, $className, $allowString = FALSE ){ return is_a($object, $className, $allowString); }
 
     public static function __callStatic ($name, $arguments)
     {
-        // 处理 is_type() 调用
-        if(in_array($name,self::$isTypes,true)){
-            return $name($arguments[0]);
-        }
-        // 变通处理 is_type() 调用
-        $isTypes = array(
-            'is_int'=>'is_integer',
-            'is_boolean'=>'is_bool',
-            'is_double'=>'is_float',
-            'is_class'=>'is_object',
-        );
-        if(array_key_exists($name,$isTypes)){
-            return $isTypes[$name]($arguments[0]);
-        }
-
         throw new \Exception('"'.$name.'()" is undefined static method !');
     }
 
