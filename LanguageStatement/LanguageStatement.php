@@ -42,6 +42,49 @@ class LanguageStatement
     );
 
     /*
+     * PHP 运算符
+     */
+    public static $Operators = array(
+        //按照优先级从高到低列出了运算符。同一行中的运算符具有相同优先级，此时它们的结合方向决定求值顺序。http://php.net/manual/zh/language.operators.precedence.php
+        'clone','new',              //clone 和 new
+        '[',                        //array()
+        '**',                       //求幂
+        '++','--','~','(int) (float) (string) (array) (object) (bool)','@', // 递增，递减，按位取反，强制类型转换，错误控制运算符
+        'instanceof',               //类型运算符
+        '!',                        //逻辑非
+        '*','/','%',                //算术运算符
+        '+','-','.',                //算术运算符和字符串运算符
+        '<<','>>',                  //位运算符
+        '<','<=','>','>=',          //比较运算符
+        '==','!=','===','!==','<>','<=>',//比较运算符 (<=>PHP7)
+        '&',                        //按位与和引用
+        '^',                        //按位异或
+        '|',                        //按位或
+        '&&',                       //逻辑与
+        '||',                       //逻辑或
+        '??',                       //NULL 合并操作符 PHP7开始提供。
+        '? :',                      //三元运算符
+        '=','+=','-=','*=','**=','/=','.=','%=','&=','|=','^=','<<=','>>=',//赋值运算符
+        'and',                      //逻辑与
+        'xor',                      //逻辑异或
+        'or',                       //逻辑或
+    );
+
+    /*
+     * PHP 支持 8 种原始数据类型。
+     */
+    public static $dataTypes = array(
+        //四种标量类型
+        'boolean',          'integer',          'float',            'string',
+        //两种复合类型
+        'array',            'object',
+        //两种特殊类型
+        'resource',         'NULL',
+        //伪类型
+        'mixed',            'number',           'callback',
+    );
+
+    /*
      * 预定义常量
      */
     public static $predefinedConstants = array(
@@ -91,39 +134,95 @@ class LanguageStatement
         'E_STRICT'                      =>  E_STRICT,               //(integer) 从 PHP 5.0.0 起有效
         '__COMPILER_HALT_OFFSET__'      =>  __COMPILER_HALT_OFFSET__,//(integer) 从 PHP 5.0.0 起有效
         //标准预定义常量 (详见 标准预定义常量.txt)
+        //self::$standardPredefinedConstants
+    );
+
+    /*
+     * 预定义变量
+     */
+    public static $predefinedVariables = array(
+        '$GLOBALS',     //引用全局作用域中可用的全部变量
+        '$_SERVER',     //服务器和执行环境信息
+        '$_GET',        //HTTP GET 变量
+        '$_POST',       //HTTP POST 变量
+        '$_FILES',      //HTTP 文件上传变量
+        '$_REQUEST',    //HTTP Request 变量
+        '$_SESSION',    //Session 变量
+        '$_ENV',        //环境变量
+        '$_COOKIE',     //HTTP Cookies
+        '$php_errormsg',//前一个错误信息
+        '$HTTP_RAW_POST_DATA',//原生POST数据
+        '$http_response_header',//HTTP 响应头
+        '$argc',        //传递给脚本的参数数目
+        '$argv',        //传递给脚本的参数数组
+    );
+
+    /*
+     * 魔术方法
+     */
+    public static $magicMethods = array(
+        '__construct()',    //构造函数 void __construct ([ mixed $args [, $... ]] ),
+        '__destruct()',     //析构函数 void __destruct ( void )
+        '__call()',         //在对象中调用一个不可访问方法时，__call() 会被调用。 public mixed __call ( string $name , array $arguments )
+        '__callStatic()',   //在静态上下文中调用一个不可访问方法时，__callStatic() 会被调用。public static mixed __callStatic ( string $name , array $arguments )
+        '__get()',          //读取不可访问属性的值时，__get() 会被调用。public mixed __get ( string $name )
+        '__set()',          //在给不可访问属性赋值时，__set() 会被调用。public void __set ( string $name , mixed $value )
+        '__isset()',        //当对不可访问属性调用 isset() 或 empty() 时，__isset() 会被调用。public bool __isset ( string $name )
+        '__unset()',        //当对不可访问属性调用 unset() 时，__unset() 会被调用。public void __unset ( string $name )
+        '__sleep()',
+        /*
+         * serialize() 函数会检查类中是否存在一个魔术方法 __sleep()。
+         * 如果存在，该方法会先被调用，然后才执行序列化操作。
+         * 此功能可以用于清理对象，并返回一个包含对象中所有应被序列化的变量名称的数组。
+         * 如果该方法未返回任何内容，则 NULL 被序列化，并产生一个 E_NOTICE 级别的错误。
+         * public array __sleep ( void )
+         */
+        '__wakeup()',       //经常用在反序列化操作中，例如重新建立数据库连接，或执行其它初始化操作。void __wakeup ( void )
+        '__toString()',     //__toString() 方法用于一个类被当成字符串时应怎样回应。public string __toString ( void )
+        '__invoke()',       //当尝试以调用函数的方式调用一个对象时，__invoke() 方法会被自动调用。mixed __invoke ([ $... ] )
+        '__set_state()',    //自 PHP 5.1.0 起当调用 var_export() 导出类时，此静态 方法会被调用。static object __set_state ( array $properties )
+        '__clone()',        //当复制完成时，如果定义了 __clone() 方法，则新创建的对象（复制生成的对象）中的 __clone() 方法会被调用，可用于修改属性的值（如果有必要的话）。void __clone ( void )
+        '__debugInfo()',    //This method is called by var_dump() when dumping an object to get the properties that should be shown. array __debugInfo ( void )
+        '__autoload()',     //spl_autoload_register() 提供了一种更加灵活的方式来实现类的自动加载。因此，不再建议使用 __autoload() 函数，在以后的版本中它可能被弃用。
     );
 
     /*
      * 预定义类和接口
      */
     public static $predefinedClasses = array(
-        'exception',        'ErrorException',   'php_user_filter',  'Closure',          'Generator',
-        'static',           'self',             'parent',
+        'exception',                    //所有异常的基类。
+        'ErrorException',               //错误异常。
+        'php_user_filter',
+        'Generator',                    // 生成器类 Generator 对象不能通过 new 实例化.
+        'Traversable',                  //（遍历）接口 ,检测一个类是否可以使用 foreach 进行遍历的接口。
+        'Iterator',                     //（迭代器）接口 ,可在内部迭代自己的外部迭代器或类的接口。
+        'IteratorAggregate',            //（聚合式迭代器）接口 ,创建外部迭代器的接口。
+        'ArrayAccess',                  //（数组式访问）接口  ,提供像访问数组一样访问对象的能力的接口。
+        'Serializable',                 //（序列化）接口  ,实现此接口的类将不再支持 __sleep() 和 __wakeup()。
+        'Closure',                      // 接口  ,用于代表 匿名函数 的类。
+        'final',
+        'static',
+        'self',
+        'parent',
         // PHP7
-        'ArithmeticError',  'AssertionError',   'DivisionByZeroError','Error',          'Throwable',
-        'ParseError',       'TypeError',
+        'ArithmeticError',
+        'AssertionError',
+        'DivisionByZeroError',
+        'Error',
+        'Throwable',
+        'ParseError',
+        'TypeError',
     );
 
-    /*
-     * PHP 支持 8 种原始数据类型。
-     */
-    public static $dataTypes = array(
-        //四种标量类型
-        'boolean',          'integer',          'float',            'string',
-        //两种复合类型
-        'array',            'object',
-        //两种特殊类型
-        'resource',         'NULL',
-        //伪类型
-        'mixed',            'number',           'callback',
-    );
+
+
 
     /*
      * 判断是否为PHP关键字
      * @param string $word 要验证的关键字
      * @return boolean [ true:是关键字，false:不是关键字]
      */
-    public function isKeywords($wordString){
+    public function isKeywords ($wordString){
         if(in_array((string)$wordString,self::$keywords,true)){
             return true;
         }else{
@@ -135,7 +234,7 @@ class LanguageStatement
      * 获取PHP关键字
      * @return Array [关键字]
      */
-    public function getKeywords(){
+    public function getKeywords (){
         return self::$keywords;
     }
 
@@ -144,7 +243,7 @@ class LanguageStatement
      * @param string $word 要验证的关键字
      * @return boolean [ true:是预定义常量，false:不是预定义常量]
      */
-    public function isPredefinedConstants($wordString){
+    public function isPredefinedConstants ($wordString){
         return array_key_exists((string)$wordString,self::$predefinedConstants);
     }
 
@@ -152,7 +251,7 @@ class LanguageStatement
      * 获取PHP预定义常量
      * @return Array [预定义常量]
      */
-    public function getPredefinedConstants(){
+    public function getPredefinedConstants (){
         return self::$predefinedConstants;
     }
 
@@ -161,7 +260,7 @@ class LanguageStatement
      * @param mix $word 要验证的类或接口
      * @return boolean [ true:是预定义类和接口，false:不是预定义类和接口]
      */
-    public function isPredefinedClasses($wordString){
+    public function isPredefinedClasses ($wordString){
         if(is_object($wordString)){
             $wordString = get_class($wordString);
         }
@@ -176,7 +275,9 @@ class LanguageStatement
      * 获取PHP预定义类和接口
      * @return Array [预定义类和接口]
      */
-    public function getPredefinedClasses(){
+    public function getPredefinedClasses (){
         return self::$predefinedClasses;
     }
+
 }
+
