@@ -13,8 +13,8 @@
 
 namespace LanguageStatement;
 
-class DataType
-{
+class DataType extends PHPDataType
+{// php内置有关常量、函数见 父类
     /*
      * PHP 支持 8 种原始数据类型。
      */
@@ -61,7 +61,7 @@ class DataType
      * @param string $type 目标类型 ['boolean','integer','float','string','array','object','null']
      * @return mixed 转换结果
      */
-    public static function settype ($var, $type){
+    public static function setType (&$var, $type){
         $result = settype($var, $type);
         if($result){
             return $var;
@@ -69,15 +69,17 @@ class DataType
             throw new \Exception("PHP function settype(".$var.",'".$type."') is error !");
         }
     }
+}
+
+class PHPDataType
+{
 
     /*
      * 得到一个易读懂的类型 参考：要查看某个类型，建议用 is_type 函数
-     * is_array()、is_bool()、is_float()、is_integer()、is_null()、is_numeric()、is_object()、is_resource()、is_scalar() 和 is_string()
-     * @param mixed $var 变量
-     * @return string 目标类型
      *  ['boolean','integer','double','string','array','object','resource','NULL','unknown type']
      */
-    public static function gettype ($var){ return gettype($var); }
+    public static function getType ($var){ return gettype($var); }
+    public static function setType ( &$var, $type){ settype($var, $type); }
 
     /*
      * is_*()函数,以下是php函数简单封装，建议使用php内置函数以提高效率
@@ -100,10 +102,4 @@ class DataType
     public static function isScalar( $var ){ return is_scalar($var); }
     public static function isString( $var ){ return is_string($var); }
     public static function isA( $object, $className, $allowString = FALSE ){ return is_a($object, $className, $allowString); }
-
-    public static function __callStatic ($name, $arguments)
-    {
-        throw new \Exception('"'.$name.'()" is undefined static method !');
-    }
-
 }

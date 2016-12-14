@@ -14,4 +14,4 @@ require_once 'DataType/Number.php';
 //$a = DataType::is_inta($a);
 //var_dump($a);
 $a=new DataType();
-var_dump(\LanguageStatement\DataType\Number::pi());
+var_dump(\LanguageStatement\DataType::isBool(123));

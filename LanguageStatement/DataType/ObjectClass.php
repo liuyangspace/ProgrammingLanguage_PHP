@@ -9,7 +9,7 @@
 namespace LanguageStatement\DataType;
 
 
-class ClassObject
+class ObjectClass
 {
 /*
  * get_class() - 返回对象的类名

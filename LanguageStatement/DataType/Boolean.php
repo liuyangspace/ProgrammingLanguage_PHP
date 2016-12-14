@@ -1,20 +1,15 @@
 <?php
-
-/**
- * Created by PhpStorm.
- * User: liuyang
- * Git: https://github.com/liuyangspace
- * Date: 2016/12/12
- * Time: 10:32
- * Description: php基础数据类型处理:布尔类型
+/*
+ * php基础数据类型处理:布尔类型
+ *  要指定一个布尔值，使用关键字 TRUE 或 FALSE。两个都不区分大小写。
  * Reference:
  *  http://php.net/manual/zh/language.types.boolean.php
  */
 
 namespace LanguageStatement\DataType;
 
-class Boolean
-{
+class Boolean extends PHPBoolean
+{// php内置有关常量、函数见 父类
     /*
      * PHP 弱比较下的false
      */
@@ -42,17 +37,30 @@ class Boolean
     public static function toBool ( $var ){ return (bool)$var; }
 
     /*
-     * 类型判断是否为boolean
-     */
-    public static function isBoolean ( $var ){ return is_bool($var); }
-    public static function isBool ( $var ){ return is_bool($var); }
-
-    /*
      *  常用逻辑运算
      */
     public static function getAnd( $varLeft , $varRight ){ return $varLeft and $varRight;}//与
     public static function getOr( $varLeft , $varRight ){ return $varLeft or $varRight;}//或
     public static function getXor( $varLeft , $varRight ){ return $varLeft xor $varRight;}//异或
     public static function getNot( $var ){ return !$var;}//非
-
 }
+
+class PHPBoolean
+{
+    /*
+     * 类型判断是否为boolean
+     */
+    public static function isBoolean ( $var ){ return is_bool($var); }
+    public static function isBool ( $var ){ return is_bool($var); }
+}
+
+/**
+ * Created by PhpStorm.
+ * User: liuyang
+ * Git: https://github.com/liuyangspace
+ * Date: 2016/12/12
+ * Time: 10:32
+ * Description: php基础数据类型处理:布尔类型
+ * Reference:
+ *  http://php.net/manual/zh/language.types.boolean.php
+ */
