@@ -232,11 +232,9 @@ class LanguageStatement
 
     /*
      * 获取PHP关键字
-     * @return Array [关键字]
+     * Array getKeywords( void )
      */
-    public function getKeywords (){
-        return self::$keywords;
-    }
+    public function getKeywords (){ return self::$keywords; }
 
     /*
      * 判断是否为PHP预定义常量
@@ -249,11 +247,9 @@ class LanguageStatement
 
     /*
      * 获取PHP预定义常量
-     * @return Array [预定义常量]
+     * Array getPredefinedConstants( void )
      */
-    public function getPredefinedConstants (){
-        return self::$predefinedConstants;
-    }
+    public function getPredefinedConstants (){ return self::$predefinedConstants; }
 
     /*
      * 判断是否为PHP预定义类和接口
@@ -275,9 +271,7 @@ class LanguageStatement
      * 获取PHP预定义类和接口
      * @return Array [预定义类和接口]
      */
-    public function getPredefinedClasses (){
-        return self::$predefinedClasses;
-    }
+    public function getPredefinedClasses (){ return self::$predefinedClasses; }
 
 }
 

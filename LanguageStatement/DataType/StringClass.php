@@ -63,6 +63,7 @@ class PHPString
     /*
      * PHP字符串函数
      */
+    public static function php_eval($str=null){ return eval($str); }//把字符串作为PHP代码执行
     // ??
     public static function setlocale($category,$locale){ return join($category,$locale); }//设置地区信息
     public static function localeconv(){ return localeconv(); }//Get numeric formatting information
@@ -142,6 +143,8 @@ class PHPString
     public static function html_entity_decode($str,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8' ){ return html_entity_decode ($str,$flags,$encoding); }//html实体转为所有字符
     public static function get_html_translation_table($table=HTML_SPECIALCHARS,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8'){ return get_html_translation_table($table,$flags,$encoding); }//返回使用 htmlspecialchars() 和 htmlentities() 后的转换表
     // 字符集 编码
+    public static function utf8_encode($data){ return utf8_encode($data); }//将 ISO-8859-1 编码的字符串转换为 UTF-8 编码
+    public static function utf8_decode($data){ return utf8_decode($data); }//将用 UTF-8 方式编码的 ISO-8859-1 字符串转换成单字节的 ISO-8859-1 字符串。
     public static function convert_uuencode($data){ return convert_uuencode($data); }//使用 uuencode 编码一个字符串
     public static function convert_uudecode($data){ return convert_uudecode($data); }//解码一个 uuencode 编码的字符串
     public static function convert_cyr_string($str,$from,$to){ return convert_cyr_string($str,$from,$to); }//将字符由一种 Cyrillic 字符转换成另一种
@@ -179,22 +182,90 @@ class PHPString
     public static function ereg_replace($pattern,$replacement,$string){ return ereg_replace($pattern,$replacement,$string); }//正则表达式替换
     public static function eregi_replace($pattern,$replacement,$string){ return eregi_replace($pattern,$replacement,$string); }//不区分大小写的正则表达式替换
 
-
-/*
- 某些函数假定字符串是以单字节编码的，但并不需要将字节解释为特定的字符。例如 substr()，strpos()，strlen() 和 strcmp()。理解这些函数的另一种方法是它们作用于内存缓冲区，即按照字节和字节下标操作。
-某些函数被传递入了字符串的编码方式，也可能会假定默认无此信息。例如 htmlentities() 和 mbstring 扩展中的大部分函数。
-其它函数使用了当前区域（见 setlocale()），但是逐字节操作。例如 strcasecmp()，strtoupper() 和 ucfirst()。这意味着这些函数只能用于单字节编码，而且编码要与区域匹配。例如 strtoupper("á") 在区域设定正确并且 á 是单字节编码时会返回 "Á"。如果是用 UTF-8 编码则不会返回正确结果，其结果根据当前区域有可能返回损坏的值。
-最后一些函数会假定字符串是使用某特定编码的，通常是 UTF-8。intl 扩展和 PCRE（上例中仅在使用了 u 修饰符时）扩展中的大部分函数都是这样。尽管这是由于其特殊用途，utf8_decode() 会假定 UTF-8 编码而 utf8_encode() 会假定 ISO-8859-1 编码。
-要使用来自于 intl 和 mbstring 扩展的函数。
-exec,system, passthru()
-*/
 }
 
 class PHPStringExtension extends PHPString
 {
-    // iconv_*
+    /*
+     * 基于 iconv 的多字符集支持
+     */
+    public static function iconv($in_charset,$out_charset,$str){ return iconv($in_charset,$out_charset,$str); }//字符串按要求的字符编码来转换
+    public static function iconv_strlen($str,$charset){ return iconv_strlen($str,$charset); }//返回字符串的字符数统计
+    public static function iconv_strpos($str,$needle,$offset,$charset){ return iconv_strpos($str,$needle,$offset,$charset); }//Finds position of first occurrence of a needle within a haystack
+    public static function iconv_strrpos($str,$needle,$charset){ return iconv_strrpos($str,$needle,$charset); }//Finds the last occurrence of a needle within a haystack
+    public static function iconv_substr($str,$offset,$length,$charset){ return iconv_substr($str,$offset,$length,$charset); }//截取字符串的部分
+    public static function iconv_set_encoding($type,$charset){ return iconv_set_encoding($type,$charset); }//为字符编码转换设定当前设置
+    public static function iconv_get_encoding($type="all"){ return iconv_get_encoding($type); }//获取 iconv 扩展的内部配置变量
+    public static function iconv_mime_encode($name,$value,$preferences=NULL){ return iconv_mime_encode($name,$value,$preferences); }//Composes a MIME header field
+    public static function iconv_mime_decode($headers,$mode=0,$charset){ return iconv_mime_decode($headers,$mode,$charset); }//解码一个MIME头字段
+    public static function iconv_mime_decode_headers($headers,$mode=0,$charset){ return iconv_mime_decode_headers($headers,$mode,$charset); }//一次性解码多个 MIME 头字段
 
-    // mb_*
+    /*
+     *  基于 mbstring 的多字节字符串支持
+     */
+    public static function mb_language($language){ return mb_language($language); }//设置/获取当前的语言
+    public static function mb_get_info($type="all"){ return mb_get_info($type); }//获取 mbstring 的内部设置
+    public static function mb_substitute_character($substrchar){ return mb_substitute_character($substrchar); }//设置/获取替代字符
+    public static function mb_internal_encoding($charSet){ return mb_internal_encoding($charSet); }//设置/获取内部字符编码
+    public static function mb_list_encodings(){ return mb_list_encodings(); }//返回所有支持编码的数组
+    public static function mb_output_handler($contents,$status){ return mb_output_handler($contents,$status); }//在输出缓冲中转换字符编码的回调函数
+    public static function mb_parse_str($charSet,&$result){ return mb_parse_str($charSet,$result); }//解析 GET/POST/COOKIE 数据并设置全局变量
+    // 编码 检测
+    public static function mb_check_encoding($str=NULL,$charSet){ return mb_check_encoding($str,$charSet); }//检查字符串在指定的编码里是否有效
+    public static function mb_detect_encoding($str,$encoding_list,$strict=false){ return mb_detect_encoding($str,$encoding_list,$strict); }//检测字符的编码
+    public static function mb_detect_order($encoding_list){ return mb_detect_order($encoding_list); }//设置/获取 字符编码的检测顺序
+    public static function mb_encoding_aliases($charSet){ return mb_encoding_aliases($charSet); }//Get aliases of a known encoding type
+    // 编码 转换
+    public static function mb_convert_encoding($str,$to,$from){ return mb_convert_encoding($str,$to,$from); }//转换字符的编码
+    public static function mb_convert_variables($to,$from,$var){ return mb_convert_variables($to,$from,$var); }//转换一个或多个变量的字符编码
+    // 字符操作
+    public static function mb_strlen($str,$charSet){ return mb_strlen($str,$charSet); }//获取字符串的长度
+    public static function mb_strpos($haystack,$needle,$offset=0,$charSet){ return mb_strpos($haystack,$needle,$offset,$charSet); }//查找字符串在另一个字符串中首次出现的位置
+    public static function mb_stripos($haystack,$needle,$offset=0,$charSet){ return mb_stripos($haystack,$needle,$offset,$charSet); }//大小写不敏感地查找字符串在另一个字符串中首次出现的位置
+    public static function mb_strripos($haystack,$needle,$offset=0,$charSet){ return mb_strripos($haystack,$needle,$offset,$charSet); }//大小写不敏感地在字符串中查找一个字符串最后出现的位置
+    public static function mb_strrpos($haystack,$needle,$offset=0,$charSet){ return mb_strripos($haystack,$needle,$offset,$charSet); }//查找字符串在一个字符串中最后出现的位置
+    public static function mb_strstr($haystack,$needle,$before_needle=false,$charSet){ return mb_strstr($haystack,$needle,$before_needle,$charSet); }//查找字符串在另一个字符串里的首次出现
+    public static function mb_stristr($haystack,$needle,$before_needle=false,$charSet){ return mb_stristr($haystack,$needle,$before_needle,$charSet); }//大小写不敏感地查找字符串在另一个字符串里的首次出现
+    public static function mb_strrchr($haystack,$needle,$before_needle=false,$charSet){ return mb_stristr($haystack,$needle,$before_needle,$charSet); }//查找指定字符在另一个字符串中最后一次的出现
+    public static function mb_strrichr($haystack,$needle,$before_needle=false,$charSet){ return mb_strrichr($haystack,$needle,$before_needle,$charSet); }//大小写不敏感地查找指定字符在另一个字符串中最后一次的出现
+    public static function mb_split($pattern,$string,$limit=-1){ return mb_split($pattern,$string,$limit); }//使用正则表达式分割多字节字符串
+    public static function mb_strcut($str,$start,$length=NULL,$charSet){ return mb_strcut($str,$start,$length,$charSet); }//获取字符的一部分
+    public static function mb_strimwidth($str,$start,$width,$trimmarker="",$charSet){ return mb_strimwidth($str,$start,$width,$trimmarker,$charSet); }//获取按指定宽度截断的字符串
+    public static function mb_send_mail($to,$subject,$message,$additional_headers=NULL,$additional_parameter=NULL){ return mb_send_mail($to,$subject,$message,$additional_headers,$additional_parameter); }//发送编码过的邮件
+    public static function mb_strwidth($str,$charSet){ return mb_strwidth($str,$charSet); }//返回字符串的宽度
+    public static function mb_convert_case($str,$mode,$charSet){ return mb_convert_case($str,$mode,$charSet); }//对字符串进行大小写转换
+    public static function mb_strtolower($str,$charSet){ return mb_strtolower($str,$charSet); }//使字符串小写
+    public static function mb_strtoupper($str,$charSet){ return mb_strtoupper($str,$charSet); }//使字符串小写
+    public static function mb_substr($str,$start,$length=NULL,$charSet){ return mb_substr($str,$start,$length,$charSet); }//获取字符串的部分
+    public static function mb_substr_count($haystack,$needle,$charSet){ return mb_substr_count($haystack,$needle,$charSet); }//统计字符串出现的次数
+    // MIME
+    public static function mb_preferred_mime_name($str){ return mb_preferred_mime_name($str); }//获取 MIME 字符串
+    public static function mb_decode_mimeheader($str){ return mb_decode_mimeheader($str); }//解码 MIME 头字段中的字符串
+    public static function mb_encode_mimeheader($str,$charset,$transfer_encoding="B",$linefeed="\r\n",$indent=0){ return mb_encode_mimeheader($str,$charset,$transfer_encoding,$linefeed,$indent); }//解码 MIME 头字段中的字符串
+    // HTML
+    public static function mb_http_input($type=""){ return mb_http_input($type); }//检测 HTTP 输入字符编码
+    public static function mb_http_output($encoding){ return mb_http_output($encoding); }//设置/获取 HTTP 输出字符编码
+    public static function mb_decode_numericentity($str,$convmap,$charSet){ return mb_decode_numericentity($str,$convmap,$charSet); }//根据 HTML 数字字符串解码成字符
+    public static function mb_encode_numericentity($str,$convmap,$charSet,$is_hex=FALSE){ return mb_encode_numericentity($str,$convmap,$charSet,$is_hex); }//Encode character to HTML numeric string reference
+    //
+    public static function mb_convert_kana($str,$option="KV",$charSet){ return mb_convert_kana($str,$option,$charSet); }//日文字符多字节编码转换
+    // ereg
+    public static function mb_ereg($pattern,$str,&$regs){ return mb_ereg($pattern,$str,$regs); }//Regular expression match with multibyte support
+    public static function mb_eregi($pattern,$str,&$regs){ return mb_eregi($pattern,$str,$regs); }//Regular expression match ignoring case with multibyte support
+    public static function mb_eregi_replace($pattern,$replace,$str,$option="msr"){ return mb_eregi_replace($pattern,$replace,$str,$option); }//Replace regular expression with multibyte support ignoring case
+    public static function mb_ereg_match($pattern,$str,$option="msr"){ return mb_ereg_match($pattern,$str,$option); }//Regular expression match for multibyte string
+    public static function mb_ereg_replace($pattern,$replace,$str,$option="msr"){ return mb_ereg_replace($pattern,$replace,$str,$option); }//Replace regular expression with multibyte support
+    public static function mb_ereg_replace_callback($pattern,$callback,$str,$option="msr"){ return mb_ereg_replace_callback($pattern,$callback,$str,$option); }//Perform a regular expresssion seach and replace with multibyte support using a callback
+    public static function mb_ereg_search($pattern,$option="msr"){ return mb_ereg_search($pattern,$option); }//Multibyte regular expression match for predefined multibyte string
+    public static function mb_ereg_search_init($str,$pattern,$option="msr"){ return mb_ereg_search_init($str,$pattern,$option); }//Setup string and regular expression for a multibyte regular expression match
+    public static function mb_ereg_search_pos($pattern,$option="msr"){ return mb_ereg_search_pos($pattern,$option); }//Returns position and length of a matched part of the multibyte regular expression for a predefined multibyte string
+    public static function mb_ereg_search_regs($pattern,$option="msr"){ return mb_ereg_search_regs($pattern,$option); }//Returns the matched part of a multibyte regular expression
+    public static function mb_ereg_search_getpos(){ return mb_ereg_search_getpos(); }//Returns start point for next regular expression match
+    public static function mb_ereg_search_setpos($position){ return mb_ereg_search_setpos($position); }//Set start point of next regular expression match
+    public static function mb_ereg_search_getregs(){ return mb_ereg_search_getregs(); }//Retrieve the result from the last multibyte regular expression match
+    public static function mb_regex_encoding($charSet){ return mb_regex_encoding($charSet); }//Set/Get character encoding for multibyte regex
+    public static function mb_regex_set_options($options ){ return mb_regex_set_options($options); }//Set/Get the default options for mbregex functions
+    //
 
     // url
 
