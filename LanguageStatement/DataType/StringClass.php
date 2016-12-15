@@ -20,16 +20,8 @@
 namespace LanguageStatement\DataType;
 
 
-class StringClass extends PHPString
+class StringClass extends PHPStringExtension
 {
-
-    /*
-     * printf() - 输出格式化字符串, using %b, %032b or %064b as the format
-6. sprintf() , using %b, %032b or %064b as the format
-base64_encode
-    strval()
-     */
-
     /*
      * 转换为字符串
      */
@@ -45,15 +37,24 @@ class PHPString
 {
 
     /*
-     * 转换为字符串
+     * 变量转换
      */
-    public static function strval($var){ return strval($var); }
+    public static function strval($var){ return strval($var); }//将变量解析成字符串
+    public static function parse_str($str,&$arr){ parse_str($str,$arr); }//将字符串解析成多个变量
+    public static function str_getcsv($str,$delimiter=",",$enclosure='"',$escape="\\"){ str_getcsv($str,$delimiter,$enclosure,$escape); }//解析 CSV 字符串为一个数组
+    public static function explode($delimiter,$str,$limit){ return explode($delimiter,$str,$limit); }//使用一个字符串分割另一个字符串
+    public static function implode($str,$array){ return implode($str,$array); }//将一个一维数组的值转化为字符串
+    public static function join($str,$array){ return join($str,$array); }//别名 implode()
+    public static function str_split($str,$length){ return str_split($str,$length); }//将字符串转换为数组
 
-    // IO
+    /*
+     * IO
+     */
     //  void echo ( string $arg1 [, string $... ] )
     //  int print ( string $arg )
     //  int printf ( string $format [, mixed $args [, mixed $... ]] )
     //  int vprintf ( string $format , array $args )
+    //  int vfprintf ( resource $handle , string $format , array $args )
     //  string sprintf ( string $format [, mixed $args [, mixed $... ]] )
     //  string vsprintf ( string $format , array $args )
     //  mixed sscanf ( string $str , string $format [, mixed &$... ] )
@@ -65,24 +66,61 @@ class PHPString
     // ??
     public static function setlocale($category,$locale){ return join($category,$locale); }//设置地区信息
     public static function localeconv(){ return localeconv(); }//Get numeric formatting information
+    public static function strcoll($left,$right){ return strcoll($left,$right); }//基于区域设置的字符串比较
     public static function nl_langinfo($item){ return nl_langinfo($item); }//Query language and locale information
-    // 剪切 拼接
-    public static function ltrim($str,$characterMask){ return ltrim($str,$characterMask); }//删除字符串开头的空白字符（或其他字符）
-    public static function rtrim($str,$characterMask){ return rtrim($str,$characterMask); }//删除字符串末端的空白字符（或者其他字符）
+    // 剪切(单字节) 拼接 替换 填充 复制 随机 反转
+    public static function substr($str,$start,$length){ return substr($str,$start,$length); }//返回字符串的子串
+    public static function trim($str,$characterMask=" \t\n\r\0\x0B"){ return trim($str,$characterMask); }//去除字符串首尾处的空白字符（或者其他字符）
+    public static function ltrim($str,$characterMask=" \t\n\r\0\x0B"){ return ltrim($str,$characterMask); }//删除字符串开头的空白字符（或其他字符）
+    public static function rtrim($str,$characterMask=" \t\n\r\0\x0B"){ return rtrim($str,$characterMask); }//删除字符串末端的空白字符（或者其他字符）
     public static function chop($str,$characterMask){ return chop($str,$characterMask); }//rtrim() 的别名
     public static function chunk_split($str,$length=76,$end="\r\n"){ return chunk_split($str,$length,$end); }//将字符串分割成小块
-    public static function explode($delimiter,$str,$limit){ return explode($delimiter,$str,$limit); }//使用一个字符串分割另一个字符串
-    public static function implode($str,$array){ return implode($str,$array); }//将一个一维数组的值转化为字符串
-    public static function join($str,$array){ return join($str,$array); }//别名 implode()
+    public static function strtok($str,$token){ return strtok($str,$token); }//标记分割字符串
+    public static function strtr($str,$from,$to){ return strtr($str,$from,$to); }//字符替换
+    public static function str_replace($search,$replace,$subject,&$count){ return str_replace($search,$replace,$subject,$count); }//子字符串替换
+    public static function str_ireplace($search,$replace,$subject,&$count){ return str_ireplace($search,$replace,$subject,$count); }//str_replace() 的忽略大小写版本
+    public static function substr_replace($str,$replace,$start,$length){ return substr_replace($str,$replace,$start,$length); }//替换字符串的子串
+    public static function str_pad($str,$length,$padStr=" ",$type=STR_PAD_RIGHT){ return str_pad($str,$length,$padStr,$type); }//使用另一个字符串填充字符串为指定长度
+    public static function str_repeat($str,$count){ return str_repeat($str,$count); }//重复一个字符串
+    public static function str_shuffle($str){ return str_shuffle($str); }//随机打乱一个字符串
+    public static function strrev($str){ return strrev($str); }//反转字符串
+    public static function wordwrap($str,$width=75,$break="\n",$cut=false){ return wordwrap($str,$width,$break,$cut); }//打断字符串为指定数量的字串
+    //查找
+    public static function strstr($search,$str,$before_needle=false){ return strstr($search,$str,$before_needle); }//查找字符串的首次出现
+    public static function stristr($search,$str,$before_needle=false){ return stristr($search,$str,$before_needle); }//查找字符串的首次出现（不区分大小写）
+    public static function strchr($search,$str,$before_needle=false){ return strchr($search,$str,$before_needle); }//查找字符串的首次出现
+    public static function strpos($search,$str,$start=0){ return strpos($search,$str,$start); }//查找字符串首次出现的位置
+    public static function stripos($search,$str,$start=0){ return stripos($search,$str,$start); }//查找字符串首次出现的位置（不区分大小写）
+    public static function strrpos($search,$str,$start=0){ return strrpos($search,$str,$start); }//计算指定字符串在目标字符串中最后一次出现的位置
+    public static function strripos($search,$str,$start=0){ return strripos($search,$str,$start); }//计算指定字符串在目标字符串中最后一次出现的位置（不区分大小写）
+    public static function strrchr($search,$search){ return strrchr($search,$search); }//查找指定字符在字符串中的最后一次出现
+    public static function strpbrk($str,$char_list){ return strpbrk($str,$char_list); }//在字符串中查找一组字符的任何一个字符
+    public static function strspn($str,$char_list,$start,$length){ return strspn($str,$char_list,$start,$length); }//计算字符串中全部字符都存在于指定字符集合中的第一段子串的长度。
     // 比较
+    public static function strcmp($left,$right){ return strcmp($left,$right); }//二进制安全字符串比较
+    public static function strcasecmp($left,$right){ return strcasecmp($left,$right); }//二进制安全比较字符串（不区分大小写）
+    public static function strncmp($left,$right,$len){ return strncmp($left,$right,$len); }//二进制安全比较字符串开头的若干个字符
+    public static function strncasecmp($left,$right,$len){ return strncasecmp($left,$right,$len); }//二进制安全比较字符串开头的若干个字符（不区分大小写）
+    public static function substr_compare($left,$right,$offset,$len,$case_insensitivity=false){ return substr_compare($left,$right,$offset,$len,$case_insensitivity); }//二进制安全比较字符串（从偏移位置比较指定长度）
+    public static function strnatcmp($left,$right){ return strnatcmp($left,$right); }//使用"自然顺序"算法比较字符串
+    public static function strnatcasecmp($left,$right){ return strnatcasecmp($left,$right); }//使用"自然顺序"算法比较字符串（不区分大小写）
     public static function levenshtein($left,$right,$ins,$rep,$del){ return levenshtein($left,$right,$ins,$rep,$del); }//计算两个字符串之间的编辑距离
     public static function similar_text($left,$right,&$percent){ return similar_text($left,$right,$percent); }//计算两个字符串的相似度
+    public static function strcspn($left,$right,$start,$length){ return strcspn($left,$right,$start,$length); }//获取不匹配遮罩的起始子字符串的长度
     public static function soundex($str){ return soundex($str); }//Calculate the soundex key of a string
     public static function metaphone($str,$phonemes=0){ return metaphone($str,$phonemes); }//Calculate the metaphone key of a string
+    public static function hash_equals($knownStr,$userStr){ return hash_equals($knownStr,$userStr); }//可防止时序攻击的字符串比较
     // 大小写
     public static function lcfirst($str){ return lcfirst($str); }//使一个字符串的第一个字符小写
+    public static function ucfirst($str){ return ucfirst($str); }//将字符串的首字母转换为大写
+    public static function ucwords($str){ return ucwords($str); }//将字符串中每个单词的首字母转换为大写
+    public static function strtolower($str){ return strtolower($str); }//将字符串转化为小写
+    public static function strtoupper($str){ return strtoupper($str); }//将字符串转化为大写
     // 统计
+    public static function strlen($str){ return strlen($str); }//获取字符串长度
+    public static function substr_count($search,$str,$offset,$length){ return substr_count($search,$str,$offset,$length); }//计算字串出现的次数
     public static function count_chars($str,$mode=0){ return count_chars($str,$mode); }//统计字节值（0..255）出现的次数
+    public static function str_word_count($str,$format=0,$charlist=""){ return str_word_count($str,$format,$charlist); }//统计 string 中单词的数量。
     // char
     public static function chr($asciiInt){ return chr($asciiInt); }//返回指定的字符
     public static function ord($char){ return ord($char); }//返回字符的 ASCII 码值
@@ -103,23 +141,39 @@ class PHPString
     public static function htmlentities($str,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8',$double_encode=true ){ return htmlentities($str,$flags,$encoding,$double_encode); }//所有字符转为html实体
     public static function html_entity_decode($str,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8' ){ return html_entity_decode ($str,$flags,$encoding); }//html实体转为所有字符
     public static function get_html_translation_table($table=HTML_SPECIALCHARS,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8'){ return get_html_translation_table($table,$flags,$encoding); }//返回使用 htmlspecialchars() 和 htmlentities() 后的转换表
-    // 字符集 编码 加密
+    // 字符集 编码
     public static function convert_uuencode($data){ return convert_uuencode($data); }//使用 uuencode 编码一个字符串
     public static function convert_uudecode($data){ return convert_uudecode($data); }//解码一个 uuencode 编码的字符串
     public static function convert_cyr_string($str,$from,$to){ return convert_cyr_string($str,$from,$to); }//将字符由一种 Cyrillic 字符转换成另一种
     public static function crc32($str){ return crc32($str); }//计算一个字符串的 crc32 多项式
+    public static function hebrev($hebrew_text,$max_chars_per_line=0){ return hebrev($hebrew_text,$max_chars_per_line); }//将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew）
+    public static function hebrevc($hebrew_text,$max_chars_per_line=0){ return hebrevc($hebrew_text,$max_chars_per_line); }//将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew），并且转换换行符
+    public static function quoted_printable_decode($str){ return quoted_printable_decode($str); }//将 quoted-printable 字符串转换为 8-bit 字符串
+    public static function quoted_printable_encode($str){ return quoted_printable_encode($str); }//将 8-bit 字符串转换成 quoted-printable 字符串
+    public static function str_rot13($str){ return str_rot13($str); }//对字符串执行 ROT13 转换
+    // 加密
     public static function crypt($str,$salt){ return crypt($str,$salt); }//计算一个字符串的 crc32 多项式
     public static function password_hash($password,$algo,$options){ return password_hash($password,$algo,$options); }//创建密码的哈希（hash）
     public static function password_verify($password,$hash){ return password_verify($password,$hash); }//验证密码是否和哈希匹配
-    public static function hash_equals($knownStr,$userStr){ return hash_equals($knownStr,$userStr); }//可防止时序攻击的字符串比较
     public static function md5($str,$raw_output=false){ return md5($str,$raw_output); }//计算字符串的 MD5 散列值
-    public static function md5_file($str,$raw_output=false){ return md5_file($str,$raw_output); }//计算指定文件的 MD5 散列值
-    public static function hebrev($hebrew_text,$max_chars_per_line=0){ return hebrev($hebrew_text,$max_chars_per_line); }//将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew）
-    public static function hebrevc($hebrew_text,$max_chars_per_line=0){ return hebrevc($hebrew_text,$max_chars_per_line); }//将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew），并且转换换行符
+    public static function md5_file($filename,$raw_output=false){ return md5_file($filename,$raw_output); }//计算文件的 sha1 散列值
+    public static function sha1($str,$raw_output=false){ return sha1($str,$raw_output); }//计算字符串的 sha1 散列值
+    public static function sha1_file($filename,$raw_output=false){ return sha1_file($filename,$raw_output); }//计算指定文件的 MD5 散列值
 
     /*
      * 正则
      */
+    //兼容 Perl
+    public static function preg_grep($pattern,$input,$flags=0){ return preg_grep($pattern,$input,$flags); }//返回匹配模式的数组条目
+    public static function preg_filter($pattern,$replace,$subject,$limit=-1,&$count){ return preg_filter($pattern,$replace,$subject,$limit,$count); }//执行一个正则表达式搜索和替换
+    public static function preg_match_all($pattern,$subject,&$matches,$flags=PREG_PATTERN_ORDER,$offset=0){ return preg_match_all($pattern,$subject,$matches,$flags,$offset); }//执行一个全局正则表达式匹配
+    public static function preg_match($pattern,$subject,&$matches,$flags=0,$offset=0){ return preg_match($pattern,$subject,$matches,$flags,$offset); }//执行一个正则表达式匹配
+    public static function preg_replace_callback_array($pattern,$subject,$limit=-1,&$count){ return preg_replace_callback_array($pattern,$subject,$limit,$count); }//Perform a regular expression search and replace using callbacks
+    public static function preg_replace_callback($pattern,$callback,$subject,$limit=-1,&$count){ return preg_replace_callback($pattern,$callback,$subject,$limit,$count); }//执行一个正则表达式搜索并且使用一个回调进行替换
+    public static function preg_replace($pattern,$replace,$subject,$limit=-1,&$count){ return preg_replace($pattern,$replace,$subject,$limit,$count); }//执行一个正则表达式的搜索和替换
+    public static function preg_split($pattern,$subject,$limit=-1,&$count){ return preg_split($pattern,$subject,$limit,$count); }//通过一个正则表达式分隔字符串
+    public static function preg_last_error(){ return preg_last_error(); }//返回最后一个PCRE正则执行产生的错误代码
+    //
     public static function ereg($pattern,$string,&$regs){ return ereg($pattern,$string,$regs); }//正则表达式匹配
     public static function eregi($pattern,$string,&$regs){ return eregi($pattern,$string,$regs); }//不区分大小写的正则表达式匹配
     public static function ereg_replace($pattern,$replacement,$string){ return ereg_replace($pattern,$replacement,$string); }//正则表达式替换

@@ -9,9 +9,10 @@ namespace LanguageStatement;
 require_once 'DataType.php';
 require_once 'DataType/Boolean.php';
 require_once 'DataType/Number.php';
+require_once 'DataType/StringClass.php';
 
 //$a=123;
 //$a = DataType::is_inta($a);
 //var_dump($a);
 $a=new DataType();
-var_dump(\LanguageStatement\DataType::isBool(123));
+var_dump(\LanguageStatement\DataType\StringClass::get_html_translation_table());

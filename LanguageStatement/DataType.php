@@ -50,9 +50,7 @@ class DataType extends PHPDataType
      * Array getTypes ()
      * @return PHP 支持 8 种原始数据类型。
      */
-    public static function getTypes (){
-        return self::$dataTypes;
-    }
+    public static function getTypes (){ return self::$dataTypes; }
 
     /*
      * 数据类型转换 其他参考(强制类型转换)
@@ -73,13 +71,25 @@ class DataType extends PHPDataType
 
 class PHPDataType
 {
+    /*
+     * 常量 变量
+     */
+    //
+    public static function defined($name){ return defined($name); }//检查某个名称的常量是否存在
+    public static function php_isset($name){ return isset($name); }//检测变量是否设置
+    public static function php_unset($name){ unset($name); }//释放给定的变量
+    public static function php_empty($name){ return empty($name); }//检查一个变量是否为空
+    public static function var_dump($name){ var_dump($name); }//Dumps a string representation of an internal zend value to output
+    public static function var_export($name,$return=false){ var_export($name,$return); }//输出或返回一个变量的字符串表示
+    public static function get_defined_vars(){ return get_defined_vars(); }//返回由所有已定义变量所组成的数组
+    public static function get_defined_constants($categorize=false){ return get_defined_constants($categorize); }//返回所有常量的关联数组，键是常量名，值是常量值
 
     /*
      * 得到一个易读懂的类型 参考：要查看某个类型，建议用 is_type 函数
      *  ['boolean','integer','double','string','array','object','resource','NULL','unknown type']
      */
-    public static function getType ($var){ return gettype($var); }
-    public static function setType ( &$var, $type){ settype($var, $type); }
+    public static function getType($var){ return gettype($var); }
+    public static function setType(&$var,$type){ settype($var, $type); }
 
     /*
      * is_*()函数,以下是php函数简单封装，建议使用php内置函数以提高效率

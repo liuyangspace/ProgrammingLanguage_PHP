@@ -12,6 +12,14 @@ namespace LanguageStatement;
 class LanguageRegulate
 {
 
+
+
+    //session
+
+    //cookie
+
+    //时区
+
     //错误
 
     //内存
