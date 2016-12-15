@@ -138,7 +138,7 @@ class PHPArray
  * User: liuyang
  * Git: https://github.com/liuyangspace
  * Date: 2016/12/15
- * Time: 10:32
+ * Time: 9:32
  * Description: php基础数据类型处理：Array 数组
  * Reference:
  *  http://php.net/manual/zh/language.types.array.php
