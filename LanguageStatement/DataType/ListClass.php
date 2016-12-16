@@ -8,7 +8,6 @@
 
 namespace LanguageStatement\DataType;
 
-
 class ListClass implements \ArrayAccess
 {
 

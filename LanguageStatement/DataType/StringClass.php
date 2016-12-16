@@ -176,7 +176,7 @@ class PHPString
     public static function preg_replace($pattern,$replace,$subject,$limit=-1,&$count){ return preg_replace($pattern,$replace,$subject,$limit,$count); }//执行一个正则表达式的搜索和替换
     public static function preg_split($pattern,$subject,$limit=-1,&$count){ return preg_split($pattern,$subject,$limit,$count); }//通过一个正则表达式分隔字符串
     public static function preg_last_error(){ return preg_last_error(); }//返回最后一个PCRE正则执行产生的错误代码
-    //
+    //弃用
     public static function ereg($pattern,$string,&$regs){ return ereg($pattern,$string,$regs); }//正则表达式匹配
     public static function eregi($pattern,$string,&$regs){ return eregi($pattern,$string,$regs); }//不区分大小写的正则表达式匹配
     public static function ereg_replace($pattern,$replacement,$string){ return ereg_replace($pattern,$replacement,$string); }//正则表达式替换

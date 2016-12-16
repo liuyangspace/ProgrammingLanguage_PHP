@@ -21,19 +21,36 @@ class LanguageStatement
      * 关键词列表
      */
     public static $keywords = array(
-        '__halt_compiler',  'abstract',         'and',              'array',            'as',
-        'break',            'callable',         'case',             'catch',            'class',
-        'clone',            'const',            'continue',         'declare',          'default',
-        'die',              'do',               'echo',             'else',             'elseif',
-        'empty',            'enddeclare',       'endfor',           'endforeach',       'endif',
-        'endswitch',        'endwhile',         'eval',             'exit',             'extends',
-        'final',            'for',              'foreach',          'function',         'global',
-        'goto',             'if',               'implements',       'include',          'include_once',
-        'instanceof',       'insteadof',        'interface',        'isset',            'list',
-        'namespace',        'new',              'or',               'print',            'private',
-        'protected',        'public',           'require',          'require_once',     'return',
-        'static',           'switch',           'throw',            'trait',            'try',
-        'unset',            'use',              'var',              'while',            'xor',
+        //输出
+        'echo',             'print',
+        //流程控制 导入
+        'include',          'include_once',     'require',          'require_once',
+        //流程控制 分支
+        'if',               'endif',            'else',             'elseif',           'switch',
+        'case',             'default',          'endswitch',
+        //流程控制 重用
+        'do',               'while',            'endwhile',         'for',              'endfor',
+        'foreach',          'endforeach',       'goto',             'declare',          'enddeclare',
+        //多用
+        'continue',         'break',            'return',
+        'as',               //起别名，foreach,类内部,命名空间
+        'use',              //命名空间引用，匿名方法外部参数引入
+        //编译控制
+        'exit',             'die',              '__halt_compiler',  'eval',
+        //类型
+        'array',            'function',         'callable',
+        //类 操作 修饰
+        'namespace',        'instanceof',
+        'class',            'abstract',         'interface',        'trait',
+        'extends',          'implements',       'insteadof',
+        'final',            'static',           'public',           'protected',        'private',
+        'try',              'catch',            'throw',
+        // 创建
+        'var',              'new',              'global',           'const',             'list',
+        'clone',
+        // 运算
+        'and',              'or',               'xor',
+        'unset',            'isset',            'empty',
         //从PHP 7开始 以下关键字不可被用于类名、接口名和trait名，并且它们被禁止用于命名空间。
         'int',              'float',            'bool',             'string',           'true',
         'false',            'null',
