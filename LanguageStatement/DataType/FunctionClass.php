@@ -59,9 +59,4 @@ class PHPFunction
  * Git: https://github.com/liuyangspace
  * Date: 2016/12/15
  * Time: 11:20
- * Description: php基础结构类型：Function 函数
- * Reference:
- *  http://php.net/manual/zh/language.types.callable.php
- *  http://php.net/manual/zh/language.functions.php
- *  http://php.net/manual/zh/book.funchand.php
  */

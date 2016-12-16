@@ -278,7 +278,4 @@ class PHPStringExtension extends PHPString
  * Git: https://github.com/liuyangspace
  * Date: 2016/12/12
  * Time: 10:32
- * Description: php基础数据类型处理：字符串
- * Reference:
- *  http://php.net/manual/zh/language.types.string.php
  */

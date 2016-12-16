@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/14
- * Time: 14:41
+/*
+ * php基础：php 选项
+ * php statement：
+ *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。
+ * Reference:
+ *  http://php.net/manual/zh/langref.php
  */
 
 namespace LanguageStatement;
@@ -71,5 +72,12 @@ class LanguageRegulate
     /*
     exec,system, passthru()
     */
-
 }
+
+/**
+ * Created by PhpStorm.
+ * User: liuyang
+ * Git: https://github.com/liuyangspace
+ * Date: 2016/12/12
+ * Time: 10:32
+ */

@@ -1,16 +1,12 @@
 <?php
-
-/**
- * Created by PhpStorm.
- * User: liuyang
- * Git: https://github.com/liuyangspace
- * Date: 2016/12/8
- * Time: 10:32
- * Description: php语言声明
+/*
+ * php基础：语言声明
+ * php statement：
+ *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。
  * Reference:
- *  http://php.net/manual/zh/reserved.php,
- *  http://php.net/manual/zh/language.types.intro.php
+ *  http://php.net/manual/zh/langref.php
  */
+
 namespace LanguageStatement;
 
 class LanguageStatement
@@ -43,7 +39,9 @@ class LanguageStatement
         'namespace',        'instanceof',
         'class',            'abstract',         'interface',        'trait',
         'extends',          'implements',       'insteadof',
-        'final',            'static',           'public',           'protected',        'private',
+        'final',            //修饰类（不被继承），修饰方法（不被覆盖）
+        'static',           //后期静态绑定，静态资源，
+        'public',           'protected',        'private',
         'try',              'catch',            'throw',
         // 创建
         'var',              'new',              'global',           'const',             'list',
@@ -158,8 +156,9 @@ class LanguageStatement
      * 预定义变量
      */
     public static $predefinedVariables = array(
-        '$GLOBALS',     //引用全局作用域中可用的全部变量
-        '$_SERVER',     //服务器和执行环境信息
+        //超全局变量
+        '$GLOBALS',     //高可用，引用全局作用域中可用的全部变量
+        '$_SERVER',     //低可用，服务器和执行环境信息
         '$_GET',        //HTTP GET 变量
         '$_POST',       //HTTP POST 变量
         '$_FILES',      //HTTP 文件上传变量
@@ -167,6 +166,7 @@ class LanguageStatement
         '$_SESSION',    //Session 变量
         '$_ENV',        //环境变量
         '$_COOKIE',     //HTTP Cookies
+        //
         '$php_errormsg',//前一个错误信息
         '$HTTP_RAW_POST_DATA',//原生POST数据
         '$http_response_header',//HTTP 响应头
@@ -232,8 +232,6 @@ class LanguageStatement
     );
 
 
-
-
     /*
      * 判断是否为PHP关键字
      * @param string $word 要验证的关键字
@@ -292,3 +290,10 @@ class LanguageStatement
 
 }
 
+/**
+ * Created by PhpStorm.
+ * User: liuyang
+ * Git: https://github.com/liuyangspace
+ * Date: 2016/12/8
+ * Time: 10:32
+ */

@@ -84,6 +84,7 @@ class PHPNumber
      */
     public static function intval ( $var , $base = 10 ){ return intval($var,$base); }//获取变量的整形值
     public static function floatval ( $var ){ return floatval($var); }//获取变量的浮点值
+    public static function doubleval ( $var ){ return doubleval($var); }//floatval() 的别名
 
     /*
      * 进制变换
@@ -173,7 +174,4 @@ class PHPNumber
  * Git: https://github.com/liuyangspace
  * Date: 2016/12/12
  * Time: 10:32
- * Description: php基础数据类型处理：整形和浮点型，整形非精确值，参考数学函数
- * Reference:
- *  http://php.net/manual/zh/language.types.boolean.php
  */

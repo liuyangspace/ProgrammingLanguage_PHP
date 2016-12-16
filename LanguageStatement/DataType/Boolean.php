@@ -51,7 +51,12 @@ class PHPBoolean
      * 类型判断是否为boolean
      */
     public static function isBoolean ( $var ){ return is_bool($var); }
-    public static function isBool ( $var ){ return is_bool($var); }
+    public static function is_bool ( $var ){ return is_bool($var); }
+
+    /*
+     * 类型转换为boolean
+     */
+    public static function boolval( $var ){ return boolval($var); }
 }
 
 /**
@@ -60,7 +65,4 @@ class PHPBoolean
  * Git: https://github.com/liuyangspace
  * Date: 2016/12/12
  * Time: 10:32
- * Description: php基础数据类型处理:布尔类型
- * Reference:
- *  http://php.net/manual/zh/language.types.boolean.php
  */

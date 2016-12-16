@@ -17,6 +17,15 @@ namespace LanguageStatement\DataType;
 
 class ArrayClass extends PHPArray
 {
+    /*
+     * 转换为数组
+     */
+    public static function toString($var){ return (array)$var; }
+
+    /*
+     * 判断是否为数组
+     */
+    public static function isString($var){ return is_array($var); }
 
 }
 
@@ -139,7 +148,4 @@ class PHPArray
  * Git: https://github.com/liuyangspace
  * Date: 2016/12/15
  * Time: 9:32
- * Description: php基础数据类型处理：Array 数组
- * Reference:
- *  http://php.net/manual/zh/language.types.array.php
  */
