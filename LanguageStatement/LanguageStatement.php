@@ -40,7 +40,7 @@ class LanguageStatement
         'class',            'abstract',         'interface',        'trait',
         'extends',          'implements',       'insteadof',
         'final',            //修饰类（不被继承），修饰方法（不被覆盖）
-        'static',           //后期静态绑定，静态资源，
+        'static',           //后期静态绑定，声明静态 变量、属性、方法，
         'public',           'protected',        'private',
         'try',              'catch',            'throw',
         // 创建

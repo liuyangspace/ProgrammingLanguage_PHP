@@ -1,75 +1,152 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/14
- * Time: 10:35
+/*
+ * 队列
+ * list 特征：
+ *  先进先出
+ * Reference:
+ *  http://php.net/manual/zh/language.types.boolean.php
  */
 
 namespace LanguageStatement\DataType;
 
 class ListClass implements \ArrayAccess
 {
+    //  队列数据存储容器
+    protected $list = array();
+
+    /*
+     * 构建 队列
+     * ListClass __construct( mixed $var )
+     * @param $var
+     * @return ListClass
+     */
+    public function __construct($var=null)
+    {
+        if(is_array($var)){
+            $this->list = array_values($var);
+        }elseif(is_string($var)){
+            $this->list = str_split($var);
+        }elseif($var===null){
+            $this->list = array();
+        }else{
+            throw new \Exception('"'.$var.'" is not a array or string !');
+        }
+    }
+
+    /*
+     * 入队
+     * void put( mixed $var )
+     * @param $var
+     * @return void
+     */
+
+    public function clear(){
+        $this->list = array();
+    }
+
+    /*
+     * 出队
+     * mixed put( void )
+     * @param $var
+     * @return 弹出队首的值,如果 array 为 空则返回 NULL。
+     */
+
+    public function size(){
+        return count($this->list);
+    }
+
+    /*
+     * 清空
+     * void clear( void )
+     * @param $var
+     * @return void
+     */
+
+    public function __isset($name)
+    {
+        return count($this->list);
+    }
+
+    /*
+     * 获取队列长度
+     * int size( void )
+     * @param $var
+     * @return void
+     */
+
+    public function export(){
+        var_dump($this->list);
+    }
+
+    public function __debugInfo()
+    {
+        var_dump($this->list);
+    }
+
+    /*
+     * 打印
+     * void clear( void )
+     * @param $var
+     * @return export
+     */
 
     /**
      * Whether a offset exists
-     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
      * @param mixed $offset <p>
-     * An offset to check for.
-     * </p>
      * @return boolean true on success or false on failure.
-     * </p>
-     * <p>
-     * The return value will be casted to boolean if non-boolean was returned.
-     * @since 5.0.0
      */
     public function offsetExists($offset)
     {
-        // TODO: Implement offsetExists() method.
+        return false;
     }
 
     /**
-     * Offset to retrieve
-     * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     * Offset to retrieve 出队
      * @param mixed $offset <p>
-     * The offset to retrieve.
-     * </p>
-     * @return mixed Can return all value types.
-     * @since 5.0.0
+     * @return mixed Can return all value types.弹出队首的值,如果 array 为 空则返回 NULL。
      */
     public function offsetGet($offset)
     {
-        // TODO: Implement offsetGet() method.
+        return $this->pull();
+    }
+
+    public function pull(){
+        return array_shift($this->list);
     }
 
     /**
-     * Offset to set
-     * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     * Offset to set 入队
      * @param mixed $offset <p>
-     * The offset to assign the value to.
-     * </p>
      * @param mixed $value <p>
-     * The value to set.
-     * </p>
      * @return void
-     * @since 5.0.0
      */
     public function offsetSet($offset, $value)
     {
-        // TODO: Implement offsetSet() method.
+        $this->put($value);
+    }
+
+    public function put($var){
+        // array_push($this->list,$var);
+        $this->list[]=$var;
     }
 
     /**
      * Offset to unset
-     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param mixed $offset <p>
-     * The offset to unset.
-     * </p>
      * @return void
-     * @since 5.0.0
      */
     public function offsetUnset($offset)
     {
-        // TODO: Implement offsetUnset() method.
+        $this->list = array();
+    }
+    public function __unset($name)
+    {
+        $this->list = array();
     }
 }
+
+/**
+ * Author: liuyang
+ * Git: https://github.com/liuyangspace
+ * Date: 2016/12/12 10:32
+ */
