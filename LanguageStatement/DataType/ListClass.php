@@ -3,8 +3,15 @@
  * 队列
  * list 特征：
  *  先进先出
+ * 用例：
+ *  建队：$list = new ListClass();$list = new ListClass([1,2,3]);
+ *  入队：$list->put(1);$list[]=1;
+ *  出队：$list->pull();$list[0];
+ *  队长：$list->size();
+ *  清队：$list->clear();unset($list);
+ *  调试：$list->export();var_dump($list);
  * Reference:
- *  http://php.net/manual/zh/language.types.boolean.php
+ *
  */
 
 namespace LanguageStatement\DataType;
@@ -39,20 +46,26 @@ class ListClass implements \ArrayAccess
      * @param $var
      * @return void
      */
-
-    public function clear(){
-        $this->list = array();
+    public function put($var){
+        $this->list[] = $var;
+    }
+    public function offsetSet($offset, $value)
+    {
+        $this->list[] = $value;
     }
 
     /*
      * 出队
-     * mixed put( void )
+     * mixed pull( void )
      * @param $var
      * @return 弹出队首的值,如果 array 为 空则返回 NULL。
      */
-
-    public function size(){
-        return count($this->list);
+    public function pull(){
+        return array_shift($this->list);
+    }
+    public function offsetGet($offset)
+    {
+        return array_shift($this->list);
     }
 
     /*
@@ -61,34 +74,36 @@ class ListClass implements \ArrayAccess
      * @param $var
      * @return void
      */
+    public function clear()
+    {
+        $this->list = array();
+    }
 
-    public function __isset($name)
+    /*
+     * 队长
+     * int size( void )
+     * @param void
+     * @return 队内的单元数
+     */
+    public function size()
     {
         return count($this->list);
     }
 
     /*
-     * 获取队列长度
-     * int size( void )
-     * @param $var
-     * @return void
+     * 打印
+     * Array export( void )
+     * @param void
+     * @return
      */
-
     public function export(){
-        var_dump($this->list);
+       return $this->list;
     }
-
     public function __debugInfo()
     {
         var_dump($this->list);
+        return $this->list;
     }
-
-    /*
-     * 打印
-     * void clear( void )
-     * @param $var
-     * @return export
-     */
 
     /**
      * Whether a offset exists
@@ -101,36 +116,6 @@ class ListClass implements \ArrayAccess
     }
 
     /**
-     * Offset to retrieve 出队
-     * @param mixed $offset <p>
-     * @return mixed Can return all value types.弹出队首的值,如果 array 为 空则返回 NULL。
-     */
-    public function offsetGet($offset)
-    {
-        return $this->pull();
-    }
-
-    public function pull(){
-        return array_shift($this->list);
-    }
-
-    /**
-     * Offset to set 入队
-     * @param mixed $offset <p>
-     * @param mixed $value <p>
-     * @return void
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->put($value);
-    }
-
-    public function put($var){
-        // array_push($this->list,$var);
-        $this->list[]=$var;
-    }
-
-    /**
      * Offset to unset
      * @param mixed $offset <p>
      * @return void
@@ -139,10 +124,7 @@ class ListClass implements \ArrayAccess
     {
         $this->list = array();
     }
-    public function __unset($name)
-    {
-        $this->list = array();
-    }
+
 }
 
 /**

@@ -8,6 +8,7 @@
 namespace LanguageStatement;
 use LanguageStatement\DataType\FunctionClass;
 use LanguageStatement\DataType\ListClass;
+use LanguageStatement\DataType\Stack;
 use LanguageStatement\LanguageExtension\Reflection\Reflection;
 
 require_once 'DataType.php';
@@ -17,6 +18,7 @@ require_once 'DataType/StringClass.php';
 require_once 'DataType/ArrayClass.php';
 require_once 'DataType/FunctionClass.php';
 require_once 'DataType/ListClass.php';
+require_once 'DataType/Stack.php';
 require_once 'LanguageExtension/Reflection/Reflection.php';
 
 //$a=123;
@@ -29,17 +31,17 @@ $a=new DataType();//var_dump(mb_check_encoding('的多字节字符串支持','UT
 //$a=new Reflection(123);$a->export();
 //$a=new \ReflectionClass('Exception');$a->export();
 
-$a=new ListClass([1,2,3]);
-//echo $a->pull();var_dump($a);
-//echo $a->pull();var_dump($a);
-//echo $a->pull();var_dump($a);
-//echo $a->pull();var_dump($a);
-// $a->put(3);var_dump($a);
-// $a->put(2);var_dump($a);
-// $a->put(1);var_dump($a);
-// $a->put(1);var_dump($a);
-//echo isset($a);
-echo empty($a);
+$a=new Stack([1,2,3]);
+//echo $a->pop();var_dump($a);
+//echo $a->pop();var_dump($a);
+//echo $a->pop();var_dump($a);
+//echo $a->pop();var_dump($a);
+// $a->push(3);var_dump($a);
+// $a->push(2);var_dump($a);
+// $a->push(1);var_dump($a);
+// $a->push(1);var_dump($a);
+//unset($a);//var_dump($a);
+//echo empty($a);
 //var_dump($a);
 //echo $a[0];var_dump($a);
 //echo $a[0];var_dump($a);
@@ -48,3 +50,4 @@ echo empty($a);
 //$a[0]=2;var_dump($a);
 //$a[0]=1;var_dump($a);
 //$a[0]=3;var_dump($a);
+$a=['a'=>1];var_dump($a['b']);
