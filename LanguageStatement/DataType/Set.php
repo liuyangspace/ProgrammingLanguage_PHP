@@ -21,16 +21,7 @@ class Set implements \ArrayAccess
 {
 
     //  数据存储容器
-/**
-     * 差集,交集的非
-     * Set diff ( mixed $var1, mixed $var2[, bool $strict=TRUE])
-     * @param Set/Array  $var1
-     * @param Set/Array  $var2
-     * @param mixed  $mod 差集模式，见以下定义的常量
-     * @param bool $strict 是否严格比较（比较类型）
-     * @return Set
-     */
-    const DIFF_LEFT = 1;
+    protected $container = array();
 
     /*
      * 构建
@@ -38,10 +29,6 @@ class Set implements \ArrayAccess
      * @param $var
      * @return ArrayClass
      */
-const DIFF_RIGHT = 2;
-const DIFF_BOTH = 3;
-    protected $container = array();
-
     public function __construct($var=null)
     {
         if(is_array($var)){
@@ -52,6 +39,67 @@ const DIFF_BOTH = 3;
             $this->container = array();
         }else{
             throw new \Exception('"'.$var.'" is not a array or string !');
+        }
+    }
+
+    /**
+     * Whether a offset exists
+     * @param mixed $offset An offset to check for.
+     * @return boolean true on success or false on failure.
+     */
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset,$this->container);
+    }
+
+    /**
+     * Offset to retrieve
+     * @param mixed $offset The offset to retrieve.
+     * @return mixed Can return all value types.
+     */
+    public function offsetGet($offset)
+    {
+        if($this->offsetExists($offset)){
+            return $this->container[$offset];
+        }else{
+            throw new \Exception('Undefined index : '.$offset);
+        }
+    }
+
+    /**
+     * Offset to set
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value The value to set.
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if(!in_array($value,$this->container,true)){
+            $this->container[]=$value;
+        }
+    }
+    public function add($value)
+    {
+        if(!in_array($value,$this->container,true)){
+            $this->container[]=$value;
+        }
+    }
+
+    /**
+     * Offset to unset
+     * @param mixed $offset The offset to unset.
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->container[$offset]);
+    }
+    public function remove($value)
+    {
+        foreach($this->container as $k=>$v){
+            if($v===$value) {
+                unset($this->container[$k]);
+            }
         }
     }
 
@@ -95,16 +143,6 @@ const DIFF_BOTH = 3;
     }
 
     /**
-     * 类型变换
-     * @param void
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->container;
-    }
-
-    /**
      * 并集
      * Set union ( mixed $var1, mixed $var2[, bool $strict=TRUE])
      * @param Set/Array  $var1
@@ -144,6 +182,19 @@ const DIFF_BOTH = 3;
         }
     }
 
+    /**
+     * 差集,交集的非
+     * Set diff ( mixed $var1, mixed $var2[, bool $strict=TRUE])
+     * @param Set/Array  $var1
+     * @param Set/Array  $var2
+     * @param mixed  $mod 差集模式，见以下定义的常量
+     * @param bool $strict 是否严格比较（比较类型）
+     * @return Set
+     */
+    //
+    const DIFF_LEFT = 1;//$var1-$var2 的差集
+    const DIFF_RIGHT = 2;//$var2-$var1 的差集
+    const DIFF_BOTH = 3;//$var2与$var1 交集的非，或以上两者的并
     public static function diff($left,$right,$mod=1,$strict=TRUE)
     {
         if($left instanceof Set){
@@ -189,79 +240,25 @@ const DIFF_BOTH = 3;
         }
     }
 
-    /**
-     * Offset to retrieve
-     * @param mixed $offset The offset to retrieve.
-     * @return mixed Can return all value types.
-     */
-    public function offsetGet($offset)
-    {
-        if($this->offsetExists($offset)){
-            return $this->container[$offset];
-        }else{
-            throw new \Exception('Undefined index : '.$offset);
-        }
-    }
-
-        /**
-     * Whether a offset exists
-     * @param mixed $offset An offset to check for.
-     * @return boolean true on success or false on failure.
-     */
-    public function offsetExists($offset)
-    {
-        return array_key_exists($offset,$this->container);
-    }//$var1-$var2 的差集
-
-    /**
-     * Offset to set
-     * @param mixed $offset The offset to assign the value to.
-     * @param mixed $value The value to set.
-     * @return void
-     */
-    public function offsetSet($offset, $value)
-    {
-        if(!in_array($value,$this->container,true)){
-            $this->container[]=$value;
-        }
-    }//$var2-$var1 的差集
-
-    public function add($value)
-    {
-        if(!in_array($value,$this->container,true)){
-            $this->container[]=$value;
-        }
-    }//$var2与$var1 交集的非，或以上两者的并
-
-    /**
-     * Offset to unset
-     * @param mixed $offset The offset to unset.
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->container[$offset]);
-    }
-
     /*
      * 清空
      * void clear( void )
      * @param $var
      * @return void
      */
-
-    public function remove($value)
-    {
-        foreach($this->container as $k=>$v){
-            if($v===$value) {
-                unset($this->container[$k]);
-            }
-        }
-    }
-
     public function clear()
     {
         $this->container = array();
+    }
+
+    /**
+     * 类型变换
+     * @param void
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->container;
     }
 
     /*
@@ -270,7 +267,6 @@ const DIFF_BOTH = 3;
      * @param void
      * @return
      */
-
     public function export()
     {
         return $this->container;
