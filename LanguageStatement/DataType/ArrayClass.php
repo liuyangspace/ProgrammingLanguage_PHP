@@ -15,8 +15,22 @@
 namespace LanguageStatement\DataType;
 
 
-class ArrayClass extends PHPArray
+class ArrayClass extends PHPArray implements \ArrayAccess
 {
+    //  数据存储容器
+    protected $container = array();
+
+    /*
+     * 构建
+     * ArrayClass __construct( mixed $var,... )
+     * @param $var
+     * @return ArrayClass
+     */
+    public function __construct()
+    {
+        $this->container = func_get_args();
+    }
+
     /*
      * 转换为数组
      */
@@ -27,6 +41,63 @@ class ArrayClass extends PHPArray
      */
     public static function isString($var){ return is_array($var); }
 
+    /**
+     * Whether a offset exists
+     * @param mixed $offset An offset to check for.
+     * @return boolean true on success or false on failure.
+     */
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset,$this->container);
+    }
+
+    /**
+     * Offset to retrieve
+     * @param mixed $offset The offset to retrieve.
+     * @return mixed Can return all value types.
+     */
+    public function offsetGet($offset)
+    {
+        if(array_key_exists($offset,$this->container)){
+            return $this->container[$offset];
+        }else{
+            throw new \Exception($offset.'Undefined index : '.$offset);
+        }
+    }
+
+    /**
+     * Offset to set
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value The value to set.
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if($offset){
+            $this->container[$offset]=$value;
+        }else{
+            $this->container[]=$value;
+        }
+    }
+
+    /**
+     * Offset to unset
+     * @param mixed $offset The offset to unset.
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        if(array_key_exists($offset,$this->container)){
+           unset($this->container[$offset]);
+        }else{
+            throw new \Exception($offset.'Undefined index : '.$offset);
+        }
+    }
+
+    public function __debugInfo()
+    {
+        return $this->container;
+    }
 }
 
 class PHPArray

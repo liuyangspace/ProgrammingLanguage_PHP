@@ -46,7 +46,8 @@ class ListClass implements \ArrayAccess
      * @param $var
      * @return void
      */
-    public function put($var){
+    public function put($var)
+    {
         $this->list[] = $var;
     }
     public function offsetSet($offset, $value)
@@ -60,7 +61,8 @@ class ListClass implements \ArrayAccess
      * @param $var
      * @return 弹出队首的值,如果 array 为 空则返回 NULL。
      */
-    public function pull(){
+    public function pull()
+    {
         return array_shift($this->list);
     }
     public function offsetGet($offset)
@@ -96,12 +98,12 @@ class ListClass implements \ArrayAccess
      * @param void
      * @return
      */
-    public function export(){
-       return $this->list;
+    public function export()
+    {
+        return $this->list;
     }
     public function __debugInfo()
     {
-        var_dump($this->list);
         return $this->list;
     }
 
@@ -125,6 +127,15 @@ class ListClass implements \ArrayAccess
         $this->list = array();
     }
 
+    /**
+     * 类型变换
+     * @param void
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->list;
+    }
 }
 
 /**

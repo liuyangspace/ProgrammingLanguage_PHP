@@ -42,11 +42,6 @@ class Tuple
         }
     }
 
-    public function offsetGet($offset)
-    {
-        return $this->get($offset);
-    }
-
     /*
      * 根据 索引取值
      * mixed get( void )
@@ -54,12 +49,18 @@ class Tuple
      * @return 弹出队首的值,如果 array 为 空则返回 NULL。
      */
 
-    public function get($offset){
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    public function get($offset)
+    {
         $offset = (int)$offset;
         if($this->offsetExists($offset)){
             return $this->tuple[$offset];
         }else{
-            throw new \Exception('Undefined index !');
+            throw new \Exception('Undefined index : '.$offset);
         }
     }
 
@@ -79,7 +80,6 @@ class Tuple
      * @param $var
      * @return void
      */
-
     public function offsetSet($offset, $value)
     {
         throw new \Exception('An invalid operation was attempted on the Tuple !');
@@ -113,23 +113,33 @@ class Tuple
      * @param void
      * @return
      */
-    public function export(){
+    public function export()
+    {
         return $this->tuple;
     }
     public function __debugInfo()
     {
-        var_dump($this->tuple);
         return $this->tuple;
     }
 
     /**
      * Offset to unset 不能删除
-     * @param mixed $offset <p>
+     * @param mixed $offset
      * @return void
      */
     public function offsetUnset($offset)
     {
         throw new \Exception('An invalid operation was attempted on the Tuple !');
+    }
+
+    /**
+     * 类型变换
+     * @param void
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->tuple;
     }
 
 }

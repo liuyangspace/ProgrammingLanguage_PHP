@@ -46,7 +46,8 @@ class Stack implements \ArrayAccess
      * @param $var
      * @return void
      */
-    public function push($var){
+    public function push($var)
+    {
         $this->stack[] = $var;
     }
     public function offsetSet($offset, $value)
@@ -60,7 +61,8 @@ class Stack implements \ArrayAccess
      * @param $var
      * @return 弹出队首的值,如果 array 为 空则返回 NULL。
      */
-    public function pop(){
+    public function pop()
+    {
         return array_pop($this->stack);
     }
     public function offsetGet($offset)
@@ -96,12 +98,12 @@ class Stack implements \ArrayAccess
      * @param void
      * @return
      */
-    public function export(){
+    public function export()
+    {
         return $this->stack;
     }
     public function __debugInfo()
     {
-        var_dump($this->stack);
         return $this->stack;
     }
 
@@ -125,4 +127,13 @@ class Stack implements \ArrayAccess
         $this->stack = array();
     }
 
+    /**
+     * 类型变换
+     * @param void
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->stack;
+    }
 }
