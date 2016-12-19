@@ -191,7 +191,6 @@ class Set implements \ArrayAccess
      * @param bool $strict 是否严格比较（比较类型）
      * @return Set
      */
-    //
     const DIFF_LEFT = 1;//$var1-$var2 的差集
     const DIFF_RIGHT = 2;//$var2-$var1 的差集
     const DIFF_BOTH = 3;//$var2与$var1 交集的非，或以上两者的并
