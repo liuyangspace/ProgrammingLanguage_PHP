@@ -21,7 +21,15 @@ class Set implements \ArrayAccess
 {
 
     //  数据存储容器
-
+/**
+     * 差集,交集的非
+     * Set diff ( mixed $var1, mixed $var2[, bool $strict=TRUE])
+     * @param Set/Array  $var1
+     * @param Set/Array  $var2
+     * @param mixed  $mod 差集模式，见以下定义的常量
+     * @param bool $strict 是否严格比较（比较类型）
+     * @return Set
+     */
     const DIFF_LEFT = 1;
 
     /*
@@ -166,10 +174,10 @@ const DIFF_BOTH = 3;
                         $diffArr=array_diff($left,$right);
                         break;
                     case self::DIFF_RIGHT:
-                        $diffArr=array_diff($left,$right);
+                        $diffArr=array_diff($right,$left);
                         break;
                     case self::DIFF_BOTH:
-                        $diffArr=array_merge(array_diff($left,$right),array_diff($right,$var1));
+                        $diffArr=array_merge(array_diff($left,$right),array_diff($right,$left));
                         break;
                     default:
                         $diffArr=array_diff($left,$right);
@@ -195,17 +203,7 @@ const DIFF_BOTH = 3;
         }
     }
 
-    /**
-     * 差集,交集的非
-     * Set diff ( mixed $var1, mixed $var2[, bool $strict=TRUE])
-     * @param Set/Array  $var1
-     * @param Set/Array  $var2
-     * @param mixed  $mod 差集模式，见以下定义的常量
-     * @param bool $strict 是否严格比较（比较类型）
-     * @return Set
-     */
-    //
-    /**
+        /**
      * Whether a offset exists
      * @param mixed $offset An offset to check for.
      * @return boolean true on success or false on failure.
