@@ -48,12 +48,6 @@ class Tuple
      * @param $var
      * @return 弹出队首的值,如果 array 为 空则返回 NULL。
      */
-
-    public function offsetGet($offset)
-    {
-        return $this->get($offset);
-    }
-
     public function get($offset)
     {
         $offset = (int)$offset;
@@ -62,6 +56,10 @@ class Tuple
         }else{
             throw new \Exception('Undefined index : '.$offset);
         }
+    }
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
     }
 
     /**
