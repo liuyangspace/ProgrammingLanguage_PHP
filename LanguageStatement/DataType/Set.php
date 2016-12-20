@@ -5,11 +5,16 @@
  *  Set 接口实例存储的是无序的，不重复的数据。
  * 用例：
  *  创建：$set = new Set();$set = new Set([1,2,3]);
- *  添加元素：$set[]=1;
- *  获取元素：$stack->pop();$stack[0];
- *  栈长：$stack->size();
- *  清栈：$stack->clear();unset($stack);
- *  调试：$stack->export();var_dump($stack);
+ *  添加元素：$set[]=1;$set->add(12);
+ *  删除元素：$set->remove(12);unset($set[12]);
+ *  获取元素：$set[12];
+ *  单元数：$set->size();
+ *  清空：$set->clear();
+ *  交集：Set::intersect($set1,$set2);
+ *  并集：Set::union($set1,$set2);
+ *  差集：Set::diff($set1,$set2);
+ *  类型变换：$set->toArray();
+ *  调试：$set->export();var_dump($set);
  * Reference:
  *
  */
@@ -25,9 +30,9 @@ class Set implements \ArrayAccess
 
     /*
      * 构建
-     * ArrayClass __construct( mixed $var. )
+     * Set __construct( mixed $var. )
      * @param $var
-     * @return ArrayClass
+     * @return Set
      */
     public function __construct($var=null)
     {
@@ -49,7 +54,7 @@ class Set implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return array_key_exists($offset,$this->container);
+        return in_array($offset,$this->container,true);
     }
 
     /**
@@ -59,11 +64,7 @@ class Set implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        if($this->offsetExists($offset)){
-            return $this->container[$offset];
-        }else{
-            throw new \Exception('Undefined index : '.$offset);
-        }
+        return $offset;
     }
 
     /**
@@ -72,7 +73,7 @@ class Set implements \ArrayAccess
      * @param mixed $value The value to set.
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value=null)
     {
         if(!in_array($value,$this->container,true)){
             $this->container[]=$value;
@@ -92,7 +93,7 @@ class Set implements \ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        unset($this->container[$offset]);
+        $this->remove($offset);
     }
     public function remove($value)
     {
@@ -237,6 +238,17 @@ class Set implements \ArrayAccess
         }else{
             throw new \Exception('Invalid parameters !');
         }
+    }
+
+    /*
+     * 栈长
+     * int size( void )
+     * @param void
+     * @return 栈内的单元数
+     */
+    public function size()
+    {
+        return count($this->container);
     }
 
     /*

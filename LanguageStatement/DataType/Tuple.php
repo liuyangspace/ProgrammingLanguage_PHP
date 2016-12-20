@@ -4,12 +4,13 @@
  * tuple 特征：
  *  仅能初始化，不能修改
  * 用例：
- *  建栈：$stack = new ListClass();$stack = new ListClass([1,2,3]);
- *  入栈：$stack->push(1);$stack[]=1;
- *  出栈：$stack->pop();$stack[0];
- *  栈长：$stack->size();
- *  清栈：$stack->clear();unset($stack);
- *  调试：$stack->export();var_dump($stack);
+ *  建栈：$tuple = new ListClass();$tuple = new ListClass([1,2,3]);
+ *  入栈：$tuple->push(1);$tuple[]=1;
+ *  出栈：$tuple->pop();$tuple[0];
+ *  栈长：$tuple->size();
+ *  清栈：$tuple->clear();
+ *  类型变换：$tuple->toArray();
+ *  调试：$tuple->export();var_dump($tuple);
  * Reference:
  *
  */
@@ -24,10 +25,10 @@ class Tuple
     protected $tuple = array();
 
     /*
-     * 构建 栈
-     * ListClass __construct( mixed $var )
+     * 构建
+     * Tuple __construct( mixed $var )
      * @param $var
-     * @return ListClass
+     * @return Tuple
      */
     public function __construct($var=null)
     {

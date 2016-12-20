@@ -94,6 +94,7 @@ class ArrayClass extends PHPArray implements \ArrayAccess
         }
     }
 
+    //var_dump()
     public function __debugInfo()
     {
         return $this->container;

@@ -1,15 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/13
- * Time: 12:16
+/*
+ * 映射
+ * map 特征：
+ *
+ * 用例：
+ *
+ * Reference:
+ *
  */
 
 namespace LanguageStatement\DataType;
 
 //图
-class Map
+class map
 {
+    //应射 关系（函数）
+    protected $mapFunction=null;
+
+    //数据存储容器
+    protected $container = [];
+
+
 
 }

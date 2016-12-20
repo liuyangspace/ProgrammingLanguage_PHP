@@ -1,15 +1,10 @@
 <?php
 /*
- * 队列
+ * 链表
  * list 特征：
- *  先进先出
+ *
  * 用例：
- *  建队：$list = new ListClass();$list = new ListClass([1,2,3]);
- *  入队：$list->put(1);$list[]=1;
- *  出队：$list->pull();$list[0];
- *  队长：$list->size();
- *  清队：$list->clear();unset($list);
- *  调试：$list->export();var_dump($list);
+ *
  * Reference:
  *
  */
@@ -18,78 +13,66 @@ namespace LanguageStatement\DataType;
 
 class ListClass implements \ArrayAccess
 {
-    //  队列数据存储容器
-    protected $list = array();
+    //数据存储容器
+    /*
+     * [
+     *      'attribute'=> mixed,
+     *      'next'=>int
+     * ]
+     */
+    protected $container=array();
+
+    //节点数
+    protected $pointNumber=0;
+
+    //节点id计数器
+    protected $pointId=-1;
 
     /*
-     * 构建 队列
-     * ListClass __construct( mixed $var )
+     * 构建
+     * ListClass __construct( mixed $var. )
      * @param $var
      * @return ListClass
      */
     public function __construct($var=null)
     {
         if(is_array($var)){
-            $this->list = array_values($var);
-        }elseif(is_string($var)){
-            $this->list = str_split($var);
+            $this->initArray($var);
         }elseif($var===null){
-            $this->list = array();
+
         }else{
-            throw new \Exception('"'.$var.'" is not a array or string !');
+            throw new \Exception('"'.$var.'" is not a array or null !');
         }
     }
 
     /*
-     * 入队
-     * void put( mixed $var )
-     * @param $var
-     * @return void
+     * 获取新的节点id(数值索引)
      */
-    public function put($var)
-    {
-        $this->list[] = $var;
-    }
-    public function offsetSet($offset, $value)
-    {
-        $this->list[] = $value;
+    protected function getNewId(){
+        return ++$this->pointId;
     }
 
     /*
-     * 出队
-     * mixed pull( void )
-     * @param $var
-     * @return 弹出队首的值,如果 array 为 空则返回 NULL。
+     * 将array转为链表结构数组
+     * array initArray(Array $arr)
+     * @param Array $arr
+     * @return  array
      */
-    public function pull()
+    public function initArray(Array $arr)
     {
-        return array_shift($this->list);
-    }
-    public function offsetGet($offset)
-    {
-        return array_shift($this->list);
-    }
-
-    /*
-     * 清空
-     * void clear( void )
-     * @param $var
-     * @return void
-     */
-    public function clear()
-    {
-        $this->list = array();
-    }
-
-    /*
-     * 队长
-     * int size( void )
-     * @param void
-     * @return 队内的单元数
-     */
-    public function size()
-    {
-        return count($this->list);
+        $parentId=null;
+        foreach($arr as $key=>$value){
+            $index=$this->getNewId();
+            $this->container[$index]=array(
+                'attribute'=>['index'=>$key,'value'=>$value],
+                'next'=>null,
+            );
+            if($parentId!==null){
+                $this->container[$parentId]['next']=$index;
+            }
+            $parentId=$index;
+            $this->pointNumber++;
+        }
     }
 
     /*
@@ -100,41 +83,73 @@ class ListClass implements \ArrayAccess
      */
     public function export()
     {
-        return $this->list;
+        return $this->container;
     }
     public function __debugInfo()
     {
-        return $this->list;
+        return $this->container;
     }
 
     /**
      * Whether a offset exists
+     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
      * @param mixed $offset <p>
+     * An offset to check for.
+     * </p>
      * @return boolean true on success or false on failure.
+     * </p>
+     * <p>
+     * The return value will be casted to boolean if non-boolean was returned.
+     * @since 5.0.0
      */
     public function offsetExists($offset)
     {
-        return false;
+        // TODO: Implement offsetExists() method.
+    }
+
+    /**
+     * Offset to retrieve
+     * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     * The offset to retrieve.
+     * </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
+    }
+
+    /**
+     * Offset to set
+     * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     * @param mixed $offset <p>
+     * The offset to assign the value to.
+     * </p>
+     * @param mixed $value <p>
+     * The value to set.
+     * </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetSet($offset, $value)
+    {
+        // TODO: Implement offsetSet() method.
     }
 
     /**
      * Offset to unset
+     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param mixed $offset <p>
+     * The offset to unset.
+     * </p>
      * @return void
+     * @since 5.0.0
      */
     public function offsetUnset($offset)
     {
-        $this->list = array();
-    }
-
-    /**
-     * 类型变换
-     * @param void
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->list;
+        // TODO: Implement offsetUnset() method.
     }
 }
 

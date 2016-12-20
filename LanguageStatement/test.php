@@ -8,8 +8,10 @@
 namespace LanguageStatement;
 use LanguageStatement\DataType\ArrayClass;
 use LanguageStatement\DataType\FunctionClass;
+use LanguageStatement\DataType\Graph;
 use LanguageStatement\DataType\ListClass;
 use LanguageStatement\DataType\Set;
+use LanguageStatement\DataType\Tree;
 use LanguageStatement\DataType\Stack;
 use LanguageStatement\LanguageExtension\Reflection\Reflection;
 
@@ -22,6 +24,8 @@ require_once 'DataType/FunctionClass.php';
 require_once 'DataType/ListClass.php';
 require_once 'DataType/Stack.php';
 require_once 'DataType/Set.php';
+require_once 'DataType/Tree.php';
+require_once 'DataType/Graph.php';
 require_once 'LanguageExtension/Reflection/Reflection.php';
 
 //$a=123;
@@ -54,4 +58,7 @@ $a=new Stack([1,2,3]);
 //$a[0]=1;var_dump($a);
 //$a[0]=3;var_dump($a);
 //$a=['a'=>1];var_dump($a['b']);
-$a=Set::diff([1,2,3,4],['3',4,5,6],3,true);var_dump($a);
+//$a=Set::diff([1,2,3,4],['3',4,5,6],3,true);var_dump($a);
+//$a=new Tree([1=>[2,3],'3'=>[7,8]]);print_r($a);
+//$a=new ListClass([1,2,3]);var_dump($a);
+$a=new Graph([1=>[5,6],2,3]);var_dump($a);

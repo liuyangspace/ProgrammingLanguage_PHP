@@ -1,7 +1,7 @@
 <?php
 /*
  * 栈
- * list 特征：
+ * stack 特征：
  *  后进先出
  * 用例：
  *  建栈：$stack = new ListClass();$stack = new ListClass([1,2,3]);
@@ -10,6 +10,7 @@
  *  栈长：$stack->size();
  *  清栈：$stack->clear();unset($stack);
  *  调试：$stack->export();var_dump($stack);
+ *  类型变换：$tuple->toArray();
  * Reference:
  *
  */
@@ -23,9 +24,9 @@ class Stack implements \ArrayAccess
 
     /*
      * 构建 栈
-     * ListClass __construct( mixed $var )
+     * Stack __construct( mixed $var )
      * @param $var
-     * @return ListClass
+     * @return Stack
      */
     public function __construct($var=null)
     {
