@@ -55,6 +55,9 @@ class LanguageRegulate
 
     //内存
 
+    //错误 与 异常
+    //set_error_handler
+
     // PHP Manual›输出控制›Output Control 函数
     public static function flush(){ flush(); }//刷新输出缓冲
     public static function ob_start(){ return ob_start(); }//返回输出缓冲区的内容
