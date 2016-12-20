@@ -11,7 +11,7 @@ namespace LanguageStatement\DataType;
 
 class Time
 {
-
+    //月份的英文
     public  $monthNames = array(
         "en" => array(
             "full" => array(1=>'January','February','March','April','May',

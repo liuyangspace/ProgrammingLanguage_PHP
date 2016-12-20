@@ -35,9 +35,9 @@ class Graph
 
     /*
      * 构建
-     * Tree __construct( mixed $var. )
+     * Graph __construct( mixed $var. )
      * @param $var
-     * @return Tree
+     * @return Graph
      */
     public function __construct($var=null)
     {

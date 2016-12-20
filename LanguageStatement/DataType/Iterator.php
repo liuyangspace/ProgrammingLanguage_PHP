@@ -1,16 +1,44 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/15
- * Time: 23:29
+/*
+ * 迭代器
+ * Iterator 特征：
+ *
+ * 用例：
+ *
+ * Reference:
+ *
  */
 
 namespace LanguageStatement\DataType;
 
 
-class Iterator implements \Iterator,\ArrayAccess
+class Iterator implements \Iterator
 {
+    //应射 关系（函数）
+    protected $pointer=null;
+
+    //数据存储容器
+    protected $container = [];
+
+    /*
+     * 构建
+     * Iterator __construct( mixed $var )
+     * @param $var
+     * @return Iterator
+     */
+    public function __construct($var=null)
+    {
+        if(is_array($var)){
+            foreach($var as $k=>$v){
+                $this->container[] = [$k=>$v];
+            }
+            $pointer=0;
+        }elseif($var===null){
+
+        }else{
+            throw new \Exception('"'.$var.'" is not a array or null !');
+        }
+    }
 
     /**
      * Return the current element
@@ -20,7 +48,9 @@ class Iterator implements \Iterator,\ArrayAccess
      */
     public function current()
     {
-        // TODO: Implement current() method.
+        reset($this->container[$this->pointer]);
+        list($key,$value)=each($this->container[$this->pointer]);
+        return $value;
     }
 
     /**
@@ -31,7 +61,11 @@ class Iterator implements \Iterator,\ArrayAccess
      */
     public function next()
     {
-        // TODO: Implement next() method.
+        if($this->pointer+1>count($this->container)-1){
+            $this->pointer++;
+        }else{
+            $this->pointer++;
+        }
     }
 
     /**
@@ -42,7 +76,9 @@ class Iterator implements \Iterator,\ArrayAccess
      */
     public function key()
     {
-        // TODO: Implement key() method.
+        reset($this->container[$this->pointer]);
+        list($key,$value)=each($this->container[$this->pointer]);
+        return $key;
     }
 
     /**
@@ -54,7 +90,7 @@ class Iterator implements \Iterator,\ArrayAccess
      */
     public function valid()
     {
-        // TODO: Implement valid() method.
+        return array_key_exists($this->pointer,$this->container);
     }
 
     /**
@@ -65,68 +101,8 @@ class Iterator implements \Iterator,\ArrayAccess
      */
     public function rewind()
     {
-        // TODO: Implement rewind() method.
+        $this->pointer=0;
     }
 
-    /**
-     * Whether a offset exists
-     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param mixed $offset <p>
-     * An offset to check for.
-     * </p>
-     * @return boolean true on success or false on failure.
-     * </p>
-     * <p>
-     * The return value will be casted to boolean if non-boolean was returned.
-     * @since 5.0.0
-     */
-    public function offsetExists($offset)
-    {
-        // TODO: Implement offsetExists() method.
-    }
 
-    /**
-     * Offset to retrieve
-     * @link http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     * The offset to retrieve.
-     * </p>
-     * @return mixed Can return all value types.
-     * @since 5.0.0
-     */
-    public function offsetGet($offset)
-    {
-        // TODO: Implement offsetGet() method.
-    }
-
-    /**
-     * Offset to set
-     * @link http://php.net/manual/en/arrayaccess.offsetset.php
-     * @param mixed $offset <p>
-     * The offset to assign the value to.
-     * </p>
-     * @param mixed $value <p>
-     * The value to set.
-     * </p>
-     * @return void
-     * @since 5.0.0
-     */
-    public function offsetSet($offset, $value)
-    {
-        // TODO: Implement offsetSet() method.
-    }
-
-    /**
-     * Offset to unset
-     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param mixed $offset <p>
-     * The offset to unset.
-     * </p>
-     * @return void
-     * @since 5.0.0
-     */
-    public function offsetUnset($offset)
-    {
-        // TODO: Implement offsetUnset() method.
-    }
 }

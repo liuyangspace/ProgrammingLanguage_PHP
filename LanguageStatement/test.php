@@ -7,12 +7,15 @@
  */
 namespace LanguageStatement;
 use LanguageStatement\DataType\ArrayClass;
+use LanguageStatement\DataType\Dictionary;
 use LanguageStatement\DataType\FunctionClass;
 use LanguageStatement\DataType\Graph;
 use LanguageStatement\DataType\ListClass;
 use LanguageStatement\DataType\Set;
 use LanguageStatement\DataType\Tree;
 use LanguageStatement\DataType\Stack;
+use LanguageStatement\DataType\Map;
+use LanguageStatement\DataType\Iterator;
 use LanguageStatement\LanguageExtension\Reflection\Reflection;
 
 require_once 'DataType.php';
@@ -26,6 +29,9 @@ require_once 'DataType/Stack.php';
 require_once 'DataType/Set.php';
 require_once 'DataType/Tree.php';
 require_once 'DataType/Graph.php';
+require_once 'DataType/Map.php';
+require_once 'DataType/Iterator.php';
+require_once 'DataType/Dictionary.php';
 require_once 'LanguageExtension/Reflection/Reflection.php';
 
 //$a=123;
@@ -61,4 +67,15 @@ $a=new Stack([1,2,3]);
 //$a=Set::diff([1,2,3,4],['3',4,5,6],3,true);var_dump($a);
 //$a=new Tree([1=>[2,3],'3'=>[7,8]]);print_r($a);
 //$a=new ListClass([1,2,3]);var_dump($a);
-$a=new Graph([1=>[5,6],2,3]);var_dump($a);
+//$a=new Graph([1=>[5,6],2,3]);var_dump($a);
+//$a=new Map([1,2,3],function($index){ return $index*2;});
+//$a=new Dictionary([1=>[4,5],2,3]);$a[1][]=4;
+//var_dump($a[1]);
+$a=new Dictionary();//var_dump($a);
+//$a=array();
+$a['123']=1;var_dump($a);
+$a['ads']=new Dictionary();//;var_dump($a);
+$a['ads'][1]='sdad';//;var_dump($a);
+$a['ads'][2]=new Dictionary();//;var_dump($a);
+$a['ads'][2]['ss']=1;var_dump($a);
+//var_dump($a[12]);
