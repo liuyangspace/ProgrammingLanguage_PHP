@@ -148,7 +148,7 @@ class LanguageStatement
         'E_ALL'                         =>  E_ALL,                  //(integer)
         'E_STRICT'                      =>  E_STRICT,               //(integer) 从 PHP 5.0.0 起有效
         '__COMPILER_HALT_OFFSET__'      =>  __COMPILER_HALT_OFFSET__,//(integer) 从 PHP 5.0.0 起有效
-        //标准预定义常量 (详见 标准预定义常量.txt)
+        //标准预定义常量 (详见 StandardPredefinedConstants.txt)
         //self::$standardPredefinedConstants
     );
 
