@@ -12,6 +12,7 @@ class MaterialExample1  implements MaterialInterface
 
     public function getCost()
     {
+        echo "metal\n";
         return 5;
     }
 }

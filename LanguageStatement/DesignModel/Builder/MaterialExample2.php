@@ -12,6 +12,7 @@ class MaterialExample2 implements MaterialInterface
 
     public function getCost()
     {
+        echo "wood\n";
         return 2;
     }
 }

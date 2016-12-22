@@ -28,6 +28,7 @@ class ComponentExample2 implements ComponentInterface
 
     public function getCost()
     {
+        echo "ComponentExample2\n";
         return $this->cost;
     }
 }
