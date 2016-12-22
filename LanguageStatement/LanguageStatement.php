@@ -45,7 +45,7 @@ class LanguageStatement
         'try',              'catch',            'throw',
         // 创建
         'var',              'new',              'global',           'const',             'list',
-        'clone',
+        'clone',            //当对象被复制后，PHP 5 会对对象的所有属性执行一个浅复制（shallow copy）。所有的引用属性(别名,对象,资源等)仍然会是一个指向原来的变量的引用。
         // 运算
         'and',              'or',               'xor',
         'unset',            'isset',            'empty',
