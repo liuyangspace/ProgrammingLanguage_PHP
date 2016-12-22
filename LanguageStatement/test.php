@@ -16,24 +16,16 @@ use LanguageStatement\DataType\Tree;
 use LanguageStatement\DataType\Stack;
 use LanguageStatement\DataType\Map;
 use LanguageStatement\DataType\Iterator;
+use LanguageStatement\DesignModel\Factory\Factory;
+use LanguageStatement\DesignModel\Singleton\Singleton;
 use LanguageStatement\LanguageExtension\Reflection\Reflection;
 
-require_once 'DataType.php';
-require_once 'DataType/Boolean.php';
-require_once 'DataType/Number.php';
-require_once 'DataType/StringClass.php';
-require_once 'DataType/ArrayClass.php';
-require_once 'DataType/FunctionClass.php';
-require_once 'DataType/ListClass.php';
-require_once 'DataType/Stack.php';
-require_once 'DataType/Set.php';
-require_once 'DataType/Tree.php';
-require_once 'DataType/Graph.php';
-require_once 'DataType/Map.php';
-require_once 'DataType/Iterator.php';
-require_once 'DataType/Dictionary.php';
-require_once 'LanguageExtension/Reflection/Reflection.php';
-
+spl_autoload_register(function($className){
+    $filePath=__DIR__.'/../'.$className.'.php';
+    if(file_exists($filePath)){
+        require_once $filePath;
+    }
+});
 //$a=123;
 //$a = DataType::is_inta($a);
 //var_dump($a);
@@ -71,11 +63,14 @@ $a=new Stack([1,2,3]);
 //$a=new Map([1,2,3],function($index){ return $index*2;});
 //$a=new Dictionary([1=>[4,5],2,3]);$a[1][]=4;
 //var_dump($a[1]);
-$a=new Dictionary();//var_dump($a);
+//$a=new Dictionary();//var_dump($a);
 //$a=array();
-$a['123']=1;var_dump($a);
-$a['ads']=new Dictionary();//;var_dump($a);
-$a['ads'][1]='sdad';//;var_dump($a);
-$a['ads'][2]=new Dictionary();//;var_dump($a);
-$a['ads'][2]['ss']=1;var_dump($a);
+//$a['123']=1;var_dump($a);
+//$a['ads']=new Dictionary();//;var_dump($a);
+//$a['ads'][1]='sdad';//;var_dump($a);
+//$a['ads'][2]=new Dictionary();//;var_dump($a);
+//$a['ads'][2]['ss']=1;var_dump(get_class($a));
 //var_dump($a[12]);
+//$a=new Factory();$b=$a->produce('LanguageStatement\DataType\Tree');var_dump($b);
+$a=Singleton::getInstance();$a->setAsset(2);var_dump($a->getAsset());
+$b=Singleton::getInstance();var_dump($b->getAsset());$a->setAsset(3);var_dump($a->getAsset());
