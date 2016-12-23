@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/21
- * Time: 11:28
+ * 时间点接口
  */
 
 namespace LanguageStatement\LanguageExtension\DateTime;

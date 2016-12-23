@@ -29,14 +29,14 @@ spl_autoload_register(function($className){
 //$a=123;
 //$a = DataType::is_inta($a);
 //var_dump($a);
-$a=new DataType();//var_dump(mb_check_encoding('的多字节字符串支持','UTF-16'));
+//$a=new DataType();//var_dump(mb_check_encoding('的多字节字符串支持','UTF-16'));
 //var_dump(\LanguageStatement\DataType\ArrayClass::range(1,20));
 
 //\Reflection::export(new \ReflectionClass('Exception'));
 //$a=new Reflection(123);$a->export();
 //$a=new \ReflectionClass('Exception');$a->export();
 
-$a=new Stack([1,2,3]);
+//$a=new Stack([1,2,3]);
 //echo $a->pop();var_dump($a);
 //echo $a->pop();var_dump($a);
 //echo $a->pop();var_dump($a);
@@ -72,5 +72,18 @@ $a=new Stack([1,2,3]);
 //$a['ads'][2]['ss']=1;var_dump(get_class($a));
 //var_dump($a[12]);
 //$a=new Factory();$b=$a->produce('LanguageStatement\DataType\Tree');var_dump($b);
-$a=Singleton::getInstance();$a->setAsset(2);var_dump($a->getAsset());
-$b=Singleton::getInstance();var_dump($b->getAsset());$a->setAsset(3);var_dump($a->getAsset());
+//$a=Singleton::getInstance();$a->setAsset(2);var_dump($a->getAsset());
+//$b=Singleton::getInstance();var_dump($b->getAsset());$a->setAsset(3);var_dump($a->getAsset());
+interface tmp
+{
+    public function get();
+}
+class tmpO implements tmp
+{
+    public function get($param)
+    {
+        echo $param;
+    }
+}
+
+$a=new tmpO();$a->get(123);

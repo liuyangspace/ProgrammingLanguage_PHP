@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/16
- * Time: 16:44
+ * 可导出的反射类接口
  */
 
 namespace LanguageStatement\LanguageExtension\Reflection;
@@ -11,5 +8,8 @@ namespace LanguageStatement\LanguageExtension\Reflection;
 
 interface Reflector extends \Reflector
 {
+
+    public static function export();
+    public function __toString();
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ *  静态时间点
  */
 
 namespace LanguageStatement\LanguageExtension\DateTime;
