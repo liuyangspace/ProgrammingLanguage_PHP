@@ -6,19 +6,22 @@
 namespace LanguageStatement\DesignModel\Adapter;
 
 
-class Adapter implements VideoInterface
+class Adapter implements MediaInterface
 {
 
     public function play($param)
     {
-        $tmpArr=explode('.',$param);
-        $extensionName=array_pop($tmpArr);
-        if($extensionName=='mp4'){
-            (new VideoMp4())->play($param);
-        }elseif($extensionName=='avi'){
-            (new VideoAvi())->play($param);
-        }else{
-            echo 'Undefined type!';
-        }
+        $this->look($param);
+        $this->listen($param);
+    }
+
+    public function look($param)
+    {
+        echo "  $param:can't look!\n";
+    }
+
+    public function listen($param)
+    {
+        echo "  $param:can't listen!\n";
     }
 }

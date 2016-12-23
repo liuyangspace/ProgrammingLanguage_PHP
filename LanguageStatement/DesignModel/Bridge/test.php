@@ -5,6 +5,9 @@
 
 namespace LanguageStatement\DesignModel\Adapter;
 use LanguageStatement\DesignModel\Adapter\Play;
+use LanguageStatement\DesignModel\Bridge\ColorBlue;
+use LanguageStatement\DesignModel\Bridge\ColorRed;
+use LanguageStatement\DesignModel\Bridge\Map;
 
 spl_autoload_register(function($className){
     $filePath=__DIR__.'/../../../'.$className.'.php';
@@ -13,8 +16,6 @@ spl_autoload_register(function($className){
     }
 });
 
-$a=new Play();
-$a->play('1.jpg');
-$a->play('2.mp4');
-$a->play('3.avi');
-$a->play('4.wmv');
+$a=new Map();
+$a->draw(new ColorRed());
+$a->draw(new ColorBlue());

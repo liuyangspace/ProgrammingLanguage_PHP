@@ -9,10 +9,17 @@
 namespace LanguageStatement\DesignModel\Adapter;
 
 
-class VideoAvi implements VideoInterface
+class Image extends Adapter
 {
     public function play($param)
     {
-        echo "Play AVI:$param\n";
+        echo "Play Image:$param\n";
+        parent::play($param);
+
+    }
+
+    public function look($param)
+    {
+        echo "  $param:can look!\n";
     }
 }

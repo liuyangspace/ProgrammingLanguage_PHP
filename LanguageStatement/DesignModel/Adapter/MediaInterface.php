@@ -9,7 +9,11 @@
 namespace LanguageStatement\DesignModel\Adapter;
 
 
-interface VideoInterface
+interface MediaInterface
 {
     public function play($param);
+
+    public function look($param);
+
+    public function listen($param);
 }

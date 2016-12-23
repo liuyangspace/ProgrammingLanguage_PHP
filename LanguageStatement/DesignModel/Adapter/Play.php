@@ -16,10 +16,10 @@ class Play implements PlayInterface
     {
         $tmpArr=explode('.',$param);
         $extensionName=array_pop($tmpArr);
-        if($extensionName=='mp3'){
-            echo "Play MP3:$param\n";
+        if($extensionName=='jpg'){
+            (new Image())->play($param);
         }elseif(in_array($extensionName,['mp4','avi'])){
-            (new Adapter())->play($param);
+            (new Video())->play($param);
         }else{
             echo 'Undefined type:'."$param\n";
         }
