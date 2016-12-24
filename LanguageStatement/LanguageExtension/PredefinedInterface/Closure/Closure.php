@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/23
- * Time: 17:07
+ * Closure 匿名函数类，不能用new实例化
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\Closure;
