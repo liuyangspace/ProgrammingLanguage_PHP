@@ -68,24 +68,23 @@ class PHPDataType
     public static function uniqid($prefix="",$more_entropy=false){ return uniqid($prefix,$more_entropy); }//获取一个带前缀、基于当前时间微秒数的唯一ID。
     public static function serialize($var){ return serialize($var); }//产生一个可存储的值的表示
     public static function unserialize($str){ return unserialize($str); }//从已存储的表示中创建 PHP 的值
-
-    /*
-     * 常量 变量
-     */
-    public static function define($name,$value,$case_insensitive=false){ return define($name,$value,$case_insensitive); }//定义一个常量
-    public static function defined($name){ return defined($name); }//检查某个名称的常量是否存在
-    public static function php_isset($name){ return isset($name); }//检测变量是否设置
-    public static function php_unset($name){ unset($name); }//释放给定的变量
-    public static function php_empty($name){ return empty($name); }//检查一个变量是否为空
+    // 变量
+    public static function isset($name){ return isset($name); }//检测变量是否设置
+    public static function unset($name){ unset($name); }//释放给定的变量
+    public static function empty($name){ return empty($name); }//检查一个变量是否为空
     public static function var_dump($name){ var_dump($name); }//Dumps a string representation of an internal zend value to output
     public static function var_export($name,$return=false){ var_export($name,$return); }//输出或返回一个变量的字符串表示
     public static function debug_zval_dump($variable){ debug_zval_dump($variable); }//Dumps a string representation of an internal zend value to output
     public static function get_defined_vars(){ return get_defined_vars(); }//返回由所有已定义变量所组成的数组
     public static function import_request_variables($types,$prefix){ return import_request_variables($types,$prefix); }//将 GET／POST／Cookie 变量导入到全局作用域中
-    public static function get_resource_type($handle){ return get_resource_type($handle); }//返回资源（resource）类型
+    // 常量
+    public static function define($name,$value,$case_insensitive=false){ return define($name,$value,$case_insensitive); }//定义一个常量
+    public static function defined($name){ return defined($name); }//检查某个名称的常量是否存在
     public static function get_defined_constants($categorize=false){ return get_defined_constants($categorize); }//返回所有常量的关联数组，键是常量名，值是常量值
     public static function constant($name){ return constant($name); }//返回一个常量的值
-
+    // 资源（resource）
+    public static function get_resource_type($handle){ return get_resource_type($handle); }//返回资源（resource）类型
+    public static function get_resources($type){ return get_resources($type); }//Returns active resources
     /*
      * 得到一个易读懂的类型 参考：要查看某个类型，建议用 is_type 函数
      *  ['boolean','integer','double','string','array','object','resource','NULL','unknown type']
