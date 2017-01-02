@@ -29,6 +29,16 @@ class IO
         'output_buffering',//该选项设置为 On 时，将在所有的脚本中使用输出控制。
         'output_handler',//该选项可将脚本所有的输出，重定向到一个函数。
         'implicit_flush',//如将该选项改为 TRUE，PHP 将使输出层，在每段信息块输出后，自动刷新。(同于在每次使用 print、echo等函数或每个 HTML 块之后，调用 PHP 中的 flush() 函数。)
+
+        'max_input_time',//脚本解析输入数据（类似 POST 和 GET）允许的最大时间，单位是秒。
+        'max_input_nesting_level',//设置输入变量的嵌套深度 (例如 $_GET，$_POST......)
+        'max_input_vars',//接受多少 输入的变量（限制分别应用于 $_GET、$_POST 和 $_COOKIE 超全局变量） 指令的使用减轻了以哈希碰撞来进行拒绝服务攻击的可能性。
+        '',
+        /*
+         * 废弃
+         * magic_quotes_runtime
+         * magic_quotes_gpc
+         */
     ];
 
     /*
