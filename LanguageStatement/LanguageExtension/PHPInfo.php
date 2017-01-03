@@ -13,7 +13,7 @@ class PHPInfo
 {
 
     //php 环境变量
-    public static function phpinfo($what=INFO_ALL){return phpinfo();}//输出关于 PHP 配置的信息
+    public static function phpinfo($what=INFO_ALL){return phpinfo($what);}//输出关于 PHP 配置的信息
     public static function phpversion($extension){return phpversion($extension);}//返回了包含当前运行 PHP 解释器或扩展版本信息的 string。
     public static function zend_version(){return zend_version();}//获取当前运行的 Zend 引擎的版本字符串。
     public static function getenv($varname){return getenv($varname);}//获取一个环境变量的值

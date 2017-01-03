@@ -10,9 +10,9 @@
 ### 目录介绍
 <pre>
   .-|
-    |- LanguageStatement        # 语言声明
-    |- LanguageExtension        # 语言扩展
-    |- DataType                 # 常用数据类型
-    |- DesignModel              # 常用设计模型
-    |- UtilComponent            # 功能扩展
+    |- LanguageStatement            # 语言声明
+    |  |- DataType                  # 常用数据类型
+    |  |- DesignModel               # 常用设计模型
+    |  |- LanguageExtension         # 语言扩展
+    |  |- UtilComponent             # 功能扩展
 </pre>
