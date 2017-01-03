@@ -11,6 +11,7 @@ namespace LanguageStatement\LanguageExtension\Reflection;
 
 class Debug
 {
+    //其余部分参见 DataType,Process
     public static $configs=[
         'assert.active',//激活 assert() 断言评测。
         'assert.bail',//失败的断言将中止脚本。
@@ -21,5 +22,9 @@ class Debug
 
         'enable_dl',//该指令仅对 Apache 模块版本的 PHP 有效。针对每个虚拟机或每个目录开启或关闭 dl() 动态加载 PHP 模块。
     ];
+
+    //debug 调试
+    public static function assert_options($key,$value){return assert_options($key,$value);}// 设置断言标志
+    public static function assert($assertion,$exception){return assert($assertion,$exception);}//检查指定的 assertion 并在结果为 FALSE 时采取适当的行动。
 
 }
