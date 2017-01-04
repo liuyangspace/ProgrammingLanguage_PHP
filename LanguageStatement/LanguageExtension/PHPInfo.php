@@ -38,4 +38,5 @@ class PHPInfo
     // memory
     public static function memory_get_usage($real_usage=false){return memory_get_usage($real_usage);}//回当前分配给你的 PHP 脚本的内存量，单位是字节（byte）。
     public static function memory_get_peak_usage($real_usage=false){return memory_get_peak_usage($real_usage);}//返回分配给你的 PHP 脚本的内存峰值字节数。
+
 }

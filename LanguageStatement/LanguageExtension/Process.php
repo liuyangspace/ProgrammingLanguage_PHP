@@ -11,6 +11,7 @@ namespace LanguageStatement\LanguageExtension;
 
 class Process
 {
+
     public static $Operators=[
         '``',//反引号，PHP 将尝试将反引号中的内容作为 shell 命令来执行，并将其输出信息返回（即，可以赋给一个变量而不是简单地丢弃到标准输出）。
     ];
