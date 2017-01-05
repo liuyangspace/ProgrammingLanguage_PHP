@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/30
- * Time: 13:36
+ * 策略
  */
 
 namespace LanguageStatement\DesignModel\Strategy;
@@ -11,7 +8,6 @@ namespace LanguageStatement\DesignModel\Strategy;
 
 class Context
 {
-
     protected $strategy;
 
     public function __construct(Strategy $strategy)

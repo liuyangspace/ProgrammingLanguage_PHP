@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/29
- * Time: 21:28
+ * 记录的对象
  */
 
 namespace LanguageStatement\DesignModel\Memento;

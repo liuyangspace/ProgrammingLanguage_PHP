@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * 过滤
  */
 
 namespace LanguageStatement\DesignModel\Filter;

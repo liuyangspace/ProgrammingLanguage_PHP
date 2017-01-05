@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/26
- * Time: 16:39
+ * 执行过滤
  */
 
 namespace LanguageStatement\DesignModel\Filter;

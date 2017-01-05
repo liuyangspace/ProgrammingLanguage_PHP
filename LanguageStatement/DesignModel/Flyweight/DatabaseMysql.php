@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/28
- * Time: 10:36
+ * 要实例化类
  */
 
 namespace LanguageStatement\DesignModel\Flyweight;

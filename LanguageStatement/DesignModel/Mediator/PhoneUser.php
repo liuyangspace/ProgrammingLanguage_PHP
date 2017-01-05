@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/29
- * Time: 20:47
+ * 中介者服务对象
  */
 
 namespace LanguageStatement\DesignModel\Mediator;

@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/28
- * Time: 22:38
+ * 迭代器 类
  */
 
 namespace LanguageStatement\DesignModel\Iterator;

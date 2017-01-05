@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/29
- * Time: 22:42
+ * 观察者 类
  */
 
 namespace LanguageStatement\DesignModel\Observer;

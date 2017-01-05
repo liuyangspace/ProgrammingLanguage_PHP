@@ -1,6 +1,6 @@
 <?php
 /**
- * Composite Pattern
+ * 用例
  */
 
 namespace LanguageStatement\DesignModel\Composite;

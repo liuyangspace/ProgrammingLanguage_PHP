@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/30
- * Time: 14:12
+ * 模板
  */
 
 namespace LanguageStatement\DesignModel\Template;

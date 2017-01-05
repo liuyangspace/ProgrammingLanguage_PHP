@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/30
- * Time: 11:19
+ * 使用状态
  */
 
 namespace LanguageStatement\DesignModel\State;

@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ *  适配类
  */
 
 namespace LanguageStatement\DesignModel\Adapter;

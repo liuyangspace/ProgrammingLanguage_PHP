@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/27
- * Time: 21:13
+ * 外观类调用的类
  */
 
 namespace LanguageStatement\DesignModel\Facade;

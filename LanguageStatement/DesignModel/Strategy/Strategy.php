@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/30
- * Time: 12:16
+ * 策略
  */
 
 namespace LanguageStatement\DesignModel\Strategy;

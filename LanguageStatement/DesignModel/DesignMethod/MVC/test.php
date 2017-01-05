@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/1/5
- * Time: 9:46
+ * 用例
  */
 
 namespace LanguageStatement\DesignModel\DesignMethod\MVC;

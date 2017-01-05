@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * 用例
  */
 
 namespace LanguageStatement\DesignModel\Filter;

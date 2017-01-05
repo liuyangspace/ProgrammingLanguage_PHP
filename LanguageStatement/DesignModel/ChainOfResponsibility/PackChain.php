@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/28
- * Time: 13:17
+ * 处理链
  */
 
 namespace LanguageStatement\DesignModel\ChainOfResponsibility;

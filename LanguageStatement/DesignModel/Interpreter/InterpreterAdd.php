@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/28
- * Time: 22:05
+ * 解释器 类
  */
 
 namespace LanguageStatement\DesignModel\Interpreter;

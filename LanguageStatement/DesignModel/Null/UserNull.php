@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/30
- * Time: 12:05
+ * 空用户 虚拟用户
  */
 
 namespace LanguageStatement\DesignModel\Null;

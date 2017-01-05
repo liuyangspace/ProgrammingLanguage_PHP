@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/28
- * Time: 11:53
+ * 被代理的类
  */
 
 namespace LanguageStatement\DesignModel\Proxy;

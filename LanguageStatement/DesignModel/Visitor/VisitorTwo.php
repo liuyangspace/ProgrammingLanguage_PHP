@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/30
- * Time: 15:24
+ * 访问者2
  */
 
 namespace LanguageStatement\DesignModel\Visitor;

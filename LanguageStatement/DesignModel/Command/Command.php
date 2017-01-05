@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * 命令类
  */
 
 namespace LanguageStatement\DesignModel\Command;
