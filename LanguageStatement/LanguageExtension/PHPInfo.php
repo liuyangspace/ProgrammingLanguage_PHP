@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/31
- * Time: 17:48
+ * PHP 信息 状态
  */
 
 namespace LanguageStatement\LanguageExtension\Reflection;

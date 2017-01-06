@@ -12,7 +12,7 @@ include(__DIR__.'/LanguageStatement/UtilComponent/DataTypeUtil/ArrayClass.php');
 //var_dump($a);
 //$a=\LanguageStatement\UtilComponent\DataTypeUtil\StringClass::convertEncoding('对方水电费','GBK');
 //$a=mb_convert_encoding('对方水电费','GB2312','UTF-8');
-//$a=mb_detect_encoding('�??��???��??�??��?�令�?�?�??��?��?�???�?�??',mb_list_encodings());
+//$a=mb_detect_encoding('�?�?�??�??��?�令�?�?�??��?��?�???�?�??',mb_list_encodings());
 //$a=[1,2,'a'=>3,4=>'b'];
 //$a=\LanguageStatement\UtilComponent\DataTypeUtil\ArrayClass::arrayToJson($a);
 //var_dump($a);
@@ -21,56 +21,10 @@ error_reporting(E_ALL);
 /* Allow the script to hang around waiting for connections. */
 set_time_limit(0);
 
-/* Turn on implicit output flushing so we see what we're getting
- * as it comes in. */
-ob_implicit_flush();
-
-$address = '10.102.1.87';
-$port = 10000;
-
-if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
-    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+//ob_implicit_flush();
+$count=10;
+while($count){
+    sleep(1);
+    echo "$count : out \n";
+    $count--;
 }
-
-if (socket_bind($sock, $address, $port) === false) {
-    echo "socket_bind() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n";
-}
-
-if (socket_listen($sock, 5) === false) {
-    echo "socket_listen() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n";
-}
-
-do {
-    if (($msgsock = socket_accept($sock)) === false) {
-        echo "socket_accept() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n";
-        break;
-    }
-    /* Send instructions. */
-    $msg = "\nWelcome to the PHP Test Server. \n" .
-        "To quit, type 'quit'. To shut down the server type 'shutdown'.\n";
-    socket_write($msgsock, $msg, strlen($msg));
-
-    do {
-        if (false === ($buf = socket_read($msgsock, 2048, PHP_NORMAL_READ))) {
-            echo "socket_read() failed: reason: " . socket_strerror(socket_last_error($msgsock)) . "\n";
-            break 2;
-        }
-        if (!$buf = trim($buf)) {
-            continue;
-        }
-        if ($buf == 'quit') {
-            break;
-        }
-        if ($buf == 'shutdown') {
-            socket_close($msgsock);
-            break 2;
-        }
-        $talkback = "PHP: You said '$buf'.\n";
-        socket_write($msgsock, $talkback, strlen($talkback));
-        echo "$buf\n";
-    } while (true);
-    socket_close($msgsock);
-} while (true);
-
-socket_close($sock);
-

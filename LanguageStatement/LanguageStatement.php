@@ -149,6 +149,7 @@ class LanguageStatement
         'E_STRICT'                      =>  E_STRICT,               //(integer) 从 PHP 5.0.0 起有效
         '__COMPILER_HALT_OFFSET__'      =>  __COMPILER_HALT_OFFSET__,//(integer) 从 PHP 5.0.0 起有效
         //标准预定义常量 (详见 StandardPredefinedConstants.txt)
+        'DIRECTORY_SEPARATOR'           =>  DIRECTORY_SEPARATOR     //系统分隔符
         //self::$standardPredefinedConstants
     );
 

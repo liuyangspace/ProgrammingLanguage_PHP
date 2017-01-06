@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/31
- * Time: 12:53
+ * PHP 错误 异常 日志
  */
 
 namespace LanguageStatement\LanguageExtension\Error;

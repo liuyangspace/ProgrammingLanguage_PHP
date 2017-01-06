@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/31
- * Time: 17:50
+ * PHP 扩展
  */
 
 namespace LanguageStatement\LanguageExtension;
