@@ -3,6 +3,11 @@
  * php基础：语言声明
  * php statement：
  *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。
+ *  CGI(Common Gateway Interface,公共网关接口),
+ *  CLI(Command Line Interface,命令行接口),
+ *  SAPI(Server Application Programming Interface,服务端应用编程端口)
+ *  PECL(The PHP Extension Community Library,)
+ *  PEAR(PHP Extension and Application Repository,PHP 扩展和应用仓库)
  * Reference:
  *  http://php.net/manual/zh/langref.php
  */
