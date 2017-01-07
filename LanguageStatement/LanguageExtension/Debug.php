@@ -1,6 +1,7 @@
 <?php
 /**
  * PHP 调试
+ * 支持 DTrace 动态跟踪的平台上，可以配置 PHP 打开 DTrace 静态探针。
  */
 
 namespace LanguageStatement\LanguageExtension\Reflection;
@@ -24,4 +25,7 @@ class Debug
     public static function assert_options($key,$value){return assert_options($key,$value);}// 设置断言标志
     public static function assert($assertion,$exception){return assert($assertion,$exception);}//检查指定的 assertion 并在结果为 FALSE 时采取适当的行动。
 
+    //xdebug zend_extension
+    public static function var_dump($name){var_dump($name);}//影响php var_dump,打印变量
+    public static function xdebug_debug_zval($varName){ xdebug_debug_zval($varName);}//打印出引用计数
 }

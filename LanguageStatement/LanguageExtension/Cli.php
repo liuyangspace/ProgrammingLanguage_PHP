@@ -28,9 +28,12 @@ class Cli
         'php -w',// Output source with stripped comments and whitespace.
         'php -z <file>',//Load Zend extension <file>.
         'php -c <path>|<file>',// Look for php.ini file in this directory
-        'php -h',//php command help
+        'php -h',// php command help
     ];
 
+    protected static $config=[
+        'cli_server.color',//内置Web Server的终端输出有无颜色。
+    ];
     //cli 命令行
     public static function cli_get_process_title(){return cli_get_process_title();}//Returns the current process title,available only in CLI mode.
     public static function cli_set_process_title($title){return cli_set_process_title($title);}//Sets the process title visible in tools such as top and ps. This public static function is available only in CLI mode.
