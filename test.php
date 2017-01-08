@@ -16,15 +16,8 @@ include(__DIR__.'/LanguageStatement/UtilComponent/DataTypeUtil/ArrayClass.php');
 //$a=[1,2,'a'=>3,4=>'b'];
 //$a=\LanguageStatement\UtilComponent\DataTypeUtil\ArrayClass::arrayToJson($a);
 //var_dump($a);
-error_reporting(E_ALL);
-
-/* Allow the script to hang around waiting for connections. */
-set_time_limit(0);
-
-//ob_implicit_flush();
-$count=10;
-while($count){
-    sleep(1);
-    echo "$count : out \n";
-    $count--;
-}
+$a = "new string";
+$c = $b = $a;
+xdebug_debug_zval( 'a' );
+unset( $b, $c );
+xdebug_debug_zval( 'a' );

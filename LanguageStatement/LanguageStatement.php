@@ -3,11 +3,14 @@
  * php基础：语言声明
  * php statement：
  *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。
+ * 相关缩写:
+ *  PHP(PHP: Hypertext Preprocessor,超文本预处理器)
  *  CGI(Common Gateway Interface,公共网关接口),
  *  CLI(Command Line Interface,命令行接口),
  *  SAPI(Server Application Programming Interface,服务端应用编程端口)
  *  PECL(The PHP Extension Community Library,)
  *  PEAR(PHP Extension and Application Repository,PHP 扩展和应用仓库)
+ *  DTrace(动态跟踪)
  * Reference:
  *  http://php.net/manual/zh/langref.php
  */
@@ -105,7 +108,7 @@ class LanguageStatement
     );
 
     /*
-     * 预定义常量
+     * 预定义常量(常用部分)
      */
     public static $predefinedConstants = array(
         // 魔术常量 ,编译时常量

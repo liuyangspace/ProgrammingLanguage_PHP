@@ -5,7 +5,6 @@
 
 namespace LanguageStatement\LanguageExtension\File\FileUpload;
 
-
 class FileUpload
 {
     //错误码
@@ -65,7 +64,7 @@ class FileUpload
         if(!empty($typeArr)){
             $limitType=$typeArr;
         }
-        if(!empty($limitType) && !in_array($file->getError(),$limitType,true)){
+        if(!empty($limitType) && !in_array(self::getFileType($file),$limitType,true)){
             self::setError(self::USER_TYPE_LIMIT);
             return false;
         }
@@ -120,6 +119,23 @@ class FileUpload
     public static function setLimitSize($size)
     {
         self::$limitSize=(int)$size;
+    }
+
+    /*
+     * 获取文件类型（尝试基于fileinfo扩展）
+     * string getFileType( UploadFileInterface $file )
+     * @param UploadFileInterface $file 要检测的文件
+     * @return string 文件类型
+     */
+    public static function getFileType(UploadFileInterface $file)
+    {
+        if(extension_loaded('fileinfo')){
+            $fileinfo=new \finfo(FILEINFO_MIME_TYPE);
+            $fileType=$fileinfo->file($file->getPath());
+        }else{//throw new \Exception('need php extension : fileinfo ');
+            $fileType=$file->getType();
+        }
+        return $fileType;
     }
 
     //检测错误
