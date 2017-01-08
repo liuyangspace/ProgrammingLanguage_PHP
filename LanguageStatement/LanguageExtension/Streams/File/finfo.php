@@ -3,7 +3,7 @@
  * FileInfo 文件信息 类型，编码，详情
  */
 
-namespace LanguageStatement\LanguageExtension\File;
+namespace LanguageStatement\LanguageExtension\Streams\File;
 
 
 class finfo extends \finfo

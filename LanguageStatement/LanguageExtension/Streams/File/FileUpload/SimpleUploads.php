@@ -3,7 +3,7 @@
  * 多文件上传
  */
 
-namespace LanguageStatement\LanguageExtension\File\FileUpload;
+namespace LanguageStatement\LanguageExtension\Streams\File\FileUpload;
 
 
 class SimpleUploads

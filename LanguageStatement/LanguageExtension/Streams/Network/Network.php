@@ -3,7 +3,7 @@
  * PHP 网络相关
  */
 
-namespace LanguageStatement\LanguageExtension\Network;
+namespace LanguageStatement\LanguageExtension\Streams\Network;
 
 
 class Network

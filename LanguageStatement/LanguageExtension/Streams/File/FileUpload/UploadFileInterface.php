@@ -3,7 +3,7 @@
  * 上传的文件 接口
  */
 
-namespace LanguageStatement\LanguageExtension\File\FileUpload;
+namespace LanguageStatement\LanguageExtension\Streams\File\FileUpload;
 
 
 interface UploadFileInterface

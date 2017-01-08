@@ -3,7 +3,7 @@
  * 上传的文件 实体类
  */
 
-namespace LanguageStatement\LanguageExtension\File\FileUpload;
+namespace LanguageStatement\LanguageExtension\Streams\File\FileUpload;
 
 
 class File implements UploadFileInterface

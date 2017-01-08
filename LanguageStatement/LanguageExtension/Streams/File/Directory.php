@@ -3,7 +3,7 @@
  * 目录相关操作
  */
 
-namespace LanguageStatement\LanguageExtension\File;
+namespace LanguageStatement\LanguageExtension\Streams\File;
 
 
 class Directory extends \Directory
