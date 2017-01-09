@@ -41,6 +41,44 @@ class IO
          */
     ];
 
+    // 输入
+    public static $predefinedVariables = array(
+        //超全局变量
+        '$GLOBALS',     //高可用，引用全局作用域中可用的全部变量
+        '$_SERVER',     //低可用，服务器和执行环境信息
+        '$_GET',        //HTTP GET 变量
+        '$_POST',       //HTTP POST 变量
+        '$_FILES',      //HTTP 文件上传变量
+        '$_REQUEST',    //HTTP Request 变量
+        '$_SESSION',    //Session 变量
+        '$_ENV',        //环境变量
+        '$_COOKIE',     //HTTP Cookies
+        //
+        '$php_errormsg',//前一个错误信息
+        '$HTTP_RAW_POST_DATA',//原生POST数据
+        '$http_response_header',//HTTP 响应头
+        '$argc',        //传递给脚本的参数数目
+        '$argv',        //传递给脚本的参数数组
+    );
+
+    /*
+     * IO
+     * void echo ( string $arg1 [, string $... ] )
+     * int print ( string $arg )
+     * int printf ( string $format [, mixed $args [, mixed $... ]] )
+     * int vprintf ( string $format , array $args )
+     * int vfprintf ( resource $handle , string $format , array $args )
+     * string sprintf ( string $format [, mixed $args [, mixed $... ]] )
+     * string vsprintf ( string $format , array $args )
+     * mixed sscanf ( string $str , string $format [, mixed &$... ] )
+     * mixed fscanf ( resource $handle , string $format [, mixed &$... ] )
+     *
+     */
+    public static function var_dump($name){ var_dump($name); }//Dumps a string representation of an internal zend value to output
+    public static function var_export($name,$return=false){ var_export($name,$return); }//输出或返回一个变量的字符串表示
+    public static function debug_zval_dump($variable){ debug_zval_dump($variable); }//Dumps a string representation of an internal zend value to output
+    // 文件 输出
+    public static function readfile($filename,$use_include_path=false,$context){return readfile($filename,$use_include_path,$context);}//读取文件并写入到输出缓冲。
     /*
      * output
      */
@@ -48,6 +86,8 @@ class IO
     public static function ob_get_level(){ return ob_get_level(); }//返回输出缓冲机制的嵌套级别
     public static function ob_get_status(){return ob_get_status($full_status=FALSE);}//得到所有输出缓冲区的状态
     public static function ob_implicit_flush($flag=true){ ob_implicit_flush($flag); }//设为TRUE 打开绝对刷送，反之是 FALSE
+    //
+
     // 输出缓冲
     public static function ob_start(){ return ob_start(); }//打开输出控制缓冲
     public static function flush(){ flush(); }//刷新输出缓冲

@@ -5,7 +5,6 @@
 
 namespace LanguageStatement\LanguageExtension\Streams\File;
 
-
 class Directory extends \Directory
 {
     protected static $constants=[
@@ -13,6 +12,11 @@ class Directory extends \Directory
         'PATH_SEPARATOR'        => PATH_SEPARATOR,// ; path 变量界别符
     ];
 
+    //参见File
+    public static function file_exists($filename){return file_exists($filename);}//检查文件或目录是否存在
+    public static function rename($oldname,$newname,$context){return rename($oldname,$newname,$context);}//重命名一个文件或目录
+    public static function mkdir($pathname,$mode=0777,$recursive=false,$context){return mkdir($pathname,$mode=0777,$recursive,$context);}//尝试新建一个由 pathname 指定的目录。
+    public static function rmdir($dirname,$context){return rmdir($dirname,$context);}//删除目录
     //面向过程函数
     public static function opendir($path,$context){return opendir($path,$context);}//打开目录句柄
     public static function readdir($dir_handle){return readdir($dir_handle);}//返回目录中下一个文件的文件名。

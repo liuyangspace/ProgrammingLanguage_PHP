@@ -16,6 +16,9 @@ class Config
         'PHP_INI_ALL'   => '可在任何地方设定',
     ];
 
+    // 配置 解析
+    public static function parse_ini_file($filename,$process_sections=false,$scanner_mode=INI_SCANNER_NORMAL){return parse_ini_file($filename,$process_sections,$scanner_mode);}//解析一个配置文件
+    public static function parse_ini_string($ini,$process_sections=false,$scanner_mode=INI_SCANNER_NORMAL){return parse_ini_file($ini,$process_sections,$scanner_mode);}//解析配置字符串
     //php配置
     public static function ini_get($name){ return ini_get($name); }//获取一个配置选项的值
     public static function ini_get_all($extension=null,$details=true){ return ini_get_all($extension,$details); }//获取所有已注册的配置选项

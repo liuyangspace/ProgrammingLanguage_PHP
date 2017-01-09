@@ -124,7 +124,7 @@ class LanguageStatement
         'PHP_VERSION'                   =>  PHP_VERSION,            //string
         'PHP_OS'                        =>  PHP_OS,                 //string
         'PHP_SAPI'                      =>  PHP_SAPI,               //string 自 PHP 4.2.0 起可用。参见 php_sapi_name()。
-        'PHP_EOL'                       =>  PHP_EOL,                //string 自 PHP 4.3.10 和 PHP 5.0.2 起可用
+        'PHP_EOL'                       =>  PHP_EOL,                //string php换行符（\n/\r）自 PHP 4.3.10 和 PHP 5.0.2 起可用
         'PHP_INT_MAX'                   =>  PHP_INT_MAX,            //(integer) 自 PHP 4.4.0 和 PHP 5.0.5 起可用
         'PHP_INT_SIZE'                  =>  PHP_INT_SIZE,           //(integer) 自 PHP 4.4.0 和 PHP 5.0.5 起可用
         'DEFAULT_INCLUDE_PATH'          =>  DEFAULT_INCLUDE_PATH,   //(string)
@@ -157,7 +157,7 @@ class LanguageStatement
         'E_STRICT'                      =>  E_STRICT,               //(integer) 从 PHP 5.0.0 起有效
         '__COMPILER_HALT_OFFSET__'      =>  __COMPILER_HALT_OFFSET__,//(integer) 从 PHP 5.0.0 起有效
         //标准预定义常量 (详见 StandardPredefinedConstants.txt)
-        'DIRECTORY_SEPARATOR'           =>  DIRECTORY_SEPARATOR     //系统分隔符
+        'DIRECTORY_SEPARATOR'           =>  DIRECTORY_SEPARATOR,    //系统分隔符
         //self::$standardPredefinedConstants
     );
 

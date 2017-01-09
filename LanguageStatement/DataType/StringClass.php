@@ -47,18 +47,8 @@ class PHPString
     public static function join($str,$array){ return join($str,$array); }//别名 implode()
     public static function str_split($str,$length){ return str_split($str,$length); }//将字符串转换为数组
 
-    /*
-     * IO
-     */
-    //  void echo ( string $arg1 [, string $... ] )
-    //  int print ( string $arg )
-    //  int printf ( string $format [, mixed $args [, mixed $... ]] )
-    //  int vprintf ( string $format , array $args )
-    //  int vfprintf ( resource $handle , string $format , array $args )
-    //  string sprintf ( string $format [, mixed $args [, mixed $... ]] )
-    //  string vsprintf ( string $format , array $args )
-    //  mixed sscanf ( string $str , string $format [, mixed &$... ] )
-    //  mixed fscanf ( resource $handle , string $format [, mixed &$... ] )
+    // string pack ( string $format [, mixed $args [, mixed $... ]] )
+    // array unpack ( string $format , string $data )
 
     /*
      * PHP字符串函数
