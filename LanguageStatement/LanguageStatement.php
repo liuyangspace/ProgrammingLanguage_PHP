@@ -10,6 +10,8 @@
  *  SAPI(Server Application Programming Interface,服务端应用编程端口)
  *  PECL(The PHP Extension Community Library,)
  *  PEAR(PHP Extension and Application Repository,PHP 扩展和应用仓库)
+ *  SPL(Standard PHP Library,PHP标准类库)
+ *  POSIX(Portable Operating System Interface,可移植操作系统接口)
  *  DTrace(动态跟踪)
  * Reference:
  *  http://php.net/manual/zh/langref.php
@@ -239,6 +241,34 @@ class LanguageStatement
         'ParseError',
         'TypeError',
     );
+    public static $extensionInterface = [
+        'Reflector',//
+        'DateTimeInterface',//
+        'JsonSerializable',//影响json_encode
+    ];
+    public static $extensionClasses = [
+        //
+        'DateTime',
+        'DatePeriod',
+        'DateInterval',
+        'DateTimeImmutable',
+        'DateTimeZone',
+        //
+        'Reflection',
+        'ReflectionClass',
+        'ReflectionObject',
+        'ReflectionException',
+        'ReflectionExtension',
+        'ReflectionZendExtension',
+        'ReflectionFunction',
+        'ReflectionMethod',
+        'ReflectionFunctionAbstract',
+        'ReflectionProperty',
+        'ReflectionParameter',
+        //
+        'Directory',
+        'finfo',
+    ];
 
 
     /*

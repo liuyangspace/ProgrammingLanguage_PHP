@@ -18,6 +18,10 @@ include(__DIR__.'/LanguageStatement/UtilComponent/DataTypeUtil/ArrayClass.php');
 //var_dump($a);
 $a = "new string";
 $c = $b = $a;
-xdebug_debug_zval( 'a' );
-unset( $b, $c );
-xdebug_debug_zval( 'a' );
+//xdebug_debug_zval( 'a' );
+//unset( $b, $c );
+//xdebug_debug_zval( 'a' );
+//var_dump(realpath('test.php'));
+$a=['as','a'=>123,78];
+echo json_encode($a,JSON_PRETTY_PRINT);
+

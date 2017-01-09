@@ -21,4 +21,6 @@ class Memory
     public static function gc_enable(){gc_enable();}//设置 zend.enable_gc 为 1， 激活循环引用收集器。
     public static function gc_enabled(){return gc_enabled();}//返回循环引用计数器的状态。
     public static function gc_mem_caches(){return gc_mem_caches();}//Reclaims memory used by the Zend Engine memory manager.
+
+    // 参见 shmop_*,shmop 扩展
 }

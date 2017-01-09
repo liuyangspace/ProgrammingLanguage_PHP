@@ -240,24 +240,36 @@ class PHPStringExtension extends PHPString
     //
     public static function mb_convert_kana($str,$option="KV",$charSet){ return mb_convert_kana($str,$option,$charSet); }//日文字符多字节编码转换
     // ereg
-    public static function mb_ereg($pattern,$str,&$regs){ return mb_ereg($pattern,$str,$regs); }//Regular expression match with multibyte support
-    public static function mb_eregi($pattern,$str,&$regs){ return mb_eregi($pattern,$str,$regs); }//Regular expression match ignoring case with multibyte support
-    public static function mb_eregi_replace($pattern,$replace,$str,$option="msr"){ return mb_eregi_replace($pattern,$replace,$str,$option); }//Replace regular expression with multibyte support ignoring case
-    public static function mb_ereg_match($pattern,$str,$option="msr"){ return mb_ereg_match($pattern,$str,$option); }//Regular expression match for multibyte string
-    public static function mb_ereg_replace($pattern,$replace,$str,$option="msr"){ return mb_ereg_replace($pattern,$replace,$str,$option); }//Replace regular expression with multibyte support
-    public static function mb_ereg_replace_callback($pattern,$callback,$str,$option="msr"){ return mb_ereg_replace_callback($pattern,$callback,$str,$option); }//Perform a regular expresssion seach and replace with multibyte support using a callback
-    public static function mb_ereg_search($pattern,$option="msr"){ return mb_ereg_search($pattern,$option); }//Multibyte regular expression match for predefined multibyte string
-    public static function mb_ereg_search_init($str,$pattern,$option="msr"){ return mb_ereg_search_init($str,$pattern,$option); }//Setup string and regular expression for a multibyte regular expression match
-    public static function mb_ereg_search_pos($pattern,$option="msr"){ return mb_ereg_search_pos($pattern,$option); }//Returns position and length of a matched part of the multibyte regular expression for a predefined multibyte string
-    public static function mb_ereg_search_regs($pattern,$option="msr"){ return mb_ereg_search_regs($pattern,$option); }//Returns the matched part of a multibyte regular expression
-    public static function mb_ereg_search_getpos(){ return mb_ereg_search_getpos(); }//Returns start point for next regular expression match
+    public static function mb_ereg($pattern,$str,&$regs){return mb_ereg($pattern,$str,$regs); }//Regular expression match with multibyte support
+    public static function mb_eregi($pattern,$str,&$regs){return mb_eregi($pattern,$str,$regs); }//Regular expression match ignoring case with multibyte support
+    public static function mb_eregi_replace($pattern,$replace,$str,$option="msr"){return mb_eregi_replace($pattern,$replace,$str,$option); }//Replace regular expression with multibyte support ignoring case
+    public static function mb_ereg_match($pattern,$str,$option="msr"){return mb_ereg_match($pattern,$str,$option); }//Regular expression match for multibyte string
+    public static function mb_ereg_replace($pattern,$replace,$str,$option="msr"){return mb_ereg_replace($pattern,$replace,$str,$option); }//Replace regular expression with multibyte support
+    public static function mb_ereg_replace_callback($pattern,$callback,$str,$option="msr"){return mb_ereg_replace_callback($pattern,$callback,$str,$option); }//Perform a regular expresssion seach and replace with multibyte support using a callback
+    public static function mb_ereg_search($pattern,$option="msr"){return mb_ereg_search($pattern,$option); }//Multibyte regular expression match for predefined multibyte string
+    public static function mb_ereg_search_init($str,$pattern,$option="msr"){return mb_ereg_search_init($str,$pattern,$option); }//Setup string and regular expression for a multibyte regular expression match
+    public static function mb_ereg_search_pos($pattern,$option="msr"){return mb_ereg_search_pos($pattern,$option); }//Returns position and length of a matched part of the multibyte regular expression for a predefined multibyte string
+    public static function mb_ereg_search_regs($pattern,$option="msr"){return mb_ereg_search_regs($pattern,$option); }//Returns the matched part of a multibyte regular expression
+    public static function mb_ereg_search_getpos(){return mb_ereg_search_getpos(); }//Returns start point for next regular expression match
     public static function mb_ereg_search_setpos($position){ return mb_ereg_search_setpos($position); }//Set start point of next regular expression match
-    public static function mb_ereg_search_getregs(){ return mb_ereg_search_getregs(); }//Retrieve the result from the last multibyte regular expression match
-    public static function mb_regex_encoding($charSet){ return mb_regex_encoding($charSet); }//Set/Get character encoding for multibyte regex
-    public static function mb_regex_set_options($options ){ return mb_regex_set_options($options); }//Set/Get the default options for mbregex functions
-    //
+    public static function mb_ereg_search_getregs(){return mb_ereg_search_getregs(); }//Retrieve the result from the last multibyte regular expression match
+    public static function mb_regex_encoding($charSet){return mb_regex_encoding($charSet); }//Set/Get character encoding for multibyte regex
+    public static function mb_regex_set_options($options ){return mb_regex_set_options($options); }//Set/Get the default options for mbregex functions
 
-    // url
+    /**
+     * ctype 字符检测
+     */
+    public static function ctype_alnum($text){return ctype_alnum($text);}//检查提供的text是否全部为字母和(或)数字字符。
+    public static function ctype_alpha($text){return ctype_alpha($text);}//查看提供的text里面的所有字符是否只包含字符。
+    public static function ctype_cntrl($text){return ctype_cntrl($text);}//查看提供的text里面的所有字符是否都是控制字符。
+    public static function ctype_digit($text){return ctype_digit($text);}//查看提供的text里面的所有字符是否都是数字。
+    public static function ctype_graph($text){return ctype_graph($text);}//查看提供的text里面的所有字符是否都是可见的。
+    public static function ctype_lower($text){return ctype_lower($text);}//查看提供的text里面的所有字符是否都是小写字母。
+    public static function ctype_upper($text){return ctype_upper($text);}//查看提供的text里面的所有字符是否都是大写字母。
+    public static function ctype_print($text){return ctype_print($text);}//查看提供的text里面的所有字符是否都是可以打印出来。
+    public static function ctype_punct($text){return ctype_punct($text);}//查看提供的text里面的所有字符是否不包含空白、数字和字母
+    public static function ctype_space($text){return ctype_space($text);}//查看提供的text里面的所有字符是否包含空白。
+    public static function ctype_xdigit($text){return ctype_xdigit($text);}//查看提供的text里面的所有字符是否都是十六进制字符串。
 
     // 加密扩展
 }

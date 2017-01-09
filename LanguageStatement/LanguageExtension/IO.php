@@ -9,7 +9,6 @@
 
 namespace LanguageStatement\LanguageExtension;
 
-
 class IO
 {
     //访问各个输入/输出流（I/O streams）
@@ -33,7 +32,9 @@ class IO
         'max_input_time',//脚本解析输入数据（类似 POST 和 GET）允许的最大时间，单位是秒。
         'max_input_nesting_level',//设置输入变量的嵌套深度 (例如 $_GET，$_POST......)
         'max_input_vars',//接受多少 输入的变量（限制分别应用于 $_GET、$_POST 和 $_COOKIE 超全局变量） 指令的使用减轻了以哈希碰撞来进行拒绝服务攻击的可能性。
-        '',
+
+        'filter.default',//Filter all $_GET, $_POST, $_COOKIE, $_REQUEST and $_SERVER data by this filter
+        'filter.default_flags',//Default flags to apply when the default filter is set.
         /*
          * 废弃
          * magic_quotes_runtime
@@ -61,8 +62,10 @@ class IO
         '$argv',        //传递给脚本的参数数组
     );
 
+
+
     /*
-     * IO
+     * IO 管道
      * void echo ( string $arg1 [, string $... ] )
      * int print ( string $arg )
      * int printf ( string $format [, mixed $args [, mixed $... ]] )
@@ -79,6 +82,30 @@ class IO
     public static function debug_zval_dump($variable){ debug_zval_dump($variable); }//Dumps a string representation of an internal zend value to output
     // 文件 输出
     public static function readfile($filename,$use_include_path=false,$context){return readfile($filename,$use_include_path,$context);}//读取文件并写入到输出缓冲。
+
+    /**
+     * input
+     */
+    public static function filter_list(){return filter_list();}//返回所支持的过滤器列表
+    const INPUT_GET                 = INPUT_GET;//
+    const INPUT_POST                = INPUT_POST;//
+    const INPUT_COOKIE              = INPUT_COOKIE;//
+    const INPUT_SERVER              = INPUT_SERVER;//
+    const INPUT_ENV                 = INPUT_ENV;//
+    public static function filter_has_var($type,$variable_name){return filter_has_var($type,$variable_name);}//Checks if variable of specified type exists
+    public static function filter_input($type,$variable_name,$filter=FILTER_DEFAULT,$options){return filter_input($type,$variable_name,$filter,$options);}//通过名称获取特定的外部变量，并且可以通过过滤器处理它
+    public static function filter_input_array($type,$definition,$add_empty=true){return filter_input_array($type,$definition,$add_empty);}//获取一系列外部变量，并且可以通过过滤器处理它们
+    const FILTER_VALIDATE_BOOLEAN   = FILTER_VALIDATE_BOOLEAN;//Returns TRUE for "1", "true", "on" and "yes". Returns FALSE otherwise.
+    const FILTER_VALIDATE_FLOAT     = FILTER_VALIDATE_FLOAT;//float
+    const FILTER_VALIDATE_INT       = FILTER_VALIDATE_INT;//integer
+    const FILTER_VALIDATE_EMAIL     = FILTER_VALIDATE_EMAIL;//e-mail address
+    const FILTER_VALIDATE_URL       = FILTER_VALIDATE_URL;//URL (SCHEME,HOST,PATH,QUERY)
+    const FILTER_VALIDATE_IP        = FILTER_VALIDATE_IP;//IP address (IPV4,IPV6)
+    const FILTER_VALIDATE_MAC       = FILTER_VALIDATE_MAC;//MAC address
+    const FILTER_VALIDATE_REGEXP    = FILTER_VALIDATE_REGEXP;//a Perl-compatible regular expression.
+    public static function filter_var($variable,$filter=FILTER_DEFAULT,$options){return filter_var($variable,$filter,$options);}//使用特定的过滤器过滤一个变量
+    public static function filter_var_array($data,$definition,$add_empty=true){return filter_var_array($data,$definition,$add_empty);}//获取多个变量并且过滤它们
+
     /*
      * output
      */
@@ -86,8 +113,6 @@ class IO
     public static function ob_get_level(){ return ob_get_level(); }//返回输出缓冲机制的嵌套级别
     public static function ob_get_status(){return ob_get_status($full_status=FALSE);}//得到所有输出缓冲区的状态
     public static function ob_implicit_flush($flag=true){ ob_implicit_flush($flag); }//设为TRUE 打开绝对刷送，反之是 FALSE
-    //
-
     // 输出缓冲
     public static function ob_start(){ return ob_start(); }//打开输出控制缓冲
     public static function flush(){ flush(); }//刷新输出缓冲

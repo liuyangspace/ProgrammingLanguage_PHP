@@ -3,7 +3,7 @@
  * PHP 命令行
  */
 
-namespace LanguageStatement\LanguageExtension;
+namespace LanguageStatement\LanguageExtension\Terminal;
 
 
 class Cli
