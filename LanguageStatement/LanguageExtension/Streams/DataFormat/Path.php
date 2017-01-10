@@ -8,7 +8,8 @@ namespace LanguageStatement\LanguageExtension\Streams\DataFormat;
 
 class Path
 {
-    // path
+
+    // path 参见DataType/StringClass
     const PATHINFO_DIRNAME      = PATHINFO_DIRNAME;
     const PATHINFO_BASENAME     = PATHINFO_BASENAME;
     const PATHINFO_EXTENSION    = PATHINFO_EXTENSION;
@@ -17,4 +18,5 @@ class Path
     public static function dirname($path){return dirname($path);}//返回路径中的目录部分
     public static function basename($path,$suffix){return basename($path,$suffix);}//返回路径中的文件名部分
     public static function realpath($path){return realpath($path);}//返回规范化的绝对路径名
+
 }

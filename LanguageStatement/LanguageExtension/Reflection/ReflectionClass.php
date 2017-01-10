@@ -6,7 +6,7 @@
 namespace LanguageStatement\LanguageExtension\Reflection;
 
 
-class ReflectionClass extends \ReflectionClass
+class ReflectionClass extends \ReflectionClass implements \Reflector
 {
     /** 常量
      * const integer IS_IMPLICIT_ABSTRACT = 16 ;

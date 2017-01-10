@@ -132,12 +132,14 @@ class PHPString
     public static function htmlentities($str,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8',$double_encode=true ){ return htmlentities($str,$flags,$encoding,$double_encode); }//所有字符转为html实体
     public static function html_entity_decode($str,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8' ){ return html_entity_decode ($str,$flags,$encoding); }//html实体转为所有字符
     public static function get_html_translation_table($table=HTML_SPECIALCHARS,$flags=ENT_COMPAT|ENT_HTML401,$encoding='UTF-8'){ return get_html_translation_table($table,$flags,$encoding); }//返回使用 htmlspecialchars() 和 htmlentities() 后的转换表
-    // 字符集 编码
+    // 字符集 编码  ,参见 LanguageExtension/Streams/DataFormat/Url
     public static function utf8_encode($data){ return utf8_encode($data); }//将 ISO-8859-1 编码的字符串转换为 UTF-8 编码
     public static function utf8_decode($data){ return utf8_decode($data); }//将用 UTF-8 方式编码的 ISO-8859-1 字符串转换成单字节的 ISO-8859-1 字符串。
     public static function convert_uuencode($data){ return convert_uuencode($data); }//使用 uuencode 编码一个字符串
     public static function convert_uudecode($data){ return convert_uudecode($data); }//解码一个 uuencode 编码的字符串
     public static function convert_cyr_string($str,$from,$to){ return convert_cyr_string($str,$from,$to); }//将字符由一种 Cyrillic 字符转换成另一种
+    public static function base64_encode($data){return base64_encode($data);}//使用 MIME base64 对数据进行编码
+    public static function base64_decode($data,$strict=false){return base64_decode($data,$strict);}//对使用 MIME base64 编码的数据进行解码
     public static function crc32($str){ return crc32($str); }//计算一个字符串的 crc32 多项式
     public static function hebrev($hebrew_text,$max_chars_per_line=0){ return hebrev($hebrew_text,$max_chars_per_line); }//将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew）
     public static function hebrevc($hebrew_text,$max_chars_per_line=0){ return hebrevc($hebrew_text,$max_chars_per_line); }//将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew），并且转换换行符
