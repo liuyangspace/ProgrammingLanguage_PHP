@@ -95,7 +95,7 @@ class Streams
     public static function stream_register_wrapper($protocol,$classname,$flags){ return stream_register_wrapper($protocol,$classname,$flags);}//别名 stream_wrapper_register()
     public static function stream_wrapper_unregister($protocol){return stream_wrapper_unregister($protocol);}//Unregister a URL wrapper
     public static function stream_wrapper_restore($protocol){return stream_wrapper_restore($protocol);}//Restores a previously unregistered built-in wrapper
-    // stream 拷贝 字符集
+    // stream 操作 拷贝 字符集
     public static function stream_copy_to_stream($fromStream,$toStream,$length=-1,$offset=0){return stream_copy_to_stream($fromStream,$toStream,$length,$offset);}//流拷贝
     public static function stream_encoding($stream,$encoding){return stream_encoding($stream,$encoding);}//设置数据流的字符集
     public static function stream_set_blocking($stream,$mode){return stream_set_blocking($stream,$mode);}//为资源流设置阻塞或者阻塞模式
@@ -119,6 +119,7 @@ class Streams
     public static function stream_bucket_make_writeable($brigade){return stream_bucket_make_writeable($brigade);}//Return a bucket object from the brigade for operating on
     public static function stream_bucket_new($stream,$buffer){return stream_bucket_new($stream,$buffer);}//Create a new bucket for use on the current stream
     public static function stream_bucket_prepend($brigade,$bucket){stream_bucket_prepend($brigade,$bucket);}//Prepend bucket to brigade
+
     // context 资源上下文
     public static function stream_context_get_default($options){return stream_context_get_default($options);}//Retrieve the default stream context
     public static function stream_context_create($options,$params){return stream_context_create($options,$params);}//创建资源流上下文
@@ -127,12 +128,17 @@ class Streams
     public static function stream_context_set_default($options){return stream_context_set_default($options);}//Set the default stream context
     public static function stream_context_set_option($stream_or_context,$options){return stream_context_set_option($stream_or_context,$options);}//对资源流、数据包或者上下文设置参数
     public static function stream_context_set_params($stream_or_context,$params){return stream_context_set_params($stream_or_context,$params);}//Set parameters for a stream/wrapper/context
+
     // Stream filter
     public static function stream_get_filters(){return stream_get_filters();}//获取已注册的数据流过滤器列表
     public static function stream_filter_register($filtername,$classname){return stream_filter_register($filtername,$classname);}//Register a user defined stream filter
     public static function stream_filter_remove($stream_filter){return stream_filter_remove($stream_filter);}//从资源流里移除某个过滤器
+    const STREAM_FILTER_READ        = STREAM_FILTER_READ;//
+    const STREAM_FILTER_WRITE       = STREAM_FILTER_WRITE;//
+    const STREAM_FILTER_ALL         = STREAM_FILTER_ALL;//
     public static function stream_filter_append($stream,$filtername,$read_write,$params){return stream_filter_append($stream,$filtername,$read_write,$params);}//Attach a filter to a stream
     public static function stream_filter_prepend($stream,$filtername,$read_write,$params){return stream_filter_prepend($stream,$filtername,$read_write,$params);}//Attach a filter to a stream
+
     // socket
     public static function stream_get_transports(){return stream_get_transports();}//获取已注册的套接字传输协议列表
     const STREAM_SERVER_BIND            = STREAM_SERVER_BIND;// UDP
