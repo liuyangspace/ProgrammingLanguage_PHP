@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/24
- * Time: 11:22
+ * user filter
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\php_user_filter;

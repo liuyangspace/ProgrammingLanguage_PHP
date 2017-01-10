@@ -13,6 +13,8 @@
  *  SPL(Standard PHP Library,PHP标准类库)
  *  POSIX(Portable Operating System Interface,可移植操作系统接口)
  *  DTrace(动态跟踪)
+ *
+ *  HTTP(HyperText Transfer Protocol)
  * Reference:
  *  http://php.net/manual/zh/langref.php
  */
@@ -218,7 +220,7 @@ class LanguageStatement
      * 预定义类和接口
      */
     public static $predefinedClasses = array(
-        'exception',                    //所有异常的基类。
+        'Exception',                    //所有异常的基类。
         'ErrorException',               //错误异常。
         'php_user_filter',
         'Generator',                    // 生成器类 Generator 对象不能通过 new 实例化.
@@ -228,6 +230,7 @@ class LanguageStatement
         'ArrayAccess',                  //（数组式访问）接口  ,提供像访问数组一样访问对象的能力的接口。
         'Serializable',                 //（序列化）接口  ,实现此接口的类将不再支持 __sleep() 和 __wakeup()。
         'Closure',                      // 接口  ,用于代表 匿名函数 的类。
+        //
         'final',
         'static',
         'self',
@@ -247,13 +250,15 @@ class LanguageStatement
         'JsonSerializable',//影响json_encode
     ];
     public static $extensionClasses = [
-        //
+        'stdClass',
+        '__PHP_Incomplete_Class',
+        //date time
         'DateTime',
         'DatePeriod',
         'DateInterval',
         'DateTimeImmutable',
         'DateTimeZone',
-        //
+        //class interface extension method function property
         'Reflection',
         'ReflectionClass',
         'ReflectionObject',
@@ -265,9 +270,11 @@ class LanguageStatement
         'ReflectionFunctionAbstract',
         'ReflectionProperty',
         'ReflectionParameter',
-        //
+        // directory file
         'Directory',
         'finfo',
+        // SPL
+        'SplDoublyLinkedList',
     ];
 
 

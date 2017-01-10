@@ -8,6 +8,7 @@ namespace LanguageStatement\LanguageExtension;
 
 class Config
 {
+    // 系统环境变量参见 PHPInfo
     //配置可被设定范围
     public static $configAreas=[
         'PHP_INI_USER'  => '可在用户脚本（例如 ini_set()）或 Windows 注册表（自 PHP 5.3 起）以及 .user.ini 中设定',

@@ -61,7 +61,12 @@ class PHPOOP extends PHPFunction
     //  is
     public static function is_a($object,$className,$allowString=FALSE){ return is_a($object,$className,$allowString); }//如果对象属于该类或该类是此对象的父类则返回 TRUE
     public static function is_subclass_of($object,$className){ return is_subclass_of($object,$className); }//如果此对象是该类的子类，则返回 TRUE
-
+    // SPL class
+    public static function spl_classes(){return spl_classes();}//返回所有可用的SPL类
+    public static function spl_object_hash($obj){return spl_object_hash($obj);}//返回指定对象的hash id
+    public static function class_uses($class,$autoload=true){return class_uses($class,$autoload);}//Return the traits used by the given class
+    public static function class_parents($class,$autoload){return class_parents($class,$autoload);}//返回指定类的父类。
+    public static function class_implements($class,$autoload){return class_implements($class,$autoload);}//返回指定的类实现的所有接口。
     /*
      * 已废弃 方法;
      *  mixed call_user_method_array ( string $method_name , object &$obj , array $paramarr )
