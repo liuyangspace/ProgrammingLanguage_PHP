@@ -1,1 +1,3 @@
-home:http://www.php.net/
+home:http://www.php.net
+Document:http://php.net/docs.php
+Manual:http://php.net/download-docs.php
