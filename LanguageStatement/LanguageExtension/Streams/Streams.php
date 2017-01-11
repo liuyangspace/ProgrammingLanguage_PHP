@@ -99,16 +99,19 @@ class Streams
     public static function stream_copy_to_stream($fromStream,$toStream,$length=-1,$offset=0){return stream_copy_to_stream($fromStream,$toStream,$length,$offset);}//流拷贝
     public static function stream_encoding($stream,$encoding){return stream_encoding($stream,$encoding);}//设置数据流的字符集
     public static function stream_set_blocking($stream,$mode){return stream_set_blocking($stream,$mode);}//为资源流设置阻塞或者阻塞模式
+    public static function socket_set_blocking($stream,$mode){return socket_set_blocking($stream,$mode);}//别名 stream_set_blocking()
     public static function stream_set_chunk_size($stream,$chunk_size){return stream_set_chunk_size($stream,$chunk_size);}//设置资源流区块大小
     public static function stream_set_read_buffer($stream,$buffer){return stream_set_read_buffer($stream,$buffer);}//Set read file buffering on the given stream
     public static function stream_set_write_buffer($stream,$buffer){return stream_set_write_buffer($stream,$buffer);}//Sets write file buffering on the given stream
     public static function stream_set_timeout($stream,$seconds,$microseconds=0){return stream_set_timeout($stream,$seconds,$microseconds);}//Set timeout period on a stream
+    public static function socket_set_timeout($stream,$seconds,$microseconds=0){return socket_set_timeout($stream,$seconds,$microseconds);}//别名 stream_set_timeout()
     public static function stream_supports_lock($stream){return stream_supports_lock($stream);}//Tells whether the stream supports locking.
 
     public static function stream_get_contents($handle,$maxlength=-1,$offset=-1){return stream_get_contents($handle,$maxlength,$offset);}//读取资源流到一个字符串
     public static function stream_get_line($handle,$length,$ending){return stream_get_line($handle,$length,$ending);}//从资源流里读取一行直到给定的定界符
 
     public static function stream_get_meta_data($fp){return stream_get_meta_data($fp);}//从封装协议文件指针中取得报头／元数据
+    public static function socket_get_status($fp){return socket_get_status($fp);}//别名 stream_get_meta_data()
     public static function stream_is_local($stream_or_url){return stream_is_local($stream_or_url);}//Checks if a stream is a local stream
 
     public static function stream_notification_callback($notification_code,$severity,$message,$message_code,$bytes_transferred,$bytes_max){stream_notification_callback($notification_code,$severity,$message,$message_code,$bytes_transferred,$bytes_max);}//A callback function for the notification context parameter

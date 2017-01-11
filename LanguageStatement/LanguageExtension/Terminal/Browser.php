@@ -18,7 +18,7 @@ class Browser
         'highlight.keyword',//
         'highlight.string',//
     ];
-
+    // 网络,文件相关输出参见 Streams
     //客户端 浏览器
     public static function connection_aborted(){ return connection_aborted(); }//检查客户端是否已经断开
     public static function connection_status(){ return connection_status(); }//获得当前连接的状态位。

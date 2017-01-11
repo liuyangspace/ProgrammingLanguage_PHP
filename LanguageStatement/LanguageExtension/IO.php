@@ -109,6 +109,7 @@ class IO
     /*
      * output
      */
+    // 网络,文件相关输出参见 Streams
     // 输出控制
     public static function ob_get_level(){ return ob_get_level(); }//返回输出缓冲机制的嵌套级别
     public static function ob_get_status(){return ob_get_status($full_status=FALSE);}//得到所有输出缓冲区的状态
