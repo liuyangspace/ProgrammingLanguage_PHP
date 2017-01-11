@@ -15,6 +15,9 @@
  *  DTrace(动态跟踪)
  *
  *  HTTP(HyperText Transfer Protocol)
+ *  TCP(Transmission Control Protocol)
+ *  UDP(User Datagram Protocol)
+ *  ICMP(Internet Control Message Protocol)
  * Reference:
  *  http://php.net/manual/zh/langref.php
  */

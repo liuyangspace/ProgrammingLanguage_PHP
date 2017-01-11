@@ -1,6 +1,8 @@
 <?php
 /**
  * PHP streams
+ * a way of generalizing file, network, data compression,
+ * and other operations which share a common set of functions and uses
  */
 
 namespace LanguageStatement\LanguageExtension\Streams;
@@ -142,7 +144,7 @@ class Streams
     public static function stream_filter_append($stream,$filtername,$read_write,$params){return stream_filter_append($stream,$filtername,$read_write,$params);}//Attach a filter to a stream
     public static function stream_filter_prepend($stream,$filtername,$read_write,$params){return stream_filter_prepend($stream,$filtername,$read_write,$params);}//Attach a filter to a stream
 
-    // socket
+    // socket 参见 Network
     public static function stream_get_transports(){return stream_get_transports();}//获取已注册的套接字传输协议列表
     const STREAM_SERVER_BIND            = STREAM_SERVER_BIND;// UDP
     public static function stream_socket_server($local_socket,&$errno,&$errstr,$flags,$context){return stream_socket_server($local_socket,$errno,$errstr,$flags,$context);}//Create an Internet or Unix domain server socket
