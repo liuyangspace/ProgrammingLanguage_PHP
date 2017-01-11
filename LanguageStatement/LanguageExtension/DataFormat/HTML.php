@@ -3,7 +3,7 @@
  * PHP HTML
  */
 
-namespace LanguageStatement\LanguageExtension\Streams\DataFormat;
+namespace LanguageStatement\LanguageExtension\DataFormat;
 
 
 class HTML

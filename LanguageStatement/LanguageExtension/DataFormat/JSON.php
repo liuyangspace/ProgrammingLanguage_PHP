@@ -3,7 +3,7 @@
  * JSON
  */
 
-namespace LanguageStatement\LanguageExtension\Streams\DataFormat;
+namespace LanguageStatement\LanguageExtension\DataFormat;
 
 
 class JSON implements \JsonSerializable

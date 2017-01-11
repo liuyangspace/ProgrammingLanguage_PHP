@@ -3,7 +3,7 @@
  * PHP URL
  */
 
-namespace LanguageStatement\LanguageExtension\Streams\DataFormat;
+namespace LanguageStatement\LanguageExtension\DataFormat;
 
 
 class Url

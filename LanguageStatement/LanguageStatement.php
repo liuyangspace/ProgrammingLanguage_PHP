@@ -251,6 +251,7 @@ class LanguageStatement
         'Reflector',//
         'DateTimeInterface',//
         'JsonSerializable',//影响json_encode
+        'SessionHandlerInterface',
     ];
     public static $extensionClasses = [
         'stdClass',
@@ -278,6 +279,8 @@ class LanguageStatement
         'finfo',
         // SPL
         'SplDoublyLinkedList',
+        //
+        'SessionHandler',
     ];
 
 
