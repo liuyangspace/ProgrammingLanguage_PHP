@@ -24,6 +24,8 @@ class LanguageRegulate
     public static function show_source($filename,$return=false){ show_source($filename,$return); }//别名 highlight_file()
     public static function highlight_string($str,$return=false){ return highlight_string($str,$return); }//字符串的语法高亮
 
+    public static function token_get_all($sourceCode){return token_get_all($sourceCode);}//将提供的源码按 PHP 标记进行分割
+    public static function token_name($token){return token_name($token);}//获取提供的 PHP 解析器代号的符号名称
     /*
      * 流程控制
      */

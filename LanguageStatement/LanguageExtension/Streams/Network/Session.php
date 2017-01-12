@@ -125,7 +125,7 @@ class SessionHandler extends \SessionHandler implements \SessionHandlerInterface
 {
     public function open($save_path, $session_name){return parent::open($save_path, $session_name);}//
     public function read($session_id){return parent::read($session_id);}
-    public function gc($maxlifetime){return parent::gc($maxlifetime);}
+    public function gc($maxlifetime){return parent::gc($maxlifetime);}//
     public function create_sid(){return parent::create_sid();}//
     public function destroy($session_id){return parent::destroy($session_id);}
     public function write($session_id, $session_data){parent::write($session_id, $session_data);}

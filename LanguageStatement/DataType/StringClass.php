@@ -173,7 +173,12 @@ class PHPString
     public static function eregi($pattern,$string,&$regs){ return eregi($pattern,$string,$regs); }//不区分大小写的正则表达式匹配
     public static function ereg_replace($pattern,$replacement,$string){ return ereg_replace($pattern,$replacement,$string); }//正则表达式替换
     public static function eregi_replace($pattern,$replacement,$string){ return eregi_replace($pattern,$replacement,$string); }//不区分大小写的正则表达式替换
-
+    public static function split($pattern,$string,$limit){return split($pattern,$string,$limit);}//用正则表达式将字符串分割到数组中
+    /**
+     * 自 PHP 5.3.0 起，已经废弃此函数。强烈建议不要应用此函数 。
+     * string sql_regcase ( string $string )
+     * array spliti ( string $pattern , string $string [, int $limit = -1 ] )
+     */
 }
 
 class PHPStringExtension extends PHPString

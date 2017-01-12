@@ -11,6 +11,12 @@ class SplDoublyLinkedList extends \SplDoublyLinkedList implements \Iterator, \Ar
 
     public function __construct(){parent::__construct();}
 
+    const IT_MODE_LIFO      = parent::IT_MODE_LIFO;//Stack style
+    const IT_MODE_FIFO      = parent::IT_MODE_FIFO;//Queue style
+    const IT_MODE_DELETE    = parent::IT_MODE_DELETE;//Elements are deleted by the iterator
+    const IT_MODE_KEEP      = parent::IT_MODE_KEEP;//Elements are traversed by the iterator
+    public function getIteratorMode(){return parent::getIteratorMode();}//Returns the mode of iteration
+
     // ArrayAccess
     public function offsetExists($index){return parent::offsetExists($index);}//
     public function offsetGet($index){return parent::offsetGet($index);}//
@@ -29,7 +35,7 @@ class SplDoublyLinkedList extends \SplDoublyLinkedList implements \Iterator, \Ar
     // Countable
     public function count(){parent::count();}
 
-    //
+    // serialize
     public function serialize(){return parent::serialize();}
     public function unserialize($serialized){parent::unserialize($serialized);}
 
@@ -46,6 +52,6 @@ class SplDoublyLinkedList extends \SplDoublyLinkedList implements \Iterator, \Ar
     public function unshift($value){parent::unshift($value);}//Prepends the doubly linked list with an element
 
     public function isEmpty(){return parent::isEmpty();}//Checks whether the doubly linked list is empty
-    public function getIteratorMode(){return parent::getIteratorMode();}//Returns the mode of iteration
+
 
 }
