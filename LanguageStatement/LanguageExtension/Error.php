@@ -1,6 +1,7 @@
 <?php
 /**
  * PHP 错误 异常 日志
+ *
  */
 
 namespace LanguageStatement\LanguageExtension\Error;

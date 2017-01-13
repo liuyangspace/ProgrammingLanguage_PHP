@@ -1,8 +1,16 @@
 <?php
 /**
- * php基础：php 选项
+ * php基础：php 调控
  * php statement：
  *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。
+ * 代码执行指令：
+ *  declare结构：declare (directive)  statement
+ *  Tick（时钟周期）指令：
+ *      在 declare 中的 directive 部分用 ticks=N 来指定，声明代码段中解释器每执行 N 条可计时的低级语句就会发生的事件
+ *      每个 tick 中出现的事件是由 register_tick_function()/unregister_tick_function()来指定的。
+ *  Encoding 指令：
+ *      对每段脚本指定其编码方式。
+ *      当和命名空间结合起来时 declare 的唯一合法语法是 declare(encoding='...').
  * Reference:
  *  http://php.net/manual/zh/langref.php
  */
