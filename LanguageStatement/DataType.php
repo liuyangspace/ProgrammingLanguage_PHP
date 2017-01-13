@@ -1,5 +1,21 @@
 <?php
-
+/**
+ * 数据种类
+ * 变量
+ *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。表述为：'[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'。
+ *  变量用一个美元符号后面跟变量名来表示。变量名是区分大小写的。
+ *  $this 是一个特殊的变量，它不能被赋值。
+ *  引用赋值,& 符号加到将要赋值的变量前（源变量）,只有有名字的变量才可以引用赋值。
+ *  global 关键字:预定义变量需要用 'global' 关键字来使它们在函数的本地区域中有效
+ *  $GLOBALS 是一个超全局变量,在全局范围内存在
+ *  静态变量:仅在局部函数域中存在，当程序执行离开此作用域时，其值并不丢失。
+ *  静态声明是在编译时解析的。
+ *  可变变量:获取一个普通变量的值作为这个可变变量的变量名。$this,超全局变量不能用作可变变量。
+ * 常量:一旦被定义，就不能再改变或者取消定义。
+ *  合法的常量名以字母或下划线开始，后面跟着任何字母，数字或下划线。表述为：[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*。
+ *  常量默认为大小写敏感。
+ *  常量的范围是全局的。
+ */
 
 
 namespace LanguageStatement;
@@ -62,8 +78,13 @@ class DataType extends PHPDataType
 
 class PHPDataType
 {
-    // string pack ( string $format [, mixed $args [, mixed $... ]] )
-    // array unpack ( string $format , string $data )
+    /**
+     * PHP 封装的数据结构(队，栈，堆...),参见 LanguageExtension/SPL/DataStructure
+     */
+
+    // 数据打包
+    public static function pack($format,...$args){return pack($format,...$args);}//Pack data into binary string
+    public static function unpack($format,$data){}//Unpack data from binary string
 
     public static function uniqid($prefix="",$more_entropy=false){ return uniqid($prefix,$more_entropy); }//获取一个带前缀、基于当前时间微秒数的唯一ID。
     public static function serialize($var){ return serialize($var); }//产生一个可存储的值的表示
@@ -72,7 +93,7 @@ class PHPDataType
     public static function isset($name){ return isset($name); }//检测变量是否设置
     public static function unset($name){ unset($name); }//释放给定的变量
     public static function empty($name){ return empty($name); }//检查一个变量是否为空
-    public static function var_dump($name){ var_dump($name); }//Dumps a string representation of an internal zend value to output
+    public static function var_dump(...$name){ var_dump(...$name); }//Dumps a string representation of an internal zend value to output
     public static function var_export($name,$return=false){ var_export($name,$return); }//输出或返回一个变量的字符串表示
     public static function debug_zval_dump($variable){ debug_zval_dump($variable); }//Dumps a string representation of an internal zend value to output
     public static function get_defined_vars(){ return get_defined_vars(); }//返回由所有已定义变量所组成的数组

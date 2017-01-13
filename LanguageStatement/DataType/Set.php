@@ -1,6 +1,6 @@
 <?php
 /*
- * 集合
+ * 集合 参见 SplObjectStorage (LanguageExtension/SPL/DataStructure/SplObjectStorage)
  * set 特征：
  *  Set 接口实例存储的是无序的，不重复的数据。
  * 用例：
@@ -22,7 +22,7 @@
 namespace LanguageStatement\DataType;
 
 //集合
-class Set implements \ArrayAccess
+class Set extends \SplObjectStorage implements \ArrayAccess
 {
 
     //  数据存储容器

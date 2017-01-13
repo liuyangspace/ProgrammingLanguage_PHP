@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * php基础数据类型处理:布尔类型
  *  要指定一个布尔值，使用关键字 TRUE 或 FALSE。两个都不区分大小写。
  * Reference:
@@ -9,8 +9,9 @@
 namespace LanguageStatement\DataType;
 
 class Boolean extends PHPBoolean
-{// php内置有关常量、函数见 父类
-    /*
+{
+    // php内置有关常量、函数见 父类
+    /**
      * PHP 弱比较下的false
      */
     protected static $falseType = array(
@@ -24,19 +25,19 @@ class Boolean extends PHPBoolean
                     //从空标记生成的 SimpleXML 对象
     );
 
-    /*
+    /**
      * 获取弱比较下的false数组
      * Array getFalse()
      */
     public static function getFalseType(){ return self::$falseType; }
 
-    /*
+    /**
      * 类型转换为boolean
      */
     public static function toBoolean ( $var ){ return (boolean)$var; }
     public static function toBool ( $var ){ return (bool)$var; }
 
-    /*
+    /**
      *  常用逻辑运算
      */
     public static function getAnd( $varLeft , $varRight ){ return $varLeft and $varRight;}//与
@@ -47,13 +48,13 @@ class Boolean extends PHPBoolean
 
 class PHPBoolean
 {
-    /*
+    /**
      * 类型判断是否为boolean
      */
     public static function isBoolean ( $var ){ return is_bool($var); }
     public static function is_bool ( $var ){ return is_bool($var); }
 
-    /*
+    /**
      * 类型转换为boolean
      */
     public static function boolval( $var ){ return boolval($var); }

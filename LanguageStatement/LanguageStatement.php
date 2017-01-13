@@ -2,7 +2,10 @@
 /*
  * php基础：语言声明
  * php statement：
- *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。
+ *  PHP 标记：<?php 和 ?>，<script language="php"> </script>，短标记 <? 和 ?>，<% 和 %>
+ *  注释: // ... ?> , # ... ?> , /* ... *\/
+ * 表达式:PHP 是一种面向表达式的语言，从这一方面来讲几乎一切都是表达式。
+ *  最基本的表达式形式是常量和变量。
  * 相关缩写:
  *  PHP(PHP: Hypertext Preprocessor,超文本预处理器)
  *  CGI(Common Gateway Interface,公共网关接口),
@@ -10,7 +13,7 @@
  *  SAPI(Server Application Programming Interface,服务端应用编程端口)
  *  PECL(The PHP Extension Community Library,)
  *  PEAR(PHP Extension and Application Repository,PHP 扩展和应用仓库)
- *  SPL(Standard PHP Library,PHP标准类库)
+ *  SPL(Standard PHP Library,PHP标准库)
  *  POSIX(Portable Operating System Interface,可移植操作系统接口)
  *  DTrace(动态跟踪)
  *
@@ -86,7 +89,7 @@ class LanguageStatement
         '+','-','.',                //算术运算符和字符串运算符
         '<<','>>',                  //位运算符
         '<','<=','>','>=',          //比较运算符
-        '==','!=','===','!==','<>','<=>',//比较运算符 (<=>PHP7)
+        '==','!=','===','!==','<>','<=>',//比较运算符 ( <=> PHP7 )
         '&',                        //按位与和引用
         '^',                        //按位异或
         '|',                        //按位或
@@ -202,14 +205,13 @@ class LanguageStatement
         '__set()',          //在给不可访问属性赋值时，__set() 会被调用。public void __set ( string $name , mixed $value )
         '__isset()',        //当对不可访问属性调用 isset() 或 empty() 时，__isset() 会被调用。public bool __isset ( string $name )
         '__unset()',        //当对不可访问属性调用 unset() 时，__unset() 会被调用。public void __unset ( string $name )
-        '__sleep()',
-        /*
-         * serialize() 函数会检查类中是否存在一个魔术方法 __sleep()。
-         * 如果存在，该方法会先被调用，然后才执行序列化操作。
-         * 此功能可以用于清理对象，并返回一个包含对象中所有应被序列化的变量名称的数组。
-         * 如果该方法未返回任何内容，则 NULL 被序列化，并产生一个 E_NOTICE 级别的错误。
-         * public array __sleep ( void )
-         */
+        '__sleep()',        /*
+                             * serialize() 函数会检查类中是否存在一个魔术方法 __sleep()。
+                             * 如果存在，该方法会先被调用，然后才执行序列化操作。
+                             * 此功能可以用于清理对象，并返回一个包含对象中所有应被序列化的变量名称的数组。
+                             * 如果该方法未返回任何内容，则 NULL 被序列化，并产生一个 E_NOTICE 级别的错误。
+                             * public array __sleep ( void )
+                             */
         '__wakeup()',       //经常用在反序列化操作中，例如重新建立数据库连接，或执行其它初始化操作。void __wakeup ( void )
         '__toString()',     //__toString() 方法用于一个类被当成字符串时应怎样回应。public string __toString ( void )
         '__invoke()',       //当尝试以调用函数的方式调用一个对象时，__invoke() 方法会被自动调用。mixed __invoke ([ $... ] )
@@ -255,7 +257,7 @@ class LanguageStatement
     ];
     public static $extensionClasses = [
         'stdClass',
-        '__PHP_Incomplete_Class',
+        '__PHP_Incomplete_Class',//无方法的类，反序列化时的默认类（没有找到该对象的类的定义）
         //date time
         'DateTime',
         'DatePeriod',

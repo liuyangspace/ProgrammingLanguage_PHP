@@ -1,6 +1,6 @@
 <?php
 /*
- * 映射
+ * 映射 参见 SplObjectStorage (LanguageExtension/SPL/DataStructure/SplObjectStorage)
  * map 特征：
  *
  * 用例：
@@ -12,13 +12,16 @@
 namespace LanguageStatement\DataType;
 
 //图
-class Map implements \ArrayAccess
+class Map
 {
     //应射 关系（函数）
-    protected $mapFunction=null;
+    protected $value;
 
-    //数据存储容器
-    protected $container = [];
+    //指向其他Map节点的 引用数组
+    protected $to = [];
+
+    //指向本节点的 Map节点引用数组
+    protected $from = [];
 
     /*
      * 构建
@@ -26,109 +29,136 @@ class Map implements \ArrayAccess
      * @param $var
      * @return Map
      */
-    public function __construct($var=null,callable $func=null,$param=null)
-    {var_dump($func);
-        $this->setMapOperate($func,$param);
-        if(is_array($var)){
-            foreach($var as $key=>$value){
-                $index=call_user_func($this->mapFunction,$key,$value,$param);
-                $this->container[$index]=$value;
+    public function __construct($value=null,Array $from=[],Array $to=[])
+    {
+        $this->value=$value;
+    }
+
+    public function addTo(Map $map)
+    {
+        // add $this to
+        $hasTo=false;
+        foreach($this->to as $toMap){
+            if($map->compare($toMap)){
+                $hasTo=true;
             }
-        }elseif($var===null){
-
-        }else{
-            throw new \Exception('"'.$var.'" is not a array or null !');
+        }
+        if(!$hasTo){
+            $this->to[]=$map;
+        }
+        // add $map from
+        $hasFrom=false;
+        foreach($map->from as $fromMap){
+            if($this->compare($fromMap)){
+                $hasFrom=true;
+            }
+        }
+        if(!$hasFrom){
+            $map->addFrom($this);
         }
     }
 
-    public function setMapOperate(callable $func=null,$param=null)
+    public function isTo(Map $map)
     {
-        if($func === null){
-            $func=function($index){
-                return $index;
-            };
+        foreach($this->to as $toMap){
+            if($map->compare($toMap)){
+                return true;
+            }
         }
-        $this->mapFunction=$func;
+        return false;
     }
 
-    /**
-     * Whether a offset exists
-     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param mixed $offset <p>
-     * An offset to check for.
-     * </p>
-     * @return boolean true on success or false on failure.
-     * </p>
-     * <p>
-     * The return value will be casted to boolean if non-boolean was returned.
-     * @since 5.0.0
-     */
-    public function offsetExists($offset)
+    public function removeTo(Map $map)
     {
-        return array_key_exists(call_user_func($this->mapFunction,$offset),$this->container);
+
     }
 
-    /**
-     * Offset to retrieve
-     * @link http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     * The offset to retrieve.
-     * </p>
-     * @return mixed Can return all value types.
-     * @since 5.0.0
-     */
-    public function offsetGet($offset)
+    public function removeFrom(Map $map)
     {
-        if($this->offsetExists($offset)){
-            return $this->container[call_user_func($this->mapFunction,$offset)];
-        }else{
-            throw new \Exception('Undefined index : '.$offset);
+
+    }
+
+    public function addFrom(Map $map)
+    {
+        // add $this from
+        $hasFrom=false;
+        foreach($this->from as $fromMap){
+            if($map->compare($fromMap)){
+                return;
+            }
+        }
+        if(!$hasFrom){
+            $this->to[]=$map;
+        }
+        // add $map to
+        $hasTo=false;
+        foreach($map->to as $fromMap){
+            if($this->compare($fromMap)){
+                $hasTo=true;
+            }
+        }
+        if(!$hasTo){
+            $map->addTo($this);
         }
     }
 
-    /**
-     * Offset to set
-     * @link http://php.net/manual/en/arrayaccess.offsetset.php
-     * @param mixed $offset <p>
-     * The offset to assign the value to.
-     * </p>
-     * @param mixed $value <p>
-     * The value to set.
-     * </p>
-     * @return void
-     * @since 5.0.0
-     */
-    public function offsetSet($offset, $value)
+    public function isFrom(Map $map)
     {
-        $this->container[call_user_func($this->mapFunction,$offset)]=$value;
+        foreach($this->from as $fromMap){
+            if($map->compare($fromMap)){
+                return true;
+            }
+        }
+        return false;
     }
 
-    /**
-     * Offset to unset
-     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param mixed $offset <p>
-     * The offset to unset.
-     * </p>
-     * @return void
-     * @since 5.0.0
-     */
-    public function offsetUnset($offset)
+    public function  getFrom()
     {
-        unset($this->container[call_user_func($this->mapFunction,$offset)]);
+        return $this->from;
+    }
+
+    public function  getTo()
+    {
+        return $this->to;
+    }
+
+
+    public function compare(Map $map)
+    {
+         return $this===$map;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function setValue($value)
+    {
+        $this->value=$value;
     }
 
     /*
      * 打印
      * Array export( void )
+     * Array __debugInfo( void )
      * @param void
-     * @return
+     * @return Array
      */
     public function export()
     {
-        return $this->container;
+        return [
+            'value' => $this->value,
+            'from'  => $this->from,
+            'to'    => $this->to,
+        ];
     }
     public function __debugInfo()
     {
-        return $this->container;
+        return [
+            'value' => $this->value,
+            'from'  => $this->from,
+            'to'    => $this->to,
+        ];
     }
 }

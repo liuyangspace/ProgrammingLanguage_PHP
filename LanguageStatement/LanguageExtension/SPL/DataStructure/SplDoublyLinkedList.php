@@ -25,7 +25,7 @@ class SplDoublyLinkedList extends \SplDoublyLinkedList implements \Iterator, \Ar
 
     // Iterator
     public function current(){return parent::current();}
-    public function key(){parent::key();}
+    public function key(){return parent::key();}
     public function rewind(){parent::rewind();}
     public function valid(){return parent::valid();}
     public function next(){parent::next();}//Move to next entry
@@ -33,9 +33,9 @@ class SplDoublyLinkedList extends \SplDoublyLinkedList implements \Iterator, \Ar
     public function prev(){parent::prev();}//Move to previous entry
 
     // Countable
-    public function count(){parent::count();}
+    public function count(){return parent::count();}
 
-    // serialize
+    // Serializable
     public function serialize(){return parent::serialize();}
     public function unserialize($serialized){parent::unserialize($serialized);}
 

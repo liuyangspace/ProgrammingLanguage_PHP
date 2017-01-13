@@ -25,13 +25,13 @@ class SplQueue extends \SplQueue  implements \Iterator, \ArrayAccess, \Countable
      * public function offsetUnset($index){parent::offsetUnset($index);}
      * // Iterator
      * public function current(){return parent::current();}
-     * public function key(){parent::key();}
+     * public function key(){return parent::key();}
      * public function rewind(){parent::rewind();}
      * public function valid(){return parent::valid();}
      * public function next(){parent::next();}//Move to next entry
      * public function prev(){parent::prev();}//Move to previous entry
      * // Countable
-     * public function count(){parent::count();}
+     * public function count(){return parent::count();}
      * // Serialize
      * public function serialize(){return parent::serialize();}
      * public function unserialize($serialized){parent::unserialize($serialized);}

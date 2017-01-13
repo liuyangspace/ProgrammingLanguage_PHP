@@ -1,8 +1,8 @@
 <?php
 /*
- * 字典
+ * 字典 参见 SplObjectStorage (LanguageExtension/SPL/DataStructure/SplObjectStorage)
  * Dictionary 特征：
- *
+ *  键值对结构($key=>$value)，
  * 用例：
  *
  * Reference:
@@ -67,7 +67,7 @@ class Dictionary implements \ArrayAccess
      * @return boolean true on success or false on failure.
      */
     public function offsetExists($offset)
-    {//echo "exists\n";
+    {
         //$this->container[$offset]=new Dictionary();
         return array_key_exists($offset,$this->container);
     }
@@ -78,7 +78,7 @@ class Dictionary implements \ArrayAccess
      * @return mixed Can return all value types.
      */
     public function offsetGet($offset)
-    {//echo "get\n";
+    {
         if($this->offsetExists($offset)){
             return $this->container[$offset];
         }else{
@@ -93,7 +93,7 @@ class Dictionary implements \ArrayAccess
      * @return void
      */
     public function offsetSet($offset, $value)
-    {//echo "set\n";
+    {
         if($offset){
             $this->container[$offset]=$value;
         }else{
@@ -107,7 +107,7 @@ class Dictionary implements \ArrayAccess
      * @return void
      */
     public function offsetUnset($offset)
-    {echo "unset\n";
+    {
         unset($this->container[$offset]);
     }
 }

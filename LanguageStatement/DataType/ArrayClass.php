@@ -1,6 +1,12 @@
 <?php
-/*
+/**
  * php基础数据(结构)类型：Array 数组
+ *  key:
+ *      包含有合法整型值的字符串会被转换为整型。例如键名 "8" 实际会被储存为 8。但是 "08"则不会强制转换，因为其不是一个合法的十进制数值
+ *      浮点数也会被转换为整型，意味着其小数部分会被舍去。
+ *      布尔值也会被转换成整型。即键名 true 实际会被储存为 1而键名 false 会被储存为 0
+ *      Null 会被转换为空字符串，即键名 null 实际会被储存为 ""。
+ *      数组和对象不能被用为键名。坚持这么做会导致警告：Illegal offset type。
  *  PHP 中的数组实际上是一个有序映射
  *  可以把它当成真正的数组，或列表（向量），散列表（是映射的一种实现），字典，集合，栈，队列以及更多可能性
  *  数组元素的值也可以是另一个数组，树形结构和多维数组也是允许的。
@@ -21,10 +27,10 @@ class ArrayClass extends PHPArray implements \ArrayAccess
     //  数据存储容器
     protected $container = array();
 
-    /*
+    /**
      * 构建
      * ArrayClass __construct( mixed $var,... )
-     * @param $var
+     * @param mixed $var
      * @return ArrayClass
      */
     public function __construct()
@@ -32,12 +38,12 @@ class ArrayClass extends PHPArray implements \ArrayAccess
         $this->container = func_get_args();
     }
 
-    /*
+    /**
      * 转换为数组
      */
     public static function toString($var){ return (array)$var; }
 
-    /*
+    /**
      * 判断是否为数组
      */
     public static function isString($var){ return is_array($var); }
@@ -104,7 +110,7 @@ class ArrayClass extends PHPArray implements \ArrayAccess
 
 class PHPArray
 {
-    /*
+    /**
      * 数组运算
      */
     public static function union($left,$right){ return $left+$right; }//联合
@@ -131,7 +137,7 @@ class PHPArray
     public static function array_uintersect_assoc($arr1,$arr2,$function){ return array_uintersect_assoc($arr1,$arr2,$function); }//带索引检查计算数组的交集，用回调函数比较数据
     public static function array_uintersect_uassoc($arr1,$arr2,$dataFunction,$keyFunction){ return array_uintersect_uassoc($arr1,$arr2,$dataFunction,$keyFunction); }//带索引检查计算数组的交集，用回调函数比较数据
 
-    /*
+    /**
      * 排序，参考：http://php.net/manual/zh/array.sorting.php
      */
     public static function shuffle(&$arr){ return shuffle($arr); }//将数组打乱
@@ -148,10 +154,10 @@ class PHPArray
     public static function uasort(&$arr,$function){ return uasort($arr,$function); }//依据值,保持键,用户自定义
     public static function uksort(&$arr,$function){ return uksort($arr,$function); }//依据键,保持键,用户自定义
 
-    /*
+    /**
      * 数组函数
      */
-    //  数组的内部指针操作
+    // 数组的内部指针操作
     public static function prev(&$arr){ return prev($arr); }//数组的内部指针倒回一位.
     public static function next(&$arr){ return next($arr); }//返回数组中当前单元的键名。
     public static function reset(&$arr){ return reset($arr); }//将数组的内部指针指向第一个单元
@@ -160,7 +166,7 @@ class PHPArray
     public static function current(&$arr){ return current($arr); }//返回数组中的当前单元
     public static function pos(&$arr){ pos($arr); }//current() 的别名
     public static function key(&$arr){ return current($arr); }//返回数组中当前单元的键名。
-    //  key value
+    // key value
     public static function array_keys($arr,$search,$strict=false){ return array_keys($arr,$search,$strict); }//返回数组中部分的或所有的键名
     public static function array_key_exists($key,$arr){ return array_key_exists($key,$arr); }//检查给定的键名或索引是否存在于数组中
     public static function key_exists($key,$arr){ return key_exists($key,$arr); }//别名 array_key_exists()

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP标准库
+ * SPL Standard PHP Library,PHP标准库
  */
 
 namespace LanguageStatement\LanguageExtension\SPL;

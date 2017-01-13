@@ -1,6 +1,6 @@
 <?php
 /*
- * 链表
+ * 链表 参见 SplDoublyLinkedList (LanguageExtension/SPL/DataStructure/SplDoublyLinkedList)
  * list 特征：
  *
  * 用例：
@@ -11,22 +11,11 @@
 
 namespace LanguageStatement\DataType;
 
-class ListClass implements \ArrayAccess
+class ListClass
 {
-    //数据存储容器
-    /*
-     * [
-     *      'attribute'=> mixed,
-     *      'next'=>int
-     * ]
-     */
-    protected $container=array();
 
-    //节点数
-    protected $pointNumber=0;
-
-    //节点id计数器
-    protected $pointId=-1;
+    protected $value;
+    protected $next=null;
 
     /*
      * 构建
@@ -34,123 +23,73 @@ class ListClass implements \ArrayAccess
      * @param $var
      * @return ListClass
      */
-    public function __construct($var=null)
+    public function __construct($value=null,ListClass $next=null)
     {
-        if(is_array($var)){
-            $this->initArray($var);
-        }elseif($var===null){
-
-        }else{
-            throw new \Exception('"'.$var.'" is not a array or null !');
-        }
+        $this->value=$value;
+        $this->next=$next;
     }
 
-    /*
-     * 获取新的节点id(数值索引)
+    /**
+     * set value
+     * void setValue( mixed $value )
+     * @param mixed $value value
+     * @return void
      */
-    protected function getNewId(){
-        return ++$this->pointId;
+    public function setValue($value=null)
+    {
+        $this->value=$value;
     }
 
-    /*
-     * 将array转为链表结构数组
-     * array initArray(Array $arr)
-     * @param Array $arr
-     * @return  array
+    /**
+     * get value
+     * mixed getValue( void )
+     * @param void
+     * @return mixed value
      */
-    public function initArray(Array $arr)
+    public function getValue()
     {
-        $parentId=null;
-        foreach($arr as $key=>$value){
-            $index=$this->getNewId();
-            $this->container[$index]=array(
-                'attribute'=>['index'=>$key,'value'=>$value],
-                'next'=>null,
-            );
-            if($parentId!==null){
-                $this->container[$parentId]['next']=$index;
-            }
-            $parentId=$index;
-            $this->pointNumber++;
-        }
+        return $this->value;
+    }
+
+    /**
+     * set next ListClass
+     * void setNext( ListClass $next )
+     * @param ListClass $next next ListClass
+     * @return void
+     */
+    public function setNext(ListClass $next=null)
+    {
+        $this->next=$next;
+    }
+
+    /**
+     * get next ListClass
+     * ListClass getNext( void )
+     * @param void
+     * @return ListClass next ListClass
+     */
+    public function getNext()
+    {
+        return $this->next;
     }
 
     /*
      * 打印
      * Array export( void )
+     * Array __debugInfo( void )
      * @param void
-     * @return
+     * @return Array
      */
     public function export()
     {
-        return $this->container;
+        return $this->value;
     }
     public function __debugInfo()
     {
-        return $this->container;
+        return $this->value;
     }
 
-    /**
-     * Whether a offset exists
-     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param mixed $offset <p>
-     * An offset to check for.
-     * </p>
-     * @return boolean true on success or false on failure.
-     * </p>
-     * <p>
-     * The return value will be casted to boolean if non-boolean was returned.
-     * @since 5.0.0
-     */
-    public function offsetExists($offset)
-    {
-        // TODO: Implement offsetExists() method.
-    }
 
-    /**
-     * Offset to retrieve
-     * @link http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     * The offset to retrieve.
-     * </p>
-     * @return mixed Can return all value types.
-     * @since 5.0.0
-     */
-    public function offsetGet($offset)
-    {
-        // TODO: Implement offsetGet() method.
-    }
-
-    /**
-     * Offset to set
-     * @link http://php.net/manual/en/arrayaccess.offsetset.php
-     * @param mixed $offset <p>
-     * The offset to assign the value to.
-     * </p>
-     * @param mixed $value <p>
-     * The value to set.
-     * </p>
-     * @return void
-     * @since 5.0.0
-     */
-    public function offsetSet($offset, $value)
-    {
-        // TODO: Implement offsetSet() method.
-    }
-
-    /**
-     * Offset to unset
-     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param mixed $offset <p>
-     * The offset to unset.
-     * </p>
-     * @return void
-     * @since 5.0.0
-     */
-    public function offsetUnset($offset)
-    {
-        // TODO: Implement offsetUnset() method.
-    }
 }
 
 /**

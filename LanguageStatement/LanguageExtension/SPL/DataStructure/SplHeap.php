@@ -15,12 +15,12 @@ abstract class SplHeap extends \SplHeap implements \Iterator, \Countable
 
     // Iterator
     public function current(){return parent::current();}//Return current node pointed by the iterator
-    public function key(){parent::key();}//Return current node index
+    public function key(){return parent::key();}//Return current node index
     public function rewind(){parent::rewind();}//Rewind iterator back to the start (no-op)
     public function valid(){return parent::valid();}//Check whether the heap contains more nodes
     public function next(){parent::next();}//Move to the next node
     // Countable
-    public function count(){parent::count();}//Counts the number of elements in the heap.
+    public function count(){return parent::count();}//Counts the number of elements in the heap.
     //
     public function top(){return parent::top();}//Peeks at the node from the top of the heap
     public function insert($value){parent::insert($value);}//Inserts an element in the heap by sifting it up.

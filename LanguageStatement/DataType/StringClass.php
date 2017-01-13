@@ -22,6 +22,21 @@ namespace LanguageStatement\DataType;
 
 class StringClass extends PHPStringExtension
 {
+    // 双引号转义字符
+    public static $escapedCharacter=[
+        '\n',   //换行（ASCII 字符集中的 LF 或 0x0A (10)）
+        '\r',   //回车（ASCII 字符集中的 CR 或 0x0D (13)）
+        '\t',   //水平制表符（ASCII 字符集中的 HT 或 0x09 (9)）
+        '\v',   //垂直制表符（ASCII 字符集中的 VT 或 0x0B (11)）（自 PHP 5.2.5 起）
+        '\e',   //Escape（ASCII 字符集中的 ESC 或 0x1B (27)）（自 PHP 5.4.0 起）
+        '\f',   //换页（ASCII 字符集中的 FF 或 0x0C (12)）（自 PHP 5.2.5 起）
+        '\\',   //反斜线
+        '\$',   //美元标记
+        '\"',   //双引号
+        '\[0-7]{1,3}',//符合该正则表达式序列的是一个以八进制方式来表达的字符
+        '\x[0-9A-Fa-f]{1,2}',//符合该正则表达式序列的是一个以十六进制方式来表达的字符
+    ];
+
     /*
      * 转换为字符串
      */

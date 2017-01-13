@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/24
- * Time: 11:07
+ * PHP Exception
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\Exception;

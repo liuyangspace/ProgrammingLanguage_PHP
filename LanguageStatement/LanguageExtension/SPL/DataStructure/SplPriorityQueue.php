@@ -23,11 +23,11 @@ class SplPriorityQueue extends \SplPriorityQueue implements \Iterator, \Countabl
     public function setExtractFlags($flags){parent::setExtractFlags($flags);}//
     // Iterator
     public function current(){return parent::current();}//Return current node pointed by the iterator
-    public function key(){parent::key();}//Return current node index
+    public function key(){return parent::key();}//Return current node index
     public function rewind(){parent::rewind();}//Rewind iterator back to the start (no-op)
     public function valid(){return parent::valid();}//Check whether the queue contains more nodes
     public function next(){parent::next();}//Move to next entry
     // Countable
-    public function count(){parent::count();}//Counts the number of elements in the queue
+    public function count(){return parent::count();}//Counts the number of elements in the queue
 
 }
