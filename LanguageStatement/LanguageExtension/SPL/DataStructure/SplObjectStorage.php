@@ -16,10 +16,10 @@ class SplObjectStorage extends \SplObjectStorage implements \Countable, \Iterato
     public function detach($object){parent::detach($object);}//Removes an object from the storage
     public function contains($object){return parent::contains($object);}//Checks if the storage contains a specific object
     public function getHash($object){return parent::getHash($object);}//Calculate a unique identifier for the contained objects
-    public function setInfo($data){parent::setInfo($data);}//Sets the data associated with the current iterator entry
-    public function getInfo(){return parent::getInfo();}//Returns the data associated with the current iterator entry
     public function removeAll(\SplObjectStorage $storage){parent::removeAll($storage);}//Removes objects contained in another storage from the current storage
     public function removeAllExcept(\SplObjectStorage $storage){parent::removeAllExcept($storage);}//Removes all objects except for those contained in another storage from the current storage
+    public function setInfo($data){parent::setInfo($data);}//Sets the data associated with the current iterator entry
+    public function getInfo(){return parent::getInfo();}//Returns the data associated with the current iterator entry
     // Countable
     public function count(){return parent::count();}//Returns the number of objects in the storage
     // Iterator

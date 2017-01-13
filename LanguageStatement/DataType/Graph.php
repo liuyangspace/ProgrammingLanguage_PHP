@@ -1,7 +1,9 @@
 <?php
-/*
- * 图
+/**
+ * 图  参见 SplFixedArray,SplObjectStorage (LanguageExtension/SPL/DataStructure)
  * Graph 特征：
+ *  存储结构:邻接矩阵,邻接表,十字链表
+ *  遍历:深度优先遍历(DFS),广度优先遍历(BFS)
  *  分类：有向 无向 有环 无环
  *
  * 用例：
@@ -11,18 +13,13 @@
  */
 
 namespace LanguageStatement\DataType;
+use LanguageStatement\DataType\Map;
 
 //图
 class Graph
 {
-    //数据存储容器
-    protected $container = array(
-        [
-            'attribute'=>null,  //mixed     本节点属性容器
-            'from'=>[],         //int array 入度 节点id
-            'to'=>[],           //int array 出度 节点id
-        ]
-    );
+    //数据存储容器 邻接表
+    protected $container = [];
 
     //节点数
     protected $pointNumber=1;
@@ -41,13 +38,7 @@ class Graph
      */
     public function __construct($var=null)
     {
-        if(is_array($var)){
-            $this->container[0]['to'] =  $this->initArray($var);
-        }elseif($var===null){
 
-        }else{
-            throw new \Exception('"'.$var.'" is not a array or null !');
-        }
     }
 
     /*

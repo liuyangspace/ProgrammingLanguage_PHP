@@ -1,11 +1,14 @@
 <?php
 /**
- * 字典 参见 SplObjectStorage (LanguageExtension/SPL/DataStructure/SplObjectStorage)
+ * 字典
+ * (SplObjectStorage 参见 LanguageExtension/SPL/DataStructure/SplObjectStorage)
  * Dictionary 特征：
  *  键值对结构($key=>$value)，
- *  用法类似Array ,可foreach,但key可以是多种类型，不会像array key一样转换
+ *  用法类似Array ,可foreach,但key可以是多种类型(包括标量,null,数组，对象，资源)，不会像array key一样默认转换
  * 用例：
- *
+ *  $d=new Dictionary();
+ *  $d->set('8',8);( 不建议使用 $d['8']=8;其中key('8')会默认转为整形 )
+ *  $d->get('8');(不建议使用 $d['8'])
  * Reference:
  *
  */
@@ -13,7 +16,7 @@
 namespace LanguageStatement\DataType;
 
 
-class Dictionary extends \SplObjectStorage implements \ArrayAccess,\Iterator,\Countable
+class Dictionary implements \ArrayAccess,\Iterator,\Countable
 {
     //数据存储容器
     protected $key = [];
@@ -190,7 +193,9 @@ class Dictionary extends \SplObjectStorage implements \ArrayAccess,\Iterator,\Co
         return $this->pointer<count($this->key);
     }
 
-    //
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return json_encode(array_combine($this->key,$this->value),JSON_PRETTY_PRINT|JSON_FORCE_OBJECT);

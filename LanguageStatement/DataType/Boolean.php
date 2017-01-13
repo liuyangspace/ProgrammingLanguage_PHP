@@ -38,7 +38,7 @@ class Boolean extends PHPBoolean
     public static function toBool ( $var ){ return (bool)$var; }
 
     /**
-     *  常用逻辑运算
+     * 常用逻辑运算
      */
     public static function getAnd( $varLeft , $varRight ){ return $varLeft and $varRight;}//与
     public static function getOr( $varLeft , $varRight ){ return $varLeft or $varRight;}//或

@@ -1,7 +1,12 @@
 <?php
-include(__DIR__.'/LanguageStatement/LanguageStatement.php');
-include(__DIR__.'/LanguageStatement/UtilComponent/DataTypeUtil/StringClass.php');
-include(__DIR__.'/LanguageStatement/UtilComponent/DataTypeUtil/ArrayClass.php');
+
+//include(__DIR__.'/LanguageStatement/LanguageStatement.php');
+//include(__DIR__.'/LanguageStatement/LanguageRegulate.php');
+//include(__DIR__.'/LanguageStatement/UtilComponent/DataTypeUtil/StringClass.php');
+//include(__DIR__.'/LanguageStatement/UtilComponent/DataTypeUtil/ArrayClass.php');
+include(__DIR__.'/LanguageStatement/DataType/Dictionary.php');
+include(__DIR__.'/LanguageStatement/DataType/Iterator.php');
+include(__DIR__.'/LanguageStatement/DataType/Enum.php');
 
 //$command=`whoami`;
 
@@ -36,29 +41,20 @@ $url = 'http://username:password@hostname/path?arg=value#anchor';
 $url = 'http://www.baidu.com/path?arg=value#anchor';
 //print_r(parse_url($url));
 
+//$a=namespace\LanguageStatement\LanguageStatement::$magicMethods;
+//var_dump($a);
+//$d=new \LanguageStatement\DataType\Dictionary([1,'2','a','b'=>'c','3'=>'test1','e'=>[4,5]]);
+//$d->set('4','test2');
+//var_dump(count($d));
+//var_dump($d->get('e'));
+//echo $d->get('e');
+//$c=[];
+//$c[$d]=1;
 
-class A {
-    private function foo() {
-        echo "success!\n";
-    }
-    public function test() {
-        $this->foo();
-        static::foo();
-    }
-}
+$a=new stdClass();
+$b=new stdClass();
+$c=$a;
+var_dump(in_array($c,[$b]));
 
-class B extends A {
-    /* foo() will be copied to B, hence its scope will still be A and
-     * the call be successful */
-}
 
-class C extends A {
-    private function foo() {
-        /* original method is replaced; the scope of the new one is C */
-    }
-}
 
-$b = new B();
-$b->test();
-$c = new C();
-$c->test();

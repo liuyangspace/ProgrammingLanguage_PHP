@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * 队列
  * Queue 特征：
  *  先进先出
@@ -22,7 +22,7 @@ class Queue implements \ArrayAccess
     //  队列数据存储容器
     protected $container = array();
 
-    /*
+    /**
      * 构建 队列
      * Queue __construct( mixed $var )
      * @param $var
@@ -41,7 +41,7 @@ class Queue implements \ArrayAccess
         }
     }
 
-    /*
+    /**
      * 入队
      * void put( mixed $var )
      * @param $var
@@ -56,11 +56,11 @@ class Queue implements \ArrayAccess
         $this->container[] = $value;
     }
 
-    /*
+    /**
      * 出队
      * mixed pull( void )
      * @param $var
-     * @return 弹出队首的值,如果 array 为 空则返回 NULL。
+     * @return mixed 弹出队首的值,如果 array 为 空则返回 NULL。
      */
     public function pull()
     {
@@ -71,7 +71,7 @@ class Queue implements \ArrayAccess
         return array_shift($this->container);
     }
 
-    /*
+    /**
      * 清空
      * void clear( void )
      * @param $var
@@ -82,22 +82,22 @@ class Queue implements \ArrayAccess
         $this->container = array();
     }
 
-    /*
+    /**
      * 队长
      * int size( void )
      * @param void
-     * @return 队内的单元数
+     * @return int 队内的单元数
      */
     public function size()
     {
         return count($this->container);
     }
 
-    /*
+    /**
      * 打印
      * Array export( void )
      * @param void
-     * @return
+     * @return array
      */
     public function export()
     {

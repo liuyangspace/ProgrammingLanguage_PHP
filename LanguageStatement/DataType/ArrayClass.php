@@ -1,6 +1,12 @@
 <?php
 /**
- * php基础数据(结构)类型：Array 数组
+ * php基础数据(结构)类型：
+ * Array 数组(大小可变)
+ * SplFixedArray 数组(大小固定)  (参见LanguageExtension/SPL/DataStructure/SplFixedArray)
+ *  比较：
+ *      具有较少成员的数组较小，
+ *      如果运算数 1 中的键不存在于运算数 2 中则数组无法比较，
+ *      较少成员数量相等否则挨个值比较
  *  key:
  *      包含有合法整型值的字符串会被转换为整型。例如键名 "8" 实际会被储存为 8。但是 "08"则不会强制转换，因为其不是一个合法的十进制数值
  *      浮点数也会被转换为整型，意味着其小数部分会被舍去。
@@ -25,7 +31,7 @@ namespace LanguageStatement\DataType;
 class ArrayClass extends PHPArray implements \ArrayAccess
 {
     //  数据存储容器
-    protected $container = array();
+    protected $container = [];
 
     /**
      * 构建
@@ -33,9 +39,31 @@ class ArrayClass extends PHPArray implements \ArrayAccess
      * @param mixed $var
      * @return ArrayClass
      */
-    public function __construct()
+    public function __construct(...$var)
     {
         $this->container = func_get_args();
+    }
+
+    // 数组是用标准比较运算符这样比较的
+    function standard_array_compare($op1, $op2)
+    {
+        //先比较数组大小(元素个数)
+        if (count($op1) < count($op2)) {
+            return -1;              // $op1 < $op2
+        } elseif (count($op1) > count($op2)) {
+            return 1;               // $op1 > $op2
+        }
+        //按顺序比较键值对
+        foreach ($op1 as $key => $val) {
+            if (!array_key_exists($key, $op2)) {
+                return null;        // 键不同，不能比较
+            } elseif ($val < $op2[$key]) {
+                return -1;
+            } elseif ($val > $op2[$key]) {
+                return 1;
+            }
+        }
+        return 0;                   // $op1 == $op2
     }
 
     /**

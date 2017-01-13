@@ -1,14 +1,17 @@
 <?php
-/*
- * 集合 参见 SplObjectStorage (LanguageExtension/SPL/DataStructure/SplObjectStorage)
+/**
+ * 集合
+ *  本集合兼容所有数据类型元素,SplObjectStorage 适用于纯对象元素的集合(效率高)
+ * ( SplObjectStorage 参见 LanguageExtension/SPL/DataStructure/SplObjectStorage)
  * set 特征：
- *  Set 接口实例存储的是无序的，不重复的数据。
+ *  存储的是无序的，不重复(值不相等，类型互异,对象非同一实例)的数据。大小可变。
  * 用例：
  *  创建：$set = new Set();$set = new Set([1,2,3]);
- *  添加元素：$set[]=1;$set->add(12);
- *  删除元素：$set->remove(12);unset($set[12]);
- *  获取元素：$set[12];
- *  单元数：$set->size();
+ *  添加元素：$set->add(12);
+ *  包含元素：$set->contain($var);
+ *  删除元素：$set->remove(12);
+ *  获取元素：$set->get();
+ *  单元数：$set->count();count($set)
  *  清空：$set->clear();
  *  交集：Set::intersect($set1,$set2);
  *  并集：Set::union($set1,$set2);
@@ -22,63 +25,42 @@
 namespace LanguageStatement\DataType;
 
 //集合
-class Set extends \SplObjectStorage implements \ArrayAccess
+use LanguageStatement\LanguageExtension\SPL\DataStructure\SplObjectStorage;
+
+class Set implements \Countable,\Iterator
 {
 
-    //  数据存储容器
-    protected $container = array();
+    // 数据 存储容器
+    protected $container ;
+    // 迭代指针
+    protected $pointer ;
 
-    /*
+    /**
      * 构建
-     * Set __construct( mixed $var. )
+     * Set __construct( Array $var )
      * @param $var
      * @return Set
      */
-    public function __construct($var=null)
+    public function __construct(Array $var=null)
     {
-        if(is_array($var)){
-            $this->container = array_unique(array_values($var));
-        }elseif(is_string($var)){
-            $this->container = array_unique(str_split($var));
-        }elseif($var===null){
-            $this->container = array();
+        $this->container = [];
+        $this->pointer=0;
+        if($var===null){
+
         }else{
-            throw new \Exception('"'.$var.'" is not a array or string !');
+            foreach($var as $item){
+                if(in_array($item,$this->container,true)){
+                    continue;
+                }
+                $this->container[]=$item;
+            }
         }
     }
 
     /**
-     * Whether a offset exists
-     * @param mixed $offset An offset to check for.
-     * @return boolean true on success or false on failure.
+     * 添加元素
+     * @param $value
      */
-    public function offsetExists($offset)
-    {
-        return in_array($offset,$this->container,true);
-    }
-
-    /**
-     * Offset to retrieve
-     * @param mixed $offset The offset to retrieve.
-     * @return mixed Can return all value types.
-     */
-    public function offsetGet($offset)
-    {
-        return $offset;
-    }
-
-    /**
-     * Offset to set
-     * @param mixed $offset The offset to assign the value to.
-     * @param mixed $value The value to set.
-     * @return void
-     */
-    public function offsetSet($offset, $value=null)
-    {
-        if(!in_array($value,$this->container,true)){
-            $this->container[]=$value;
-        }
-    }
     public function add($value)
     {
         if(!in_array($value,$this->container,true)){
@@ -87,171 +69,129 @@ class Set extends \SplObjectStorage implements \ArrayAccess
     }
 
     /**
-     * Offset to unset
-     * @param mixed $offset The offset to unset.
-     * @return void
+     * 移除元素
+     * @param $value
+     * @return bool true,存在已移除，false 不存在
      */
-    public function offsetUnset($offset)
-    {
-        $this->remove($offset);
-    }
     public function remove($value)
     {
         foreach($this->container as $k=>$v){
             if($v===$value) {
                 unset($this->container[$k]);
+                return true;
             }
         }
+        return false;
     }
 
     /**
-     * 交集
-     * Set intersect ( mixed $var1, mixed $var2[, bool $strict=TRUE])
-     * @param Set/Array  $var1
-     * @param Set/Array  $var2
-     * @param bool $strict 是否严格比较（比较类型）
-     * @return Set
+     * 检测包含
+     * @param array ...$var
+     * @return bool
      */
-    public static function intersect($var1,$var2,$strict=TRUE)
+    public function contain(...$var)
     {
-        if($var1 instanceof Set){
-            $var1=$var1->toArray();
-        }
-        if($var2 instanceof Set){
-            $var2=$var2->toArray();
-        }
-        if(is_array($var1) && is_array($var2)){
-            if($strict){
-                $minArr=$var1;
-                $maxArr=$var2;
-                $set=new Set();
-                if(count($var1)>count($var2)){
-                    $minArr=$var2;
-                    $maxArr=$var1;
-                }
-                foreach($minArr as $k=>$v){
-                    if(in_array($v,$maxArr,true)){
-                        $set[$k]=$v;
-                    }
-                }
-                return $set;
-            }else{
-                return new Set(array_values(array_unique(array_intersect($var1,$var2))));
+        foreach($var as $item){
+            if(!in_array($item,$this->container,true)){
+                return false;
             }
-        }else{
-            throw new \Exception('Invalid parameters !');
         }
+        return true;
     }
 
     /**
-     * 并集
-     * Set union ( mixed $var1, mixed $var2[, bool $strict=TRUE])
-     * @param Set/Array  $var1
-     * @param Set/Array  $var2
-     * @param bool $strict 是否严格比较（比较类型）
-     * @return Set
+     * 获取当前指针指向的值，并把指针后移
+     * @return mixed
      */
-    public static function union($var1,$var2,$strict=TRUE)
+    public function get()
     {
-        if($var1 instanceof Set){
-            $var1=$var1->toArray();
-        }
-        if($var2 instanceof Set){
-            $var2=$var2->toArray();
-        }
-        if(is_array($var1) && is_array($var2)){
-            if($strict){
-                $minArr=$var1;
-                $maxArr=$var2;
-                if(count($var1)>count($var2)){
-                    $minArr=$var2;
-                    $maxArr=$var1;
-                }
-                $set=new Set($maxArr);
-                foreach($minArr as $k=>$v){
-                    if(in_array($v,$maxArr,true)){
-                    }else{
-                        $set[]=$v;
-                    }
-                }
-                return $set;
-            }else{
-                return new Set(array_values(array_unique(array_merge($var1,$var2))));
-            }
-        }else{
-            throw new \Exception('Invalid parameters !');
-        }
+        $index=$this->pointer;
+        $this->pointer++;
+        return $this->container[$index];
     }
 
-    /**
-     * 差集,交集的非
-     * Set diff ( mixed $var1, mixed $var2[, bool $strict=TRUE])
-     * @param Set/Array  $var1
-     * @param Set/Array  $var2
-     * @param mixed  $mod 差集模式，见以下定义的常量
-     * @param bool $strict 是否严格比较（比较类型）
-     * @return Set
-     */
-    const DIFF_LEFT = 1;//$var1-$var2 的差集
-    const DIFF_RIGHT = 2;//$var2-$var1 的差集
-    const DIFF_BOTH = 3;//$var2与$var1 交集的非，或以上两者的并
-    public static function diff($left,$right,$mod=1,$strict=TRUE)
+    // Iterator
+    public function current()
     {
-        if($left instanceof Set){
-            $left=$left->toArray();
-        }
-        if($right instanceof Set){
-            $right=$right->toArray();
-        }
-        if(is_array($left) && is_array($right)){
-            if($strict){
-                $set=new Set();
-                foreach($left as $k=>$v){
-                    if(in_array($v,$right,true) || $mod==self::DIFF_RIGHT){
-                    }else{
-                        $set[]=$v;
-                    }
-                }
-                foreach($right as $k=>$v){
-                    if(in_array($v,$left,true) || $mod==self::DIFF_LEFT){
-                    }else{
-                        $set[]=$v;
-                    }
-                }
-                return $set;
-            }else{
-                switch($mod){
-                    case self::DIFF_LEFT:
-                        $diffArr=array_diff($left,$right);
-                        break;
-                    case self::DIFF_RIGHT:
-                        $diffArr=array_diff($right,$left);
-                        break;
-                    case self::DIFF_BOTH:
-                        $diffArr=array_merge(array_diff($left,$right),array_diff($right,$left));
-                        break;
-                    default:
-                        $diffArr=array_diff($left,$right);
-                }
-                return new Set(array_values(array_unique($diffArr)));
-            }
-        }else{
-            throw new \Exception('Invalid parameters !');
-        }
+        return $this->container[$this->pointer];
     }
 
-    /*
-     * 栈长
-     * int size( void )
-     * @param void
-     * @return 栈内的单元数
-     */
-    public function size()
+    public function key()
+    {
+        return $this->pointer;
+    }
+
+    public function next()
+    {
+        $this->pointer++;
+    }
+
+    public function valid()
+    {
+        return isset($this->container[$this->pointer]);
+    }
+
+    public function rewind()
+    {
+        $this->pointer=0;
+    }
+
+
+    // Countable
+    public function count()
     {
         return count($this->container);
     }
 
-    /*
+    /**
+     * 交集 严格比较（比较类型,对象须是同一类同一实例）
+     * @param Set $var
+     * @return Set
+     */
+    public function intersect(Set $set)
+    {
+        $intersect=[];
+        foreach($this->container as $value){
+            if(in_array($value,$set->container,true)){
+                $intersect[]=$value;
+            }
+        }
+        return new Set($intersect);
+    }
+
+    /**
+     * 并集 严格比较（比较类型,对象须是同一类同一实例）
+     * @param Set $var
+     * @return Set
+     */
+    public function union(Set $set)
+    {
+        $union=$this->container;
+        foreach($set->container as $value){
+            if(!in_array($value,$this->container,true)){
+                $union[]=$value;
+            }
+        }
+        return new Set($union);
+    }
+
+    /**
+     * 差集 除去和$set相同的元素，严格比较（比较类型,对象须是同一类同一实例）
+     * @param Set $set
+     * @return Set
+     */
+    public function diff(Set $set)
+    {
+        $diff=[];
+        foreach($this->container as $value){
+            if(!in_array($value,$set->container,true)){
+                $diff[]=$value;
+            }
+        }
+        return new Set($diff);
+    }
+
+    /**
      * 清空
      * void clear( void )
      * @param $var
@@ -259,7 +199,8 @@ class Set extends \SplObjectStorage implements \ArrayAccess
      */
     public function clear()
     {
-        $this->container = array();
+        $this->container = [];
+        $this->pointer=0;
     }
 
     /**
@@ -272,11 +213,11 @@ class Set extends \SplObjectStorage implements \ArrayAccess
         return $this->container;
     }
 
-    /*
+    /**
      * 打印
      * Array export( void )
      * @param void
-     * @return
+     * @return array
      */
     public function export()
     {
@@ -285,5 +226,13 @@ class Set extends \SplObjectStorage implements \ArrayAccess
     public function __debugInfo()
     {
         return $this->container;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray(),JSON_PRETTY_PRINT|JSON_FORCE_OBJECT);
     }
 }

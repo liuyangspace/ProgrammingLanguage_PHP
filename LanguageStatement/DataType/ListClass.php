@@ -1,8 +1,9 @@
 <?php
-/*
- * 链表 参见 SplDoublyLinkedList (LanguageExtension/SPL/DataStructure/SplDoublyLinkedList)
+/**
+ * 链表
+ * ( SplDoublyLinkedList 参见 LanguageExtension/SPL/DataStructure/SplDoublyLinkedList)
  * list 特征：
- *
+ *  顺序线性排列
  * 用例：
  *
  * Reference:
@@ -13,11 +14,12 @@ namespace LanguageStatement\DataType;
 
 class ListClass
 {
-
+    // 本节点的值
     protected $value;
+    // 指向下一节点的引用
     protected $next=null;
 
-    /*
+    /**
      * 构建
      * ListClass __construct( mixed $var. )
      * @param $var
@@ -73,7 +75,7 @@ class ListClass
         return $this->next;
     }
 
-    /*
+    /**
      * 打印
      * Array export( void )
      * Array __debugInfo( void )
@@ -88,7 +90,6 @@ class ListClass
     {
         return $this->value;
     }
-
 
 }
 

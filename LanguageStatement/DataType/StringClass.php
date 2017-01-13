@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * php基础数据类型处理：字符串
  *  PHP 只支持 256 的字符集
  *  string 最大可以达到 2GB
@@ -37,12 +37,12 @@ class StringClass extends PHPStringExtension
         '\x[0-9A-Fa-f]{1,2}',//符合该正则表达式序列的是一个以十六进制方式来表达的字符
     ];
 
-    /*
+    /**
      * 转换为字符串
      */
     public static function toString($var){ return (string)$var; }
 
-    /*
+    /**
      * 判断是否为字符串
      */
     public static function isString($var){ return is_string($var); }
@@ -51,7 +51,7 @@ class StringClass extends PHPStringExtension
 class PHPString
 {
 
-    /*
+    /**
      * 变量转换
      */
     public static function strval($var){ return strval($var); }//将变量解析成字符串
@@ -65,7 +65,7 @@ class PHPString
     // string pack ( string $format [, mixed $args [, mixed $... ]] )
     // array unpack ( string $format , string $data )
 
-    /*
+    /**
      * PHP字符串函数
      */
     public static function php_eval($str=null){ return eval($str); }//把字符串作为PHP代码执行
@@ -91,7 +91,7 @@ class PHPString
     public static function str_shuffle($str){ return str_shuffle($str); }//随机打乱一个字符串
     public static function strrev($str){ return strrev($str); }//反转字符串
     public static function wordwrap($str,$width=75,$break="\n",$cut=false){ return wordwrap($str,$width,$break,$cut); }//打断字符串为指定数量的字串
-    //查找
+    // 查找
     public static function strstr($search,$str,$before_needle=false){ return strstr($search,$str,$before_needle); }//查找字符串的首次出现
     public static function stristr($search,$str,$before_needle=false){ return stristr($search,$str,$before_needle); }//查找字符串的首次出现（不区分大小写）
     public static function strchr($search,$str,$before_needle=false){ return strchr($search,$str,$before_needle); }//查找字符串的首次出现
@@ -173,7 +173,7 @@ class PHPString
     /*
      * 正则
      */
-    //兼容 Perl
+    // 兼容 Perl
     public static function preg_grep($pattern,$input,$flags=0){ return preg_grep($pattern,$input,$flags); }//返回匹配模式的数组条目
     public static function preg_filter($pattern,$replace,$subject,$limit=-1,&$count){ return preg_filter($pattern,$replace,$subject,$limit,$count); }//执行一个正则表达式搜索和替换
     public static function preg_match_all($pattern,$subject,&$matches,$flags=PREG_PATTERN_ORDER,$offset=0){ return preg_match_all($pattern,$subject,$matches,$flags,$offset); }//执行一个全局正则表达式匹配
@@ -183,7 +183,7 @@ class PHPString
     public static function preg_replace($pattern,$replace,$subject,$limit=-1,&$count){ return preg_replace($pattern,$replace,$subject,$limit,$count); }//执行一个正则表达式的搜索和替换
     public static function preg_split($pattern,$subject,$limit=-1,&$count){ return preg_split($pattern,$subject,$limit,$count); }//通过一个正则表达式分隔字符串
     public static function preg_last_error(){ return preg_last_error(); }//返回最后一个PCRE正则执行产生的错误代码
-    //弃用
+    // 弃用
     public static function ereg($pattern,$string,&$regs){ return ereg($pattern,$string,$regs); }//正则表达式匹配
     public static function eregi($pattern,$string,&$regs){ return eregi($pattern,$string,$regs); }//不区分大小写的正则表达式匹配
     public static function ereg_replace($pattern,$replacement,$string){ return ereg_replace($pattern,$replacement,$string); }//正则表达式替换
@@ -230,8 +230,14 @@ class PHPStringExtension extends PHPString
     // 编码 转换
     public static function mb_convert_encoding($str,$to,$from){ return mb_convert_encoding($str,$to,$from); }//转换字符的编码
     public static function mb_convert_variables($to,$from,$var){ return mb_convert_variables($to,$from,$var); }//转换一个或多个变量的字符编码
-    // 字符操作
+    /**
+     * 多字节字符操作
+     */
+    // 长度 宽度 统计
     public static function mb_strlen($str,$charSet){ return mb_strlen($str,$charSet); }//获取字符串的长度
+    public static function mb_strwidth($str,$charSet){ return mb_strwidth($str,$charSet); }//返回字符串的宽度
+    public static function mb_substr_count($haystack,$needle,$charSet){ return mb_substr_count($haystack,$needle,$charSet); }//统计字符串出现的次数
+    // 查找
     public static function mb_strpos($haystack,$needle,$offset=0,$charSet){ return mb_strpos($haystack,$needle,$offset,$charSet); }//查找字符串在另一个字符串中首次出现的位置
     public static function mb_stripos($haystack,$needle,$offset=0,$charSet){ return mb_stripos($haystack,$needle,$offset,$charSet); }//大小写不敏感地查找字符串在另一个字符串中首次出现的位置
     public static function mb_strripos($haystack,$needle,$offset=0,$charSet){ return mb_strripos($haystack,$needle,$offset,$charSet); }//大小写不敏感地在字符串中查找一个字符串最后出现的位置
@@ -240,16 +246,17 @@ class PHPStringExtension extends PHPString
     public static function mb_stristr($haystack,$needle,$before_needle=false,$charSet){ return mb_stristr($haystack,$needle,$before_needle,$charSet); }//大小写不敏感地查找字符串在另一个字符串里的首次出现
     public static function mb_strrchr($haystack,$needle,$before_needle=false,$charSet){ return mb_stristr($haystack,$needle,$before_needle,$charSet); }//查找指定字符在另一个字符串中最后一次的出现
     public static function mb_strrichr($haystack,$needle,$before_needle=false,$charSet){ return mb_strrichr($haystack,$needle,$before_needle,$charSet); }//大小写不敏感地查找指定字符在另一个字符串中最后一次的出现
+    // 切割
     public static function mb_split($pattern,$string,$limit=-1){ return mb_split($pattern,$string,$limit); }//使用正则表达式分割多字节字符串
     public static function mb_strcut($str,$start,$length=NULL,$charSet){ return mb_strcut($str,$start,$length,$charSet); }//获取字符的一部分
     public static function mb_strimwidth($str,$start,$width,$trimmarker="",$charSet){ return mb_strimwidth($str,$start,$width,$trimmarker,$charSet); }//获取按指定宽度截断的字符串
+    public static function mb_substr($str,$start,$length=NULL,$charSet){ return mb_substr($str,$start,$length,$charSet); }//获取字符串的部分
+    // 邮件编码
     public static function mb_send_mail($to,$subject,$message,$additional_headers=NULL,$additional_parameter=NULL){ return mb_send_mail($to,$subject,$message,$additional_headers,$additional_parameter); }//发送编码过的邮件
-    public static function mb_strwidth($str,$charSet){ return mb_strwidth($str,$charSet); }//返回字符串的宽度
+    // 大小写转换
     public static function mb_convert_case($str,$mode,$charSet){ return mb_convert_case($str,$mode,$charSet); }//对字符串进行大小写转换
     public static function mb_strtolower($str,$charSet){ return mb_strtolower($str,$charSet); }//使字符串小写
     public static function mb_strtoupper($str,$charSet){ return mb_strtoupper($str,$charSet); }//使字符串小写
-    public static function mb_substr($str,$start,$length=NULL,$charSet){ return mb_substr($str,$start,$length,$charSet); }//获取字符串的部分
-    public static function mb_substr_count($haystack,$needle,$charSet){ return mb_substr_count($haystack,$needle,$charSet); }//统计字符串出现的次数
     // MIME
     public static function mb_preferred_mime_name($str){ return mb_preferred_mime_name($str); }//获取 MIME 字符串
     public static function mb_decode_mimeheader($str){ return mb_decode_mimeheader($str); }//解码 MIME 头字段中的字符串
@@ -261,7 +268,7 @@ class PHPStringExtension extends PHPString
     public static function mb_encode_numericentity($str,$convmap,$charSet,$is_hex=FALSE){ return mb_encode_numericentity($str,$convmap,$charSet,$is_hex); }//Encode character to HTML numeric string reference
     //
     public static function mb_convert_kana($str,$option="KV",$charSet){ return mb_convert_kana($str,$option,$charSet); }//日文字符多字节编码转换
-    // ereg
+    // ereg 正则
     public static function mb_ereg($pattern,$str,&$regs){return mb_ereg($pattern,$str,$regs); }//Regular expression match with multibyte support
     public static function mb_eregi($pattern,$str,&$regs){return mb_eregi($pattern,$str,$regs); }//Regular expression match ignoring case with multibyte support
     public static function mb_eregi_replace($pattern,$replace,$str,$option="msr"){return mb_eregi_replace($pattern,$replace,$str,$option); }//Replace regular expression with multibyte support ignoring case
@@ -279,7 +286,7 @@ class PHPStringExtension extends PHPString
     public static function mb_regex_set_options($options ){return mb_regex_set_options($options); }//Set/Get the default options for mbregex functions
 
     /**
-     * ctype 字符检测
+     * 基于 ctype 字符检测
      */
     public static function ctype_alnum($text){return ctype_alnum($text);}//检查提供的text是否全部为字母和(或)数字字符。
     public static function ctype_alpha($text){return ctype_alpha($text);}//查看提供的text里面的所有字符是否只包含字符。

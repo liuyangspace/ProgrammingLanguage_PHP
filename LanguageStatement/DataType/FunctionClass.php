@@ -22,10 +22,9 @@
  *  PHP 支持按值传递参数（默认），通过引用传递参数(&)以及默认参数。也支持可变长度参数列表。
  *  默认参数:支持 标量,数组,NULL,常量表达式，不能是诸如变量，类成员，或者函数调用等。
  *  可变长度参数:由 ... 语法实现
- *  可变函数不能用于例如 echo，print，unset()，isset()，empty()，include，require以及类似的语言结构。
  * 返回值: 可以返回任意类型。
  *  return(结束函数，若后跟值，返回值给调用者),
- *  yield(中断函数[保持函数状态]，若后跟值，返回值给调用者)
+ *  yield(返回生成器，中断函数[保持函数状态]，若后跟值，返回值给调用者(通常为foreach))
  *  函数返回一个引用,必须在函数声明和指派返回值给一个变量时都使用引用运算符 &
  * 可变函数:
  *  可以用来实现回调函数，函数表,对象方法调用.
@@ -33,7 +32,7 @@
  *  可变函数不能用于例如 echo，print，unset()，isset()，empty()，include，require以及类似的语言结构。
  * 匿名函数:也叫闭包函数
  *  闭包函数也可以作为变量的值来使用。
- *  use:闭包可以从父作用域中继承变量。 任何此类变量都应该用 use 语言结构传递进去。
+ *  use:闭包可以从父作用域中继承变量。任何此类变量都应该用 use 语言结构传递进去。
  *  闭包的父作用域是定义该闭包的函数（不一定是调用它的函数）。
  * Reference:
  *  http://php.net/manual/zh/language.types.callable.php
@@ -46,22 +45,19 @@ namespace LanguageStatement\DataType;
 
 class FunctionClass extends PHPFunction
 {
-function a(){
-    yield ;
-}
+
 }
 
 class PHPFunction
 {
 
-    /*
-     *
+    /**
+     * 参数相关
+     * mixed func_get_arg ( int $arg_num )   返回参数列表的某一项
+     * array func_get_args ( void )          返回一个包含函数参数列表的数组
+     * int func_num_args ( void )            Returns the number of arguments passed to the function
      */
-    //参数
-    //mixed func_get_arg ( int $arg_num )   返回参数列表的某一项
-    //array func_get_args ( void )          返回一个包含函数参数列表的数组
-    //int func_num_args ( void )            Returns the number of arguments passed to the function
-
+    //
     public static function create_function($paramStr,$codeStr){ return create_function($paramStr,$codeStr); }//Create an anonymous (lambda-style) function
     public static function function_exists($functionName){ return function_exists($functionName); }//如果给定的函数已经被定义就返回 TRUE
     public static function get_defined_functions(){ return get_defined_functions(); }//Returns an array of all defined functions

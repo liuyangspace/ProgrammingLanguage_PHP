@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * 映射 参见 SplObjectStorage (LanguageExtension/SPL/DataStructure/SplObjectStorage)
  * map 特征：
  *
