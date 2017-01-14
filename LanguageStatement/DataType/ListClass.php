@@ -3,9 +3,12 @@
  * 链表
  * ( SplDoublyLinkedList 参见 LanguageExtension/SPL/DataStructure/SplDoublyLinkedList)
  * list 特征：
- *  顺序线性排列
+ *  顺序访问线性排列,添加，删除，较快
  * 用例：
- *
+ *  $list=new List('a');
+ *  $list->setNext('b')->setValue('b1')
+ *      ->setNext('c')->setValue('c1')
+ *      ->setNext('d')->setValue('d1');
  * Reference:
  *
  */
@@ -35,11 +38,12 @@ class ListClass
      * set value
      * void setValue( mixed $value )
      * @param mixed $value value
-     * @return void
+     * @return ListClass
      */
     public function setValue($value=null)
     {
         $this->value=$value;
+        return $this;
     }
 
     /**
@@ -57,11 +61,12 @@ class ListClass
      * set next ListClass
      * void setNext( ListClass $next )
      * @param ListClass $next next ListClass
-     * @return void
+     * @return ListClass
      */
     public function setNext(ListClass $next=null)
     {
         $this->next=$next;
+        return $next;
     }
 
     /**
@@ -80,15 +85,15 @@ class ListClass
      * Array export( void )
      * Array __debugInfo( void )
      * @param void
-     * @return Array
+     * @return mixed
      */
     public function export()
     {
-        return $this->value;
+        return ['this'=>$this->value,'next'=>$this->next];
     }
     public function __debugInfo()
     {
-        return $this->value;
+        return ['this'=>$this->value,'next'=>$this->next];
     }
 
 }

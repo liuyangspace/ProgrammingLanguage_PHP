@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * 栈
  * stack 特征：
  *  后进先出
@@ -22,13 +22,13 @@ class Stack implements \ArrayAccess
     //  栈数据存储容器
     protected $stack = array();
 
-    /*
+    /**
      * 构建 栈
      * Stack __construct( mixed $var )
      * @param $var
      * @return Stack
      */
-    public function __construct($var=null)
+    public function __construct(Array $var=null)
     {
         if(is_array($var)){
             $this->stack = array_values($var);
