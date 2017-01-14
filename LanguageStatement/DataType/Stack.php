@@ -1,77 +1,77 @@
 <?php
 /**
  * 栈
+ * (SplStack 参见 LanguageExtension/SPL/DataStructure/SplStack)
  * stack 特征：
- *  后进先出
+ *  后进先出,大小可变 (LIFO)
  * 用例：
  *  建栈：$stack = new ListClass();$stack = new ListClass([1,2,3]);
- *  入栈：$stack->push(1);$stack[]=1;
- *  出栈：$stack->pop();$stack[0];
- *  栈长：$stack->size();
- *  清栈：$stack->clear();unset($stack);
+ *  入栈：$stack->push(1);$stack->input(1);
+ *  出栈：$stack->pop();$stack->output();
+ *  栈长：$stack->count();
+ *  清栈：$stack->clear();
  *  调试：$stack->export();var_dump($stack);
- *  类型变换：$tuple->toArray();
+ *  类型变换：$tuple->toArray();$tuple->__toString()
  * Reference:
  *
  */
 
 namespace LanguageStatement\DataType;
 
-class Stack implements \ArrayAccess
+class Stack implements \Countable
 {
     //  栈数据存储容器
-    protected $stack = array();
+    protected $container ;
 
     /**
      * 构建 栈
-     * Stack __construct( mixed $var )
+     * Stack __construct( array $var )
      * @param $var
      * @return Stack
      */
     public function __construct(Array $var=null)
     {
-        if(is_array($var)){
-            $this->stack = array_values($var);
-        }elseif(is_string($var)){
-            $this->stack = str_split($var);
-        }elseif($var===null){
-            $this->stack = array();
+        $this->container = new \SplStack();
+        if($var===null){
+
         }else{
-            throw new \Exception('"'.$var.'" is not a array or string !');
+            foreach($var as $value){
+                $this->container->push($value);
+            }
         }
     }
 
-    /*
+    /**
      * 入栈
      * void push( mixed $var )
      * @param $var
      * @return void
      */
-    public function push($var)
+    public function push($value)
     {
-        $this->stack[] = $var;
+        $this->container->push($value);
     }
-    public function offsetSet($offset, $value)
+    public function input($value)
     {
-        $this->stack[] = $value;
+        $this->container->push($value);
     }
 
-    /*
+    /**
      * 出栈
      * mixed pull( void )
      * @param $var
-     * @return 弹出队首的值,如果 array 为 空则返回 NULL。
+     * @return mixed 弹出队首的值,如果 array 为 空则返回 NULL。
      */
     public function pop()
     {
-        return array_pop($this->stack);
+        return $this->container->pop();
     }
-    public function offsetGet($offset)
+    public function output()
     {
-        return array_pop($this->stack);
+        return $this->container->pop();
     }
 
-    /*
+    /**
      * 清空
      * void clear( void )
      * @param $var
@@ -79,18 +79,27 @@ class Stack implements \ArrayAccess
      */
     public function clear()
     {
-        $this->stack = array();
+        $this->container = new \SplStack();
     }
 
-    /*
+    /**
+     * Checks whether the stack is empty.
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return $this->container->isEmpty();
+    }
+
+    /**
      * 栈长
      * int size( void )
      * @param void
-     * @return 栈内的单元数
+     * @return int 栈内的单元数
      */
-    public function size()
+    public function count()
     {
-        return count($this->stack);
+        return $this->container->count();
     }
 
     /*
@@ -101,31 +110,11 @@ class Stack implements \ArrayAccess
      */
     public function export()
     {
-        return $this->stack;
+        return $this->container;
     }
     public function __debugInfo()
     {
-        return $this->stack;
-    }
-
-    /**
-     * Whether a offset exists
-     * @param mixed $offset <p>
-     * @return boolean true on success or false on failure.
-     */
-    public function offsetExists($offset)
-    {
-        return false;
-    }
-
-    /**
-     * Offset to unset
-     * @param mixed $offset <p>
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        $this->stack = array();
+        return $this->container;
     }
 
     /**
@@ -135,6 +124,18 @@ class Stack implements \ArrayAccess
      */
     public function toArray()
     {
-        return $this->stack;
+        $arr=[];
+        foreach($this->container as $value){
+            $arr[]=$value;
+        }
+        return array_reverse($arr);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray(),JSON_PRETTY_PRINT|JSON_FORCE_OBJECT);
     }
 }

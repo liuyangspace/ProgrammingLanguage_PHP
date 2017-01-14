@@ -5,7 +5,7 @@
  * list 特征：
  *  顺序访问线性排列,添加，删除，较快
  * 用例：
- *  $list=new List('a');
+ *  $list=new LinkList('a');
  *  $list->setNext('b')->setValue('b1')
  *      ->setNext('c')->setValue('c1')
  *      ->setNext('d')->setValue('d1');
@@ -15,7 +15,7 @@
 
 namespace LanguageStatement\DataType;
 
-class ListClass
+class LinkList
 {
     // 本节点的值
     protected $value;
@@ -24,9 +24,9 @@ class ListClass
 
     /**
      * 构建
-     * ListClass __construct( mixed $var. )
-     * @param $var
-     * @return ListClass
+     * LinkList constructor.
+     * @param null $value
+     * @param ListClass|null $next
      */
     public function __construct($value=null,ListClass $next=null)
     {

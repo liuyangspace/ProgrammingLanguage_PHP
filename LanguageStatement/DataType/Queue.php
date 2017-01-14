@@ -2,25 +2,25 @@
 /**
  * 队列
  * Queue 特征：
- *  先进先出
+ *  先进先出(FIFO)
  * 用例：
  *  建队：$queue = new Queue();$queue = new Queue([1,2,3]);
- *  入队：$queue->put(1);$queue[]=1;
- *  出队：$queue->pull();$queue[0];
- *  队长：$queue->size();
- *  清队：$queue->clear();unset($queue);
+ *  入队：$queue->put(1);$queue->input(1);
+ *  出队：$queue->pull();$queue->output();
+ *  队长：$queue->count();count($queue)
+ *  清队：$queue->clear();$queue->isEmpty();
  *  调试：$queue->export();var_dump($queue);
- *  类型变换：$queue->toArray();
+ *  类型变换：$queue->toArray();$queue->__toString();
  * Reference:
  *
  */
 
 namespace LanguageStatement\DataType;
 
-class Queue implements \ArrayAccess
+class Queue implements \Countable
 {
     //  队列数据存储容器
-    protected $container = array();
+    protected $container ;
 
     /**
      * 构建 队列
@@ -28,33 +28,33 @@ class Queue implements \ArrayAccess
      * @param $var
      * @return Queue
      */
-    public function __construct($var=null)
+    public function __construct(Array $var=null)
     {
-        if(is_array($var)){
-            $this->container = array_values($var);
-        }elseif(is_string($var)){
-            $this->container = str_split($var);
-        }elseif($var===null){
-            $this->container = array();
+        $this->container = new \SplQueue();
+        if($var===null){
+
         }else{
-            throw new \Exception('"'.$var.'" is not a array or string !');
+            foreach($var as $value){
+                $this->container->push($value);
+            }
         }
     }
 
     /**
      * 入队
-     * void put( mixed $var )
+     * void put( mixed $value )
      * @param $var
      * @return void
      */
-    public function put($var)
+    public function put($value)
     {
-        $this->container[] = $var;
+        $this->container->push($value);
     }
-    public function offsetSet($offset, $value)
+    public function input($value)
     {
-        $this->container[] = $value;
+        $this->container->push($value);
     }
+
 
     /**
      * 出队
@@ -64,12 +64,13 @@ class Queue implements \ArrayAccess
      */
     public function pull()
     {
-        return array_shift($this->container);
+        return $this->container->shift();
     }
-    public function offsetGet($offset)
+    public function output()
     {
-        return array_shift($this->container);
+        return $this->container->shift();
     }
+
 
     /**
      * 清空
@@ -79,18 +80,27 @@ class Queue implements \ArrayAccess
      */
     public function clear()
     {
-        $this->container = array();
+        $this->container = new \SplQueue();
+    }
+
+    /**
+     * Checks whether the queue is empty.
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return $this->container->isEmpty();
     }
 
     /**
      * 队长
-     * int size( void )
+     * int count( void )
      * @param void
      * @return int 队内的单元数
      */
-    public function size()
+    public function count()
     {
-        return count($this->container);
+        return $this->container->count();
     }
 
     /**
@@ -109,33 +119,25 @@ class Queue implements \ArrayAccess
     }
 
     /**
-     * Whether a offset exists
-     * @param mixed $offset <p>
-     * @return boolean true on success or false on failure.
-     */
-    public function offsetExists($offset)
-    {
-        return false;
-    }
-
-    /**
-     * Offset to unset
-     * @param mixed $offset <p>
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        $this->container = array();
-    }
-
-    /**
      * 类型变换
      * @param void
      * @return array
      */
     public function toArray()
     {
-        return $this->container;
+        $arr=[];
+        foreach($this->container as $value){
+            $arr[]=$value;
+        }
+        return $arr;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray(),JSON_PRETTY_PRINT|JSON_FORCE_OBJECT);
     }
 }
 
