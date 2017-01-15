@@ -21,10 +21,8 @@ namespace LanguageStatement;
 class LanguageRegulate
 {
 
-    //
-    //public static function php_check_syntax($filename,&$error_message){ return php_check_syntax($filename,$error_message); }//检查PHP的语法（并执行）指定的文件
-
-    /*
+    public static function php_check_syntax($filename,&$error_message){ return php_check_syntax($filename,$error_message); }//检查PHP的语法（并执行）指定的文件
+    /**
      * php 代码
      */
     public static function php_strip_whitespace($filename){ return php_strip_whitespace($filename); }//返回删除注释和空格后的PHP源码
@@ -34,7 +32,7 @@ class LanguageRegulate
 
     public static function token_get_all($sourceCode){return token_get_all($sourceCode);}//将提供的源码按 PHP 标记进行分割
     public static function token_name($token){return token_name($token);}//获取提供的 PHP 解析器代号的符号名称
-    /*
+    /**
      * 流程控制
      */
     // 脚本文件 导入，引用
@@ -44,12 +42,6 @@ class LanguageRegulate
     public static function require_once($string){require_once $string;}//
     public static function get_included_files(){return get_included_files();}//返回所有被 include、 include_once、 require 和 require_once的文件名。
     public static function get_required_files(){return get_required_files();}//别名 get_included_files()
-
-
-
-    //session
-
-    //cookie
 
 }
 

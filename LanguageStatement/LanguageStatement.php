@@ -42,7 +42,7 @@ class LanguageStatement
 {
     //保留字列表
 
-    /*
+    /**
      * 关键词列表
      */
     public static $keywords = array(
@@ -85,7 +85,7 @@ class LanguageStatement
         'resource',         'object',           'mixed',            'numeric',
     );
 
-    /*
+    /**
      * PHP 运算符
      */
     public static $Operators = array(
@@ -114,7 +114,7 @@ class LanguageStatement
         'or',                       //逻辑或
     );
 
-    /*
+    /**
      * PHP 支持 8 种原始数据类型。
      */
     public static $dataTypes = array(
@@ -128,7 +128,7 @@ class LanguageStatement
         'mixed',            'number',           'callback',
     );
 
-    /*
+    /**
      * 预定义常量(常用部分)
      */
     public static $predefinedConstants = array(
@@ -141,7 +141,7 @@ class LanguageStatement
         '__METHOD__'                    =>  __METHOD__,     //Trait 的名字（PHP 5.4.0 新加）。
         '__NAMESPACE__'                 =>  __NAMESPACE__,  //类的方法名（PHP 5.0.0 新加）。
         '__TRAIT__'                     =>  __NAMESPACE__,  //当前命名空间的名称（区分大小写）。
-        //内核预定义常量
+        // 内核预定义常量
         'PHP_VERSION'                   =>  PHP_VERSION,            //string
         'PHP_OS'                        =>  PHP_OS,                 //string
         'PHP_SAPI'                      =>  PHP_SAPI,               //string 自 PHP 4.2.0 起可用。参见 php_sapi_name()。
@@ -177,16 +177,16 @@ class LanguageStatement
         'E_ALL'                         =>  E_ALL,                  //(integer)
         'E_STRICT'                      =>  E_STRICT,               //(integer) 从 PHP 5.0.0 起有效
         '__COMPILER_HALT_OFFSET__'      =>  __COMPILER_HALT_OFFSET__,//(integer) 从 PHP 5.0.0 起有效
-        //标准预定义常量 (详见 StandardPredefinedConstants.txt)
+        // 标准预定义常量 (详见 StandardPredefinedConstants.txt)
         'DIRECTORY_SEPARATOR'           =>  DIRECTORY_SEPARATOR,    //系统分隔符
-        //self::$standardPredefinedConstants
+        // self::$standardPredefinedConstants
     );
 
-    /*
+    /**
      * 预定义变量
      */
     public static $predefinedVariables = array(
-        //超全局变量
+        // 超全局变量
         '$GLOBALS',     //高可用，引用全局作用域中可用的全部变量
         '$_SERVER',     //低可用，服务器和执行环境信息
         '$_GET',        //HTTP GET 变量
@@ -204,7 +204,7 @@ class LanguageStatement
         '$argv',        //传递给脚本的参数数组
     );
 
-    /*
+    /**
      * 魔术方法
      */
     public static $magicMethods = array(
@@ -232,12 +232,12 @@ class LanguageStatement
         '__autoload()',     //spl_autoload_register() 提供了一种更加灵活的方式来实现类的自动加载。因此，不再建议使用 __autoload() 函数，在以后的版本中它可能被弃用。
     );
 
-    /*
+    /**
      * 预定义类和接口
      */
     public static $predefinedClasses = array(
-        'Exception',                    //所有异常的基类。
-        'ErrorException',               //错误异常。
+        'Exception',                    // 所有异常的基类。
+        'ErrorException',               // 错误异常。
         'php_user_filter',
         'Generator',                    // 生成器类 Generator 对象不能通过 new 实例化.
         'Traversable',                  //（遍历）接口 ,检测一个类是否可以使用 foreach 进行遍历的接口。
@@ -275,7 +275,7 @@ class LanguageStatement
         'DateInterval',
         'DateTimeImmutable',
         'DateTimeZone',
-        //class interface extension method function property
+        // class interface extension method function property
         'Reflection',
         'ReflectionClass',
         'ReflectionObject',
@@ -290,16 +290,24 @@ class LanguageStatement
         // directory file
         'Directory',
         'finfo',
-        // SPL
+        // SPL date structure
         'SplDoublyLinkedList',
-        //
+        'SplStack',
+        'SplQueue',
+        'SplHeap',
+        'SplMaxHeap',
+        'SplMinHeap',
+        'SplPriorityQueue',
+        'SplFixedArray',
+        'SplObjectStorage',
+        // session 会话管理器
         'SessionHandler',
     ];
 
 
-    /*
+    /**
      * 判断是否为PHP关键字
-     * @param string $word 要验证的关键字
+     * @param string $wordString 要验证的关键字
      * @return boolean [ true:是关键字，false:不是关键字]
      */
     public function isKeywords ($wordString){
@@ -310,30 +318,30 @@ class LanguageStatement
         }
     }
 
-    /*
+    /**
      * 获取PHP关键字
      * Array getKeywords( void )
      */
     public function getKeywords (){ return self::$keywords; }
 
-    /*
+    /**
      * 判断是否为PHP预定义常量
-     * @param string $word 要验证的关键字
+     * @param string $wordString 要验证的关键字
      * @return boolean [ true:是预定义常量，false:不是预定义常量]
      */
     public function isPredefinedConstants ($wordString){
         return array_key_exists((string)$wordString,self::$predefinedConstants);
     }
 
-    /*
+    /**
      * 获取PHP预定义常量
      * Array getPredefinedConstants( void )
      */
     public function getPredefinedConstants (){ return self::$predefinedConstants; }
 
-    /*
+    /**
      * 判断是否为PHP预定义类和接口
-     * @param mix $word 要验证的类或接口
+     * @param mixed $wordString 要验证的类或接口
      * @return boolean [ true:是预定义类和接口，false:不是预定义类和接口]
      */
     public function isPredefinedClasses ($wordString){
@@ -347,9 +355,9 @@ class LanguageStatement
         }
     }
 
-    /*
+    /**
      * 获取PHP预定义类和接口
-     * @return Array [预定义类和接口]
+     * @return array [预定义类和接口]
      */
     public function getPredefinedClasses (){ return self::$predefinedClasses; }
 
