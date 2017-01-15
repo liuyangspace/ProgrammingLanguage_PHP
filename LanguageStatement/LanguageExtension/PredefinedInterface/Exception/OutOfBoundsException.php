@@ -1,28 +1,26 @@
 <?php
 /**
- * PHP Exception
+ * OutOfBoundsException
+ * Exception thrown if a value is not a valid key.
+ * This represents errors that cannot be detected at compile time.
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\Exception;
 
 
-class Exception extends \Exception
+class OutOfBoundsException extends \RuntimeException
 {
 
-    // 属性
-    protected $message = 'Unknown exception';   // 异常信息
-    private   $string;                          // __toString cache
-    protected $code = 0;                        // 用户自定义异常代码
-    protected $file;                            // 发生异常的文件名
-    protected $line;                            // 发生异常的代码行号
-    private   $trace;                           // backtrace,指向上一个异常
-    private   $previous;                        // previous exception if nested exception
-
-
-    public function __construct($message, $code, Exception $previous){parent::__construct($message, $code, $previous);}
-    public function __toString(){parent::__toString();}// 可输出的字符串
     /**
-     * 方法
+     * 继承的成员
+     *
+     * // 属性
+     * protected string $message ;          // 异常信息
+     * protected int $code ;                // 用户自定义异常代码
+     * protected string $file ;             // 发生异常的文件名
+     * protected int $line ;                // 发生异常的代码行号
+     * // 方法
+     *       public string      function __toString ( void );       // 可输出的字符串
      * final private void       function __clone( void );           // Inhibits cloning of exceptions.
      *
      * final public string      function getMessage( void );        // 返回异常信息
@@ -33,4 +31,5 @@ class Exception extends \Exception
      * final public Exception   function getPrevious( void );       // 之前的 exception
      * final public string      function getTraceAsString( void );  // 已格成化成字符串的 getTrace() 信息
      */
+
 }
