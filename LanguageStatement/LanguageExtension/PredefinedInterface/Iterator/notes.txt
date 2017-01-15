@@ -1,0 +1,18 @@
+
+PHP 内置迭代器 实现/继承结构
+
+Traversable (interface)[foreach]
+    Iterator (interface)[current,key,valid,next,rewind]
+        OuterIterator (interface)[getInnerIterator]
+            IteratorIterator (class)[__construct]
+                AppendIterator (class)
+                CachingIterator (class)
+                FilterIterator (abstract)[accept]
+                    CallbackFilterIterator (class)
+        RecursiveIterator (interface)[getChildren,hasChildren]
+        SeekableIterator (interface)[seek]
+            ArrayIterator (class)
+            DirectoryIterator (class)
+        EmptyIterator (class)
+    IteratorAggregate (interface)[getIterator]
+        ArrayObject (class)

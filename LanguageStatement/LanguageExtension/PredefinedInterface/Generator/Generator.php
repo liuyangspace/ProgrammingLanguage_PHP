@@ -9,7 +9,7 @@
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\Generator;
 
 
-class Generator //extends \Generator implements \Iterator   //final class
+class Generator // extends \Generator implements \Iterator   //final class
 {
 
     public function current(){}
@@ -20,4 +20,5 @@ class Generator //extends \Generator implements \Iterator   //final class
     public function throw(\Exception $exception){}
     public function valid(){}
     public function __wakeup(){}
+
 }

@@ -8,6 +8,7 @@ namespace LanguageStatement\UtilComponent\Streams\File;
 
 class File
 {
+    /* 面向对象文件操作方法 参见 SPL/File( SplFileInfo, SplFileObject, SplTempFileObject, DirectoryIterator) */
     protected static $config=[
         'allow_url_fopen',//激活了 URL 形式的 fopen 封装协议使得可以访问 URL 对象例如文件。
         'allow_url_include',//This option allows the use of URL-aware fopen wrappers with the following functions: include, include_once, require, require_once.

@@ -2,6 +2,7 @@
 /**
  * SeekableIterator
  * The Seekable iterator.
+ * 可以改变当前指针指向位置的迭代器（支持seek操作）
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\Iterator;
