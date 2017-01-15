@@ -23,7 +23,7 @@ class Iterator implements \Iterator
     //数据存储容器
     protected $container;
 
-    /*
+    /**
      * 构建
      * Iterator __construct( mixed $var )
      * @param $var

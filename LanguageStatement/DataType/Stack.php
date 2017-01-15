@@ -102,7 +102,7 @@ class Stack implements \Countable
         return $this->container->count();
     }
 
-    /*
+    /**
      * 打印
      * Array export( void )
      * @param void

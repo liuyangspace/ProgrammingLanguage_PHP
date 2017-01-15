@@ -3,7 +3,8 @@
  * 链表
  * ( SplDoublyLinkedList 参见 LanguageExtension/SPL/DataStructure/SplDoublyLinkedList)
  * list 特征：
- *  顺序访问线性排列,添加，删除，较快
+ *  物理存储单元上非连续、非顺序
+ *  顺序访问(区别于数组，字典的随机访问)线性排列,添加，删除，较快
  * 用例：
  *  $list=new LinkList('a');
  *  $list->setNext('b')->setValue('b1')
@@ -26,9 +27,9 @@ class LinkList
      * 构建
      * LinkList constructor.
      * @param null $value
-     * @param ListClass|null $next
+     * @param LinkList|null $next
      */
-    public function __construct($value=null,ListClass $next=null)
+    public function __construct($value=null,LinkList $next=null)
     {
         $this->value=$value;
         $this->next=$next;
@@ -38,7 +39,7 @@ class LinkList
      * set value
      * void setValue( mixed $value )
      * @param mixed $value value
-     * @return ListClass
+     * @return LinkList
      */
     public function setValue($value=null)
     {
@@ -60,10 +61,10 @@ class LinkList
     /**
      * set next ListClass
      * void setNext( ListClass $next )
-     * @param ListClass $next next ListClass
-     * @return ListClass
+     * @param LinkList $next next ListClass
+     * @return LinkList
      */
-    public function setNext(ListClass $next=null)
+    public function setNext(LinkList $next=null)
     {
         $this->next=$next;
         return $next;
@@ -73,7 +74,7 @@ class LinkList
      * get next ListClass
      * ListClass getNext( void )
      * @param void
-     * @return ListClass next ListClass
+     * @return LinkList next ListClass
      */
     public function getNext()
     {

@@ -1,7 +1,7 @@
 <?php
-/*
- * 字典
- * Dictionary 特征：
+/**
+ * 日历，时间  参见 LanguageExtension/DateTime
+ * Time 特征：
  *
  * 用例：
  *
@@ -32,13 +32,10 @@ class Time extends PHPTimeExtension
         ),
     );
 
-
-
 }
 
 class PHPTimeExtension extends PHPTime
 {
-    
 
 }
 
@@ -56,13 +53,13 @@ class PHPTime
     /**
      *  时间戳,format
      */
-    //时间戳,format->时间戳
+    // 时间戳,format->时间戳
     public static function time(){ return time(); }//返回当前的 Unix 时间戳
     public static function microtime($as_float){ return microtime($as_float); }//返回当前 Unix 时间戳和微秒数
     public static function strtotime($time,$now){ return strtotime($time,$now); }//将任何英文文本的日期时间描述解析为 Unix 时间戳
     public static function mktime($hour,$minute,$second,$month,$day,$year,$is_dst){ return mktime($hour,$minute,$second,$month,$day,$year,$is_dst); }//取得一个日期的 Unix 时间戳
     public static function gmmktime($hour,$minute,$second,$month,$day,$year,$is_dst){ return gmmktime($hour,$minute,$second,$month,$day,$year,$is_dst); }//取得 GMT 日期的 UNIX 时间戳
-    //format,时间戳->format
+    // format,时间戳->format
     public static function date($format,$timestamp){ return date($format,$timestamp); }//格式化一个本地时间／日期
     public static function idate($format,$timestamp){ return idate($format,$timestamp); }//将本地时间日期格式化为整数,idate()只接受一个字符作为 format 参数。
     public static function gmdate($format,$timestamp){ return gmdate($format,$timestamp); }//格式化一个 GMT/UTC 日期／时间
@@ -77,7 +74,8 @@ class PHPTime
     public static function date_sunset($timestamp){ return date_sunset($timestamp); }//返回给定的日期与地点(经纬度)的日落时间，详见手册
     public static function date_sun_info($time,$latitude,$longitude){ return date_sun_info($time,$latitude,$longitude); }//Returns an array with information about sunset/sunrise and twilight begin/end
 
-    /** 部分 别名 函数
+    /**
+     * 部分 别名 函数
      * DateTimeZone
      * •timezone_abbreviations_list     — 别名 DateTimeZone::listAbbreviations
      * •timezone_identifiers_list       — 别名 DateTimeZone::listIdentifiers
@@ -111,7 +109,7 @@ class PHPTime
      * •date_create_immutable           — 别名 DateTimeImmutable::__construct
      */
 
-    //关联区域设置 setlocale()
+    // 关联区域设置 setlocale()
     public static function gmstrftime($format,$timestamp){ return gmstrftime($format,$timestamp); }//根据区域设置格式化 GMT/UTC 时间／日期
     public static function strftime($format,$timestamp){ return strftime($format,$timestamp); }//根据区域设置格式化本地时间／日期
     public static function strptime($date,$format){ return strptime($date,$format); }//解析由 strftime() 生成的日期／时间

@@ -1,15 +1,18 @@
 <?php
-/*
+/**
  * 树
  * tree 特征：
- *  仅能初始化，不能修改
+ *  单向(区别于图，映射,入度小于等于1)一对多关系(区别于线性表)
+ * 分类：
+ *  无序树：树中任意节点的子结点之间没有顺序关系，这种树称为无序树,也称为自由树;
+ *  有序树：树中任意节点的子结点之间有顺序关系，这种树称为有序树；
+ *  二叉树：每个节点最多含有两个子树的树称为二叉树；
+ *  完全二叉树
+ *  满二叉树
+ *  霍夫曼树：带权路径最短的二叉树称为哈夫曼树或最优二叉树；
+ * 遍历:深度优先遍历(DFS),广度优先遍历(BFS)
  * 用例：
- *  建栈：$stack = new ListClass();$stack = new ListClass([1,2,3]);
- *  入栈：$stack->push(1);$stack[]=1;
- *  出栈：$stack->pop();$stack[0];
- *  栈长：$stack->size();
- *  清栈：$stack->clear();unset($stack);
- *  调试：$stack->export();var_dump($stack);
+ *
  * Reference:
  *
  */
@@ -20,84 +23,62 @@ class Tree
 {
 
     //数据存储容器
-    protected $container = array(
-        [
-            'attribute'=>null,  //mixed     本节点属性容器
-            'relation'=>null,   //int       与父节点的关系属性容器
-            'children'=>[],     //int array 子节点容器
-        ]
-    );
+    protected $value;
 
-    //节点数
-    protected $pointNumber=1;
+    // 指向 Tree 引用
+    protected $children;
 
-    //节点id计数器
-    protected $pointId=0;
-
-    /*
+    /**
      * 构建
      * Tree __construct( mixed $var. )
      * @param $var
-     * @return Tree
      */
-    public function __construct($var=null)
+    public function __construct($value,Tree ...$children)
     {
-        if(is_array($var)){
-            $this->container[0]['children'] =  $this->initArray($var);
-        }elseif($var===null){
-
-        }else{
-            throw new \Exception('"'.$var.'" is not a array or null !');
+        $this->value=$value;
+        $this->children=[];
+        foreach($children as $child){
+            $this->addChild($child);
         }
     }
 
-    /*
-     * 将array转为树结构数组
-     * array initArray(Array $arr,$parentIndex=0)
-     * @param Array $arr
-     * @param int $parentIndex  父节点的id
-     * @return  array
+    /**
+     * 添加孩子
+     * @param Tree $tree
+     * @return bool
      */
-    public function initArray(Array $arr,$parentIndex=0)
+    public function addChild(Tree $tree)
     {
-        $ResultArr=array();
-        foreach($arr as $key=>$value){
-            $index=$this->getNewId();
-            $this->container[$index]=[
-                'attribute'=>['index'=>$key],
-                'relation'=>$parentIndex,
-                'children'=>[],
-            ];
-            if(is_array($value)){
-                $this->container[$index]['children']=$this->initArray($value,$index);
-            }else{
-                $this->container[$index]['attribute']['value']=$value;
-            }
-            $ResultArr[]=$index;
-            $this->pointNumber++;
+        if(!in_array($tree,$this->children,true)){
+            $this->children[]=$tree;
+            return true;
         }
-        return $ResultArr;
+        return false;
     }
 
-    /*
-     * 获取新的节点id(数值索引)
+    /**
+     * 移除指定孩子
+     * @param Tree $tree
+     * @return bool
      */
-    protected function getNewId(){
-        return ++$this->pointId;
+    public function removeChild(Tree $tree)
+    {
+        $index=array_search($tree,$this->children,true);
+        if($index!==false){
+            unset($this->children[$index]);
+            return true;
+        }
+        return false;
     }
 
-    /*
-     * 打印
-     * Array export( void )
-     * @param void
-     * @return
+    /**
+     * 判对是否为本节点的孩子
+     * @param Tree $tree
+     * @return bool
      */
-    public function export()
+    public function isChild(Tree $tree)
     {
-        return $this->container;
+        return in_array($tree,$this->children,true);
     }
-    public function __debugInfo()
-    {
-        return $this->container;
-    }
+
 }

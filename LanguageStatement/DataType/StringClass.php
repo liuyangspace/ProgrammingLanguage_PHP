@@ -170,7 +170,7 @@ class PHPString
     public static function sha1($str,$raw_output=false){ return sha1($str,$raw_output); }//计算字符串的 sha1 散列值
     public static function sha1_file($filename,$raw_output=false){ return sha1_file($filename,$raw_output); }//计算指定文件的 MD5 散列值
 
-    /*
+    /**
      * 正则
      */
     // 兼容 Perl
@@ -198,7 +198,7 @@ class PHPString
 
 class PHPStringExtension extends PHPString
 {
-    /*
+    /**
      * 基于 iconv 的多字符集支持
      */
     public static function iconv($in_charset,$out_charset,$str){ return iconv($in_charset,$out_charset,$str); }//字符串按要求的字符编码来转换
@@ -212,7 +212,7 @@ class PHPStringExtension extends PHPString
     public static function iconv_mime_decode($headers,$mode=0,$charset){ return iconv_mime_decode($headers,$mode,$charset); }//解码一个MIME头字段
     public static function iconv_mime_decode_headers($headers,$mode=0,$charset){ return iconv_mime_decode_headers($headers,$mode,$charset); }//一次性解码多个 MIME 头字段
 
-    /*
+    /**
      *  基于 mbstring 的多字节字符串支持
      */
     public static function mb_language($language){ return mb_language($language); }//设置/获取当前的语言

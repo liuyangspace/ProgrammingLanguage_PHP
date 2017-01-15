@@ -1,6 +1,7 @@
 <?php
 /**
- * 图  参见 SplFixedArray,SplObjectStorage (LanguageExtension/SPL/DataStructure)
+ * 图
+ * (参见 SplFixedArray,SplObjectStorage LanguageExtension/SPL/DataStructure)
  * Graph 特征：
  *  存储结构:邻接矩阵,邻接表,十字链表
  *  遍历:深度优先遍历(DFS),广度优先遍历(BFS)
@@ -13,72 +14,49 @@
  */
 
 namespace LanguageStatement\DataType;
-use LanguageStatement\DataType\Map;
 
 //图
 class Graph
 {
     //数据存储容器 邻接表
-    protected $container = [];
+    protected $container ;
 
-    //节点数
-    protected $pointNumber=1;
-
-    //关系数
-    protected $relationNumber=1;
-
-    //节点id计数器
-    protected $pointId=0;
-
-    /*
+    /**
      * 构建
      * Graph __construct( mixed $var. )
      * @param $var
      * @return Graph
      */
-    public function __construct($var=null)
+    public function __construct(Map ...$node)
     {
-
-    }
-
-    /*
-     * 将array转为图结构数组
-     * array initArray(Array $arr,$parentIndex=0)
-     * @param Array $arr
-     * @param Array $parentIndex  父节点的id
-     * @return  array
-     */
-    public function initArray(Array $arr,$parentIndex=[0])
-    {
-        $toIndexes=[];
-        foreach($arr as $key=>$value){
-            $index=$this->getNewPointId();
-            $this->container[$index]=[];
-            $tmpArr=[
-                'attribute'=>['index'=>$key],
-                'from'=>$parentIndex,
-                'to'=>[]
-            ];
-            if(is_array($value)){
-                $tmpArr['to']=$this->initArray($value,[$index]);
-                $this->relationNumber+=count($tmpArr['to']);
-            }else{
-                $tmpArr['attribute']['value']=$value;
-            }
-            $toIndexes[]=$index;
-            $this->container[$index]=$tmpArr;
-            $this->pointNumber++;
+        foreach($node as $value){
+            $this->addNode($value);
         }
-        return $toIndexes;
     }
 
-    /*
-     * 获取新的节点id(数值索引)
+    /**
+     * 添加节点
+     * @param Map $node
+     * @return bool
      */
-    protected function getNewPointId(){
-        return ++$this->pointId;
+    public function addNode(Map $node)
+    {
+        if(!in_array($node,$this->container,true)){
+            $this->container[]=$node;
+            return true;
+        }
+        return false;
     }
 
+    /**
+     * 添加边
+     * @param Map $from
+     * @param Map $to
+     */
+    public function addEdge(Map $from,Map $to)
+    {
+        $from->addTo($to);
+    }
 
     /*
      * 打印
