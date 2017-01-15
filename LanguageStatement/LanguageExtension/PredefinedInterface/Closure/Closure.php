@@ -1,6 +1,8 @@
 <?php
 /**
- * Closure 匿名函数类，不能用new实例化
+ * Closure
+ * 匿名函数类，不能用new实例化，
+ * 对匿名函数默认实例化此类。
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\Closure;

@@ -1,13 +1,14 @@
 <?php
 /**
  * PHP 错误 异常 日志
- *
+ * PHP异常 参见 PredefinedInterface
  */
 
 namespace LanguageStatement\LanguageExtension\Error;
 
 class Error
 {
+
     const DEBUG_BACKTRACE_PROVIDE_OBJECT    = DEBUG_BACKTRACE_PROVIDE_OBJECT;//是否填充 "object" 的索引
     const DEBUG_BACKTRACE_IGNORE_ARGS       = DEBUG_BACKTRACE_IGNORE_ARGS;//是否忽略 "args" 的索引，包括所有的 function/method 的参数，能够节省内存开销。
 

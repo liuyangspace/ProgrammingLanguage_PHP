@@ -265,6 +265,7 @@ class LanguageStatement
         'DateTimeInterface',//
         'JsonSerializable',//影响json_encode
         'SessionHandlerInterface',
+        'Countable',
     ];
     public static $extensionClasses = [
         'stdClass',
@@ -300,6 +301,9 @@ class LanguageStatement
         'SplPriorityQueue',
         'SplFixedArray',
         'SplObjectStorage',
+        // SPL interface
+        'OuterIterator',
+        'RecursiveIterator',
         // session 会话管理器
         'SessionHandler',
     ];

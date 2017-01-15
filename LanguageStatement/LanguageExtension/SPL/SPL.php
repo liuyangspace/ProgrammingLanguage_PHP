@@ -8,6 +8,7 @@ namespace LanguageStatement\LanguageExtension\SPL;
 
 class SPL
 {
+    // 接口部分,异常 参见 PredefinedInterface
 
     // class info
     public static function spl_classes(){return spl_classes();}//返回所有可用的SPL类

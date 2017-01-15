@@ -1,12 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/24
- * Time: 12:40
+ * 用例
  */
 
-namespace LanguageStatement\LanguageExtension\PredefinedInterface\IteratorAggregate;
+namespace LanguageStatement\LanguageExtension\PredefinedInterface\Iterator\test;
+
 
 class BookIterator implements \Iterator
 {
@@ -86,4 +84,3 @@ $bookIterator=new BookIterator($booksCollection);
 foreach($bookIterator as $book){
     var_dump($book);
 }
-

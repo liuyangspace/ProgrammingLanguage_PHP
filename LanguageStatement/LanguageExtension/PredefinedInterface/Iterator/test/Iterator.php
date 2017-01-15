@@ -3,7 +3,7 @@
  * Iterator usages(用例)
  */
 
-namespace LanguageStatement\LanguageExtension\PredefinedInterface\Iterator;
+namespace LanguageStatement\LanguageExtension\PredefinedInterface\Iterator\test;
 
 
 class testIterator implements \Iterator

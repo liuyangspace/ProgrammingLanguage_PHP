@@ -1,9 +1,10 @@
 <?php
 /**
  * ArrayAccess（数组式访问）接口
+ * 提供像访问数组一样访问对象的能力的接口。
  */
 
-namespace LanguageStatement\LanguageExtension\PredefinedInterface\ArrayAccess;
+namespace LanguageStatement\LanguageExtension\PredefinedInterface\ArrayObject;
 
 
 interface ArrayAccess extends \ArrayAccess

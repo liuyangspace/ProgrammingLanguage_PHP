@@ -3,7 +3,7 @@
  * ArrayAccess usages(用例)
  */
 
-namespace LanguageStatement\LanguageExtension\PredefinedInterface\ArrayAccess;
+namespace LanguageStatement\LanguageExtension\PredefinedInterface\ArrayObject\test;
 
 
 class testArrayAccess implements \ArrayAccess
