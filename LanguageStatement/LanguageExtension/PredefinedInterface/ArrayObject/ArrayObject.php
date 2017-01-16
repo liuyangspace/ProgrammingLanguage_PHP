@@ -15,12 +15,12 @@ class ArrayObject extends \ArrayObject implements \IteratorAggregate, \ArrayAcce
     const ARRAY_AS_PROPS    = 2 ;//Entries can be accessed as properties (read and write).
 
     public function __construct($input=[],$flags=0,$iterator_class="ArrayIterator"){parent::__construct($input,$flags,$iterator_class);}//
-
+    //
     public function getFlags(){return parent::getFlags();}//Gets the behavior flags.
     public function setFlags($flags){parent::setFlags($flags);}//Sets the behavior flags.
     public function getIteratorClass(){return parent::getIteratorClass();}//Gets the iterator classname for the ArrayObject.
     public function setIteratorClass($iterator_class){parent::setIteratorClass($iterator_class);}//Sets the iterator classname for the ArrayObject.
-
+    //
     public function append($value){parent::append($value);}//追加新的值作为最后一个元素。
     // sort
     public function ksort(){parent::ksort();}//Sort the entries by key
