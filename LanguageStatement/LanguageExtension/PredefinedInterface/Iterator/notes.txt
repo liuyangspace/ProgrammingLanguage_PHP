@@ -7,12 +7,31 @@ Traversable (interface)[foreach]
             IteratorIterator (class)[__construct]
                 AppendIterator (class)
                 CachingIterator (class)
-                FilterIterator (abstract)[accept]
-                    CallbackFilterIterator (class)
-        RecursiveIterator (interface)[getChildren,hasChildren]
-        SeekableIterator (interface)[seek]
-            ArrayIterator (class)
-            DirectoryIterator (class)
+                    RecursiveCachingIterator (class) -----------<|
+                FilterIterator (abstract)[abstract]              |
+                    RegexIterator (class)                        |
+                        RecursiveRegexIterator (class) ---------<|
+                    CallbackFilterIterator (class)               |
+                        RecursiveCallbackFilterIterator (class) <|
+                    RecursiveFilterIterator (abstract)[accept] -<|
+                        ParentIterator (class)                   |
+                InfiniteIterator (class)                         |
+                LimitIterator (class)                            |
+                NoRewindIterator (class)                         |
+            RecursiveIteratorIterator (class) ------------------<|
+                RecursiveTreeIterator (class) ------------------<|
+        RecursiveIterator (interface)[getChildren,hasChildren] ->|
+        SeekableIterator (interface)[seek]                       |
+            ArrayIterator (class)                                |
+                RecursiveArrayIterator (class) -----------------<|
+            DirectoryIterator (class)                            |
+                FilesystemIterator (class)                       |
+                    RecursiveDirectoryIterator (class) ---------<|
+                    GlobIterator (class)
         EmptyIterator (class)
+        MultipleIterator (class)
     IteratorAggregate (interface)[getIterator]
         ArrayObject (class)
+
+
+( DirectoryIterator, FilesystemIterator, GlobIterator 参见 SPL/File )
