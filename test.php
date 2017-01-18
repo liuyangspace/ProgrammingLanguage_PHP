@@ -56,45 +56,6 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 //$c[$d]=1;
 //$a=1;
 //$s=new \LanguageStatement\DataType\Tree(1,$a);
-class A implements  \OuterIterator
-{
-    protected $container=[1,2,3];
-    protected $pointer=0;
-
-    public function current()
-    {
-        return $this->container[$this->pointer];
-    }
-    public function key()
-    {
-        return $this->pointer;
-    }
-    public function valid()
-    {
-        return array_key_exists($this->pointer, $this->container);
-    }
-    public function next()
-    {
-        $this->pointer++;
-    }
-    public function rewind()
-    {
-        $this->pointer=0;
-    }
-    public function getInnerIterator()
-    {
-        return $this->container[$this->pointer];
-    }
-}
-$a=new A();
-var_dump($a->getInnerIterator());
-var_dump($a->getInnerIterator());
-foreach($a as $value){
-//    foreach($value as $v){
-//        //$v->getInnerIterator();
-//        //var_dump($v);
-//    }
-    //var_dump($value);
-}
+__HALT_COMPILER();
 
 

@@ -56,12 +56,14 @@ class Phar extends \Phar implements \Countable, \ArrayAccess // extends \Recursi
     public function __construct($fname,$flags,$alias){parent::__construct($fname,$flags,$alias);}//
 
     // create
-    // final public static void     webPhar ([ string $alias [, string $index = "index.php" [, string $f404 [, array $mimetypes [, callable $rewrites ]]]]] ) , mapPhar for web-based phars. front controller for web applications
-    // final public static bool     loadPhar ( string $filename [, string $alias ] ) , Loads any phar archive with an alias
-    // final public static bool     mapPhar ([ string $alias [, int $dataoffset = 0 ]] ) , Reads the currently executed file (a phar) and registers its manifest
-    // final public static void     mount ( string $pharpath , string $externalpath ) , Mount an external path or file to a virtual location within the phar archive
-    // final public static void     mungServer ( array $munglist ) , Defines a list of up to 4 $_SERVER variables that should be modified for execution
-    // final public static string   running ([ bool $retphar = true ] ) , Returns the full path on disk or full phar URL to the currently executing Phar archive
+    /**
+     * final public static void     webPhar ([ string $alias [, string $index = "index.php" [, string $f404 [, array $mimetypes [, callable $rewrites ]]]]] ) , mapPhar for web-based phars. front controller for web applications
+     * final public static bool     loadPhar ( string $filename [, string $alias ] ) , Loads any phar archive with an alias
+     * final public static bool     mapPhar ([ string $alias [, int $dataoffset = 0 ]] ) , Reads the currently executed file (a phar) and registers its manifest
+     * final public static void     mount ( string $pharpath , string $externalpath ) , Mount an external path or file to a virtual location within the phar archive
+     * final public static void     mungServer ( array $munglist ) , Defines a list of up to 4 $_SERVER variables that should be modified for execution
+     * final public static string   running ([ bool $retphar = true ] ) , Returns the full path on disk or full phar URL to the currently executing Phar archive
+     */
     public function buildFromDirectory($base_dir,$regex){return parent::buildFromDirectory($base_dir,$regex);}//Construct a phar archive from the files within a directory.
     public function buildFromIterator(\Iterator $iter,$base_directory){parent::buildFromIterator($iter,$base_directory);}//Construct a phar archive from an iterator.
     // Stub
