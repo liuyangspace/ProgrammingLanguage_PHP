@@ -27,6 +27,7 @@ Traversable (interface)[foreach]
             DirectoryIterator (class)                            |
                 FilesystemIterator (class)                       |
                     RecursiveDirectoryIterator (class) ---------<|
+                        Phar (class)
                     GlobIterator (class)
         EmptyIterator (class)
         MultipleIterator (class)
