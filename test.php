@@ -56,6 +56,11 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 //$c[$d]=1;
 //$a=1;
 //$s=new \LanguageStatement\DataType\Tree(1,$a);
-__HALT_COMPILER();
+$compressed   = gzdeflate('Compress me', 9);
+var_dump($compressed);
+$uncompressed = gzinflate($compressed);
+var_dump($uncompressed);
+
+
 
 
