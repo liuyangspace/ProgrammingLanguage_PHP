@@ -92,13 +92,15 @@ class PHPNumber
     /**
      * 进制变换
      */
-    public static function baseConvert ( $string , $to = 16 , $from = 10){ return base_convert($string,$from,$to); }//任意进制之间转换数字
-    public static function bindec  ( $string ){ return bindec($string); }//二进制转换为十进制
-    public static function octdec  ( $string ){ return octdec($string); }//八进制转换为十进制
-    public static function hexdec  ( $string ){ return hexdec($string); }//十六进制转换为十进制
-    public static function decbin  ( $string ){ return decbin($string); }//十进制转换为二进制
-    public static function decoct  ( $string ){ return decoct($string); }//十进制转换为八进制
-    public static function dechex  ( $string ){ return dechex($string); }//十进制转换为十六进制
+    public static function baseConvert($string , $to = 16 , $from = 10){ return base_convert($string,$from,$to); }//任意进制之间转换数字
+    public static function bindec($string){ return bindec($string); }// 二   进制转换为 十   进制
+    public static function bin2hex($string){return bin2hex($string);}// 二   进制转换为 十六 进制
+    public static function octdec($string){ return octdec($string); }// 八   进制转换为 十   进制
+    public static function decbin($string){ return decbin($string); }// 十   进制转换为 二   进制
+    public static function decoct($string){ return decoct($string); }// 十   进制转换为 八   进制
+    public static function dechex($string){ return dechex($string); }// 十   进制转换为 十六 进制
+    public static function hex2bin($string){return hex2bin($string);}// 十六 进制转换为 二   进制
+    public static function hexdec($string){ return hexdec($string); }// 十六 进制转换为 十   进制
 
     /**
      * 基于 BCMath 的高精度算术运算
