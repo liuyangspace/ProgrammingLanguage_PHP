@@ -21,9 +21,12 @@
  *      openssl x509 -req -days 3650 -in server.csr -CA ca.crt -CAkey server.key -CAcreateserial -out server.crt
  *
  * 数字信封:
- *
+ *      数字信封是将对称密钥通过非对称加密（即：有公钥和私钥两个）的结果分发对称密钥的方法。
+ *      数字信封是实现信息完整性验证的技术。
  * PKCS#7:
- *      也叫做加密消息的语法标准，由RSA安全体系在公钥加密系统中交换数字证书产生的一种加密标准。
+ *      PKCS#7描述数字证书的语法和其他加密消息——尤其是，数据加密和数字签名的方法，也包含了算法。当使用PKCS#7
+ *      进行数字签名时，结果包含签名证书（一列相关证书撤回列表）和已证明路径上任何其他证书。如果使用PKCS#7加密
+ *      数据，通常包含发行者的参考消息和证书的序列号，它与用于解密已加密数据的公共密钥相关。
  * PKCS#12:
  *      PKCS#12是一种供应标准格式，主要为了传输、备份、恢复数字证书和它们相关的在公钥加密系统里的公钥或私钥。
  *      PKCS#12是输出格式，通常用于输出数字证书和它的私钥，因为用一个安全性差一点的方法输出一个用户的私钥带来
@@ -66,6 +69,16 @@ class OpenSSL
         'PKCS7_NOATTR',//
         'PKCS7_DETACHED',//
         'PKCS7_NOSIGS',//
+        // Signature Algorithms
+        'OPENSSL_ALGO_DSS1',
+        'OPENSSL_ALGO_SHA1',
+        'OPENSSL_ALGO_SHA224',
+        'OPENSSL_ALGO_SHA384',
+        'OPENSSL_ALGO_SHA512',
+        'OPENSSL_ALGO_RMD160',
+        'OPENSSL_ALGO_MD5',
+        'OPENSSL_ALGO_MD4',
+        'OPENSSL_ALGO_MD2',
         // Ciphers
         'OPENSSL_CIPHER_RC2_40',//
         'OPENSSL_CIPHER_RC2_128',//
@@ -119,42 +132,50 @@ class OpenSSL
     /* resource */public static function openssl_get_publickey($certificate){return openssl_get_publickey($certificate);}//别名 openssl_pkey_get_public()
 
     /**
-     * 算法 随机向量
+     * 算法 随机向量 伪随机码
      */
     // openssl_get_cipher_methods
     public static function openssl_get_cipher_methods($aliases=false){return openssl_get_cipher_methods($aliases);}//Gets a list of available cipher methods.
     public static function openssl_get_md_methods($aliases=false){return openssl_get_md_methods($aliases);}//Gets available digest methods
     public static function openssl_cipher_iv_length($method){return openssl_cipher_iv_length($method);}//Gets the cipher initialization vector (iv) length.
-
+    public static function openssl_random_pseudo_bytes($length,&$crypto_strong){return openssl_random_pseudo_bytes($length,$crypto_strong);}//Generate a pseudo-random string of bytes
 
     /**
      * 加解密，签名
      */
-    // 加密
+    // 对称 加解密
     public static function openssl_encrypt($data,$method,$password,$options=0,$iv=""){return openssl_encrypt($data,$method,$password,$options,$iv);}//Encrypts data
-
-    // 解密
     public static function openssl_decrypt($data,$method,$password,$options=0,$iv=""){return openssl_decrypt($data,$method,$password,$options,$iv);}//Decrypts data
-
-    // 公钥加密 私钥解密
+    // 非对称 加解密
+    public static function openssl_private_encrypt($data,&$crypted,$key,$padding=OPENSSL_PKCS1_PADDING){return openssl_private_encrypt($data,$crypted,$key,$padding);}//私钥加密
+    public static function openssl_public_decrypt($data,&$decrypted,$key,$padding=OPENSSL_PKCS1_PADDING){return openssl_public_decrypt($data,$decrypted,$key,$padding);}//公钥解密
+    public static function openssl_public_encrypt($data,&$crypted,$key,$padding=OPENSSL_PKCS1_PADDING){return openssl_public_encrypt($data,$crypted,$key,$padding);}//公钥加密
+    public static function openssl_private_decrypt($data,&$decrypted,$key,$padding=OPENSSL_PKCS1_PADDING){return openssl_private_decrypt($data,$decrypted,$key,$padding);}//私钥解密
+    // 签名 验签
+    public static function openssl_sign($data,&$signature,$priv_key_id,$signature_alg=OPENSSL_ALGO_SHA1){return openssl_sign($data,$signature,$priv_key_id,$signature_alg);}//Generate signature
+    public static function openssl_verify($data,$signature,$pub_key_id,$signature_alg=OPENSSL_ALGO_SHA1){return openssl_verify($data,$signature,$pub_key_id,$signature_alg);}//Verify signature
+    // 数字信封(包含 envelope key) 混合加密 （公钥加密 私钥解密，分发对称密钥）
     public static function openssl_seal($data,&$sealed_data,&$env_keys,$pub_key_ids,$method="RC4"){return openssl_seal($data,$sealed_data,$env_keys,$pub_key_ids,$method);}//Seal (encrypt) data
     public static function openssl_open($sealed_data,&$open_data,$env_key,$priv_key_id,$method){return openssl_open($sealed_data,$open_data,$env_key,$priv_key_id,$method);}//opens (decrypts) sealed_data
-
+    // 另一种 签名 验签 ( PEM formatted public key  )
+    public static function openssl_spki_new(&$privkey,&$challenge,$algorithm=0){return openssl_spki_new($privkey,$challenge,$algorithm);}//Generates a signed public key and challenge using specified hashing algorithm
+    public static function openssl_spki_verify(&$spkac){return openssl_spki_verify($spkac);}//Validates the supplied signed public key and challenge
+    public static function openssl_spki_export(&$spkac){return openssl_spki_export($spkac);}//Exports PEM formatted public key from encoded signed public key and challenge
+    public static function openssl_spki_export_challenge(&$spkac){return openssl_spki_export_challenge($spkac);}//Exports challenge from encoded signed public key and challenge
     // error
     public static function openssl_error_string(){return openssl_error_string();}//Return openSSL error message
-
-    // PKCS 12  Certificate
+    // PKCS 12 Certificate
     public static function openssl_pbkdf2($password,$salt,$key_length,$iterations,$digest_algorithm){return openssl_pbkdf2($password,$salt,$key_length,$iterations,$digest_algorithm);}//Generates a PKCS5 v2 PBKDF2 string, defaults to SHA-1
     public static function openssl_pkcs12_read($pkcs12,&$certs,$pass){return openssl_pkcs12_read($pkcs12,$certs,$pass);}//Parse a PKCS#12 Certificate Store into an array
     public static function openssl_pkcs12_export($x509,&$out,$priv_key,$pass,$args){return openssl_pkcs12_export($x509,$out,$priv_key,$pass,$args);}//Exports a PKCS#12 Compatible Certificate Store File to variable.
     public static function openssl_pkcs12_export_to_file($x509,&$filename,$priv_key,$pass,$args){return openssl_pkcs12_export_to_file($x509,$filename,$priv_key,$pass,$args);}//Exports a PKCS#12 Compatible Certificate Store File
-    // PKCS 7  S/MIME message
+    // PKCS 7 Certificate S/MIME message (混合加密)
     public static function openssl_pkcs7_encrypt($infile,$outfile,$cert,$headers,$flags=0,$cipherid=OPENSSL_CIPHER_RC2_40){return openssl_pkcs7_encrypt($infile,$outfile,$cert,$headers,$flags,$cipherid);}//Encrypt an S/MIME message
     public static function openssl_pkcs7_decrypt($inFilename,$outFilename,$cert,$privateKey){return openssl_pkcs7_decrypt($inFilename,$outFilename,$cert,$privateKey);}//Decrypts an S/MIME encrypted message
     public static function openssl_pkcs7_sign($inFilename,$outFilename,$cert,$privateKey,$headers,$flags=PKCS7_DETACHED,$cert){return openssl_pkcs7_sign($inFilename,$outFilename,$cert,$privateKey,$headers,$flags,$cert);}//Sign an S/MIME message
+    public static function openssl_pkcs7_verify($filename,$flags,$outFilename,$cainfo,$cert,$content){return openssl_pkcs7_verify($filename,$flags,$outFilename,$cainfo,$cert,$content);}//Verifies the signature of an S/MIME signed message
     // 摘要
     public static function openssl_digest($data,$method,$raw_output=false){return openssl_digest($data,$method,$raw_output);}//Computes a digest
-
     // ?
     public static function openssl_dh_compute_key($pub_key,$dh_key){return openssl_dh_compute_key($pub_key,$dh_key);}//Computes shared secret for public value of remote DH key and local DH key
 
