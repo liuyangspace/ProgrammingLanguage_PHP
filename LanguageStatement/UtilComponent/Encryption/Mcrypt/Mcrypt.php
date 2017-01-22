@@ -76,13 +76,11 @@ class Mcrypt
     public static function mcrypt_encrypt($algorithm,$key,$data,$mode,$iv=null){return mcrypt_encrypt($algorithm,$key,$data,$mode,$iv);}//使用给定参数加密明文
     public static function mcrypt_decrypt($algorithm,$key,$data,$mode,$iv=null){return mcrypt_decrypt($algorithm,$key,$data,$mode,$iv);}//使用给定参数解密密文
 
-
     // 函数不应再使用了， 请使用 mcrypt_generic() 和 mdecrypt_generic() 作为替代。
     public static function mcrypt_cbc($algorithm,$key,$data,$mode,$iv=null){return mcrypt_cbc($algorithm,$key,$data,$mode,$iv);}//以 CBC 模式加解密数据
     public static function mcrypt_cfb($algorithm,$key,$data,$mode,$iv=null){return mcrypt_cfb($algorithm,$key,$data,$mode,$iv);}//以 CFB 模式加解密数据
     public static function mcrypt_ecb($algorithm,$key,$data,$mode,$iv=null){return mcrypt_ecb($algorithm,$key,$data,$mode);}//以 ECB 模式加解密数据
     public static function mcrypt_ofb($algorithm,$key,$data,$mode,$iv=null){return mcrypt_ofb($algorithm,$key,$data,$mode,$iv);}//以 OFB 模式加解密数据
-
     public static function mcrypt_generic_end($td){return mcrypt_generic_end($td);}//终止加密
 
 }

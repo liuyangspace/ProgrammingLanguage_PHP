@@ -135,7 +135,7 @@ class PHPNumber
     public static function is_infinite( $float ){ return is_infinite($float); }//判断是否为无限值
     public static function fmod( $floatX, $floatY ){ return fmod($floatX,$floatY); }//返回除法的浮点数余数
     public static function intdiv( $floatX, $floatY ){ return intdiv($floatX,$floatY); }//对除法结果取整
-    // 约数
+    // 约数 取整
     public static function ceil( $float ){ return ceil($float); }//进一法取整
     public static function floor( $float ){ return floor($float); }//舍去法取整
     public static function round( $float, $precision=0, $mode = PHP_ROUND_HALF_UP ){ return round($float,$precision,$mode); }//对浮点数进行四舍五入
