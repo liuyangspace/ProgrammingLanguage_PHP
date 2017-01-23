@@ -19,7 +19,7 @@
  *      3,除设置错误码之外，PDO 还将抛出一个 PDOException 异常类并设置它的属性来反射错误码和错误信息。
  */
 
-namespace LanguageStatement\LanguageExtension\PDO;
+namespace LanguageStatement\LanguageExtension\Database\PDO;
 
 
 class PDO extends \PDO
@@ -103,10 +103,6 @@ class PDO extends \PDO
 
     ];
 
-    public static $options=[
-
-    ];
-
     public function __construct($dsn,$username,$passwd,$options){parent::__construct($dsn,$username,$passwd,$options);}
     public static function getAvailableDrivers(){return parent::getAvailableDrivers();}//返回一个可用驱动的数组
     // attribute
@@ -116,6 +112,7 @@ class PDO extends \PDO
     public function exec($statement){parent::exec($statement);}//执行一条 SQL 语句，并返回受影响的行数
     public function query($statement,$mode=PDO::ATTR_DEFAULT_FETCH_MODE,$arg3=null){parent::query($statement, $mode, $arg3);}//执行一条 SQL 语句，并返回 PDOStatement 实例的结果集
     public function prepare($statement,$driver_options=[]){return parent::prepare($statement,$driver_options);}//Prepares a statement for execution and returns a statement object
+    public function quote($string, $parameter_type = PDO::PARAM_STR){return parent::quote($string, $parameter_type);}//Quotes a string for use in a query.
     public function lastInsertId($name = null){return parent::lastInsertId($name);}//返回最后插入行的ID或序列值
     // transaction
     public function inTransaction(){return parent::inTransaction();}//检查是否在一个事务内
