@@ -88,6 +88,11 @@ class OpenSSL
         'OPENSSL_CIPHER_AES_128_CBC',//
         'OPENSSL_CIPHER_AES_192_CBC',//
         'OPENSSL_CIPHER_AES_256_CBC',//
+        // Version constants
+        'OPENSSL_VERSION_TEXT',
+        'OPENSSL_VERSION_NUMBER',
+        // Server Name Indication constants
+        'OPENSSL_TLSEXT_SERVER_NAME',
     ];
 
     /**

@@ -19,11 +19,32 @@ namespace LanguageStatement\UtilComponent\Encryption;
 
 class Encryption
 {
-    // 加密
-    public static function crypt($str,$salt){ return crypt($str,$salt); }//计算一个字符串的 crc32 多项式
 
-    public static function password_hash($password,$algo,$options){ return password_hash($password,$algo,$options); }//创建密码的哈希（hash）
+    public static $constant=[
+        'PASSWORD_BCRYPT',//
+        'PASSWORD_DEFAULT',//
+    ];
+
+    // 加密
+
+    public static $algorithm=[
+        'CRYPT_STD_DES',//基于标准 DES 算法的散列使用 "./0-9A-Za-z" 字符中的两个字符作为盐值。
+        'CRYPT_EXT_DES',//扩展的基于 DES 算法的散列。其盐值为 9 个字符的字符串，由 1 个下划线后面跟着 4 字节循环次数和 4 字节盐值组成。
+        'CRYPT_MD5',//MD5 散列使用一个以 $1$ 开始的 12 字符的字符串盐值。
+        'CRYPT_BLOWFISH',//Blowfish 算法使用如下盐值："$2a$"，一个两位 cost 参数，"$" 以及 64 位由 "./0-9A-Za-z" 中的字符组合而成的字符串。
+        'CRYPT_SHA256',//SHA-256 算法使用一个以 $5$ 开头的 16 字符字符串盐值进行散列。其他参见手册。
+        'CRYPT_SHA512',//SHA-512 算法使用一个以 $6$ 开头的 16 字符字符串盐值进行散列。其他参见手册。
+    ];
+    public static function crypt($str,$salt){ return crypt($str,$salt); }//一个基于标准 UNIX DES 算法或系统上其他可用的替代算法的散列字符串。
+
+    public static $options=[
+        'salt',
+        'cost',
+    ];
+    public static function password_hash($password,$algo,$options){ return password_hash($password,$algo,$options); }//创建密码的哈希（hash）,兼容 crypt()。
     public static function password_verify($password,$hash){ return password_verify($password,$hash); }//验证密码是否和哈希匹配
+    public static function password_get_info($hash){return password_get_info($hash);}//Returns information about the given hash
+    public static function password_needs_rehash($hash,$algo,$options){return password_needs_rehash($hash,$algo,$options);}//Checks if the given hash matches the given options
 
     public static function md5($str,$raw_output=false){ return md5($str,$raw_output); }//计算字符串的 MD5 散列值
     public static function md5_file($filename,$raw_output=false){ return md5_file($filename,$raw_output); }//计算文件的 sha1 散列值
