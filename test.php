@@ -56,10 +56,14 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 //$c[$d]=1;
 //$a=1;
 //$s=new \LanguageStatement\DataType\Tree(1,$a);
-$compressed   = gzdeflate('Compress me', 9);
-var_dump($compressed);
-$uncompressed = gzinflate($compressed);
-var_dump($uncompressed);
+echo "每隔3秒输出一次<br />";
+set_time_limit(0); //保证php程序运行不超时退出
+while(1) {
+    echo date("H:i:s")."<br />";
+    ob_flush();
+    flush(); //刷新并输出PHP缓冲数据
+    sleep(3);//延迟3秒
+}
 
 
 

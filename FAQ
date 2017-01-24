@@ -1,2 +1,3 @@
 
 1,PHP: Phar 手册上 继承 RecursiveDirectoryIterator，源码 里 继承 PHP_Archive
+2,MongoDB\Driver\Manager::__construct() 中 $options 的取值

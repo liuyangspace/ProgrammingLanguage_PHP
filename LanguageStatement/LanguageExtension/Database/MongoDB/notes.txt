@@ -1,0 +1,7 @@
+
+
+
+\MongoDB\Driver\Manager(class)
+    ::executeBulkWrite
+        MongoDB\Driver\WriteResult()
+

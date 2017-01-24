@@ -99,8 +99,6 @@ class PDO extends \PDO
         'PDO::ATTR_STRINGIFY_FETCHES'=>'boolean',//提取的时候将数值转换为字符串
         'PDO::ATTR_MAX_COLUMN_LEN',//
         'PDO::ATTR_EMULATE_PREPARES'=>'boolean',//启用或禁用预处理语句的模拟。 有些驱动不支持或有限度地支持本地预处理。
-
-
     ];
 
     public function __construct($dsn,$username,$passwd,$options){parent::__construct($dsn,$username,$passwd,$options);}
