@@ -8,6 +8,11 @@
 
 namespace LanguageStatement\LanguageExtension\Database\MongoDB\Driver;
 
+use \MongoDB\Driver\BulkWrite;
+use \MongoDB\Driver\WriteConcern;
+use \MongoDB\Driver\Command;
+use \MongoDB\Driver\ReadPreference;
+use \MongoDB\Driver\Query;
 
 final class Manager // final \MongoDB\Driver\Manager
 {
@@ -51,6 +56,23 @@ final class Manager // final \MongoDB\Driver\Manager
         // (更多选项参见 https://docs.mongodb.com/manual/reference/connection-string/#connections-connection-options )
     ];
 
+    public static $driverOption=[
+        'allow_invalid_hostname',//Disables hostname validation if TRUE. Defaults to FALSE.
+        'ca_dir',//Path to a correctly hashed certificate directory. The system certificate store will be used by default.
+        'ca_file',//Path to a certificate authority file. The system certificate store will be used by default.
+        'crl_file',//Path to a certificate revocation list file.
+        'pem_file',//Path to a PEM encoded certificate to use for client authentication.
+        'pem_pwd',//Passphrase for the PEM encoded certificate (if applicable).
+        'context',//SSL context options to be used as fallbacks for other driver options (as specified).
+        'weak_cert_validation',//Disables certificate validation if TRUE. Defaults to FALSE
+    ];
+
     final public function __construct($uri,Array $options=[],Array $driverOptions=[]){$this->parent=new \MongoDB\Driver\Manager($uri,$options,$driverOptions);}//Create new MongoDB Manager
-    final public function executeBulkWrite($namespace,\MongoDB\Driver\BulkWrite $bulk,\MongoDB\Driver\WriteConcern $writeConcern=null){return $this->parent->executeBulkWrite($namespace,$bulk,$writeConcern);}//Execute one or more write operations
+
+    final public function executeBulkWrite($namespace,BulkWrite $bulk,WriteConcern $writeConcern=null){return $this->parent->executeBulkWrite($namespace,$bulk,$writeConcern);}//Execute one or more write operations
+    final public function executeCommand($db,Command $command,ReadPreference $readPreference=null){return $this->parent->executeCommand($db,$command,$readPreference);}//Execute a database command
+    final public function executeQuery($namespace,Query $query,ReadPreference $readPreference=null){return $this->parent->executeQuery($namespace,$query,$readPreference);}//Execute a database query
+
+    final public function getServers(){return $this->parent->getServers();}//Return the servers to which this manager is connected
+    final public function selectServer(ReadPreference $readPreference=null){return $this->parent->selectServer($readPreference);}//Select a server matching a read preference
 }

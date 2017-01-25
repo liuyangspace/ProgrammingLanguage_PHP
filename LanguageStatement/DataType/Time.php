@@ -114,4 +114,9 @@ class PHPTime
     public static function strftime($format,$timestamp){ return strftime($format,$timestamp); }//根据区域设置格式化本地时间／日期
     public static function strptime($date,$format){ return strptime($date,$format); }//解析由 strftime() 生成的日期／时间
 
+    // 延迟
+    public static function sleep($seconds){ return sleep($seconds); }//延迟:秒数。
+    public static function usleep($seconds){ usleep($seconds); }//延迟:微秒。
+    public static function time_nanosleep($seconds,$nanoseconds){ return time_nanosleep($seconds,$nanoseconds); }//延迟:纳秒。
+
 }

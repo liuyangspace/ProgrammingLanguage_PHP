@@ -2,6 +2,9 @@
 /**
  * OpenSSL
  * 主要算法有：RSA、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）等。
+ * 相关概念：
+ *      ca证书：Certification Authority，CA服务商 判明申请者的身份
+ *      PEM:Openssl使用PEM(RFC 1421－1424)文档格式
  *
  * 格式：
  *  key 是私用密钥openssl格。
@@ -9,7 +12,7 @@
  *  crt 即 certificate的缩写，即证书。
  *  X.509 是一种证书格式.对X.509证书来说，认证者总是CA或由CA指定的人，一份X.509证书是一些标准字段的集合，这些字段包含有关用户或设备及其相应公钥的信息。
  *      PEM - Privacy Enhanced Mail,打开看文本格式,以"-----BEGIN..."开头, "-----END..."结尾,内容是BASE64编码.
- *      DER - Distinguished Encoding Rules,打开看是二进制格式,不可读.
+ *      DER - Distinguished Encoding Rules,打开看是二进制格式.
  * 生成证书：
  * 1,生成私钥KEY
  *      openssl genrsa -des3 -out server.key 2048

@@ -1,7 +1,19 @@
 
 
-
-\MongoDB\Driver\Manager(class)
-    ::executeBulkWrite
-        MongoDB\Driver\WriteResult()
-
+MongoDB\Driver,MongoDB\BSON::
+Manager(class)
+    ::executeBulkWrite(BulkWrite,WriteConcern)
+        WriteResult(class)
+    ::executeQuery(Query,ReadPreference),::executeCommand(Command,ReadPreference)
+        Cursor(class)
+    ::getServers(),::selectServer(ReadPreference)
+        Server(class)
+            ::executeBulkWrite(BulkWrite,WriteConcern)
+                WriteResult(class)
+            ::executeQuery(Query,ReadPreference),::executeCommand(Command,ReadPreference)
+                Cursor(class)
+BulkWrite(class)[insert,update,delete,count]
+Type(interface)
+    Serializable(interface)[bsonSerialize]
+        ReadPreference(class)
+        WriteConcern(class)
