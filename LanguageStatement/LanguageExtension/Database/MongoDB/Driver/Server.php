@@ -29,7 +29,6 @@ final class Server // final \MongoDB\Driver\Server
     const TYPE_RS_GHOST         = 8 ; // Replica set ghost server type,
     /* 虚拟变量 */
     /* 仅做实例引用 Server ,\MongoDB\Driver\Server 中不存在此属性 */public $parent;
-
     final private function __construct(\MongoDB\Driver\Server $server){$this->parent=$server;}//私有化
 
     final public function executeBulkWrite($namespace,BulkWrite $bulk,WriteConcern $writeConcern=null){return $this->parent->executeBulkWrite($namespace,$bulk,$writeConcern);}//Execute one or more write operations

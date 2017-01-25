@@ -5,6 +5,7 @@
  * for write operations to a standalone mongod or to replica sets or to sharded clusters. In
  * sharded clusters, mongos instances will pass the write concern on to the shards.
  * [在 \MongoDB\Driver\Manager::executeBulkWrite(BulkWrite,WriteConcern) 时设置有关写操作的选项，属性]
+ * 参见 https://docs.mongodb.org/manual/reference/write-concern/
  */
 
 namespace LanguageStatement\LanguageExtension\Database\MongoDB\Driver;

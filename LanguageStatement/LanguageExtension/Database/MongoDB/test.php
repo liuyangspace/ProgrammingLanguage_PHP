@@ -16,6 +16,13 @@ $write->insert(['_id'=>new \MongoDB\BSON\ObjectID(),'content'=>'test_content_1']
 // execute
 $manager->executeBulkWrite('test.t2',$write,$wc);
 
+// IO output
+$query=new \MongoDB\Driver\Query(['content'=>['$exists'=>true]]);
+// select
+$cursors = $manager->executeQuery('test.t2',$query);
+foreach($cursors as $cursor){
+    echo $cursor->_id."\n";
+}
 
 // server
 $servers=$manager->getServers();//var_dump($servers);
