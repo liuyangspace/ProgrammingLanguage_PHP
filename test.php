@@ -57,9 +57,7 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 //$a=1;
 //$s=new \LanguageStatement\DataType\Tree(1,$a);
 
-if(1){
-    use \A\b as a;
-}
+echo exif_imagetype("image.gif");
 
 
 

@@ -7,7 +7,7 @@
 namespace LanguageStatement\LanguageExtension\Database\MongoDB\BSON;
 
 
-interface Serializable extends \MongoDB\BSON\Serializable // implements \MongoDB\BSON\Type
+interface Serializable extends \MongoDB\BSON\Type //  \MongoDB\BSON\Serializable
 {
     public function bsonSerialize();//Provides an array or document to serialize as BSON
 }
