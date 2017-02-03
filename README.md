@@ -1,6 +1,6 @@
 # statement/声明
 ###### name         : php总结
-###### description  : php基础知识点
+###### description  : php语言声明总结
 ###### version      : dev
 ###### support      : php 5.3
 ###### author       ：liuyang
