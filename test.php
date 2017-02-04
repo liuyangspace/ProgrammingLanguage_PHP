@@ -57,7 +57,10 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 //$a=1;
 //$s=new \LanguageStatement\DataType\Tree(1,$a);
 
-echo exif_imagetype("image.gif");
+$im = imagegrabscreen();
+imagepng($im, "myscreenshot.png");
+imagedestroy($im);
+
 
 
 

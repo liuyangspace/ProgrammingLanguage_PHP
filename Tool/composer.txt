@@ -1,0 +1,2 @@
+home:https://getcomposer.org
+中国全量镜像:http://pkg.phpcomposer.com/
