@@ -17,6 +17,8 @@
  * 整型值可以使用十进制，十六进制，八进制或二进制表示，前面可以加上可选的符号（- 或者 +）。
  * 常量 NAN 代表着一个在浮点数运算中未定义或不可表述的值,此值与其它任何值进行的松散或严格比较的结果都是 FALSE。
  * NAN 代表着任何不同值，不应拿 NAN 去和其它值进行比较，包括其自身，应该用 is_nan() 来检查
+ * SPL:
+ *  SplInt,SplFloat
  * Reference:
  *  http://php.net/manual/zh/language.types.boolean.php
  */

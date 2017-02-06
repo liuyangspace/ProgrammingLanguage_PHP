@@ -1,6 +1,17 @@
 <?php
 /**
  * SPL Standard PHP Library,PHP标准库
+ * SPL是用于解决典型问题(standard problems)的一组接口与类的集合。
+ *
+ * SPL Type Handling:
+ *      This extension aims at helping people making PHP a stronger typed language
+ *      and can be a good alternative to scalar type hinting.(SPL Type扩展是实验性 的。使用本扩展风险自担 。)
+ *  abstract SplType
+ *  SplInt extends SplType
+ *  SplFloat extends SplType
+ *  SplEnum extends SplType
+ *  SplBool extends SplEnum
+ *  SplString extends SplType
  */
 
 namespace LanguageStatement\LanguageExtension\SPL;

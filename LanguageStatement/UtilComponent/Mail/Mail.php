@@ -18,4 +18,7 @@ class Mail
         'sendmail_from',//在 Windows 下用 PHP 发送邮件时的"From:"邮件地址的值。该选项同时设置了 "Return-Path:"头。
         'sendmail_path',//sendmail 程序的路径，通常为 /usr/sbin/sendmail 或 /usr/lib/sendmail
     ];
+
+    public static function mail($to,$subject,$message,$additional_headers='',$additional_parameters=''){return mail($to,$subject,$message,$additional_headers,$additional_parameters);}//发送一封电子邮件。
+    public static function ezmlm_hash($addr){return ezmlm_hash($addr);}//用于在 MySQL 数据库中保存 EZMLM 邮件列表的散列值。
 }

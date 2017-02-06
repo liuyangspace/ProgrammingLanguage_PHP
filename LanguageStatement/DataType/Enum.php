@@ -8,6 +8,9 @@
  *  $enum=new Enum('A','B','C','A');
  *  $a=A;
  *  echo $enum->get($a);
+ *
+ * SPL:
+ *  SplEnum
  */
 
 namespace LanguageStatement\DataType;

@@ -13,6 +13,8 @@
  *      双引号:将对一些特殊的字符进行解析：
  *      Heredoc 结构:在 <<< 后要提供一个标识符，然后换行。接下来是字符串 string 本身，最后要用前面定义的标识符作为结束标志。
  *      Nowdoc 结构:nowdoc 结构也用和 heredocs 结构一样的标记 <<<， 但是跟在后面的标识符要用单引号括起来，即 <<<'EOT'。
+ * SPL:
+ *  SplString
  * Reference:
  *  http://php.net/manual/zh/language.types.string.php
  */

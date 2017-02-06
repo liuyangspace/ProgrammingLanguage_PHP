@@ -4,6 +4,9 @@
  *  要指定一个布尔值，使用关键字 TRUE 或 FALSE。两个都不区分大小写。
  * Reference:
  *  http://php.net/manual/zh/language.types.boolean.php
+ *
+ * SPL:
+ *  SplBool
  */
 
 namespace LanguageStatement\DataType;

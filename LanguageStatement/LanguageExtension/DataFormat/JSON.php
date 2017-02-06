@@ -1,6 +1,8 @@
 <?php
 /**
  * JSON
+ * 解码分析器基于 Douglas Crockford 的 JSON_checker。
+ * http://www.json.org
  */
 
 namespace LanguageStatement\LanguageExtension\DataFormat;
