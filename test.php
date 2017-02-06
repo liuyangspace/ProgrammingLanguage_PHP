@@ -57,9 +57,15 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 //$a=1;
 //$s=new \LanguageStatement\DataType\Tree(1,$a);
 
-$im = imagegrabscreen();
-imagepng($im, "myscreenshot.png");
-imagedestroy($im);
+$to      = '2260597513@qq.com';
+$subject = 'the subject';
+$message = 'hello';
+$headers = 'From: webmaster@example.com' . "\r\n" .
+    'Reply-To: webmaster@example.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+mail($to, $subject, $message, $headers);
+
 
 
 
