@@ -11,13 +11,13 @@ namespace LanguageStatement\LanguageExtension\Streams\Network;
 
 class Socket
 {
-
     // 协议簇
     protected $domain=[
         AF_INET,//IPv4 网络协议。TCP 和 UDP 都可使用此协议。
         AF_INET6,//IPv6 网络协议。TCP 和 UDP 都可使用此协议。
         AF_UNIX,//本地通讯协议。具有高性能和低成本的 IPC（进程间通讯）。
     ];
+
     // 套接字类型
     protected $type=[
         SOCK_STREAM,//提供一个顺序化的、可靠的、全双工的、基于连接的字节流。支持数据传送流量控制机制。TCP 协议即基于这种流式套接字。
@@ -26,10 +26,12 @@ class Socket
         SOCK_RAW,//提供读取原始的网络协议。这种特殊的套接字可用于手工构建任意类型的协议。一般使用这个套接字来实现 ICMP 请求（例如 ping）。
         SOCK_RDM,//提供一个可靠的数据层，但不保证到达顺序。一般的操作系统都未实现此功能。
     ];
+
     // 协议，可由getprotobyname(),参见Network,Streams
     protected $protocol=[
 
     ];
+
     // 套接字 选项 （socket_set_option，socket_get_option）
     protected $option=[
         SO_DEBUG,//whether debugging information is being recorded

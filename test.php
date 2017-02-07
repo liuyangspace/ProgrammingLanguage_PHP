@@ -57,14 +57,10 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 //$a=1;
 //$s=new \LanguageStatement\DataType\Tree(1,$a);
 
-$to      = '2260597513@qq.com';
-$subject = 'the subject';
-$message = 'hello';
-$headers = 'From: webmaster@example.com' . "\r\n" .
-    'Reply-To: webmaster@example.com' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
+echo '$_GET'.json_encode($_GET)."\n";
+echo '$_POST'.json_encode($_POST)."\n";
+echo '$_FILES'.json_encode($_FILES)."\n";
 
-mail($to, $subject, $message, $headers);
 
 
 
