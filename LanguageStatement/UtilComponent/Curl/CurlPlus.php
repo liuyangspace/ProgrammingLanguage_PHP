@@ -2,7 +2,7 @@
 /**
  * 基于curl的远程访问
  * 封装了常用操作
- *  http: head,get,post
+ *  http: head,get,post (简单支持https)
  */
 
 namespace LanguageStatement\UtilComponent\Curl;
@@ -49,6 +49,88 @@ class CurlPlus
         $ch = self::generalCurlSet($ch,$timeout, $userAgent, $acceptEncoding, $user, $password, $heard, $getHeard);
 
         curl_setopt($ch,CURLOPT_HTTPGET,true);
+
+        $result=curl_exec($ch);
+
+        if(curl_errno($ch)!==0 && $throw){
+            throw new \Exception(curl_error($ch));
+        }
+        return $result;
+    }
+
+    /**
+     * http post 请求
+     * @param $url
+     * @param array $params
+     * @param array|string $files
+     *      可以是文件路径 或 多个文件路径组成的数组
+     *      或 array(
+     *          [
+     *              'filename'=>'a.jpg',//文件路径
+     *              'mimetype'=>'image/jpg',//文件的 MIME 类型。
+     *              'postname'=>'b.jpg',//被上传文件的 文件名。
+     *          ],...
+     *      )
+     * @param bool $urlEncode
+     * @param int $timeout
+     * @param null $userAgent
+     * @param null $acceptEncoding
+     * @param null $user
+     * @param null $password
+     * @param array $heard
+     * @param bool $getHeard
+     * @param bool $throw
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function httpPost(
+        $url,
+        $params=[],
+        $files=[],
+        $urlEncode=true,
+        $timeout=15,
+        $userAgent=null,
+        $acceptEncoding=null,
+        $user=null,
+        $password=null,
+        $heard=[],
+        $getHeard=false,
+        $throw=true
+    ){
+        //$urlParams = self::getUrlParams($url);
+        //$params = array_merge($params,$urlParams);
+        if($urlEncode){
+            $url = self::urlHandler($url,[],$urlEncode);
+        }
+
+        $ch = curl_init($url);
+
+        $ch = self::generalCurlSet($ch,$timeout, $userAgent, $acceptEncoding, $user, $password, $heard, $getHeard);
+
+        if(is_string($files)){
+            $files[]=$files;
+        }
+        if(is_array($files)){
+            array_walk($files,function(&$value,$key){
+                if(is_array($value)){
+                    if( isset($value['filename']) && isset($value['mimetype']) && isset($value['postname']) ){
+                        $value=new \CURLFile($value['filename'],$value['mimetype'],$value['postname']);
+                    }
+                }elseif(is_string($value)){
+                    if(extension_loaded('fileinfo')){
+                        $fileinfo=new \finfo(FILEINFO_MIME_TYPE);
+                        $value=new \CURLFile($value,$fileinfo->file($value),basename($value));
+                    }else{
+                        $value=new \CURLFile($value);
+                    }
+                }
+            });
+        }
+        $params = array_merge($params,$files);
+        curl_setopt($ch,CURLOPT_POST,true);
+        curl_setopt($ch,CURLOPT_SAFE_UPLOAD,true);
+        //curl_setopt($ch,CURLOPT_UPLOAD,true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$params);
 
         $result=curl_exec($ch);
 
@@ -106,84 +188,6 @@ class CurlPlus
         }else{
             return true;
         }
-    }
-
-    /**
-     * http post 请求
-     * @param $url
-     * @param array $params
-     * @param array|string $files
-     *      可以是文件路径 或 多个文件路径组成的数组
-     *      或 array(
-     *          [
-     *              'filename'=>'a.jpg',//文件路径
-     *              'mimetype'=>'image/jpg',//文件的 MIME 类型。
-     *              'postname'=>'b.jpg',//被上传文件的 文件名。
-     *          ],...
-     *      )
-     * @param bool $urlEncode
-     * @param int $timeout
-     * @param null $userAgent
-     * @param null $acceptEncoding
-     * @param null $user
-     * @param null $password
-     * @param array $heard
-     * @param bool $getHeard
-     * @param bool $throw
-     * @return mixed
-     * @throws \Exception
-     */
-    public static function httpPost(
-        $url,
-        $params=[],
-        $files=[],
-        $urlEncode=true,
-        $timeout=15,
-        $userAgent=null,
-        $acceptEncoding=null,
-        $user=null,
-        $password=null,
-        $heard=[],
-        $getHeard=false,
-        $throw=true
-    ){
-
-        //$urlParams = self::getUrlParams($url);
-        //$params = array_merge($params,$urlParams);
-        if($urlEncode){
-            $url = self::urlHandler($url,[],$urlEncode);
-        }
-
-        $ch = curl_init($url);
-
-        $ch = self::generalCurlSet($ch,$timeout, $userAgent, $acceptEncoding, $user, $password, $heard, $getHeard);
-
-        if(is_array($files)){
-            array_walk($files,function(&$value,$key){
-                if(is_array($value)){
-                    if( isset($value['filename']) && isset($value['mimetype']) && isset($value['postname']) ){
-                        $value=new \CURLFile($value['filename'],$value['mimetype'],$value['postname']);
-                    }
-                }elseif(is_string($value)){
-                    $value=new \CURLFile($value);
-                }
-            });
-        }elseif(is_string($files)){
-            $files=new \CURLFile($files);;
-            $files[]=$files;
-        }
-        $params = array_merge($params,$files);
-        curl_setopt($ch,CURLOPT_POST,true);
-        curl_setopt($ch,CURLOPT_SAFE_UPLOAD,true);
-        //curl_setopt($ch,CURLOPT_UPLOAD,true);
-        curl_setopt($ch,CURLOPT_POSTFIELDS,$params);
-
-        $result=curl_exec($ch);
-
-        if(curl_errno($ch)!==0 && $throw){
-            throw new \Exception(curl_error($ch));
-        }
-        return $result;
     }
 
     /**
@@ -286,6 +290,11 @@ class CurlPlus
             curl_setopt($ch,CURLOPT_USERPWD,$user.':'.$password);
         }
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+
+        // SSL
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+
         return $ch;
     }
 

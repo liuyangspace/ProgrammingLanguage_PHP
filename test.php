@@ -60,6 +60,32 @@ $url = 'http://www.baidu.com/path?arg=value#anchor';
 echo '$_GET'.json_encode($_GET)."\n";
 echo '$_POST'.json_encode($_POST)."\n";
 echo '$_FILES'.json_encode($_FILES)."\n";
+//
+$submit_url = "https://sitename/process.php";
+$submit_url = "https://segmentfault.com/q/1010000002784604";
+
+$curl = curl_init();
+
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC ) ;
+curl_setopt($curl, CURLOPT_USERPWD, "username:password");
+//curl_setopt($curl, CURLOPT_SSLVERSION,3);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+curl_setopt($curl, CURLOPT_HEADER, true);
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, [] );
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)");
+curl_setopt($curl, CURLOPT_URL, $submit_url);
+$result=curl_exec($curl);
+//$data = split("text/html",);
+//$temp = split("\r\n", $data[1]) ;
+
+//$result = unserialize( $temp[2] ) ;
+
+var_dump($result);
+curl_close($curl);
 
 
 
