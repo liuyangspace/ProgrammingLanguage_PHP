@@ -166,8 +166,7 @@ class CurlPlus
         $password=null,
         $getHeard=false,
         $throw=false
-    )
-    {
+    ){
         $url = self::urlHandler($url,$params,$urlEncode);
 
         $ch = curl_init($url);

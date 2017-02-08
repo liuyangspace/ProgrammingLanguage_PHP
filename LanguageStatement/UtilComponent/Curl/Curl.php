@@ -138,9 +138,9 @@ class Curl
         // SSL 证书信息
         'CURLOPT_CERTINFO',//TRUE 将在安全传输时输出 SSL 证书信息到 STDERR。(需要开启 CURLOPT_VERBOSE )
         'CURLOPT_SSL_VERIFYPEER',//FALSE禁止 cURL 验证对等证书（peer's certificate）。要验证的交换证书可以在 CURLOPT_CAINFO 选项中设置，或在 CURLOPT_CAPATH中设置证书目录。
+        'CURLOPT_SSL_VERIFYHOST',//设置为 1 是检查服务器SSL证书中是否存在一个公用名,设置成 2，会检查公用名是否存在，并且是否与提供的主机名匹配。 在生产环境中，这个值应该是 2（默认值）。
         'CURLOPT_CAINFO',//一个保存着1个或多个用来让服务端验证的证书的文件名。
         'CURLOPT_CAPATH',//一个保存着多个CA证书的目录。这个选项是和CURLOPT_SSL_VERIFYPEER一起使用的。
-        'CURLOPT_SSL_VERIFYHOST',//设置为 1 是检查服务器SSL证书中是否存在一个公用名,设置成 2，会检查公用名是否存在，并且是否与提供的主机名匹配。 在生产环境中，这个值应该是 2（默认值）。
         'CURLOPT_SSLVERSION',//(最好别设置这个值，让它使用默认值)
         'CURLOPT_EGDSOCKET',//类似CURLOPT_RANDOM_FILE，除了一个Entropy Gathering Daemon套接字。
         'CURLOPT_KEYPASSWD',//使用 CURLOPT_SSLKEY或 CURLOPT_SSH_PRIVATE_KEYFILE 私钥时候的密码。
