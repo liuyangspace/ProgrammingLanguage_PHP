@@ -11,7 +11,8 @@ namespace LanguageStatement\UtilComponent\Curl;
 class CurlPlus
 {
 
-    protected static $userAgent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11';
+    const DEFAULT_USER_AGENT='';
+    protected static $userAgent='';
 
     /**
      * http get 请求
@@ -273,21 +274,12 @@ class CurlPlus
     ){
         curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
         //curl_setopt($ch,CURLOPT_TIMEOUT,$timeout);
-        if($getHeard){
-            curl_setopt($ch,CURLOPT_HEADER,true);
-        }
-        if($userAgent){
-            curl_setopt($ch,CURLOPT_USERAGENT,$userAgent);
-        }
-        if($acceptEncoding){
-            curl_setopt($ch,CURLOPT_ENCODING,$acceptEncoding);
-        }
-        if($heard){
-            curl_setopt($ch,CURLOPT_HTTPHEADER,$heard);
-        }
-        if($user!==null&&$password!==null){
-            curl_setopt($ch,CURLOPT_USERPWD,$user.':'.$password);
-        }
+        if($getHeard) curl_setopt($ch,CURLOPT_HEADER,true);
+        if($userAgent) curl_setopt($ch,CURLOPT_USERAGENT,$userAgent);
+        if($acceptEncoding) curl_setopt($ch,CURLOPT_ENCODING,$acceptEncoding);
+        if($heard) curl_setopt($ch,CURLOPT_HTTPHEADER,$heard);
+        if($user!==null&&$password!==null) curl_setopt($ch,CURLOPT_USERPWD,$user.':'.$password);
+
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 
         // SSL
