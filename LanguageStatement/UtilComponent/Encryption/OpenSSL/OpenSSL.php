@@ -13,6 +13,23 @@
  *  X.509 是一种证书格式.对X.509证书来说，认证者总是CA或由CA指定的人，一份X.509证书是一些标准字段的集合，这些字段包含有关用户或设备及其相应公钥的信息。
  *      PEM - Privacy Enhanced Mail,打开看文本格式,以"-----BEGIN..."开头, "-----END..."结尾,内容是BASE64编码.
  *      DER - Distinguished Encoding Rules,打开看是二进制格式.
+ *
+ *  PKCS 全称是 Public-Key Cryptography Standards ，是由 RSA 实验室与其它安全系统开发商为促进公钥密码的发展而制订的一系列标准，PKCS 目前共发布过 15 个标准。 常用的有：
+ *  PKCS#7 Cryptographic Message Syntax Standard
+ *  PKCS#10 Certification Request Standard
+ *  PKCS#12 Personal Information Exchange Syntax Standard
+ *  X.509是常见通用的证书格式。所有的证书都符合为Public Key Infrastructure (PKI) 制定的 ITU-T X509 国际标准。
+ *  PKCS#7 常用的后缀是： .P7B .P7C .SPC
+ *  PKCS#12 常用的后缀有： .P12 .PFX
+ *  X.509 DER 编码(ASCII)的后缀是： .DER .CER .CRT
+ *  X.509 PAM 编码(Base64)的后缀是： .PEM .CER .CRT
+ *  .cer/.crt是用于存放证书，它是2进制形式存放的，不含私钥。
+ *  .pem跟crt/cer的区别是它以Ascii来表示。
+ *  pfx/p12用于存放个人证书/私钥，他通常包含保护密码，2进制方式
+ *  p10是证书请求
+ *  p7r是CA对证书请求的回复，只用于导入
+ *  p7b以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。
+ *
  * 生成证书：
  * 1,生成私钥KEY
  *      openssl genrsa -des3 -out server.key 2048
