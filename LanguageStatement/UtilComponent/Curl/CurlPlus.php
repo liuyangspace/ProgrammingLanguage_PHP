@@ -33,15 +33,15 @@ class CurlPlus
     public static function httpGet(
         $url,
         $params=[],
-        $urlEncode=true,
+        $urlEncode=TRUE,
         $timeout=15,
-        $userAgent=null,
-        $acceptEncoding=null,
-        $user=null,
-        $password=null,
+        $userAgent=NULL,
+        $acceptEncoding=NULL,
+        $user=NULL,
+        $password=NULL,
         $heard=[],
-        $getHeard=false,
-        $throw=false
+        $getHeard=FALSE,
+        $throw=FALSE
     ){
         $url = self::urlHandler($url,$params,$urlEncode);
 
@@ -49,7 +49,7 @@ class CurlPlus
 
         $ch = self::generalCurlSet($ch,$timeout, $userAgent, $acceptEncoding, $user, $password, $heard, $getHeard);
 
-        curl_setopt($ch,CURLOPT_HTTPGET,true);
+        curl_setopt($ch,CURLOPT_HTTPGET,TRUE);
 
         $result=curl_exec($ch);
 
@@ -86,17 +86,17 @@ class CurlPlus
      */
     public static function httpPost(
         $url,
-        $params=[],
+        $params=NULL,
         $files=[],
-        $urlEncode=true,
+        $urlEncode=TRUE,
         $timeout=15,
-        $userAgent=null,
-        $acceptEncoding=null,
-        $user=null,
-        $password=null,
+        $userAgent=NULL,
+        $acceptEncoding=NULL,
+        $user=NULL,
+        $password=NULL,
         $heard=[],
-        $getHeard=false,
-        $throw=true
+        $getHeard=FALSE,
+        $throw=TRUE
     ){
         //$urlParams = self::getUrlParams($url);
         //$params = array_merge($params,$urlParams);
@@ -109,7 +109,9 @@ class CurlPlus
         $ch = self::generalCurlSet($ch,$timeout, $userAgent, $acceptEncoding, $user, $password, $heard, $getHeard);
 
         if(is_string($files)){
-            $files[]=$files;
+            $tmpFiles=$files;
+            $files=[];
+            $files[]=$tmpFiles;
         }
         if(is_array($files)){
             array_walk($files,function(&$value,$key){
@@ -126,10 +128,14 @@ class CurlPlus
                     }
                 }
             });
+            if(!empty($files)){
+                $params = array_merge((array)$params,$files);
+            }
         }
-        $params = array_merge($params,$files);
-        curl_setopt($ch,CURLOPT_POST,true);
-        curl_setopt($ch,CURLOPT_SAFE_UPLOAD,true);
+        curl_setopt($ch,CURLOPT_POST,TRUE);
+        if(phpversion()>='5.5.0'){
+            curl_setopt($ch,CURLOPT_SAFE_UPLOAD,TRUE);
+        }
         //curl_setopt($ch,CURLOPT_UPLOAD,true);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$params);
 
@@ -159,14 +165,14 @@ class CurlPlus
     public static function httpHead(
         $url,
         $params=[],
-        $urlEncode=true,
+        $urlEncode=TRUE,
         $timeout=15,
-        $userAgent=null,
-        $acceptEncoding=null,
-        $user=null,
-        $password=null,
-        $getHeard=false,
-        $throw=false
+        $userAgent=NULL,
+        $acceptEncoding=NULL,
+        $user=NULL,
+        $password=NULL,
+        $getHeard=FALSE,
+        $throw=FALSE
     ){
         $url = self::urlHandler($url,$params,$urlEncode);
 
@@ -174,7 +180,7 @@ class CurlPlus
 
         $ch = self::generalCurlSet($ch,$timeout, $userAgent, $acceptEncoding, $user, $password, [], $getHeard);
 
-        curl_setopt($ch,CURLOPT_NOBODY,true);
+        curl_setopt($ch,CURLOPT_NOBODY,TRUE);
 
         curl_exec($ch);
 
@@ -182,7 +188,7 @@ class CurlPlus
             if($throw){
                 throw new \Exception(curl_error($ch));
             }else{
-                return false;
+                return FALSE;
             }
 
         }else{
@@ -223,7 +229,7 @@ class CurlPlus
     public static function urlHandler(
         $url,
         $params=[],
-        $urlEncode=false
+        $urlEncode=FALSE
     ){
         $urlParams=self::getUrlParams($url);
         if(is_array($params)){
@@ -265,28 +271,71 @@ class CurlPlus
     public static function generalCurlSet(
         $ch,
         $timeout=15,
-        $userAgent=null,
-        $acceptEncoding=null,
-        $user=null,
-        $password=null,
+        $userAgent=NULL,
+        $acceptEncoding=NULL,
+        $user=NULL,
+        $password=NULL,
         $heard=[],
-        $getHeard=false
+        $getHeard=FALSE
     ){
         curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
         //curl_setopt($ch,CURLOPT_TIMEOUT,$timeout);
-        if($getHeard) curl_setopt($ch,CURLOPT_HEADER,true);
+        if($getHeard) curl_setopt($ch,CURLOPT_HEADER,TRUE);
         if($userAgent) curl_setopt($ch,CURLOPT_USERAGENT,$userAgent);
         if($acceptEncoding) curl_setopt($ch,CURLOPT_ENCODING,$acceptEncoding);
         if($heard) curl_setopt($ch,CURLOPT_HTTPHEADER,$heard);
-        if($user!==null&&$password!==null) curl_setopt($ch,CURLOPT_USERPWD,$user.':'.$password);
+        if($user!==NULL&&$password!==NULL) curl_setopt($ch,CURLOPT_USERPWD,$user.':'.$password);
 
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,TRUE);
 
-        // SSL
+        // SSL(简单配置)
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
         return $ch;
     }
+
+    /**
+     * SSL双向认证
+     * @param $ch
+     * @param $cert
+     * @param $certPass
+     * @param string $certType
+     * @param $key
+     * @param $keyPass
+     * @param string $keyType
+     * @param $ca
+     * @param null $version
+     * @param int $verifyHost
+     */
+    public static function sslDoubleAuth(
+        $ch,
+        $cert,
+        $certPass,
+        $certType='PEM',
+        $key,
+        $keyPass,
+        $keyType='PEM',
+        $ca,
+        $version=NULL,
+        $verifyHost=2
+    ){
+
+        curl_setopt($ch, CURLOPT_SSLCERT, $cert);
+        curl_setopt($ch, CURLOPT_SSLCERTPASSWD,$certPass);
+        curl_setopt($ch, CURLOPT_SSLCERTTYPE,$certType);
+
+        curl_setopt($ch, CURLOPT_SSLKEY, $key);
+        curl_setopt($ch, CURLOPT_SSLKEYPASSWD,$keyPass);
+        curl_setopt($ch, CURLOPT_SSLKEYTYPE,$keyType);
+
+        curl_setopt($ch, CURLOPT_CAINFO, $ca);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $verifyHost);
+        if($version) curl_setopt($ch, CURLOPT_SSLVERSION, $version);
+
+    }
+
 
 }
