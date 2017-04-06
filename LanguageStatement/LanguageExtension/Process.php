@@ -130,5 +130,8 @@ class Process
     public static function pcntl_errno($errno){return pcntl_errno($errno);}//别名 pcntl_strerror()
     public static function pcntl_get_last_error(){return pcntl_get_last_error();}//Retrieve the error number set by the last pcntl function which failed
 
+    /**
+     * Libevent
+     */
 
 }

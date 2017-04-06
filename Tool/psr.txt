@@ -1,5 +1,5 @@
-Ô­ÎÄ£ºhttps://github.com/hfcorriez/fig-standards
-¹Ù·½£ºhttp://www.php-fig.org/psr/psr-4/
+åŽŸæ–‡ï¼šhttps://github.com/hfcorriez/fig-standards
+å®˜æ–¹ï¼šhttp://www.php-fig.org/psr/psr-4/
 
 AUTOLOADING
     PSR-4: Improved Autoloading

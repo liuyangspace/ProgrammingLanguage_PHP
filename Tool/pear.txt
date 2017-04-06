@@ -1,20 +1,20 @@
-¹ÙÍø£ºhttps://pear.php.net
+å®˜ç½‘ï¼šhttps://pear.php.net
 1 pear
-	PEARÊÇPHPÀ©Õ¹ÓëÓ¦ÓÃ¿â(the PHP Extension and Application Repository)µÄËõĞ´.ËüÊÇÒ»¸öPHPÀ©Õ¹¼°Ó¦ÓÃµÄÒ»¸ö´úÂë²Ö¿â.
+	PEARæ˜¯PHPæ‰©å±•ä¸åº”ç”¨åº“(the PHP Extension and Application Repository)çš„ç¼©å†™.å®ƒæ˜¯ä¸€ä¸ªPHPæ‰©å±•åŠåº”ç”¨çš„ä¸€ä¸ªä»£ç ä»“åº“.
 2 download&install
-	»ñÈ¡£ºhttps://pear.php.net/go-pear.phar£¨Áí´æÎªgo-pear.phar£©
+	è·å–ï¼šhttps://pear.php.net/go-pear.pharï¼ˆå¦å­˜ä¸ºgo-pear.pharï¼‰
 	$ php go-pear.phar
-	ĞŞ¸Äphp.ini,ÔÚ include_path = ".;c:\php\pear\"ÖĞ¼ÓÈëpearÄ¿Â¼
+	ä¿®æ”¹php.ini,åœ¨ include_path = ".;c:\php\pear\"ä¸­åŠ å…¥pearç›®å½•
 3 use
-	pear -h  ²é¿´ÃüÁî
-	pear install packagename(°üÃû)  ×Ô¾WÂ·°²ÑbÄ³Ò»‚€pear³ÌÊ½ì
-	pear download packagename	ÏÂİd packages µ«²»°²Ñb
+	pear -h  æŸ¥çœ‹å‘½ä»¤
+	pear install packagename(åŒ…å)  è‡ªç¶²è·¯å®‰è£æŸä¸€å€‹pearç¨‹å¼åº«
+	pear download packagename	ä¸‹è¼‰ packages ä½†ä¸å®‰è£
 	pear download-all
-	pear install filename.tgz 	°²ÑbÒÑÏÂİdµÄpackage(./go-pear-bundle/)
-	pear remote-list  Ä¿Ç°pear¾WÕ¾ÉÏËùÓĞ¿ÉÈ¡µÃpear³ÌÊ½ìÁĞ±í
-	pear list		ÁĞ³öÒÑ°²Ñbpackage
-	pear list-upgrades ÁĞ³ö¿ÉÒÔÉı¼‰µÄpackage
-	pear upgrade packagename ¸üĞÂpackage
+	pear install filename.tgz 	å®‰è£å·²ä¸‹è¼‰çš„package(./go-pear-bundle/)
+	pear remote-list  ç›®å‰pearç¶²ç«™ä¸Šæ‰€æœ‰å¯å–å¾—pearç¨‹å¼åº«åˆ—è¡¨
+	pear list		åˆ—å‡ºå·²å®‰è£package
+	pear list-upgrades åˆ—å‡ºå¯ä»¥å‡ç´šçš„package
+	pear upgrade packagename æ›´æ–°package
 	pear upgrade-all 
-	pear uninstall packagename  „h³ıÒÑ°²ÑbµÄpackage
+	pear uninstall packagename  åˆªé™¤å·²å®‰è£çš„package
 	

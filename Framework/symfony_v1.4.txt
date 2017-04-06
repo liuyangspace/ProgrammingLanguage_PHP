@@ -1,5 +1,5 @@
 Symfony 1.4
-home£ºhttp://symfony.com/legacy
+homeï¼šhttp://symfony.com/legacy
 API: http://www.symfony-project.org/api/1_4/sfPager
 
 1 get&install
@@ -7,73 +7,73 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 	$ php check_configuration.php
 	$ tar zxpf symfony-1.4.0.tgz
 2 command
-	#½øÈësymfony1.4½âÑ¹Ä¿Â¼
-	$ symfony -h ²é¿´ÃüÁî
-	$ symfony -V ²é¿´°æ±¾
-	$ symfony cache:clear	//Çå¿Õ»º´æ
-	$ symfony generate:project jobeet --orm=Doctrine ½¨Á¢ÃûÎªjobeet£¬ormÎªDoctrinµÄ¹¤³Ì(ÔÚµ±Ç°Ä¿Â¼ÏÂ)
-	$ symfony generate:app frontend		½¨Á¢ÃûÎªfrontendµÄÓ¦ÓÃ
+	#è¿›å…¥symfony1.4è§£å‹ç›®å½•
+	$ symfony -h æŸ¥çœ‹å‘½ä»¤
+	$ symfony -V æŸ¥çœ‹ç‰ˆæœ¬
+	$ symfony cache:clear	//æ¸…ç©ºç¼“å­˜
+	$ symfony generate:project jobeet --orm=Doctrine å»ºç«‹åä¸ºjobeetï¼Œormä¸ºDoctrinçš„å·¥ç¨‹(åœ¨å½“å‰ç›®å½•ä¸‹)
+	$ symfony generate:app frontend		å»ºç«‹åä¸ºfrontendçš„åº”ç”¨
 							--escaping-strategy: Enables or disables output escaping
 							--csrf-secret: Enables session tokens in forms
-	$ symfony generate:module frontend article(Ä£¿éÃû)//ÔÚfrontendÓ¦ÓÃÏÂÉú³ÉarticleÄ£¿é
-	$ symfony doctrine:build-schema			´ÓÊı¾İ¿âÖĞÉú³Éymal
-	$ symfony doctrine:build --model		½¨Ä£
-	$ symfony doctrine:build --sql			Éú³ÉsqlÓï¾ä
-	$ symfony doctrine:insert-sql			´´½¨±í
-	$ symfony doctrine:data-load			²åÈëÊı¾İ(ÔÚdata/fixtures/ Ä¿Â¼ÅäÖÃymlÎÄ¼ş)
-	$ symfony doctrine:data-dump 	//µ¼³öÊı¾İ
-	$ symfony doctrine:build --all --and-load Éú³ÉÄãµÄ±íµ¥¡¢¹ıÂËÆ÷¡¢Ä£ĞÍ£¬É¾³ıÄãµÄÊı¾İ¿â²¢ÖØĞÂ´´½¨ËùÓĞÊı¾İ±í
-	$ symfony doctrine:generate-module --with-show --non-verbose-templates frontend job JobeetJob ×Ô¶¯Éú³ÉÒ»¸ö¸ø¶¨µÄÄ£ĞÍµÄÄ£¿é£¬²¢Ìá¹©»ù±¾µÄ²Ù×÷¹¦ÄÜ
-	$ symfony doctrine:generate-module frontend news news --with-show //Éú³ÉÇ°Ì¨
-	$ symfony doctrine:generate-admin backend news  //Éú³ÉºóÌ¨curd²Ù×÷
-	$ symfony plugin:publish-assets   //ÃÀ»¯ºóÌ¨
+	$ symfony generate:module frontend article(æ¨¡å—å)//åœ¨frontendåº”ç”¨ä¸‹ç”Ÿæˆarticleæ¨¡å—
+	$ symfony doctrine:build-schema			ä»æ•°æ®åº“ä¸­ç”Ÿæˆymal
+	$ symfony doctrine:build --model		å»ºæ¨¡
+	$ symfony doctrine:build --sql			ç”Ÿæˆsqlè¯­å¥
+	$ symfony doctrine:insert-sql			åˆ›å»ºè¡¨
+	$ symfony doctrine:data-load			æ’å…¥æ•°æ®(åœ¨data/fixtures/ ç›®å½•é…ç½®ymlæ–‡ä»¶)
+	$ symfony doctrine:data-dump 	//å¯¼å‡ºæ•°æ®
+	$ symfony doctrine:build --all --and-load ç”Ÿæˆä½ çš„è¡¨å•ã€è¿‡æ»¤å™¨ã€æ¨¡å‹ï¼Œåˆ é™¤ä½ çš„æ•°æ®åº“å¹¶é‡æ–°åˆ›å»ºæ‰€æœ‰æ•°æ®è¡¨
+	$ symfony doctrine:generate-module --with-show --non-verbose-templates frontend job JobeetJob è‡ªåŠ¨ç”Ÿæˆä¸€ä¸ªç»™å®šçš„æ¨¡å‹çš„æ¨¡å—ï¼Œå¹¶æä¾›åŸºæœ¬çš„æ“ä½œåŠŸèƒ½
+	$ symfony doctrine:generate-module frontend news news --with-show //ç”Ÿæˆå‰å°
+	$ symfony doctrine:generate-admin backend news  //ç”Ÿæˆåå°curdæ“ä½œ
+	$ symfony plugin:publish-assets   //ç¾åŒ–åå°
 	
-3 file&dir SymfonyµÄ¸ùÊ÷½á¹¹¼°ÃèÊö
-	apps/		°üº¬ÁËÏîÄ¿µÄÓ¦ÓÃ£¬Ò»¸öÓ¦ÓÃ¶ÔÓ¦Ò»¸öÎÄ¼ş¼Ğ
+3 file&dir Symfonyçš„æ ¹æ ‘ç»“æ„åŠæè¿°
+	apps/		åŒ…å«äº†é¡¹ç›®çš„åº”ç”¨ï¼Œä¸€ä¸ªåº”ç”¨å¯¹åº”ä¸€ä¸ªæ–‡ä»¶å¤¹
 		app_name/
 			config/		The application configuration files
-				security.yml	·ÃÎÊÈ¨ÏŞÅäÖÃ
-				view.yml		Ä£°åÅäÖÃ
+				security.yml	è®¿é—®æƒé™é…ç½®
+				view.yml		æ¨¡æ¿é…ç½®
 				filters.yml
 				...
-			lib/		The application libraries and classes,ÕâÏÂÃæµÄÀà»á×Ô¶¯¼ÓÔØ
+			lib/		The application libraries and classes,è¿™ä¸‹é¢çš„ç±»ä¼šè‡ªåŠ¨åŠ è½½
 			modules/	The application code (MVC)
 				module_name/
 					actions/	The module actions
 						actions.class.php
 					templates/	The module templates
 			templates/	The global template files
-	batch/		°üº¬ÓÃÓÚÃüÁîĞĞÖ´ĞĞ»òÕßµ÷¶ÈµÄPHP´úÂë
-	cache/		»º´æÎÄ¼ş¼Ğ£¬ĞèÒª777µÄÈ¨ÏŞ
-	config/		±£´æÏîÄ¿µÄ»ù±¾ÅäÖÃ
+	batch/		åŒ…å«ç”¨äºå‘½ä»¤è¡Œæ‰§è¡Œæˆ–è€…è°ƒåº¦çš„PHPä»£ç 
+	cache/		ç¼“å­˜æ–‡ä»¶å¤¹ï¼Œéœ€è¦777çš„æƒé™
+	config/		ä¿å­˜é¡¹ç›®çš„åŸºæœ¬é…ç½®
 		doctrine/
 			schema.yml
 		mondongo/
 			mondongo.yml
-		ProjectConfiguration.class.php	//²å¼ş×¢²á
-		database.php  //Êı¾İ¿âÅäÖÃ
+		ProjectConfiguration.class.php	//æ’ä»¶æ³¨å†Œ
+		database.php  //æ•°æ®åº“é…ç½®
 		...
-	data/		´æ·ÅÏîÄ¿µÄÊı¾İÎÄ¼ş£¬±ÈÈçÊı¾İ¿â½á¹¹¡¢´´½¨Êı¾İ±íµÄSQLÎÄ¼ş£¬»òÕßSQLiteµÄÊı¾İ¿âÎÄ¼şµÈ
-		fixtures/ 	³õÊ¼»¯µÄ¼ÓÔØÊı¾İ
-	doc/		´æ·ÅÏîÄ¿ÎÄµµ£¬°üÀ¨Äã×Ô¼ºµÄÎÄµµºÍPHPDoc²úÉúµÄÎÄµµ
-	lib/		Êı¾İÄ£ĞÍ
+	data/		å­˜æ”¾é¡¹ç›®çš„æ•°æ®æ–‡ä»¶ï¼Œæ¯”å¦‚æ•°æ®åº“ç»“æ„ã€åˆ›å»ºæ•°æ®è¡¨çš„SQLæ–‡ä»¶ï¼Œæˆ–è€…SQLiteçš„æ•°æ®åº“æ–‡ä»¶ç­‰
+		fixtures/ 	åˆå§‹åŒ–çš„åŠ è½½æ•°æ®
+	doc/		å­˜æ”¾é¡¹ç›®æ–‡æ¡£ï¼ŒåŒ…æ‹¬ä½ è‡ªå·±çš„æ–‡æ¡£å’ŒPHPDocäº§ç”Ÿçš„æ–‡æ¡£
+	lib/		æ•°æ®æ¨¡å‹
 		form/
 		model/
 			doctrine/
-	log/		ÈÕÖ¾ÎÄ¼ş¼Ğ£¬ĞèÒª777È¨ÏŞ
-	plugins/	´æ·ÅÔÚÓ¦ÓÃÖĞ°²×°µÄ²å¼ş
-	test/		µ¥ÔªºÍ¹²ĞÔ²âÊÔ
-	web/		WEB·şÎñµÄ¸ù
-		index.php 			Éú²ú»·¾³Èë¿Ú
-		index_dev.php 		¿ª·¢»·¾³Èë¿Ú
+	log/		æ—¥å¿—æ–‡ä»¶å¤¹ï¼Œéœ€è¦777æƒé™
+	plugins/	å­˜æ”¾åœ¨åº”ç”¨ä¸­å®‰è£…çš„æ’ä»¶
+	test/		å•å…ƒå’Œå…±æ€§æµ‹è¯•
+	web/		WEBæœåŠ¡çš„æ ¹
+		index.php 			ç”Ÿäº§ç¯å¢ƒå…¥å£
+		index_dev.php 		å¼€å‘ç¯å¢ƒå…¥å£
 4 Route
 	4.1 
 		$ php symfony app:routes frontend job_edit    //Route Debugging
 	4.1 
-		Ä¬ÈÏÂ·ÓÉ£ºÈë¿ÚÎÄ¼ş/ModelName/ActionName/*,Àı£º/job/show/id/1
+		é»˜è®¤è·¯ç”±ï¼šå…¥å£æ–‡ä»¶/ModelName/ActionName/*,ä¾‹ï¼š/job/show/id/1
 	4.2 
 		url_for('job/show?id='.$job->getId())
-		(ÏêÏ¸ÅäÖÃ£ºhttp://symfony.com/legacy/doc/reference/1_4/en/10-Routing#chapter_10_sub_column)
+		(è¯¦ç»†é…ç½®ï¼šhttp://symfony.com/legacy/doc/reference/1_4/en/10-Routing#chapter_10_sub_column)
 		#Routing.yml
 			job_show_user:
 			  url:   /job/:company/:location/:id/:position
@@ -81,10 +81,10 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			  options: { model: JobeetJob, type: object }
 			  param: { module: job, action: show }
 			  requirements:
-				id: \d+		#²ÎÊı¸ñÊ½
-				sf_method: [get]  #ÇëÇó·½·¨
+				id: \d+		#å‚æ•°æ ¼å¼
+				sf_method: [get]  #è¯·æ±‚æ–¹æ³•
 		#url_for()
-			// ´«class
+			// ä¼ class
 			url_for(array('sf_route' => 'job_show_user', 'sf_subject' => $job));
 			//use the route name by prefixing it by @:
 			url_for('@default?module=job&action=show&id='.$job->getId())
@@ -108,16 +108,16 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 		getUrlParameter()	$_SERVER['PATH_INFO']
 		getRemoteAddress()	$_SERVER['REMOTE_ADDR']
 		getParameter($name)	$_REQUEST[$name]/$_SERVER[$name]
-		getScriptName()		Ç°¶Ë¿ØÖÆÆ÷Â·¾¶ÓëÃû³Æ'myapp_dev.php'
-		getLanguages()		¿É½ÓÊÜÓïÑÔµÄÁĞ±í Array( [0] => fr [1] => fr_FR [2] => en_US [3] => en )
-		getCharsets()		¿É½ÓÊÜ×Ö·û¼¯µÄÁĞ±í Array( [0] => ISO-8859-1 [1] => UTF-8 [2] => * )	
-		getAcceptableContentTypes() ¿É½ÓÊÜÄÚÈİÀàĞÍÊı×é
+		getScriptName()		å‰ç«¯æ§åˆ¶å™¨è·¯å¾„ä¸åç§°'myapp_dev.php'
+		getLanguages()		å¯æ¥å—è¯­è¨€çš„åˆ—è¡¨ Array( [0] => fr [1] => fr_FR [2] => en_US [3] => en )
+		getCharsets()		å¯æ¥å—å­—ç¬¦é›†çš„åˆ—è¡¨ Array( [0] => ISO-8859-1 [1] => UTF-8 [2] => * )	
+		getAcceptableContentTypes() å¯æ¥å—å†…å®¹ç±»å‹æ•°ç»„
 	5.2 Request Parameters
-		hasParameter('foo')	//²ÎÊıÊÇ·ñÔÚÇëÇóÖĞÓĞ
-		getParameter('foo') //Ö¸¶¨²ÎÊıµÄÖµ
-		getParameterHolder()->getAll()//ËùÓĞÇëÇó²ÎÊıµÄÊı×é
+		hasParameter('foo')	//å‚æ•°æ˜¯å¦åœ¨è¯·æ±‚ä¸­æœ‰
+		getParameter('foo') //æŒ‡å®šå‚æ•°çš„å€¼
+		getParameterHolder()->getAll()//æ‰€æœ‰è¯·æ±‚å‚æ•°çš„æ•°ç»„
 	5.3 session
-		#ÉèÖÃ
+		#è®¾ç½®
 			apps/myapp/config/factories.yml
 			all:
 			   storage:
@@ -136,35 +136,35 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			   .settings:
 				 timeout:      1800            # Session lifetime in seconds		
 6 Controller
-	6.1 ÉÏÏÂÎÄ
-		#¿ÉÒÔÔÚ´úÂëµÄÈÎºÎÎ»ÖÃ·ÅÖÃsfContext::getInstance()¡£
-		sfContext::getInstance()->getController()//sfController£º¿ØÖÆÆ÷¶ÔÏó
-		sfContext::getInstance()->getRequest()//sfRequest: ÇëÇó¶ÔÏó
-		sfContext::getInstance()->getResponse()//sfResponse: ÏìÓ¦¶ÔÏó
-		sfContext::getInstance()->getUser()//sfUser: ÓÃ»§Session¶ÔÏó
-		sfContext::getInstance()->getDatabaseConnection()//sfDatabaseConnection: Êı¾İ¿âÁ´½Ó
-		sfContext::getInstance()->getLogger()//sfLogger£ºÈÕÖ¾¶ÔÏó
-		sfContext::getInstance()->getI18N()//sfI18N: ¹ú¼Ê»¯¶ÔÏó
+	6.1 ä¸Šä¸‹æ–‡
+		#å¯ä»¥åœ¨ä»£ç çš„ä»»ä½•ä½ç½®æ”¾ç½®sfContext::getInstance()ã€‚
+		sfContext::getInstance()->getController()//sfControllerï¼šæ§åˆ¶å™¨å¯¹è±¡
+		sfContext::getInstance()->getRequest()//sfRequest: è¯·æ±‚å¯¹è±¡
+		sfContext::getInstance()->getResponse()//sfResponse: å“åº”å¯¹è±¡
+		sfContext::getInstance()->getUser()//sfUser: ç”¨æˆ·Sessionå¯¹è±¡
+		sfContext::getInstance()->getDatabaseConnection()//sfDatabaseConnection: æ•°æ®åº“é“¾æ¥
+		sfContext::getInstance()->getLogger()//sfLoggerï¼šæ—¥å¿—å¯¹è±¡
+		sfContext::getInstance()->getI18N()//sfI18N: å›½é™…åŒ–å¯¹è±¡
 		sfContext::getInstance()->getConfiguration()->loadHelpers(array('Curl'));
-	6.2 ·½·¨£º
-		#preExecute()ÓëpostExecute()·½·¨ÊÇÒ»¸öÄ£¿éÖĞ¶à¸ö¶¯×÷¹²Í¬µÄ¶«Î÷¡£ÔÚµ÷ÓÃexecuteAction()Ö®Ç°ºÍÖ®ºóÖ´ĞĞ¡£
+	6.2 æ–¹æ³•ï¼š
+		#preExecute()ä¸postExecute()æ–¹æ³•æ˜¯ä¸€ä¸ªæ¨¡å—ä¸­å¤šä¸ªåŠ¨ä½œå…±åŒçš„ä¸œè¥¿ã€‚åœ¨è°ƒç”¨executeAction()ä¹‹å‰å’Œä¹‹åæ‰§è¡Œã€‚
 		#session
-			$this->getUser();//»ñÈ¡session
-			$this->getUser()->setAttribute($name, $value);  //ÉèÖÃsession
-			$this->getUser()->getAttribute($name,$default); //»ñÈ¡session
+			$this->getUser();//è·å–session
+			$this->getUser()->setAttribute($name, $value);  //è®¾ç½®session
+			$this->getUser()->getAttribute($name,$default); //è·å–session
 			$this->getUser()->getAttributeHolder()->remove($name);
 			$this->getUser()->getAttributeHolder()->clear();		
-			$this->setFlash($name, $value);	//¸Ã·½·¨ÊÇ¶ÌÔİÊôĞÔ£¬½öÔÚÏÂÒ»Ò³ÓĞĞ§
+			$this->setFlash($name, $value);	//è¯¥æ–¹æ³•æ˜¯çŸ­æš‚å±æ€§ï¼Œä»…åœ¨ä¸‹ä¸€é¡µæœ‰æ•ˆ
 			$this->getFlash($name);
 		#request
 			$this->getRequest();
 			$this->getRequestParameter('password');
-			$this->getModuleName();	//»ñÈ¡ModelÃû
-			$this->getActionName(); //»ñÈ¡ActionÃû
+			$this->getModuleName();	//è·å–Modelå
+			$this->getActionName(); //è·å–Actionå
 		#response	
-			$this->forward(¡®otherModule¡¯,¡¯otherAction¡¯);// ÏòÇ°£¨Forwards£©·½Ê½
-			$this->redirect(¡®otherModule/otherAction¡¯);//ÖØ¶¨Ïò£¨Redirection£©·½Ê½
-			$this->redirect(¡®http://www.google.cn¡¯);
+			$this->forward(â€˜otherModuleâ€™,â€™otherActionâ€™);// å‘å‰ï¼ˆForwardsï¼‰æ–¹å¼
+			$this->redirect(â€˜otherModule/otherActionâ€™);//é‡å®šå‘ï¼ˆRedirectionï¼‰æ–¹å¼
+			$this->redirect(â€˜http://www.google.cnâ€™);
 			forwardIf()
 			forwardUnless()
 			forward404If()
@@ -175,34 +175,34 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			$this->renderPartial($Partial,Array $param);
 			$this->renderComponent($Component,Array $param);
 		#tmplate
-			$this->setLayout('my_layout');//·ÃÎÊ×Ô¶¨Òå²¼¾Ö
-			$this->setLayout(false);//ÊÓÍ¼²»ĞèÒª²¼¾Ö£¨±ÈÈç´æÎÄ×ÖÒ³Ãæ»òÕßRSS£¬AJAXÄ¬ÈÏÃ»ÓĞ²¼¾Ö£©
+			$this->setLayout('my_layout');//è®¿é—®è‡ªå®šä¹‰å¸ƒå±€
+			$this->setLayout(false);//è§†å›¾ä¸éœ€è¦å¸ƒå±€ï¼ˆæ¯”å¦‚å­˜æ–‡å­—é¡µé¢æˆ–è€…RSSï¼ŒAJAXé»˜è®¤æ²¡æœ‰å¸ƒå±€ï¼‰
 			$this->getResponse();
-			$this->disableCSRFProtection();//¹Ø±ÕCSRFProtection
-			$this->setTemplate('myCustomTemplate');//ÌØ¶¨Ä£°å£¬
-			return sfView::SUCCESS;//µ÷ÓÃÒ»¸öÄ¬ÈÏÊÓÍ¼(Ä¬ÈÏ¶¯×÷)£¬½«Ñ°ÕÒactionNameSuccess.phpµÄÄ£°å
-			return sfView::ERROR;//½«²éÕÒactionNameError.phpÄ£°å
-			return 'MyResult';//½«²éÕÒactionNameMyResult.phpÄ£°å
-			return sfView::NONE;//¹Ø±ÕÄ£°åµ÷ÓÃ
-			return $this->renderText("<html><body>Hello, World!</body></html>");HTML´úÂë¿ÉÒÔÖ±½ÓÔÚ¶¯×÷ÖĞÊä³ö
-			return sfView::HEADER_ONLY;//·¢ËÍ¿ÕµÄÏìÓ¦µ«°üº¬¶¨ÒåµÄÍ·ĞÅÏ¢£¨ÌØ±ğÊÇX-JSONÍ·£©
+			$this->disableCSRFProtection();//å…³é—­CSRFProtection
+			$this->setTemplate('myCustomTemplate');//ç‰¹å®šæ¨¡æ¿ï¼Œ
+			return sfView::SUCCESS;//è°ƒç”¨ä¸€ä¸ªé»˜è®¤è§†å›¾(é»˜è®¤åŠ¨ä½œ)ï¼Œå°†å¯»æ‰¾actionNameSuccess.phpçš„æ¨¡æ¿
+			return sfView::ERROR;//å°†æŸ¥æ‰¾actionNameError.phpæ¨¡æ¿
+			return 'MyResult';//å°†æŸ¥æ‰¾actionNameMyResult.phpæ¨¡æ¿
+			return sfView::NONE;//å…³é—­æ¨¡æ¿è°ƒç”¨
+			return $this->renderText("<html><body>Hello, World!</body></html>");HTMLä»£ç å¯ä»¥ç›´æ¥åœ¨åŠ¨ä½œä¸­è¾“å‡º
+			return sfView::HEADER_ONLY;//å‘é€ç©ºçš„å“åº”ä½†åŒ…å«å®šä¹‰çš„å¤´ä¿¡æ¯ï¼ˆç‰¹åˆ«æ˜¯X-JSONå¤´ï¼‰
 		#Retrieving framework core objects
 			$request     = $this->getRequest();
 			$userSession = $this->getUser();
 			$response    = $this->getResponse();
 			$controller  = $this->getController();
 			$context     = $this->getContext();
-		#ÉèÖÃ±äÁ¿´«µ½Ä£°å
+		#è®¾ç½®å˜é‡ä¼ åˆ°æ¨¡æ¿
 			$this->setVar('foo', 'bar');
 			$this->foo = 'bar';            // Shorter version
 	6.3 ActionName	
-		#validateActionNameÊÇÑéÖ¤·½·¨£¬ÊÇActionName±»ÇëÇóµÄµÚÒ»¸ö²éÕÒ·½·¨£¬Èç¹û²»´æÔÚÔòÖ±½ÓÖ´ĞĞ¶¯×÷·½·¨¡£
-		#handleErrorActionName·½·¨£¬Èç¹ûÑéÖ¤Ê§°ÜÔò²éÕÒ´Ë·½·¨£¬Èç¹û²»´æÔÚÔòErrorÄ£°å±»ÏÔÊ¾
-		#executeActionNameÊÇ¶¯×÷·½·¨£¬¶ÔÓÚ¶¯×÷Ëû±ØĞë´æÔÚ¡£
+		#validateActionNameæ˜¯éªŒè¯æ–¹æ³•ï¼Œæ˜¯ActionNameè¢«è¯·æ±‚çš„ç¬¬ä¸€ä¸ªæŸ¥æ‰¾æ–¹æ³•ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™ç›´æ¥æ‰§è¡ŒåŠ¨ä½œæ–¹æ³•ã€‚
+		#handleErrorActionNameæ–¹æ³•ï¼Œå¦‚æœéªŒè¯å¤±è´¥åˆ™æŸ¥æ‰¾æ­¤æ–¹æ³•ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™Erroræ¨¡æ¿è¢«æ˜¾ç¤º
+		#executeActionNameæ˜¯åŠ¨ä½œæ–¹æ³•ï¼Œå¯¹äºåŠ¨ä½œä»–å¿…é¡»å­˜åœ¨ã€‚
 7 Response 
-	7.1 ÏìÓ¦·½·¨
+	7.1 å“åº”æ–¹æ³•
 		$response = $this->getResponse();
-		// HTTP Í·
+		// HTTP å¤´
 		$response->setContentType('text/xml');
 		$response->setHttpHeader('Content-Language', 'en');
 		$response->setStatusCode(403);
@@ -210,79 +210,79 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 		$response->addCacheControlHttpHeader('no-cache');
 		// Cookies
 		$response->setCookie($name, $content, $expire, $path, $domain);
-		// ÔªÊı¾İºÍÒ³ÃæÍ·
+		// å…ƒæ•°æ®å’Œé¡µé¢å¤´
 		$response->addMeta('robots', 'NONE');
 		$response->addMeta('keywords', 'foo bar');
 		$response->addHttpMeta('cache-control', 'public');
 		$response->setTitle('My FooBar Page');
 		$response->addStyleSheet('custom_style');
 		$response->addJavaScript('custom_behavior');
-		//¶à´ÎÉè¶¨Ò»¸ö´æÔÚµÄ¼ü½«¸²¸ÇÏÈÇ°µÄ£¬¿ÉÒÔÍ¨¹ı°ÑµÚÈı¸ö²ÎÊıÉèÖÃÎªfalseÀ´×·¼Ó
+		//å¤šæ¬¡è®¾å®šä¸€ä¸ªå­˜åœ¨çš„é”®å°†è¦†ç›–å…ˆå‰çš„ï¼Œå¯ä»¥é€šè¿‡æŠŠç¬¬ä¸‰ä¸ªå‚æ•°è®¾ç½®ä¸ºfalseæ¥è¿½åŠ 
 		$response->addHttpMeta('accept-language', 'fr', false);
 8 Template
-	sfConfig::set('sf_escaping_strategy', false);//Ïû³ıÄ£°å¶ÔÊı×éµÄ×ªÒå
-	8.1 ÖúÊÖ·½·¨
-		#ÖúÊÖ·½·¨ÊÇ·µ»ØHTML´úÂë²¢Ê¹ÓÃÔÚÄ£°åÖĞµÄPHPº¯Êı¡£
+	sfConfig::set('sf_escaping_strategy', false);//æ¶ˆé™¤æ¨¡æ¿å¯¹æ•°ç»„çš„è½¬ä¹‰
+	8.1 åŠ©æ‰‹æ–¹æ³•
+		#åŠ©æ‰‹æ–¹æ³•æ˜¯è¿”å›HTMLä»£ç å¹¶ä½¿ç”¨åœ¨æ¨¡æ¿ä¸­çš„PHPå‡½æ•°ã€‚
 			<?php echo input_tag('nickname') ?> => <input type="text" name="nickname" id="nickname" value="" />
-		#use_helper()·½·¨¼ÓÔØÖúÊÖ·½·¨·Ö×é,
-			<?php use_helper(¡®Text¡¯,¡¯Javascript¡¯)  ?>
-		#Ò»Ğ©ÖúÊÖÄ¬ÈÏÔÚÈÎºÎÄ£°åÖĞ¾ù¿É·ÃÎÊ£¨ÎŞĞèÉùÃ÷£©£¬°üÀ¨ÏÂÃæµÄÖúÊÖ×é£º
-			Helper£ºÊµ¼Ê¾ÍÊÇuse_helper()·½·¨×Ô¼ºµÄÉùÃ÷
-			Tag£º»ù±¾±êÇ©ÖúÊÖ£¬¿ÉÒÔ±»Ã¿¸öÖúÊÖÊ¹ÓÃ
+		#use_helper()æ–¹æ³•åŠ è½½åŠ©æ‰‹æ–¹æ³•åˆ†ç»„,
+			<?php use_helper(â€˜Textâ€™,â€™Javascriptâ€™)  ?>
+		#ä¸€äº›åŠ©æ‰‹é»˜è®¤åœ¨ä»»ä½•æ¨¡æ¿ä¸­å‡å¯è®¿é—®ï¼ˆæ— éœ€å£°æ˜ï¼‰ï¼ŒåŒ…æ‹¬ä¸‹é¢çš„åŠ©æ‰‹ç»„ï¼š
+			Helperï¼šå®é™…å°±æ˜¯use_helper()æ–¹æ³•è‡ªå·±çš„å£°æ˜
+			Tagï¼šåŸºæœ¬æ ‡ç­¾åŠ©æ‰‹ï¼Œå¯ä»¥è¢«æ¯ä¸ªåŠ©æ‰‹ä½¿ç”¨
 				<?php echo tag('input', array('name' => 'foo', 'type' => 'text')) ?>
 				=> <input name="foo" type="text" />
 				<?php echo content_tag('textarea', 'dummy content', 'name=foo') ?>
 				=> <textarea name="foo">dummy content</textarea>
-			Url£ºÁ´½ÓºÍURL¹ÜÀíÖúÊÖ
+			Urlï¼šé“¾æ¥å’ŒURLç®¡ç†åŠ©æ‰‹
 				<?php echo link_to('click me', 'mymodule/myaction') ?>
 				=> <a href="/route/to/myaction">click me</a>  // Depends on the routing settings
-			Asset£º×é×°HTMLµÄÍ·²¿·Ö£¬²¢ÇÒÌá¹©ÁËµ½Íâ²¿Assets£¨images¡¢JSºÍCSSµÈ£©µÄ¼òµ¥Á´½Ó¡£
+			Assetï¼šç»„è£…HTMLçš„å¤´éƒ¨åˆ†ï¼Œå¹¶ä¸”æä¾›äº†åˆ°å¤–éƒ¨Assetsï¼ˆimagesã€JSå’ŒCSSç­‰ï¼‰çš„ç®€å•é“¾æ¥ã€‚
 				<?php echo image_tag('myimage', 'alt=foo size=200x100') ?>
 				=> <img src="/images/myimage.png" alt="foo" width="200" height="100"/>
 				<?php echo javascript_include_tag('myscript') ?>
 				=> <script language="JavaScript" type="text/javascript" src="/js/myscript.js"></script>
 				<?php echo stylesheet_tag('style') ?>
 				=> <link href="/stylesheets/style.css" media="screen" rel="stylesheet"type="text/css" />
-			Partial£ºÔÊĞí°üÈëÆ¬¶Î´úÂë
-			Cache£º²Ù×İ»º´æ´úÂëÆ¬¶Î
-			Form£º±íµ¥ÊäÈëÖúÊÖ
-		#×Ô¶¨ÒåÖúÊÖ£ºÎÄ¼ş·ÅÔÚapps/myapp/lib/hleperÄ¿Â¼£¬¿ÉÒÔ×Ô¶¯±»Use_helper(¡®Myhelp¡¯)·½·¨°üº¬½øÀ´¡£
-		#Ä¬ÈÏ±»¼ÓÔØµÄÖúÊÖ¶¨ÒåÔÚsettings.ymlÎÄ¼şÖĞ£¬´ò¿ª²¢ĞŞ¸Ästandard_helpersÑ¡Ïî¡£
-		#ÔÚÄ£°åÖ®ÍâÊ¹ÓÃÖúÊÖ£ºsfLoader::loadHelpers($helpers)£¬±äÁ¿$helpersÊÇÖúÊÖ×éÃû»òÕßÖúÊÖ×éÊı×é¡£
-	8.2 ´úÂëÆ¬¶Î
+			Partialï¼šå…è®¸åŒ…å…¥ç‰‡æ®µä»£ç 
+			Cacheï¼šæ“çºµç¼“å­˜ä»£ç ç‰‡æ®µ
+			Formï¼šè¡¨å•è¾“å…¥åŠ©æ‰‹
+		#è‡ªå®šä¹‰åŠ©æ‰‹ï¼šæ–‡ä»¶æ”¾åœ¨apps/myapp/lib/hleperç›®å½•ï¼Œå¯ä»¥è‡ªåŠ¨è¢«Use_helper(â€˜Myhelpâ€™)æ–¹æ³•åŒ…å«è¿›æ¥ã€‚
+		#é»˜è®¤è¢«åŠ è½½çš„åŠ©æ‰‹å®šä¹‰åœ¨settings.ymlæ–‡ä»¶ä¸­ï¼Œæ‰“å¼€å¹¶ä¿®æ”¹standard_helpersé€‰é¡¹ã€‚
+		#åœ¨æ¨¡æ¿ä¹‹å¤–ä½¿ç”¨åŠ©æ‰‹ï¼šsfLoader::loadHelpers($helpers)ï¼Œå˜é‡$helpersæ˜¯åŠ©æ‰‹ç»„åæˆ–è€…åŠ©æ‰‹ç»„æ•°ç»„ã€‚
+	8.2 ä»£ç ç‰‡æ®µ
 		8.2.1 Partials
-			#¾Ö²¿Ä£°åÎ»ÓÚtemplatesÄ¿Â¼£¬ÒÔ_¿ªÍ·
-			include_partial(¡®ob/list¡¯,array(¡®name¡¯=>¡¯Öµ¡¯));//ÔÚÆäËûÄ£°åÖĞ°üº¬¾Ö²¿Ä£°å:
-		8.2.2 ×é¼ş
-			#×é¼şµÄÂß¼­²¿·ÖÔÚ¼Ì³Ğ×ÔsfComponets(¸´Êı)µÄÀàÖĞ£¬ÔÚaction/components.class.phpÎÄ¼şÖĞ¡£
-			#×é¼şµÄ±íÏÖ²¿·Ö¾ÍÊÇÒ»¸öPartial¡£
-			#sfComponetsÀàµÄ·½·¨ÓĞexecute¿ªÊ¼
-			#±È½Ï£º
-				Ô¼¶¨				¶¯×÷				×é¼ş
-				Âß¼­ÎÄ¼şÃû³Æ		actions.class.php	components.class.php
-				Âß¼­Àà¼Ì³Ğ×Ô		sfActions			sfComponents
-				·½·¨ÃüÃû			executeMyAction()	executeMyComponent()
-				±íÏÖ²»·ÖÎÄ¼şÃû		myActionSuccess.php	_myComponent.php
-			#×é¼şÀàÒ²¿ÉÒÔÓĞµÚ¶şÖÖĞ´·¨£¬¾ÍÊÇÒ»¸ö×é¼şÒ»¸öÎÄ¼ş£¬¼Ì³Ğ×ÔsfComponent(µ¥Êı)Àà¡£
-			#Ê¾Àı£º
-				×é¼şÀà£ºmodules/news/actions/components.class.php
-				Partial£ºmodules/news/templates/_headlines.php
-				ÔÚÄ£°åÖĞÊ¹ÓÃ×é¼ş£º<?php include_component('news', 'headlines', array('foo' => 'bar')) ?>
-		8.2.3 ²å²Û£¨slots£©
-			#¶¨Òå
-				#slot´úÂë·ÅÔÚslot()ºÍend_slot()
-				#SlotÖúÊÖÖ®¼äµÄ´úÂëÔÚÄ£°åµÄÉÏÏÂÎÄÖĞÖ´ĞĞ£¬Ò²¾ÍÊÇËµ¿ÉÒÔ·ÃÎÊ¶¯×÷ÖĞ¶¨ÒåµÄËùÓĞ±äÁ¿
+			#å±€éƒ¨æ¨¡æ¿ä½äºtemplatesç›®å½•ï¼Œä»¥_å¼€å¤´
+			include_partial(â€˜ob/listâ€™,array(â€˜nameâ€™=>â€™å€¼â€™));//åœ¨å…¶ä»–æ¨¡æ¿ä¸­åŒ…å«å±€éƒ¨æ¨¡æ¿:
+		8.2.2 ç»„ä»¶
+			#ç»„ä»¶çš„é€»è¾‘éƒ¨åˆ†åœ¨ç»§æ‰¿è‡ªsfComponets(å¤æ•°)çš„ç±»ä¸­ï¼Œåœ¨action/components.class.phpæ–‡ä»¶ä¸­ã€‚
+			#ç»„ä»¶çš„è¡¨ç°éƒ¨åˆ†å°±æ˜¯ä¸€ä¸ªPartialã€‚
+			#sfComponetsç±»çš„æ–¹æ³•æœ‰executeå¼€å§‹
+			#æ¯”è¾ƒï¼š
+				çº¦å®š				åŠ¨ä½œ				ç»„ä»¶
+				é€»è¾‘æ–‡ä»¶åç§°		actions.class.php	components.class.php
+				é€»è¾‘ç±»ç»§æ‰¿è‡ª		sfActions			sfComponents
+				æ–¹æ³•å‘½å			executeMyAction()	executeMyComponent()
+				è¡¨ç°ä¸åˆ†æ–‡ä»¶å		myActionSuccess.php	_myComponent.php
+			#ç»„ä»¶ç±»ä¹Ÿå¯ä»¥æœ‰ç¬¬äºŒç§å†™æ³•ï¼Œå°±æ˜¯ä¸€ä¸ªç»„ä»¶ä¸€ä¸ªæ–‡ä»¶ï¼Œç»§æ‰¿è‡ªsfComponent(å•æ•°)ç±»ã€‚
+			#ç¤ºä¾‹ï¼š
+				ç»„ä»¶ç±»ï¼šmodules/news/actions/components.class.php
+				Partialï¼šmodules/news/templates/_headlines.php
+				åœ¨æ¨¡æ¿ä¸­ä½¿ç”¨ç»„ä»¶ï¼š<?php include_component('news', 'headlines', array('foo' => 'bar')) ?>
+		8.2.3 æ’æ§½ï¼ˆslotsï¼‰
+			#å®šä¹‰
+				#slotä»£ç æ”¾åœ¨slot()å’Œend_slot()
+				#SlotåŠ©æ‰‹ä¹‹é—´çš„ä»£ç åœ¨æ¨¡æ¿çš„ä¸Šä¸‹æ–‡ä¸­æ‰§è¡Œï¼Œä¹Ÿå°±æ˜¯è¯´å¯ä»¥è®¿é—®åŠ¨ä½œä¸­å®šä¹‰çš„æ‰€æœ‰å˜é‡
 				
-			# Ê¹ÓÃ
+			# ä½¿ç”¨
 				has_slot('sidebar')
 				include_slot('sidebar')
-		8.2.4 ×é¼ş²å²Û
+		8.2.4 ç»„ä»¶æ’æ§½
 			include_component_slot('sidebar') 
-			#ÊÓÍ¼ÅäÖÃ:myapp/config/view.yml
+			#è§†å›¾é…ç½®:myapp/config/view.yml
 				default:
 				  components:
-					sidebar:  [bar, default] #barComponetsÀà£¨ÔÚbarÄ£¿éÖĞ£©Ö®executeDefault()·½·¨
-			#×é¼şµÄ¶¨Òå£º modules/bar/actions/components.class.php
+					sidebar:  [bar, default] #barComponetsç±»ï¼ˆåœ¨baræ¨¡å—ä¸­ï¼‰ä¹‹executeDefault()æ–¹æ³•
+			#ç»„ä»¶çš„å®šä¹‰ï¼š modules/bar/actions/components.class.php
 				class barComponents extends sfComponents{
 				  public function executeUser(){
 					$current_user = $this->getUser()->getCurrentUser();
@@ -292,27 +292,27 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 					$this->current_user = $current_user;
 				  }
 				}		
-			#×é¼ş²å²ÛÊ¹ÓÃ		
+			#ç»„ä»¶æ’æ§½ä½¿ç”¨		
 								
-	8.3 ±äÁ¿
-		$sf_context£ºÈ«²¿µÄÉÏÏÂÎÄ¶ÔÏó£¨sfContextÊµÀı£©
-		$sf_request£ºÇëÇó¶ÔÏó£¨sfRequestÊµÀı£©
-		$sf_params£ºÇëÇó²ÎÊı
-		$sf_user£ºµ«Ç°ÓÃ»§Session¶ÔÏó£¨sfUserÊµÀı£©
-		$sf_user->getAttribute($name)		//»ñÈ¡session
-		$sf_flash->has('guanli_yonghu')		//»ñÈ¡¶ÌÔİÊôĞÔ
+	8.3 å˜é‡
+		$sf_contextï¼šå…¨éƒ¨çš„ä¸Šä¸‹æ–‡å¯¹è±¡ï¼ˆsfContextå®ä¾‹ï¼‰
+		$sf_requestï¼šè¯·æ±‚å¯¹è±¡ï¼ˆsfRequestå®ä¾‹ï¼‰
+		$sf_paramsï¼šè¯·æ±‚å‚æ•°
+		$sf_userï¼šä½†å‰ç”¨æˆ·Sessionå¯¹è±¡ï¼ˆsfUserå®ä¾‹ï¼‰
+		$sf_user->getAttribute($name)		//è·å–session
+		$sf_flash->has('guanli_yonghu')		//è·å–çŸ­æš‚å±æ€§
 		$sf_flash->get('guanli_yonghu')		//
-		$sf_request->getParameter('action') //»ñÈ¡request²¢»ñÈ¡·½·¨Ãû
-	8.4 ÊÓÍ¼ÅäÖÃ£¨View Configuration£©
-		8.4.1 View.ymlÅäÖÃÎÄ¼ş
-			editSuccess:	#Ä£¿éÊÓÍ¼µÄÃû×Ö
+		$sf_request->getParameter('action') //è·å–requestå¹¶è·å–æ–¹æ³•å
+	8.4 è§†å›¾é…ç½®ï¼ˆView Configurationï¼‰
+		8.4.1 View.ymlé…ç½®æ–‡ä»¶
+			editSuccess:	#æ¨¡å—è§†å›¾çš„åå­—
 			  metas:
 				title: Edit your profile
-			#¼¶Áª×¼Ôò
-				ÔÚapps/myapp/modules/mymodule/config/view.yml£¬per-viewÉè¶¨ÖÁÓ¦ÓÃµ½Ò»¸öÊÓÍ¼²¢¸²¸ÇÄ£¿é¼¶ÉèÖÃ¡£
-				ÔÚapps/myapp/modules/mymodule/config/view.yml£¬all: ÉèÖÃÓ¦ÓÃµ½Ä£¿éÖĞµÄËùÓĞ¶¯×÷²¢¸²¸ÇÓ¦ÓÃ¼¶ÉèÖÃ¡£
-				ÔÚapps/myapp/config/view.yml£¬default: Éè¶¨Ó¦ÓÃµ½Õû¸öÓ¦ÓÃµÄËùÓĞÄ£¿éµÄËùÓĞ¶¯×÷¡£
-			#Ó¦ÓÃ¼¶µÄÉè¶¨£º
+			#çº§è”å‡†åˆ™
+				åœ¨apps/myapp/modules/mymodule/config/view.ymlï¼Œper-viewè®¾å®šè‡³åº”ç”¨åˆ°ä¸€ä¸ªè§†å›¾å¹¶è¦†ç›–æ¨¡å—çº§è®¾ç½®ã€‚
+				åœ¨apps/myapp/modules/mymodule/config/view.ymlï¼Œall: è®¾ç½®åº”ç”¨åˆ°æ¨¡å—ä¸­çš„æ‰€æœ‰åŠ¨ä½œå¹¶è¦†ç›–åº”ç”¨çº§è®¾ç½®ã€‚
+				åœ¨apps/myapp/config/view.ymlï¼Œdefault: è®¾å®šåº”ç”¨åˆ°æ•´ä¸ªåº”ç”¨çš„æ‰€æœ‰æ¨¡å—çš„æ‰€æœ‰åŠ¨ä½œã€‚
+			#åº”ç”¨çº§çš„è®¾å®šï¼š
 				#apps/myapp/config/view.yml
 					default:
 					  http_metas:
@@ -323,28 +323,28 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 						description:  symfony project
 						keywords:     symfony, project
 						language:     en
-					  stylesheets: [-main, special]		#ÔÚµÍ¼¶±ğÉè¶¨ÖĞµÄÎÄ¼şÇ°¼ÓÒ»¸ö¼õºÅÉ¾³ıÒ»¸öÔÚ¸ß¼¶±ğÖĞ¶¨ÒåµÄÎÄ¼ş
-					  javascripts: [-*]		#É¾³ıËùÓĞµÄÊ¹ÓÃ
-					  has_layout: false	#ÓĞĞ©ÊÓÍ¼²»ĞèÒª²¼¾Ö£¨±ÈÈç´æÎÄ×ÖÒ³Ãæ»òÕßRSS£¬AJAXÄ¬ÈÏÃ»ÓĞ²¼¾Ö£©
-					  layout: layout #·ÃÎÊ×Ô¶¨Òå²¼¾Ö
-				#Ê¹ÓÃ
+					  stylesheets: [-main, special]		#åœ¨ä½çº§åˆ«è®¾å®šä¸­çš„æ–‡ä»¶å‰åŠ ä¸€ä¸ªå‡å·åˆ é™¤ä¸€ä¸ªåœ¨é«˜çº§åˆ«ä¸­å®šä¹‰çš„æ–‡ä»¶
+					  javascripts: [-*]		#åˆ é™¤æ‰€æœ‰çš„ä½¿ç”¨
+					  has_layout: false	#æœ‰äº›è§†å›¾ä¸éœ€è¦å¸ƒå±€ï¼ˆæ¯”å¦‚å­˜æ–‡å­—é¡µé¢æˆ–è€…RSSï¼ŒAJAXé»˜è®¤æ²¡æœ‰å¸ƒå±€ï¼‰
+					  layout: layout #è®¿é—®è‡ªå®šä¹‰å¸ƒå±€
+				#ä½¿ç”¨
 					<?php include_http_metas() ?>
 					<?php include_metas() ?>
 					<?php include_title() ?>
 					<?php include_stylesheets() ?>
 					<?php include_javascripts() ?>
-		8.4.2 Êä³ö±ÜÈÃ£¨Escaping£©
-			#Í¨¹ıÎÄ¼ş±ÜÈÃmyapp/config/setting.yml
+		8.4.2 è¾“å‡ºé¿è®©ï¼ˆEscapingï¼‰
+			#é€šè¿‡æ–‡ä»¶é¿è®©myapp/config/setting.yml
 				all:
-				  .settings:  #Ä¬ÈÏ¶ÔÊä³öµÄÃ¿¸ö±äÁ¿Ìí¼Óhtmlentities()·½·¨
+				  .settings:  #é»˜è®¤å¯¹è¾“å‡ºçš„æ¯ä¸ªå˜é‡æ·»åŠ htmlentities()æ–¹æ³•
 					escaping_strategy: both
 					escaping_method:   ESC_ENTITIES
-			#Ä£°åÖĞÊ¹ÓÃ$sf_data¶ÔÏó±ÜÈÃ:
+			#æ¨¡æ¿ä¸­ä½¿ç”¨$sf_dataå¯¹è±¡é¿è®©:
 				echo $sf_data->get('test');
-			#Êä³öÔ­Ê¼Êı¾İ:
-				$sf_data->getRaw('sf_content')¡£
-			#±ÜÈÃºóµÄ±äÁ¿³ÉÁËsfOutputEscaperArrayDecoratorÀàµÄ¶ÔÏó
-				sfConfig::set('sf_escaping_strategy', false);//¹Ø±Õ±ÜÈÃ
+			#è¾“å‡ºåŸå§‹æ•°æ®:
+				$sf_data->getRaw('sf_content')ã€‚
+			#é¿è®©åçš„å˜é‡æˆäº†sfOutputEscaperArrayDecoratorç±»çš„å¯¹è±¡
+				sfConfig::set('sf_escaping_strategy', false);//å…³é—­é¿è®©
 	8.5 layout
 		#configuration:(view.yml)
 			has_layout:     true
@@ -352,50 +352,50 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 		#application:
 			<?php echo $sf_content ?>  //$sf_content contains the HTML generated by the action
 9 Config
-	9.1 ymal¸ñÊ½
-		#YAMLÍ¨¹ıËõ½øÀ´·´Ó³½á¹¹
-		#Èç¹û²ÎÊıÊÇ×Ö·û´®»òÕßÊÇÒÔ¿Õ¸ñ¿ªÊ¼»ò½áÊø»ò°üº¬ÁËÌØÊâ×Ö·û£¬ÄÇÃ´¾ÍÓÃµ¥ÒıºÅ£¨¡¯£©À¨ÆğÀ´¡£
-		#¿ÉÒÔÊ¹ÓÃ>ºÍ|¼ÓÉÏËõ½øÔÚ¶àĞĞ¶¨ÒåÒ»¸ö³¤×Ö·û´®
+	9.1 ymalæ ¼å¼
+		#YAMLé€šè¿‡ç¼©è¿›æ¥åæ˜ ç»“æ„
+		#å¦‚æœå‚æ•°æ˜¯å­—ç¬¦ä¸²æˆ–è€…æ˜¯ä»¥ç©ºæ ¼å¼€å§‹æˆ–ç»“æŸæˆ–åŒ…å«äº†ç‰¹æ®Šå­—ç¬¦ï¼Œé‚£ä¹ˆå°±ç”¨å•å¼•å·ï¼ˆâ€™ï¼‰æ‹¬èµ·æ¥ã€‚
+		#å¯ä»¥ä½¿ç”¨>å’Œ|åŠ ä¸Šç¼©è¿›åœ¨å¤šè¡Œå®šä¹‰ä¸€ä¸ªé•¿å­—ç¬¦ä¸²
 			accomplishment: >
 			  Mark set a major league
 			  home run record in 1998.
-		#Êı×éĞèÒªÓÃ·½À¨ºÅ°üÆğÀ´»òÕßÊ¹ÓÃ-À©Õ¹
-			# ¶ÌÓï·¨¸ñÊ½
+		#æ•°ç»„éœ€è¦ç”¨æ–¹æ‹¬å·åŒ…èµ·æ¥æˆ–è€…ä½¿ç”¨-æ‰©å±•
+			# çŸ­è¯­æ³•æ ¼å¼
 			players: [ Mark McGwire, Sammy Sosa, Ken Griffey ]
-			# À©Õ¹Óï·¨¸ñÊ½
+			# æ‰©å±•è¯­æ³•æ ¼å¼
 			players:
 			  - Mark McGwire
 			  - Sammy Sosa
-		#¼üÖµ¶ÔÊı×éÊ¹ÓÃ´óÀ¨ºÅ°üÆğÀ´£¬Ã¿Ò»¶Ô¸ñÊ½ key: value£¬ÔÚ£ººó¼ÓÉÏÒ»¸öÒÔÉÏµÄ¿Õ¸ñ£¬À©Õ¹¸ñÊ½ĞèÒªËõ½ø	  
+		#é”®å€¼å¯¹æ•°ç»„ä½¿ç”¨å¤§æ‹¬å·åŒ…èµ·æ¥ï¼Œæ¯ä¸€å¯¹æ ¼å¼ key: valueï¼Œåœ¨ï¼šååŠ ä¸Šä¸€ä¸ªä»¥ä¸Šçš„ç©ºæ ¼ï¼Œæ‰©å±•æ ¼å¼éœ€è¦ç¼©è¿›	  
 			mail: { webmaster: webmaster@example.com, contact: contact@example.com }
 			mail:
 			  webmaster: webmaster@example.com
 			  contact:   contact@example.com
-		#²¼¶ûÀàĞÍ¿ÉÒÔÊÇ on, 1, true; off, 0, false
-		#YAMLÎÄ¼şÖĞµ÷ÓÃÆäËüÅäÖÃÎÄ¼şÖĞ¶¨ÒåµÄ²ÎÊı£¬Ê¹ÓÃ%½«±»µ÷ÓÃ²ÎÊıÃû³Æ°üÎ§ÆğÀ´¡£				
-	9.1 sfConfigÀà
+		#å¸ƒå°”ç±»å‹å¯ä»¥æ˜¯ on, 1, true; off, 0, false
+		#YAMLæ–‡ä»¶ä¸­è°ƒç”¨å…¶å®ƒé…ç½®æ–‡ä»¶ä¸­å®šä¹‰çš„å‚æ•°ï¼Œä½¿ç”¨%å°†è¢«è°ƒç”¨å‚æ•°åç§°åŒ…å›´èµ·æ¥ã€‚				
+	9.1 sfConfigç±»
 		#apps/myapp/config/
-		 sfConfig::get('filename_key', $default_value);// »ñÈ¡Éè¶¨
-		 sfConfig::set('filename_key', $value);// ¶¨Òå»ò¸²¸ÇÉè¶¨
-		#²ÎÊıÃû³Æ±»·Ö³É¼¸¸ö²¿·Ö£¬ÓÃ_Á¬½ÓÆğÀ´£¬Ç°×º²»Í¬±í´ïµÄÒâÒåÒ²²»Í¬£º
+		 sfConfig::get('filename_key', $default_value);// è·å–è®¾å®š
+		 sfConfig::set('filename_key', $value);// å®šä¹‰æˆ–è¦†ç›–è®¾å®š
+		#å‚æ•°åç§°è¢«åˆ†æˆå‡ ä¸ªéƒ¨åˆ†ï¼Œç”¨_è¿æ¥èµ·æ¥ï¼Œå‰ç¼€ä¸åŒè¡¨è¾¾çš„æ„ä¹‰ä¹Ÿä¸åŒï¼š
 			Sf_(setting.yml)
 			app_(app.yml)
 			mod_(module.yml)
 			sf_i18n_(i18n)
 			sf_logging_(logging.yml)
-		#ÁĞ£º
-			#app.ymlÄÚÈİ
+		#åˆ—ï¼š
+			#app.ymlå†…å®¹
 			all:
 			  version:        1.5
-			#·ÃÎÊÈ¨ÏŞÅäÖÃ	
+			#è®¿é—®æƒé™é…ç½®	
 			sfConfig::get('app_version');					
-10 Êı¾İ¿â	
-	10.1 mysql¶ÁĞ´·ÖÀë
+10 æ•°æ®åº“	
+	10.1 mysqlè¯»å†™åˆ†ç¦»
 		
 
 	
 11 doctrine
-	11.1 ÅäÖÃ
+	11.1 é…ç½®
 		#config/database.yml
 		all:
 		  doctrine:
@@ -405,17 +405,17 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			  username: root
 			  password: 123456
 	11.2 command:
-		$ symfony doctrine:build-schema			´ÓÊı¾İ¿âÖĞÉú³Éymal
-		$ symfony doctrine:build --model		½¨Ä£
-		$ symfony doctrine:build --sql			Éú³ÉsqlÓï¾ä
-		$ symfony doctrine:insert-sql			´´½¨±í
-		$ symfony doctrine:data-load			²åÈëÊı¾İ(ÔÚdata/fixtures/ Ä¿Â¼ÅäÖÃymlÎÄ¼ş)
-		$ symfony doctrine:data-dump 	//µ¼³öÊı¾İ
-		$ symfony doctrine:build --all --and-load Éú³ÉÄãµÄ±íµ¥¡¢¹ıÂËÆ÷¡¢Ä£ĞÍ£¬É¾³ıÄãµÄÊı¾İ¿â²¢ÖØĞÂ´´½¨ËùÓĞÊı¾İ±í
-		$ symfony doctrine:generate-module --with-show --non-verbose-templates frontend job JobeetJob ×Ô¶¯Éú³ÉÒ»¸ö¸ø¶¨µÄÄ£ĞÍµÄÄ£¿é£¬²¢Ìá¹©»ù±¾µÄ²Ù×÷¹¦ÄÜ
+		$ symfony doctrine:build-schema			ä»æ•°æ®åº“ä¸­ç”Ÿæˆymal
+		$ symfony doctrine:build --model		å»ºæ¨¡
+		$ symfony doctrine:build --sql			ç”Ÿæˆsqlè¯­å¥
+		$ symfony doctrine:insert-sql			åˆ›å»ºè¡¨
+		$ symfony doctrine:data-load			æ’å…¥æ•°æ®(åœ¨data/fixtures/ ç›®å½•é…ç½®ymlæ–‡ä»¶)
+		$ symfony doctrine:data-dump 	//å¯¼å‡ºæ•°æ®
+		$ symfony doctrine:build --all --and-load ç”Ÿæˆä½ çš„è¡¨å•ã€è¿‡æ»¤å™¨ã€æ¨¡å‹ï¼Œåˆ é™¤ä½ çš„æ•°æ®åº“å¹¶é‡æ–°åˆ›å»ºæ‰€æœ‰æ•°æ®è¡¨
+		$ symfony doctrine:generate-module --with-show --non-verbose-templates frontend job JobeetJob è‡ªåŠ¨ç”Ÿæˆä¸€ä¸ªç»™å®šçš„æ¨¡å‹çš„æ¨¡å—ï¼Œå¹¶æä¾›åŸºæœ¬çš„æ“ä½œåŠŸèƒ½
 		$ symfony configure:database --env=dev "mysql:host=localhost;dbname=blog_dev" root mYsEcret
-	11.3 yml Ä£ĞÍ(ÏêÏ¸£ºhttp://symfony.com/legacy/doc/doctrine/1_2/en/04-Schema-Files)
-		#ÉèÖÃÎªtrue½«»áÊÇDoctrine×Ô¶¯ÅĞ¶Ï²¢ÔÚmodelsÖĞ¶¨Òå±íÖ®¼äµÄ¹ØÏµ.
+	11.3 yml æ¨¡å‹(è¯¦ç»†ï¼šhttp://symfony.com/legacy/doc/doctrine/1_2/en/04-Schema-Files)
+		#è®¾ç½®ä¸ºtrueå°†ä¼šæ˜¯Doctrineè‡ªåŠ¨åˆ¤æ–­å¹¶åœ¨modelsä¸­å®šä¹‰è¡¨ä¹‹é—´çš„å…³ç³».
 		detect_relations: true
 		Article: 
 		  actAs: [Timestampable] 
@@ -439,50 +439,50 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			username_index:
 			  fields: [username]
 			  type: unique
-		#Ä£ĞÍÊôĞÔ£º
+		#æ¨¡å‹å±æ€§ï¼š
 			actAs:
 			connection:
 			tableName:
-			options£º
+			optionsï¼š
 			columns:
 			relations:
 			indexes:
-		#ÁĞ²ÎÊıÓĞÒÔÏÂ¼¸ÖÖ£º
-			type£ºÁĞÀàĞÍ·Öboolean, integer, double, float, decimal, string(size), date, time, timestamp, blob, ºÍ clob(text).
-			notnull£º²¼¶ûÖµ¡£ Èç¹ûÕâ¸öÁĞÊÇ±ØĞëµÄ»°¾ÍÉèÖÃÎªtrue¡£
-			length£ºÖ§³Ö³¤¶ÈµÄÁĞÀàĞÍµÄÁĞ³¤¶È»òÕß´óĞ¡¡£
-			scale£ºÊ®½øÖÆĞ¡ÊıÎ»Êı£¨´óĞ¡Ò²ĞèÒª¶¨Òå£©
-			default£ºÄ¬ÈÏÖµ¡£
-			unsigned:²¼¶ûÖµ
-			primary£º²¼¶ûÖµ¡£ Èç¹ûÊÇÖ÷¼ü¾ÍÉèÎªtrue¡£
-			autoincrement£º²¼¶ûÖµ¡£ Èç¹ûÊÇinteger²¢ĞèÒª×Ô¶¯Ôö³¤µÄ»°¾ÍÉèÎªtrue¡£
-			sequence£ºÊı¾İ¿âµÄĞòÁĞÃûÓÃÀ´¸øĞèÒªautoIncrementÁĞÊ¹ÓÃ£¨ÀıÈç£¬PostgreSQLºÍOracle£©¡£
-			unique£º²¼¶ûÖµ¡£Èç¹ûÕâÁĞÖµÓ¦¸ÃÊÇÎ¨Ò»µÄ¾ÍÉèÎªtrue¡£
+		#åˆ—å‚æ•°æœ‰ä»¥ä¸‹å‡ ç§ï¼š
+			typeï¼šåˆ—ç±»å‹åˆ†boolean, integer, double, float, decimal, string(size), date, time, timestamp, blob, å’Œ clob(text).
+			notnullï¼šå¸ƒå°”å€¼ã€‚ å¦‚æœè¿™ä¸ªåˆ—æ˜¯å¿…é¡»çš„è¯å°±è®¾ç½®ä¸ºtrueã€‚
+			lengthï¼šæ”¯æŒé•¿åº¦çš„åˆ—ç±»å‹çš„åˆ—é•¿åº¦æˆ–è€…å¤§å°ã€‚
+			scaleï¼šåè¿›åˆ¶å°æ•°ä½æ•°ï¼ˆå¤§å°ä¹Ÿéœ€è¦å®šä¹‰ï¼‰
+			defaultï¼šé»˜è®¤å€¼ã€‚
+			unsigned:å¸ƒå°”å€¼
+			primaryï¼šå¸ƒå°”å€¼ã€‚ å¦‚æœæ˜¯ä¸»é”®å°±è®¾ä¸ºtrueã€‚
+			autoincrementï¼šå¸ƒå°”å€¼ã€‚ å¦‚æœæ˜¯integerå¹¶éœ€è¦è‡ªåŠ¨å¢é•¿çš„è¯å°±è®¾ä¸ºtrueã€‚
+			sequenceï¼šæ•°æ®åº“çš„åºåˆ—åç”¨æ¥ç»™éœ€è¦autoIncrementåˆ—ä½¿ç”¨ï¼ˆä¾‹å¦‚ï¼ŒPostgreSQLå’ŒOracleï¼‰ã€‚
+			uniqueï¼šå¸ƒå°”å€¼ã€‚å¦‚æœè¿™åˆ—å€¼åº”è¯¥æ˜¯å”¯ä¸€çš„å°±è®¾ä¸ºtrueã€‚
 			fixed: 
 	11.4 
-		#Ö´ĞĞSQLÓï¾ä
+		#æ‰§è¡ŒSQLè¯­å¥
 			$con=Doctrine_Manager::getInstance()->connection()//
 			$st=$con->execute("your?sql");
 			$result=$st->fetchAll();
-		#Á¬½Ó
-			Doctrine::getTable('ModelName')	//»ñÈ¡±íÁ¬½Ó
-			Doctrine_Core::getTable('ModelName')->createQuery('asName')//½¨Á¢²éÑ¯,²ÎÊıÎªÄ¿±ê±í±ğÃû
+		#è¿æ¥
+			Doctrine::getTable('ModelName')	//è·å–è¡¨è¿æ¥
+			Doctrine_Core::getTable('ModelName')->createQuery('asName')//å»ºç«‹æŸ¥è¯¢,å‚æ•°ä¸ºç›®æ ‡è¡¨åˆ«å
 			Doctrine_Query::create()->from('ModelName')
 			Doctrine_Query::create()->update('User u')[->set('u.username', '?', 'jwage')]
-		#²éÑ¯
-			find($id|$array)	//Í¨¹ıÖ÷¼ü²éÑ¯
+		#æŸ¥è¯¢
+			find($id|$array)	//é€šè¿‡ä¸»é”®æŸ¥è¯¢
 			findBy*($value)		
 			findOneBy*($value)
 			
 			#DQL(Doctrine_Query::create())
-			select('col1,col2,count(id) as myid')	//fieldÌõ¼ş
+			select('col1,col2,count(id) as myid')	//fieldæ¡ä»¶
 			addSelect('u.email_address')
 			from('User u, u.Phonenumber p')
 			addFrom('u.Phonenumber p')
-			leftJoin(¡®a.Model2 m¡¯)
-			innerJoin(¡®a.Model2 m¡¯)
+			leftJoin(â€˜a.Model2 mâ€™)
+			innerJoin(â€˜a.Model2 mâ€™)
 			distinct($flag = true)
-			where('field = ?', $value)		//°ó¶¨where²ÎÊı
+			where('field = ?', $value)		//ç»‘å®šwhereå‚æ•°
 				andWhere('field = ?', $value)
 				andWhereIn('field = ?', $value)
 				andWhereNotIn('u.id', array(1, 2, 3))		
@@ -490,8 +490,8 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 				orWhereIn('u.id', array(1, 2, 3))
 				orWhereNotIn('u.id', array(1, 2, 3))
 				whereNotIn('u.id', array(1, 2, 3))	
-			orderBy('field ASC')			//°ó¶¨orderByÌõ¼ş
-			addOrderBy(¡®acolumn DESC¡¯)
+			orderBy('field ASC')			//ç»‘å®šorderByæ¡ä»¶
+			addOrderBy(â€˜acolumn DESCâ€™)
 			offset(offset)
 			limit(20)						//limi()
 			groupBy('u.id')
@@ -499,31 +499,31 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			having('num_phonenumbers > 0')
 			addHaving('u.username = ?', 'jwage')
 			
-			execute()						//»ñÈ¡½á¹û¼¯
-			fetchOne()						//·µ»ØµÚÒ»¸ö¶ÔÏó
-			etchArray()						//»ñÈ¡½á¹ûÊı×é
-			count()							//»ñÈ¡¼ÇÂ¼Êı
-			getSqlQuery();					//»ñÈ¡sqlÓï¾ä
-		#ÔöÉ¾
-			$user = new User();	//´´½¨
-			$user = Doctrine::getTable('ModelName')->find($id);//²éÕÒ
-			$user->username='username';	//¸³Öµ
-			$user->fromAarray(array('username' => 'myuser',));//¸³Öµ
-			$user->save();		//±¾µØ»¯
-			Doctrine_Manager::connection()->flush();//ËùÓĞÎ´±£´æµÄÊı¾İ½«»áµÃµ½±£´æ¡£ Doctrine »áÖ´ĞĞÒ»¸öÊÂÎñ¡£
-			$user->delete();	//É¾³ı
-		#½á¹û
+			execute()						//è·å–ç»“æœé›†
+			fetchOne()						//è¿”å›ç¬¬ä¸€ä¸ªå¯¹è±¡
+			etchArray()						//è·å–ç»“æœæ•°ç»„
+			count()							//è·å–è®°å½•æ•°
+			getSqlQuery();					//è·å–sqlè¯­å¥
+		#å¢åˆ 
+			$user = new User();	//åˆ›å»º
+			$user = Doctrine::getTable('ModelName')->find($id);//æŸ¥æ‰¾
+			$user->username='username';	//èµ‹å€¼
+			$user->fromAarray(array('username' => 'myuser',));//èµ‹å€¼
+			$user->save();		//æœ¬åœ°åŒ–
+			Doctrine_Manager::connection()->flush();//æ‰€æœ‰æœªä¿å­˜çš„æ•°æ®å°†ä¼šå¾—åˆ°ä¿å­˜ã€‚ Doctrine ä¼šæ‰§è¡Œä¸€ä¸ªäº‹åŠ¡ã€‚
+			$user->delete();	//åˆ é™¤
+		#ç»“æœ
 		
 		
 12 Mondongo(mongodb orm)
-	12.1 °²×°²å¼ş
+	12.1 å®‰è£…æ’ä»¶
 		symfony plugin:install -s beta sfMondongoPlugin
-		#×¢²á²å¼ş£¨config/ProjectConfiguration.class.php£©
+		#æ³¨å†Œæ’ä»¶ï¼ˆconfig/ProjectConfiguration.class.phpï¼‰
 		public function setup()
 		{
 			$this->enablePlugins('sfMondongoPlugin');
 		}
-	12.1 ÅäÖÃ
+	12.1 é…ç½®
 		#config/database.yml
 		all:
 		  mondongo:
@@ -532,15 +532,15 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			  server: mongodb://127.0.0.1:27017/admin:admin
 			  database: testdb
 	12.2 
-		#»ù±¾
-			$mongo = $this->getMondongo();	//»ñÈ¡Á¬½Ó
-			$users = $mongo->getRepository("User");//´«ÈëModel
-			$users->find($querys,$fields);//$querys¹ıÂË£¬$fieldsÁĞÃû
+		#åŸºæœ¬
+			$mongo = $this->getMondongo();	//è·å–è¿æ¥
+			$users = $mongo->getRepository("User");//ä¼ å…¥Model
+			$users->find($querys,$fields);//$querysè¿‡æ»¤ï¼Œ$fieldsåˆ—å
 			$users->findOne($querys,$fields);
 				$cursor=$users->find($querys)
-				$cursor->sort(array('×Ö¶Î'=>-1));//(-1µ¹Ğò£¬1ÕıĞò)
-				$cursor->skip(100);//Ìø¹ı²¿·Ö¼ÇÂ¼
-				$cursor->limit(100);//Ö»ÏÔÊ¾100ĞĞ
+				$cursor->sort(array('å­—æ®µ'=>-1));//(-1å€’åºï¼Œ1æ­£åº)
+				$cursor->skip(100);//è·³è¿‡éƒ¨åˆ†è®°å½•
+				$cursor->limit(100);//åªæ˜¾ç¤º100è¡Œ
 				$cursor->hasNext()
 				$cursor->getNext()
 				$array= iterator_to_array($cursor);
@@ -550,14 +550,14 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			$users->delete();
 		#CURD
 			#select
-			$mongo = $this->getMondongo();	//»ñµÃMONGO¶ÔÏó,ÕâÊÇ²»·ÖÒ³µ÷ÓÃ
-			$users = $mongo->getRepository("User");	//Á¬½Ó±í
-			$query = array( "username" => "ÕÅÈı" );	//²éÑ¯Ìõ¼ş
-			$result = $users->find($query);	//»ñÈ¡½á¹û£¬·µ»Ø¶ÔÏó¼¯ºÏ
+			$mongo = $this->getMondongo();	//è·å¾—MONGOå¯¹è±¡,è¿™æ˜¯ä¸åˆ†é¡µè°ƒç”¨
+			$users = $mongo->getRepository("User");	//è¿æ¥è¡¨
+			$query = array( "username" => "å¼ ä¸‰" );	//æŸ¥è¯¢æ¡ä»¶
+			$result = $users->find($query);	//è·å–ç»“æœï¼Œè¿”å›å¯¹è±¡é›†åˆ
 			#add
-			$user=new User();//½¨Á¢
-			$user->setUsername('ÕÅÈı');//¸³Öµ
-			$user->save();//³Ö¾Ã»¯
+			$user=new User();//å»ºç«‹
+			$user->setUsername('å¼ ä¸‰');//èµ‹å€¼
+			$user->save();//æŒä¹…åŒ–
 			#update
 			$id = $this->getRequestParameter('id');
 			$mongo = $this->getMondongo();
@@ -570,22 +570,22 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			$id=$this->getRequestParameter('id');
 			$query=array('_id'=>new MongoId($id));
 			$users->findOne($query)->delete();
-		#·ÖÒ³
+		#åˆ†é¡µ
 			$pager = new sfMondongoPager('User', 10);
 			$pager->setFindOptions(array(
-				'query' => array( "username" => "ÕÅÈı" ), 
+				'query' => array( "username" => "å¼ ä¸‰" ), 
 				'sort' => array('username' => 1)
 			));
 			$pager->setPage($request->getParameter('page', 1));
 			$pager->init();
-			$pager->getResults();//½á¹û¼¯£¬¿Éforeach
-			$pager->getPage();//µ±Ç°Ò³Êı
-			$pager->getLastPage();//×î´óÒ³Êı
-			$pager->getPreviousPage();//ÉÏÒ»Ò³Êı
-			$pager->getNextPage();//ÏÂÒ»Ò³Êı
+			$pager->getResults();//ç»“æœé›†ï¼Œå¯foreach
+			$pager->getPage();//å½“å‰é¡µæ•°
+			$pager->getLastPage();//æœ€å¤§é¡µæ•°
+			$pager->getPreviousPage();//ä¸Šä¸€é¡µæ•°
+			$pager->getNextPage();//ä¸‹ä¸€é¡µæ•°
 			
 			
-		#²éÑ¯Óï·¨:
+		#æŸ¥è¯¢è¯­æ³•:
 			= 		$querys = array("name"=>"shian");
 			>		$querys = array("number"=>array('$gt' => 5))
 			>=		$querys = array("number"=>array('$gte' => 2));
@@ -595,97 +595,97 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			!=		$querys = array("number"=>array('$ne' => 9));
 			in 		$querys = array("number"=>array('$in' => array(1,2,9)));
 			not in	$querys = array("number"=>array('$nin' => array(1,2,9)));
-			preg	$querys = array("name" => new MongoRegex("/shi/$i"));//Ê¹ÓÃÕıÔò²éÑ¯
+			preg	$querys = array("name" => new MongoRegex("/shi/$i"));//ä½¿ç”¨æ­£åˆ™æŸ¥è¯¢
 			or 		$querys = array('id' => array('$or' => array(array('id'=>2),array('id'=>9))))//where id = 2 or id = 9
 			like	$querys = array('name' => new MongoRegex('/.*bar.*/i'))
 			orderBy	$querys = array('sort'=>array('name'=>1))//order by name asc
 			orderBy	$querys = array('sort'=>array('name'=>-1))//order by name desc
 			//limit 	$querys = array('limit'=>array('offset'=>0,'rows'=>2))//limit 0,2
 			limit	$querys = array('limit'=>2,'skip'=>0)//limit 0,2	//"title":{$regex:"1"}
-			in_array $querys = array('alias'=>array('$elemMatch'=>array('$in'=>array('´«ËµµÚÈı¼¾'))))//in_array('´«ËµµÚÈı¼¾',$alias)
-			array_in_array $querys = array('fruit'=>array('$all'=>[1,2]))//fruit ¼È°üº¬1ÓÖ°üº¬2
+			in_array $querys = array('alias'=>array('$elemMatch'=>array('$in'=>array('ä¼ è¯´ç¬¬ä¸‰å­£'))))//in_array('ä¼ è¯´ç¬¬ä¸‰å­£',$alias)
+			array_in_array $querys = array('fruit'=>array('$all'=>[1,2]))//fruit æ—¢åŒ…å«1åˆåŒ…å«2
 13 Filter
 	13.1 
-		#¹ıÂËÆ÷¾ù¼Ì³Ğ×ÔsfFilterÀà²¢ÇÒ¶¼°üº¬ÁËexecute()·½·¨
+		#è¿‡æ»¤å™¨å‡ç»§æ‰¿è‡ªsfFilterç±»å¹¶ä¸”éƒ½åŒ…å«äº†execute()æ–¹æ³•
 			 public function execute ($filterChain){
-				// ÔÚ¶¯×÷Ö®Ç°Ö´ĞĞµÄ´úÂë   
-				$filterChain->execute();// Ö´ĞĞÏÂÒ»¸ö¹ıÂËÆ÷
-				// ÔÚ¶¯×÷Ö®ºóÖ´ĞĞµÄ´úÂë
+				// åœ¨åŠ¨ä½œä¹‹å‰æ‰§è¡Œçš„ä»£ç    
+				$filterChain->execute();// æ‰§è¡Œä¸‹ä¸€ä¸ªè¿‡æ»¤å™¨
+				// åœ¨åŠ¨ä½œä¹‹åæ‰§è¡Œçš„ä»£ç 
 			}
-		#¹ıÂËÆ÷Á´ÔÚ/myapp/config/filters.ymlÎÄ¼şÖĞ¶¨Òå
-	13.2 ×Ô¶¨Òå¹ıÂËÆ÷
-		#FilterÀàÎÄ¼ş·ÅÔÚÏîÄ¿µÄlibÎÄ¼ş¼Ğ¿ÉÒÔ³ä·ÖÀûÓÃsymfonyÌá¹©µÄ×Ô¶¯¼ÓÔØÌØĞÔ¡£
-		#ÔÚexecute()·½·¨ÖĞÊ¹ÓÃsfFilterÀàµÄisFirstCall()·½·¨±£Ö¤Ö»Ö´ĞĞÒ»´Î
-		#¹ıÂËÆ÷²»Ö±½Ó·ÃÎÊÇëÇóºÍÓÃ»§¶ÔÏó£¬ĞèÒªÊ¹ÓÃcontext¶ÔÏó»ñÈ¡£º
+		#è¿‡æ»¤å™¨é“¾åœ¨/myapp/config/filters.ymlæ–‡ä»¶ä¸­å®šä¹‰
+	13.2 è‡ªå®šä¹‰è¿‡æ»¤å™¨
+		#Filterç±»æ–‡ä»¶æ”¾åœ¨é¡¹ç›®çš„libæ–‡ä»¶å¤¹å¯ä»¥å……åˆ†åˆ©ç”¨symfonyæä¾›çš„è‡ªåŠ¨åŠ è½½ç‰¹æ€§ã€‚
+		#åœ¨execute()æ–¹æ³•ä¸­ä½¿ç”¨sfFilterç±»çš„isFirstCall()æ–¹æ³•ä¿è¯åªæ‰§è¡Œä¸€æ¬¡
+		#è¿‡æ»¤å™¨ä¸ç›´æ¥è®¿é—®è¯·æ±‚å’Œç”¨æˆ·å¯¹è±¡ï¼Œéœ€è¦ä½¿ç”¨contextå¯¹è±¡è·å–ï¼š
 			 $request = $this->getContext()->getRequest();
-		#¹ıÂËÆ÷´´½¨ºó»¹±ØĞë½øĞĞ¼¤»î£¬ÔÚapps/myapp/config/filters.ymlÎÄ¼şÖĞ£º
+		#è¿‡æ»¤å™¨åˆ›å»ºåè¿˜å¿…é¡»è¿›è¡Œæ¿€æ´»ï¼Œåœ¨apps/myapp/config/filters.ymlæ–‡ä»¶ä¸­ï¼š
 			remember:                 # Filters need a unique name
 			  class: rememberFilter
 			  param:
 				cookie_name: MyWebSite
 				condition:   %APP_ENABLE_REMEMBER_ME%
-		#×Ô¶¨Òå¹ıÂËÆ÷ÖĞµÄ²ÎÊı¿ÉÒÔÔÚ¹ıÂËÆ÷´úÂëÖĞÊ¹ÓÃgetParameter·½·¨»ñÈ¡£º
-			$this->getParameter('cookie_name')£»
-		#ÒªÊÇ¹ıÂËÆ÷Ö´ĞĞ£¬¼ÇµÃÔÚÓ¦ÓÃµÄapp.ymlÖĞ¼ÓÈë£º
+		#è‡ªå®šä¹‰è¿‡æ»¤å™¨ä¸­çš„å‚æ•°å¯ä»¥åœ¨è¿‡æ»¤å™¨ä»£ç ä¸­ä½¿ç”¨getParameteræ–¹æ³•è·å–ï¼š
+			$this->getParameter('cookie_name')ï¼›
+		#è¦æ˜¯è¿‡æ»¤å™¨æ‰§è¡Œï¼Œè®°å¾—åœ¨åº”ç”¨çš„app.ymlä¸­åŠ å…¥ï¼š
 			all:
 			  enable_remember_me: on
 		
 		
 		
-14 ÈÏÖ¤&ÊÚÈ¨
-	14.1 ÅäÖÃ
-		#appÅäÖÃ£ºapp/my_app/config/security.yml
-		#¾Ö²¿ÅäÖÃ: app/my_app/modules/my_module/config/security.yml
-		home:		#·½·¨Ãû
-			is_secure: true		#ÊÇ·ñ¿ªÆôÈ¨ÏŞÑéÖ¤
-			credentials: home_power   #Æ¾Ö¤
-			#credentials: [ admin, publisher ]           # admin ºÍ publisher
-			#credentials: [[ admin, superuser ]]         # admin »òÕß superuser
-			#Ã¿´ÎÌí¼ÓĞÂµÄ[]£¬Æ¾Ö¤Ö®¼äµÄ¹ØÏµÔÚANDºÍORÖ®¼äÇĞ»»£¬ÕâÑù¿ÉÒÔ´´½¨¼°Æä¸´ÔÓµÄÆ¾Ö¤×éºÏ¹ØÏµ
-		#Ìø×ªÅäÖÃ£ºapps/myapp/config/settings.yml
-			#ÓÃ»§ÒÑµÇÂ¼²¢ÇÒÆ¾Ö¤·ûºÏÔò¶¯×÷ÄÜÖ´ĞĞ
-			#Èç¹ûÓÃ»§Ã»ÓĞµÇÂ¼Ôò×ªÏòÄ¬ÈÏµÇÂ¼¶¯×÷
-			#Èç¹ûÓÃ»§ÒÑµÇÂ¼µ«Æ¾Ö¤²»·ûºÏÔò»á×ªÏòÄ¬ÈÏµÄ°²È«¶¯×÷
+14 è®¤è¯&æˆæƒ
+	14.1 é…ç½®
+		#appé…ç½®ï¼šapp/my_app/config/security.yml
+		#å±€éƒ¨é…ç½®: app/my_app/modules/my_module/config/security.yml
+		home:		#æ–¹æ³•å
+			is_secure: true		#æ˜¯å¦å¼€å¯æƒé™éªŒè¯
+			credentials: home_power   #å‡­è¯
+			#credentials: [ admin, publisher ]           # admin å’Œ publisher
+			#credentials: [[ admin, superuser ]]         # admin æˆ–è€… superuser
+			#æ¯æ¬¡æ·»åŠ æ–°çš„[]ï¼Œå‡­è¯ä¹‹é—´çš„å…³ç³»åœ¨ANDå’ŒORä¹‹é—´åˆ‡æ¢ï¼Œè¿™æ ·å¯ä»¥åˆ›å»ºåŠå…¶å¤æ‚çš„å‡­è¯ç»„åˆå…³ç³»
+		#è·³è½¬é…ç½®ï¼šapps/myapp/config/settings.yml
+			#ç”¨æˆ·å·²ç™»å½•å¹¶ä¸”å‡­è¯ç¬¦åˆåˆ™åŠ¨ä½œèƒ½æ‰§è¡Œ
+			#å¦‚æœç”¨æˆ·æ²¡æœ‰ç™»å½•åˆ™è½¬å‘é»˜è®¤ç™»å½•åŠ¨ä½œ
+			#å¦‚æœç”¨æˆ·å·²ç™»å½•ä½†å‡­è¯ä¸ç¬¦åˆåˆ™ä¼šè½¬å‘é»˜è®¤çš„å®‰å…¨åŠ¨ä½œ
 			all:
 			  .actions:
 				login_module:           default
 				login_action:           login
 				secure_module:          default
 				secure_action:          secure
-	14.2 ÊÚÈ¨
-		$this->getUser()->setAuthenticated(true);	//ÉèÖÃÓÃ»§ÎªÒÑÈÏÖ¤
-		$this->getUser()->addCredentials('foo', 'admin');    //Ìí¼Ó¶à¸öÆ¾Ö¤
-		$this->getUser()->hasCredential('foo');         //ÅĞ¶ÏÊÇ·ñ¾ßÓĞÆ¾Ö¤
-		$this->getUser()->hasCredential(array('foo', 'admin')); //ÅĞ¶ÏÊÇ·ñ¾ßÓĞ¶à¸öÆ¾Ö¤
-	14.2 È¡ÏûÊÚÈ¨
-		$this->getUser()->setAuthenticated(false);	//ÉèÖÃÓÃ»§ÎªÎ´ÈÏÖ¤
-		$this->getUser()->removeCredential('foo');	//É¾³ıÆ¾Ö¤
-		$this->getUser()->clearCredentials();   //É¾³ıËùÓĞÆ¾Ö¤ (±»ÓÃÔÚ×¢Ïú´¦Àí¹ı³ÌÖĞ)
-		$this->getUser()->shutdown();		//ÓÃ»§ÍË³ö
+	14.2 æˆæƒ
+		$this->getUser()->setAuthenticated(true);	//è®¾ç½®ç”¨æˆ·ä¸ºå·²è®¤è¯
+		$this->getUser()->addCredentials('foo', 'admin');    //æ·»åŠ å¤šä¸ªå‡­è¯
+		$this->getUser()->hasCredential('foo');         //åˆ¤æ–­æ˜¯å¦å…·æœ‰å‡­è¯
+		$this->getUser()->hasCredential(array('foo', 'admin')); //åˆ¤æ–­æ˜¯å¦å…·æœ‰å¤šä¸ªå‡­è¯
+	14.2 å–æ¶ˆæˆæƒ
+		$this->getUser()->setAuthenticated(false);	//è®¾ç½®ç”¨æˆ·ä¸ºæœªè®¤è¯
+		$this->getUser()->removeCredential('foo');	//åˆ é™¤å‡­è¯
+		$this->getUser()->clearCredentials();   //åˆ é™¤æ‰€æœ‰å‡­è¯ (è¢«ç”¨åœ¨æ³¨é”€å¤„ç†è¿‡ç¨‹ä¸­)
+		$this->getUser()->shutdown();		//ç”¨æˆ·é€€å‡º
 15 form	
 	15.1 
-	#Ê¹ÓÃform_tag()ÖúÊÖ´´½¨±íµ¥:
+	#ä½¿ç”¨form_tag()åŠ©æ‰‹åˆ›å»ºè¡¨å•:
 		<?php echo form_tag('test/save') ?>
 	15.2 
-		#¶¨Òå
-			class ContactForm extends sfForm	//¼Ì³Ğ
+		#å®šä¹‰
+			class ContactForm extends sfForm	//ç»§æ‰¿
 			{
 			  public function configure()
 			  {
-				unset(	// ½ûÓÃ±à¼­µÄ×Ö¶Î£¨²»ÏÔÊ¾£©
+				unset(	// ç¦ç”¨ç¼–è¾‘çš„å­—æ®µï¼ˆä¸æ˜¾ç¤ºï¼‰
 				  $this['created_at'], $this['updated_at'],
 				  $this['expires_at'], $this['is_activated']
 				);
-				$this->useFields(array('category_id', 'type'));//Òş²ØÓò
-				$this->setWidgets(array(	//×Ö¶Î
+				$this->useFields(array('category_id', 'type'));//éšè—åŸŸ
+				$this->setWidgets(array(	//å­—æ®µ
 				  'email'   => new sfWidgetFormInputText(),
 				  'message' => new sfWidgetFormTextarea(),
 				));
-				$this->setValidators(array(		//ÑéÖ¤
+				$this->setValidators(array(		//éªŒè¯
 				  'email'   => new sfValidatorEmail(),
 				  'message' => new sfValidatorString(array('max_length' => 255)),
 				));
-				$this->widgetSchema['type'] = new sfWidgetFormChoice(array(	//Ñ¡Ôñ¿ò
+				$this->widgetSchema['type'] = new sfWidgetFormChoice(array(	//é€‰æ‹©æ¡†
 				  'choices'  =>  array(
 						'full-time' => 'Full time',
 						'part-time' => 'Part time',
@@ -693,23 +693,23 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 					  ),
 				  'expanded' => true,
 				));
-				$this->widgetSchema['logo'] = new sfWidgetFormInputFile(array(	//ÎÄ¼ş
+				$this->widgetSchema['logo'] = new sfWidgetFormInputFile(array(	//æ–‡ä»¶
 				'label' => 'Company logo',
 				));
-				$this->mergeForm(new AnotherForm());	//ºÏ²¢
-				$this->embedForm('name', new AnotherForm());	//Ç¶Èë
+				$this->mergeForm(new AnotherForm());	//åˆå¹¶
+				$this->embedForm('name', new AnotherForm());	//åµŒå…¥
 			  }
 			}
 		#Doctrine Forms
-			//Éú³ÉÃüÁî
+			//ç”Ÿæˆå‘½ä»¤
 				$ symfony doctrine:build --forms
-			//Í£ÓÃ
+			//åœç”¨
 				SomeModel:
 				  options:
 					symfony:
 					  form: false
 					  filter: false
-		#Ê¾Àı£º
+		#ç¤ºä¾‹ï¼š
 			// lib/form/doctrine/JobeetJobForm.class.php
 			class JobeetJobForm extends BaseJobeetJobForm
 			{
@@ -746,13 +746,13 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 				$this->widgetSchema->setHelp('is_public', 'Whether the job can also be published on affiliate websites or not.');
 			  }
 			}
-		#Ó¦ÓÃ£º
-			#Ä£°åÖĞ£º
-			use_javascripts_for_form()£¬//helpers include JavaScript
+		#åº”ç”¨ï¼š
+			#æ¨¡æ¿ä¸­ï¼š
+			use_javascripts_for_form()ï¼Œ//helpers include JavaScript
 			use_stylesheets_for_form() 	//helpers include JavaScript .
-			form_tag_for($form, '@job')	//Éú³É±íµ¥,²»°üÀ¨</form>£¬ĞèÊÖ¶¯Éú³É
-			echo $form					//Êä³öÄ£°å
-			echo $form['company']		//Êä³öÄ£°åÖĞµÄµ¥¸öÔªËØ
+			form_tag_for($form, '@job')	//ç”Ÿæˆè¡¨å•,ä¸åŒ…æ‹¬</form>ï¼Œéœ€æ‰‹åŠ¨ç”Ÿæˆ
+			echo $form					//è¾“å‡ºæ¨¡æ¿
+			echo $form['company']		//è¾“å‡ºæ¨¡æ¿ä¸­çš„å•ä¸ªå…ƒç´ 
 			render()					//Renders the form (equivalent to the output ofecho $form)
 			renderHiddenFields()		//Renders the hidden fields
 			hasErrors()					//Returns true if the form has some errors
@@ -764,7 +764,7 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			renderLabel()				//Renders the field label
 			renderError()				//Renders the field error messages if any
 			renderHelp()				//Renders the field help message
-			#Àı£º
+			#ä¾‹ï¼š
 				<?php foreach ($form as $widget): ?>
 				  <?php echo $widget->renderRow() ?>
 				<?php endforeach ?>

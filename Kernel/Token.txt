@@ -1,5 +1,6 @@
 解析器代号列表
-代号   语法   参考      T_ABSTRACT   abstract   抽象类（自 PHP 5.0.0 起可用）
+代号   语法   参考
+T_ABSTRACT   abstract   抽象类（自 PHP 5.0.0 起可用）
 T_AND_EQUAL   &=   赋值运算符   
 T_ARRAY   array()   array()，数组语法   
 T_ARRAY_CAST   (array)   类型转换   
