@@ -147,6 +147,11 @@ class PHPDataType
     public static function is_scalar( $var ){ return is_scalar($var); }
     public static function is_string( $var ){ return is_string($var); }
     public static function is_a( $object, $className, $allowString = FALSE ){ return is_a($object, $className, $allowString); }
+
+    public static function boolval( $var ){ return boolval($var); }
+    public static function intval( $var ){ return intval($var); }
+    public static function floatval( $var ){ return floatval($var); }
+    public static function strval( $var ){ return strval($var); }
 }
 
 /**

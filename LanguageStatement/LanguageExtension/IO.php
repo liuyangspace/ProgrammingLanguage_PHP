@@ -64,7 +64,7 @@ class IO
 
 
 
-    /*
+    /**
      * IO 管道
      * void echo ( string $arg1 [, string $... ] )
      * int print ( string $arg )
@@ -106,7 +106,7 @@ class IO
     public static function filter_var($variable,$filter=FILTER_DEFAULT,$options){return filter_var($variable,$filter,$options);}//使用特定的过滤器过滤一个变量
     public static function filter_var_array($data,$definition,$add_empty=true){return filter_var_array($data,$definition,$add_empty);}//获取多个变量并且过滤它们
 
-    /*
+    /**
      * output
      */
     // 网络,文件相关输出参见 Streams
@@ -132,4 +132,7 @@ class IO
     // 输出 URL重写器
     public static function output_add_rewrite_var($name,$value){return output_add_rewrite_var($name,$value);}//添加URL重写器的值
     public static function output_reset_rewrite_vars(){return output_reset_rewrite_vars();}//重设URL重写器的值
+
+    // FPM
+    public static function fastcgi_finish_request(){return fastcgi_finish_request();}//冲刷(flush)所有响应的数据给客户端
 }
