@@ -597,7 +597,7 @@ API: http://www.symfony-project.org/api/1_4/sfPager
 			not in	$querys = array("number"=>array('$nin' => array(1,2,9)));
 			preg	$querys = array("name" => new MongoRegex("/shi/$i"));//使用正则查询
 			or 		$querys = array('id' => array('$or' => array(array('id'=>2),array('id'=>9))))//where id = 2 or id = 9
-			like	$querys = array('name' => new MongoRegex('/.*bar.*/i'))
+			like	$querys = array('name' => new MongoRegex("/.*bar.*/i"))
 			orderBy	$querys = array('sort'=>array('name'=>1))//order by name asc
 			orderBy	$querys = array('sort'=>array('name'=>-1))//order by name desc
 			//limit 	$querys = array('limit'=>array('offset'=>0,'rows'=>2))//limit 0,2

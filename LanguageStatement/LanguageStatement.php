@@ -69,7 +69,10 @@ class LanguageStatement
         'class',            'abstract',         'interface',        'trait',
         'extends',          'implements',       'insteadof',
         'final',            //修饰类（不被继承），修饰方法（不被覆盖）
-        'static',           //后期静态绑定，声明静态 变量、属性、方法，
+        'static',           /* 后期静态绑定，声明静态 变量、属性、方法，
+                            1,后期静态绑定(实际运行时计算的): static::不再被解析为定义当前方法所在的类，而是在实际运行时计算的。可用 get_called_class()函数来得到被调用的方法所在的类名，static:: 则指出了其范围。
+                            2,静态引用(当前方法所在的):self:: 或者 __CLASS__ 对当前类的静态引用，取决于定义当前方法所在的类
+           */
         'public',           'protected',        'private',
         'try',              'catch',            'throw',
         // 创建
@@ -89,6 +92,7 @@ class LanguageStatement
      * PHP 运算符
      */
     public static $Operators = array(
+        // '{}' '()'
         //按照优先级从高到低列出了运算符。同一行中的运算符具有相同优先级，此时它们的结合方向决定求值顺序。http://php.net/manual/zh/language.operators.precedence.php
         'clone','new',              //clone 和 new
         '[',                        //array()
@@ -113,6 +117,18 @@ class LanguageStatement
         'xor',                      //逻辑异或
         'or',                       //逻辑或
     );
+
+    /**
+     * 其他符号
+     */
+    public static $marks = [
+        '{}'                        /* 大括号
+                        1、将多个独立语句合并为一个复合语句，例如 if ... else ...中经常如此使用
+                        2、在变量间接引用中进行定界，避免歧义。例如 ${$my_var[8]}与${$my_var}[8]的区分
+                        3、用于指示字符串变量中的单个字符（下标从0开始），例如:$my_str="1234"; $my_str{1}='5';
+                        4，界定变量的名称，例如: echo "{$var}boy";
+                        */
+    ];
 
     /**
      * PHP 支持 8 种原始数据类型。

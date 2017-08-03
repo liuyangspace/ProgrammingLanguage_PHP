@@ -581,25 +581,25 @@ demo:http://120.26.143.106/admin/china-area
 		$ php artisan make:model User --migration	//生成数据库迁移
 		$ php artisan make:model User -m			//生成数据库迁移
 		#属性
-		public $timestamps = false; = 'id';//关闭created_at和updated_at属性
-		public $incrementing = false; //
-		protected $dates=['start_time'];//类型为time的属性
-		protected $table = 'my_flights';//定义表名
-		protected $primaryKey = 'id';//定义主键
-		protected $dateFormat = 'U';//定义时间解析格式
-		protected $fillable = ['name'];//设置Flight模型上的name属性可以被赋值：
-		protected $guarded = ['price'];//$guarded属性包含你不想被赋值的属性数组。
-		protected $guarded = array('id', 'account_id');//设置guarded属性
+		public $timestamps = false; = 'id'; //关闭created_at和updated_at属性
+		public $incrementing = false;       //
+		protected $dates=['start_time'];    //类型为time的属性
+		protected $table = 'my_flights';    //定义表名
+		protected $primaryKey = 'id';   //定义主键
+		protected $dateFormat = 'U';    //定义时间解析格式
+		protected $fillable = ['name']; //设置Flight模型上的name属性可以被赋值：
+		protected $guarded = ['price']; //$guarded属性包含你不想被赋值的属性数组。
+		protected $guarded = array('id', 'account_id'); //设置guarded属性
 		protected $connection = 'connection-name';
 		#查询
-		ModelName::all();//all()方法返回模型表的所有结果
-		ModelName::where('votes', '>', 100)->orderBy('name', 'desc')->take(10)->get()//get()
-		ModelName::chunk(200, function ($flights) {foreach ($flights as $flight) {}});//chunk方法会获取一个“组块”的Eloquent模型
-		ModelName::find(1);//获取单个模型/聚合
+		ModelName::all();   //all()方法返回模型表的所有结果
+		ModelName::where('votes', '>', 100)->orderBy('name', 'desc')->take(10)->get()   //get()
+		ModelName::chunk(200, function ($flights) {foreach ($flights as $flight) {}});  //chunk方法会获取一个“组块”的Eloquent模型
+		ModelName::find(1); //获取单个模型/聚合
 		ModelName::on('connection-name')->find(1);
-		ModelName::where('active', 1)->first();//获取单个模型/聚合
-		ModelName::findOrFail(1);//找不到的时候抛出异常
-		ModelName::firstOrCreate(['name' => 'Flight 10']);//尝试在数据库中查找匹配的记录，如果没有找到，则返回一个的模型实例。
+		ModelName::where('active', 1)->first(); //获取单个模型/聚合
+		ModelName::findOrFail(1);   //找不到的时候抛出异常
+		ModelName::firstOrCreate(['name' => 'Flight 10']);  //尝试在数据库中查找匹配的记录，如果没有找到，则返回一个的模型实例。
 		ModelName::firstOrNew(['name' => 'Flight 10']);
 		ModelName::where('active', 1)->count();
 		ModelName::where('active', 1)->max('price');
@@ -1157,8 +1157,57 @@ demo:http://120.26.143.106/admin/china-area
 		$messages = ['required' => 'The :attribute field is required.',];
 		$validator = Validator::make($input, $rules, $messages);
 		//在本例中，:attribute占位符将会被验证时实际的字段名替换
-		
-		
+20，队列
+	20.1，配置：config/queue.php
+	20.2，队列驱动：
+	    数据库：
+	        php artisan queue:table     #生成创建该表的迁移
+	        php artisan migrate         #迁移
+	    Amazon SQS: aws/aws-sdk-php ~3.0
+        Beanstalkd: pda/pheanstalk ~3.0
+        Redis: predis/predis ~1.0
+    20.3，任务类
+        生成: command: php artisan make:job SendReminderEmail
+        结构:
+            class SendReminderEmail extends Job implements ShouldQueue
+            {
+                public function __construct(User $user)//构造传参
+                {
+                    $this->user = $user;
+                }
+                public function handle(Mailer $mailer)//执行队列
+                {
+
+                }
+            }
+            最大尝试次数：通过Artisan任务queue:listen或queue:work上的--tries开关来定义
+            检查尝试运行次数：$this->attempts()
+            手动释放任务: $this->release(10)
+    20.4，推送任务到队列
+        引入 DispatchesJobs Trait：$this->dispatch(new SendReminderEmail($user));
+		全局dispatch方法：dispatch(new App\Jobs\PerformTask);
+		为任务指定队列： (new SendReminderEmail($user))->onQueue('emails');[Illuminate\Bus\Queueable trait]
+		延迟任务: (new SendReminderEmail($user))->delay(60);
+		回调：Queue::after(function(){}) 方法允许你在队列任务执行成功后注册一个要执行的回调函数。
+		失败处理：Queue::failing();
+    20.5，运行队列监听器
+        php artisan queue:listen
+        php artisan queue:listen #指定监听器使用哪个队列连接：
+        php artisan queue:listen --queue=high,low 设置队列优先级
+        php artisan queue:listen --timeout=60 指定任务超时参数(以秒为单位)
+        php artisan queue:listen --sleep=5 指定队列睡眠时间（以秒为单位）
+        php artisan queue:work connection --daemon  后台队列监听器
+        php artisan queue:restart 重启所有worker,应用代码中的更改
+    20.6, 处理失败任务
+        配置:config/queue.php
+        迁移:php artisan queue:failed-table
+        查看:php artisan queue:failed
+        重试一个ID为5的失败任务:php artisan queue:retry 5
+        重试所有失败任务:php artisan queue:retry all
+        删除一个失败任务:php artisan queue:forget 5
+        删除所有失败任务:php artisan queue:flush
+
+
 * ServiceProvider
 	#服务提供者继承自Illuminate\Support\ServiceProvider类
 	#提供者调用register(),然后调用boot()

@@ -78,6 +78,7 @@ class File
     public static function filectime($filename){return filectime($filename);}//取得文件的 inode 修改时间,权限，所有者，所有组或其它 inode 中的元数据被更新时。
     public static function filemtime($filename){return filemtime($filename);}//取得文件修改时间
     public static function fileowner($filename){return fileowner($filename);}//取得文件的所有者
+    public static function filegroup($filename){return filegroup($filename);}//取得文件的组
     public static function fileperms($filename){return fileperms($filename);}//取得文件的权限
     public static function filesize($filename){return filesize($filename);}//取得文件大小
     public static function filetype($filename){return filetype($filename);}//取得文件类型（char，dir，block，link...）
