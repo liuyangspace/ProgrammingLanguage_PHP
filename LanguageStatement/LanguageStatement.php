@@ -70,7 +70,7 @@ class LanguageStatement
         'extends',          'implements',       'insteadof',
         'final',            //修饰类（不被继承），修饰方法（不被覆盖）
         'static',           /* 后期静态绑定，声明静态 变量、属性、方法，
-                            1,后期静态绑定(实际运行时计算的): static::不再被解析为定义当前方法所在的类，而是在实际运行时计算的。可用 get_called_class()函数来得到被调用的方法所在的类名，static:: 则指出了其范围。
+                            1,后期静态绑定(实际运行时计算的): static::不再被解析为定义当前方法所在的类，而是在实际运行时计算的。可用 get_called_class()函数来得到被调用的方法所在的类名，static:: 则指出了其范围。后期实例化：new static()
                             2,静态引用(当前方法所在的):self:: 或者 __CLASS__ 对当前类的静态引用，取决于定义当前方法所在的类
            */
         'public',           'protected',        'private',

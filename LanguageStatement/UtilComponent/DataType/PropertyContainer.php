@@ -5,7 +5,7 @@
 
 namespace LanguageStatement\UtilComponent\DataType;
 
-use RuntimeException;
+use \RuntimeException;
 
 trait PropertyContainer
 {

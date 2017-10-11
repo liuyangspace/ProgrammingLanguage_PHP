@@ -65,9 +65,6 @@ class Error
     public static function restore_error_handler(){return restore_error_handler();}//还原之前的错误处理函数
     public static function set_exception_handler($handler){return set_exception_handler($handler);}//设置一个用户定义的异常处理函数。
     public static function restore_exception_handler(){return restore_exception_handler();}//恢复之前定义过的异常处理函数。
-    // 跟踪 trace
-    public static function debug_backtrace($options=DEBUG_BACKTRACE_PROVIDE_OBJECT,$limit = 0){return debug_backtrace($options,$limit);}//产生一条回溯跟踪(backtrace)
-    public static function debug_print_backtrace($options=0,$limit=0){debug_print_backtrace($options,$limit);}//打印一条回溯。
     //
     public static function error_get_last(){error_get_last();}//获取最后发生的错误
     public static function error_clear_last(){error_clear_last();}//Clear the most recent error

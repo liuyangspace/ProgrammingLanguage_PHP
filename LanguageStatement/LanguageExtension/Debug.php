@@ -28,4 +28,9 @@ class Debug
     //xdebug zend_extension
     public static function var_dump($name){var_dump($name);}//影响php var_dump,打印变量
     public static function xdebug_debug_zval($varName){ xdebug_debug_zval($varName);}//打印出引用计数
+
+    // 跟踪 trace
+    public static function debug_backtrace($options=DEBUG_BACKTRACE_PROVIDE_OBJECT,$limit = 0){return debug_backtrace($options,$limit);}//产生一条回溯跟踪(backtrace)
+    public static function debug_print_backtrace($options=0,$limit=0){debug_print_backtrace($options,$limit);}//打印一条回溯。
+
 }
