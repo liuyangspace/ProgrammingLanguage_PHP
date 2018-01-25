@@ -7,7 +7,7 @@
 namespace LanguageStatement\UtilComponent\DataType;
 
 use Closure;
-use BadMethodCallException;
+use \BadMethodCallException;
 
 trait MethodContainer
 {

@@ -36,8 +36,8 @@
  *  任何其它的值，名为 scalar 的成员变量将包含该值。
  * Class & Object 语法的结构形式是：
  *  默认情况下，所有可见属性都将被用于遍历。
- *  PHP 7 开始支持匿名类，可以创建一次性的简单对象。
  *  $var = new ClassName(),$var = new ClassName;
+ * PHP 7 开始支持匿名类: new class("Grid") extends \stdClass {}
  * Reference:
  *  http://php.net/manual/zh/language.types.object.php
  *  http://php.net/manual/zh/language.oop5.php

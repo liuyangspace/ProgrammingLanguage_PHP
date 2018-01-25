@@ -1196,7 +1196,7 @@ demo:http://120.26.143.106/admin/china-area
         php artisan queue:listen --queue=high,low 设置队列优先级
         php artisan queue:listen --timeout=60 指定任务超时参数(以秒为单位)
         php artisan queue:listen --sleep=5 指定队列睡眠时间（以秒为单位）
-        php artisan queue:work connection --daemon  后台队列监听器
+        php artisan queue:work connection --daemon --sleep=3 --tries=3 后台队列监听器
         php artisan queue:restart 重启所有worker,应用代码中的更改
     20.6, 处理失败任务
         配置:config/queue.php

@@ -31,4 +31,12 @@ class StringClass
         return false;
     }
 
+    // shell终端中刷新指定的字符串
+    function shellRefresh($oldStr,$newStr){
+        //$delStr="\10\177\10";//window
+        $delStr="\10";//linux
+        $outStr=str_repeat($delStr,strlen((string)$oldStr));
+        $outStr.=(string)$newStr;
+        return $outStr;
+    }
 }

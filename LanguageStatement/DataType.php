@@ -43,7 +43,7 @@ class DataType extends PHPDataType
         //两种复合类型
         'array',            'object',
         //两种特殊类型
-        'resource',         'NULL',
+        'resource',         'null',
         //伪类型
         'mixed',            'number',           'callback',
     );
