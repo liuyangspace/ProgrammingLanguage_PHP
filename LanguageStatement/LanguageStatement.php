@@ -17,6 +17,7 @@
  * 引用 & :
  *  变量别名，不是指针。引用可在函数传参时修改变量。
  *  unset 一个引用，销毁别名，不影响被引用的变量。
+ *
  * 相关缩写:
  *  PHP(PHP: Hypertext Preprocessor,超文本预处理器)
  *  CGI(Common Gateway Interface,公共网关接口),
@@ -27,7 +28,6 @@
  *  SPL(Standard PHP Library,PHP标准库)
  *  POSIX(Portable Operating System Interface,可移植操作系统接口)
  *  DTrace(动态跟踪)
- *
  *  HTTP(HyperText Transfer Protocol)
  *  TCP(Transmission Control Protocol)
  *  UDP(User Datagram Protocol)
@@ -384,9 +384,20 @@ class LanguageStatement
 }
 
 /**
- * Created by PhpStorm.
- * User: liuyang
- * Git: https://github.com/liuyangspace
- * Date: 2016/12/8
- * Time: 10:32
+ * 5.6 新特性：
+ *  1，可变参数：functionName( ClassName ...instance )
+ *  2，cURL 文件上传 ：必须先设置 CURLOPT_SAFE_UPLOAD 为 FALSE 才能够使用 @file 语法来上传文件。 建议使用 CURLFile 类来上传文件。
+ *  3，幂运算（ ** ）：2 ** 3 = 8，2 **= 3
+ *  4, __debugInfo() : 控制  var_dump() 输出
+ * php7:
+ *  1，返回值类型声明：function arraysSum(array ...$arrays): array {}
+ *  2，isset null 合并运算符 ?? : $_GET['user'] ?? 'nobody' = isset($_GET['user']) ? $_GET['user'] : 'nobody';
+ *      $_GET['user'] ?? $_POST['user'] ?? 'nobody';
+ *  3, 太空船操作符（组合比较符）(小于、等于或大于$b时它分别返回-1、0或1) : echo 1 <=> 2; // -1
+ *  4, 匿名类 : new class implements Logger {}
+ *  5, 为 unserialize() 提供过滤: unserialize( $foo, ["allowed_classes" => false] );
+ *  6, 单个 use 语句 导入 多个 类、函数 和 常量
+ *      use some\namespace\{ClassA, ClassB, ClassC as C};
+ *      use function some\namespace\{fn_a, fn_b, fn_c};
+ *      use const some\namespace\{ConstA, ConstB, ConstC};
  */
