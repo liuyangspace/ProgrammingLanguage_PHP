@@ -7,6 +7,7 @@ register:http://idea.lanyus.com/
     - 用户目录(或配置设置目录)
         - config 配置，模板等。。。
         - system 索引等。。。
+
 2,主菜单
     帮助 : 主菜单 - Help - Find Action
     设置 : 主菜单 - File - Settings...
@@ -18,14 +19,17 @@ register:http://idea.lanyus.com/
     工具 : 主菜单 - Tools    :SFTP,SSH,DB等工具
     插件 : 主菜单 - File - Settings... - Plugins
     快捷键 : 主菜单 - File - Settings... - Keymap
+
 3,索引
     重建 : 主菜单 - File - Invalidate Caches/Restart... comp
     排除 : 主菜单 - File - Project Structure... - Modules (或指定目录右键 - Mark Directory as)
+
 4,模板
     实时模板: 主菜单 - File - Settings... - Editor - Live Templates <https://www.jetbrains.com/idea/help/live-templates.html>
     文件模板: 主菜单 - File - Settings... - Editor - File and Code Templates (包含 文件，类，方法，注释等模板)
     后缀式模板(Postfix): 主菜单 - File - Settings... - Editor - General - Postfix Templates
-5,Debug 介绍
+
+5,Debug 介绍(需要安装 xdebug 扩展)
     设置 : 主菜单 - File - Settings... - Debugger
     使用 : 主菜单 - Run - Debugger
     常用快捷键:
@@ -39,6 +43,18 @@ register:http://idea.lanyus.com/
         Ctrl + Shift + F8	在 Debug 模式下，指定断点进入条件
         Alt + Shift + F7	在 Debug 模式下，进入下一步，如果当前行断点是一个方法，则进入当前方法体内，如果方法体还有方法，则会进入该内嵌的方法中，依此循环进入
         Drop Frame	        这个不是一个快捷键，而是一个 Debug 面板上的按钮。该按钮可以用来退回到当前停住的断点的上一层方法上，可以让过掉的断点重新来过
+    远程调试:
+        xdebug配置：
+            xdebug.remote_enable=1
+            xdebug.remote_handler=dbgp
+            xdebug.remote_mode=req
+            xdebug.remote_host=192.168.2.100  ; 开发机地址
+            xdebug.remote_port=9001
+            xdebug.idekey="Phpstorm"
+        Phpstorm配置：
+            主菜单 - File - Settings... - Languages & Frameworks - PHP - Debug
+        调试：
+            主菜单 - Run - Edit Configurations... - +(添加) - PHP Web Application
 
 *,常用设置
     多好注释风格: 主菜单 - File - Settings... - Editor - Code Style
@@ -46,6 +62,7 @@ register:http://idea.lanyus.com/
     SSH: 主菜单 - Tools - Start SSH Session...
     DB: 主菜单 - View - Tool Buttons...
     Git: 主菜单 - VCS - Git
+
 *,快捷键
     (热键)
     Alt + Insert	代码自动生成，如生成对象的 set / get 方法，构造函数，toString() 等 （必备）

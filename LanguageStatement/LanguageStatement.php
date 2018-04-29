@@ -386,10 +386,10 @@ class LanguageStatement
 /**
  * 5.6 新特性：
  *  1，可变参数：functionName( ClassName ...instance )
- *  2，cURL 文件上传 ：必须先设置 CURLOPT_SAFE_UPLOAD 为 FALSE 才能够使用 @file 语法来上传文件。 建议使用 CURLFile 类来上传文件。
+ *  2，cURL 文件上传 ：必须先设置 CURLOPT_SAFE_UPLOAD 为 FALSE 才能够使用 @file 语法来上传文件。 建议使用 CURLFile 类来上传文件
  *  3，幂运算（ ** ）：2 ** 3 = 8，2 **= 3
  *  4, __debugInfo() : 控制  var_dump() 输出
- * php7:
+ * php7 新特性:
  *  1，返回值类型声明：function arraysSum(array ...$arrays): array {}
  *  2，isset null 合并运算符 ?? : $_GET['user'] ?? 'nobody' = isset($_GET['user']) ? $_GET['user'] : 'nobody';
  *      $_GET['user'] ?? $_POST['user'] ?? 'nobody';

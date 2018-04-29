@@ -1,0 +1,179 @@
+﻿1.什么是模板引擎
+	1.1 模板引擎的类型
+		替换型/置换型
+		解释型
+		编译型
+	1.2 模板引擎的优缺点
+		优点：1、提高开发效率合理分工 2、项目灵活性更好
+		缺点：降低运行效率
+	1.3 什么时候用到模板：
+		废话 500 
+	
+2.自定义模板引擎
+	编译型
+3.选择smarty模板引擎
+	①官方推荐
+	②编译型，速度快疗效好
+	③模版文件变量处理 遍历
+	④模板继承
+	⑤方便的模板缓存
+	⑥丰富的内置函数
+	
+4.安装smarty及初始化配置
+	4.1 获取smarty
+		www.smarty.net    3.1.27
+	4.2 搭建smarty入口文件
+		①引入smarty类
+		②实例化
+		③初始化配置
+			template_dir
+			compile_dir
+			cache_dir
+			config_dir
+			left_delimiter
+			right_delimiter
+			caching
+			cache_lifetime
+		④给模版变量绑定数据
+		⑤显示模版文件
+5.smarty的基本应用
+	5.1 程序员（php）
+		① smarty初始化配置
+		② 运算操作： 数据库 文件， 数据计算...
+		③ 缓存控制， 插件扩展...
+	5.2 美工（模板）
+		① 把模板变量放在指定的位置
+		② 其他操作： 遍历数据、 模板函数....
+		
+6.smarty设计的基本语法
+	6.1 模板中路径问题
+		访问的文件实际上php文件相对于入口文件
+	6.2 模板中读取变量
+		和php使用习惯一样 除了数组可以用.访问索引值
+		可以使用函数
+		可以进行数学运算
+		不可以用.连接字符串
+	6.3 在模板中定义变量
+		{assign var='name' value='val'}
+		{assign name=value}
+		{$name=value}
+	6.4 注释
+		<!--
+			code...
+		-->
+		{*
+			code...
+		*}
+		
+		前者会输出，后者直接隐藏
+		
+	6.5 忽略解析
+		{literal}
+			忽略内容
+		{/literal}
+		
+7.smarty模板中的变量应用
+	7.1 模板中读取内置变量(保留变量)
+		$smarty.get
+		$smarty.post
+		$smarty.request
+		$smarty.session
+		$smarty.cookies
+		$smarty.now
+		$smarty.server
+		$smarty.const
+		$smarty.template
+		$smarty.current_dir
+		$smarty.version
+		$smarty.ldelim
+		$smarty.rdelim
+		
+	7.2 在模板中遍历 数组
+
+		{foreach $list as $v}
+			$v.id
+			$v.name
+			$v@index
+			$v@iteration
+			$v@last		boolean
+			$v@first	boolean
+			$v@show		
+			$v@total
+		{/foreach}
+	
+		{section loop=$list  name=v}
+			{$list[v]}
+		{/section}
+	
+	7.3 读取配置文件中的变量
+		① 定义配置文件
+			$smarty->config_dir = condigdir	定义配置文件目录
+			配置文件名可以是任意名任意后缀
+			格式同php.ini	; 注释
+			如果配置属性重新赋值 = 覆盖
+		② 在模板中读取配置文件变量
+			{config_load file='configfilename'}
+			{$smarty.config.param}
+		③ 配置文件 分块
+			[sctionname]
+			{config_load file='' section=''}
+		④ 实现多语言页面
+			将页面的切换语言在配置文件中分块存储
+
+8. 变量调节器
+		8.1 变量调节器
+			对变量进行调节
+			变量|调节器:param[:param ...]
+		8.2 smarty模板引擎的变量调节器(常用)
+			default			设置默认值
+			truncate		截取并补充
+		8.3 模板中使用php函数
+			可以直接转换成变量调节器
+
+10. 内置函数
+	10.1 smarty模板内置函数
+		{include}
+		{config_load}
+		{extends}
+	10.2 smarty模板内置块状函数
+		{foreach}{/foreach}
+		{section}{/section}
+		{literal}{/literal}
+		{if}{elseif}{else}{/if}
+		{block}{/block}
+		{nocache}{/nocahce}
+
+12. 模板继承
+	12.1 使用 {extends }函数实现模板继
+		{extends file='index.html'}
+	12.2 在子模板中覆盖父模板中的部分内容区域
+		{block name='mian'}
+		{/block}
+	12.3 合并子模板和父模板的{block}标签内容
+		① 使用 append追加{block}选项
+		② 使用 prepend追加{block}选项
+		③ 使用{$smarty.block.child}保留变量作为占位符
+		④ 使用{$smarty.block.parent}保留变量作为占位符
+	12.3 多继承
+
+13. 缓存控制
+	13.1 在smarty中控制缓存
+		$smarty->cache_dir				指定缓存目录
+		$smarty->caching = true			开启缓存
+		$smarty->cache_lifetime = 10 	缓存有效时间
+	13.2 每个模板多个实例
+		$smarty->display('url',缓存号)	缓存号：区分一个模版不同状态的值
+	13.3 为缓存实例消除开销
+		$smarty->isCached('url',缓存号)
+		如果有缓存返回true
+	13.4 清除缓存
+		清除制定模版的固定缓存号
+		$smarty->clearCache('url',缓存号)
+		清除制定模版所有缓存
+		$smarty->clearCache('url')
+		清除所有缓存
+		$smarty->clearAllCache();
+	13.5 关闭局部缓存
+		{nocahce}
+		{/nocache}
+
