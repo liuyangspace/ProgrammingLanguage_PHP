@@ -55,6 +55,8 @@ register:http://idea.lanyus.com/
             主菜单 - File - Settings... - Languages & Frameworks - PHP - Debug
         调试：
             主菜单 - Run - Edit Configurations... - +(添加) - PHP Web Application
+    多客户机远程调试：
+        dbgp proxy：
 
 *,常用设置
     多好注释风格: 主菜单 - File - Settings... - Editor - Code Style

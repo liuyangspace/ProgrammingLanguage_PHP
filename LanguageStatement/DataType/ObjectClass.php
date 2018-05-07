@@ -7,6 +7,7 @@
  *      封装  把成员（属性和方法）设置成为非公有，实现成员的访问控制
  *      继承  子类继承父类，获得父类的属性和方法
  *      多态  一个类或者一个接口，可以被多继承，有多个子类。方法被每个子类重写，那么方法的效果就不会一样。同名功能不同。
+ *              多态成员均 以 运行环境 为参考。
  *  对象在内存中的存贮
  *      ①对象的变量名存在       栈
  *      ②对象的内容存在         堆
@@ -15,10 +16,11 @@
  *  构造与析构方法： __construct()  __destruct()
  *  PHP魔术方法：__toString() __call()  __callStatic() __invoke() __sleep() __wakeup()
  *  面向对象关键字：
- *      new         : 创建一个类的实例，在类定义内部，可以用 new self 和 new parent 创建新对象。
- *      extends     : 承另一个类的方法和属性。PHP不支持多重继承，一个类只能继承一个基类
- *      parent      : 来访问父类的(或被覆盖的)方法或属性
- *      final       : 类不能被继承，方法不可被覆盖
+ *      new         : 创建一个类的实例，语法：new ClassName、new ClassName(),在类定义内部，可以用 new self 和 new parent 创建新对象。
+ *      extends     : 承另一个类的方法和属性。PHP不支持多重继承，一个类只能继承一个基类,语法：class ChileClass extends ParentClass{}。
+ *      parent      : 来访问父类的(或被覆盖的)方法或属性,语法：parent::methodName()。
+ *      $this       ; 运行中的当前实例,语法：$this->methodName()、$this->propertyName。
+ *      final       : 类不能被继承，方法不可被覆盖。
  *      interface   : 接口间可继承（extends），类(包括抽象类)与接口间可实现（implements）
  *      abstract    : 修饰抽象类，抽象方法
  *      class       : 类的定义都以关键字 class开头，后面跟着类名，后面跟着一对花括号，里面包含有类的属性与方法的定义。

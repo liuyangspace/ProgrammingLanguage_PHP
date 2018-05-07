@@ -101,7 +101,7 @@ class PHPString
     public static function stripos($search,$str,$start=0){ return stripos($search,$str,$start); }//查找字符串首次出现的位置（不区分大小写）
     public static function strrpos($search,$str,$start=0){ return strrpos($search,$str,$start); }//计算指定字符串在目标字符串中最后一次出现的位置
     public static function strripos($search,$str,$start=0){ return strripos($search,$str,$start); }//计算指定字符串在目标字符串中最后一次出现的位置（不区分大小写）
-    public static function strrchr($search,$search){ return strrchr($search,$search); }//查找指定字符在字符串中的最后一次出现
+    public static function strrchr($search,$needle){ return strrchr($search,$needle); }//查找指定字符在字符串中的最后一次出现
     public static function strpbrk($str,$char_list){ return strpbrk($str,$char_list); }//在字符串中查找一组字符的任何一个字符
     public static function strspn($str,$char_list,$start,$length){ return strspn($str,$char_list,$start,$length); }//计算字符串中全部字符都存在于指定字符集合中的第一段子串的长度。
     // 比较
