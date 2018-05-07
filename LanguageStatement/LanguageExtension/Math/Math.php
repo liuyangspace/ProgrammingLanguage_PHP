@@ -1,11 +1,10 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/13
- * Time: 13:39
+ * Math
  */
+namespace LanguageStatement\LanguageExtension\Math;
+
+
 class Math
 {
     /*

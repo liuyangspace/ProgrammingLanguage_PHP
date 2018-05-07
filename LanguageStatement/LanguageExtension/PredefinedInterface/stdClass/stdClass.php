@@ -1,7 +1,7 @@
 <?php
 /**
  * stdClass 类
- * 其他类型数据转换为对象时 实例化此类
+ * 其他类型数据转换为对象时 实例化为此类
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\stdClass;

@@ -1,8 +1,16 @@
 <?php
-/*
- * php基础：php 选项
+/**
+ * php基础：php 调控
  * php statement：
  *  变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。
+ * 代码执行指令：
+ *  declare结构：declare (directive)  statement
+ *  Tick（时钟周期）指令：
+ *      在 declare 中的 directive 部分用 ticks=N 来指定，声明代码段中解释器每执行 N 条可计时的低级语句就会发生的事件
+ *      每个 tick 中出现的事件是由 register_tick_function()/unregister_tick_function()来指定的。
+ *  Encoding 指令：
+ *      对每段脚本指定其编码方式。
+ *      当和命名空间结合起来时 declare 的唯一合法语法是 declare(encoding='...').
  * Reference:
  *  http://php.net/manual/zh/langref.php
  */
@@ -12,10 +20,9 @@ namespace LanguageStatement;
 
 class LanguageRegulate
 {
-    public static function php_eval($str=null){ return eval($str); }//把字符串作为PHP代码执行
-    // public static function php_check_syntax($filename,&$error_message){ return php_check_syntax($filename,$error_message); }//检查PHP的语法（并执行）指定的文件
 
-    /*
+    public static function php_check_syntax($filename,&$error_message){ return php_check_syntax($filename,$error_message); }//检查PHP的语法（并执行）指定的文件
+    /**
      * php 代码
      */
     public static function php_strip_whitespace($filename){ return php_strip_whitespace($filename); }//返回删除注释和空格后的PHP源码
@@ -23,58 +30,19 @@ class LanguageRegulate
     public static function show_source($filename,$return=false){ show_source($filename,$return); }//别名 highlight_file()
     public static function highlight_string($str,$return=false){ return highlight_string($str,$return); }//字符串的语法高亮
 
-    /*
+    public static function token_get_all($sourceCode){return token_get_all($sourceCode);}//将提供的源码按 PHP 标记进行分割
+    public static function token_name($token){return token_name($token);}//获取提供的 PHP 解析器代号的符号名称
+    /**
      * 流程控制
      */
-    public static function ini_get($name){ return ini_get($name); }//获取一个配置选项的值
-    public static function ini_set($name,$value){ return ini_set($name,$value); }//为一个配置选项设置值
-    public static function set_time_limit($seconds){ set_time_limit($seconds); }//设置脚本最大执行时间
-    public static function sys_getloadavg(){ return sys_getloadavg(); }//获取系统的负载（load average）
-    //延迟 中断
-    public static function sleep($seconds){ return sleep($seconds); }//延迟:秒数。
-    public static function usleep($seconds){ usleep($seconds); }//延迟:微秒。
-    public static function time_nanosleep($seconds,$nanoseconds){ return time_nanosleep($seconds,$nanoseconds); }//延迟:纳秒。
-    public static function time_sleep_until($timestamp){ return time_sleep_until($timestamp); }//使脚本睡眠到指定的时间为止。
-    public static function php_exit($str=null){ return exit($str); }//输出一个消息并且退出当前脚本
-    public static function php_die($str=null){ return die($str); }//输出一个消息并且退出当前脚本
-    //public static function __halt_compiler(){ return __halt_compiler(); }//中断编译器的执行
-    //客户端 浏览器
-    public static function connection_aborted(){ return connection_aborted(); }//检查客户端是否已经断开
-    public static function connection_status(){ return connection_status(); }//获得当前连接的状态位。
-    public static function ignore_user_abort(){ return ignore_user_abort(); }//设置客户端断开连接时是否中断脚本的执行
-    public static function get_browser($user_agent,$return_array=false){ return get_browser($user_agent,$return_array); }//通过查找 browscap.ini 文件中的浏览器信息，尝试检测用户的浏览器所具有的功能。
+    // 脚本文件 导入，引用
+    public static function include($string){include $string;}//引入[指定目录/include_path/当前目录]下文件，或返回return的值
+    public static function include_once($string){include_once $string;}//在脚本执行期间包含并运行指定文件,只会包含一次。
+    public static function require($string){require $string;}//require在出错时产生 E_COMPILE_ERROR级别的错误。include产生警告（E_WARNING）.
+    public static function require_once($string){require_once $string;}//
+    public static function get_included_files(){return get_included_files();}//返回所有被 include、 include_once、 require 和 require_once的文件名。
+    public static function get_required_files(){return get_required_files();}//别名 get_included_files()
 
-
-    //session
-
-    //cookie
-
-    //时区
-
-    //错误
-
-    //内存
-
-    //错误 与 异常
-    //set_error_handler
-
-    // PHP Manual›输出控制›Output Control 函数
-    public static function flush(){ flush(); }//刷新输出缓冲
-    public static function ob_start(){ return ob_start(); }//返回输出缓冲区的内容
-    public static function ob_get_contents(){ return ob_get_contents(); }//返回输出缓冲区的内容
-    public static function ob_get_flush(){ return ob_get_contents(); }//刷出（送出）缓冲区内容，以字符串形式返回内容，并关闭输出缓冲区。
-    public static function ob_end_clean(){ return ob_end_clean(); }//返回输出缓冲区的内容
-    public static function ob_end_flush(){ return ob_end_clean(); }//冲刷出（送出）输出缓冲区内容并关闭缓冲
-    public static function ob_list_handlers(){ return ob_list_handlers(); }//列出所有使用中的输出处理程序。
-    public static function ob_flush(){ ob_flush(); }//冲刷出（送出）输出缓冲区中的内容
-    public static function ob_gzhandler($buffer,$mode){ ob_gzhandler($buffer,$mode); }//在ob_start中使用的用来压缩输出缓冲区中内容的回调函数。ob_start callback function to gzip output buffer
-    public static function ob_implicit_flush($flag=true){ ob_implicit_flush($flag); }//冲刷出（送出）输出缓冲区中的内容
-    public static function ob_iconv_handler($contents,$status){ ob_iconv_handler($contents,$status); }//以输出缓冲处理程序转换字符编码
-
-
-    /*
-    exec,system, passthru()
-    */
 }
 
 /**

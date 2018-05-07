@@ -1,5 +1,6 @@
 <?php
 /**
+ * 用例
  * reference:http://www.runoob.com/design-pattern/factory-pattern.html
  */
 

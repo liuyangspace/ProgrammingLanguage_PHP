@@ -1,0 +1,20 @@
+官网：https://pear.php.net
+1 pear
+	PEAR是PHP扩展与应用库(the PHP Extension and Application Repository)的缩写.它是一个PHP扩展及应用的一个代码仓库.
+2 download&install
+	获取：https://pear.php.net/go-pear.phar（另存为go-pear.phar）
+	$ php go-pear.phar
+	修改php.ini,在 include_path = ".;c:\php\pear\"中加入pear目录
+3 use
+	pear -h  查看命令
+	pear install packagename(包名)  自網路安裝某一個pear程式庫
+	pear download packagename	下載 packages 但不安裝
+	pear download-all
+	pear install filename.tgz 	安裝已下載的package(./go-pear-bundle/)
+	pear remote-list  目前pear網站上所有可取得pear程式庫列表
+	pear list		列出已安裝package
+	pear list-upgrades 列出可以升級的package
+	pear upgrade packagename 更新package
+	pear upgrade-all 
+	pear uninstall packagename  刪除已安裝的package
+	

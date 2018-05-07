@@ -1,6 +1,7 @@
 <?php
 /**
- * Directory 类，不能用new实例化，调用 dir() 函数创建
+ * Directory
+ * 不能用new实例化，调用 dir() 函数创建
  */
 
 namespace LanguageStatement\LanguageExtension\PredefinedInterface\Directory;

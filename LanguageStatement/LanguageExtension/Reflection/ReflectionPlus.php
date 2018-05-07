@@ -26,7 +26,7 @@ class ReflectionPlus extends \Reflection
         }
     }
 
-    /*
+    /**
      *  打印类或对象的信息
      */
     public static function export(\Reflector $reflector = null,$return = false)

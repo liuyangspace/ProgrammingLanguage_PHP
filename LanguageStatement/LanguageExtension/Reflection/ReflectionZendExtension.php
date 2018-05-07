@@ -6,7 +6,7 @@
 namespace LanguageStatement\LanguageExtension\Reflection;
 
 
-class ReflectionZendExtension extends \ReflectionZendExtension
+class ReflectionZendExtension extends \ReflectionZendExtension implements \Reflector
 {
     //final private void __clone ( void )
     public function __construct($name){parent::__construct($name);}

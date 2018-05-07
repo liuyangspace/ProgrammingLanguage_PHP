@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/26
- * Time: 17:37
+ * 形状 类
  */
 
 namespace LanguageStatement\DesignModel\Decorator;

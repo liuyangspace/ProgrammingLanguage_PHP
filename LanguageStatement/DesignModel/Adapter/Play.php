@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/22
- * Time: 16:32
+ * 调用适配器的类
  */
 
 namespace LanguageStatement\DesignModel\Adapter;

@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/22
- * Time: 14:59
+ * 原型
  */
 
 namespace LanguageStatement\DesignModel\Prototype;

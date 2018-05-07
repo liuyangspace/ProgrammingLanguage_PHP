@@ -1,0 +1,3 @@
+home:https://getcomposer.org
+PHP Package Repository:https://packagist.org/
+中国全量镜像:http://pkg.phpcomposer.com/

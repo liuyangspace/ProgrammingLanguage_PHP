@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/12/26
- * Time: 17:32
+ * 形状接口
  */
 
 namespace LanguageStatement\DesignModel\Decorator;

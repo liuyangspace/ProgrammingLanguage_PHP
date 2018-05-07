@@ -1,0 +1,6 @@
+
+phpize
+
+
+
+Usage: /usr/local/bin/phpize [--clean|--help|--version|-v]

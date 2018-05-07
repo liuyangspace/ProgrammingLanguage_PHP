@@ -1,0 +1,11 @@
+原文：https://github.com/hfcorriez/fig-standards
+官方：http://www.php-fig.org/psr/psr-4/
+
+AUTOLOADING
+    PSR-4: Improved Autoloading
+INTERFACES   
+    PSR-3: Logger Interface 
+    PSR-7: HTTP Message Interfaces 
+CODING STYLES
+    PSR-1: Basic Coding Standard 
+    PSR-2: Coding Style Guide

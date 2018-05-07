@@ -1,0 +1,1347 @@
+home:https://laravel.com/docs/
+demo:http://120.26.143.106/admin/china-area
+1 get&install
+	#安装composer,进入项目目录
+	1.1 使用Composer安装Laravel
+		composer使用Laravel安装器安装Laravel create-project laravel/laravel laravelapp --prefer-dist  //在laravelapp目录下安装laravel
+	1.2 使用Laravel安装器安装Laravel
+		composer global require "laravel/installer=~1.1"    //安装Laravel安装器
+		laravel new laravelapp	                            //创建Laravel应用
+	1.3 comment
+		$ php artisan make:middleware TestMiddleware        //在/app/Http/Middleware目录下生成一个TestMiddleware.php文件
+		$ php artisan make:controller PhotoController       //命令建立控制器
+		$ php artisan make:provider RiakServiceProvider     //命令建立控制器
+		$ php artisan route:cache		//生成路由缓存
+		$ php artisan route:clear		//移除缓存路由文件
+		$ php artisan app:name			//修改app目录下命名空间。
+		$ php artisan list make			//查看所有有效的命令
+		$ php artisan make:migration create_users_table	    //生成迁移
+		$ php artisan migrate			//运行迁移
+		$ php artisan migrate --force
+		$ php artisan migrate:rollback	//回滚迁移
+		$ php artisan migrate:reset		//命令将会回滚所有的应用迁移：
+		$ php artisan migrate:refresh	//先回滚所有数据库迁移，然后运行migrate命令
+		$ php artisan migrate:refresh --seed
+		$ php artisan make:seeder UserTableSeeder	        //生成一个填充器
+		$ php artisan db:seed	        //填充数据库
+		$ php artisan db:seed --class=UserTableSeeder
+		$ php artisan migrate:refresh --seed	            //填充数据库
+		$ php artisan make:model Model/User	//定义模型
+		$ php artisan make:model User --migration	        //生成数据库迁移
+		$ php artisan make:model User -m			        //生成数据库迁移
+		$ php artisan make:policy PostPolicy	            //生成的策略类位于app/Policies目录
+		$ php artisan list	                                //查看所有可用的Artisan命令
+		$ php artisan help migrate	                        //显示命令描述及命令参数和选项。
+		$ php artisan event:generate                        //会生成罗列在EventServiceProvider中的所有事件和监听器
+		$ php artisan make:console SendEmails --command=emails:send	//构建自己的命令(app/Console/Commands目录,可以自己选择存放位置),--command选项可用于分配终端命令名
+		$ php artisan make:request StoreBlogPostRequest	    //创建表单验证类,生成的类位于app/Http/Requests目录
+		
+2 file&dir
+	/app	
+		/Console
+			/Commands	自定义命令类
+		/Event		事件类
+		/Exceptios
+		/Http
+			/Controllers	控制器类目录
+				Controller.php
+					->middleware()	使用中间件
+			/Middleware		中间件类目录
+				VerifyCsrfToken.php
+					->$except	排除指定URL的CSRF验证
+			/Requests	表单验证类
+			Kernel.php	
+				->$middleware	中间件全局注册数组
+				->$routeMiddleware  中间件路由绑定数组
+				->$commands  注册命令
+			routes.php    	路由定义
+				
+		/Jobs		目录是放置队列任务的地方，应用中的任务可以被队列化，也可以在当前请求生命周期内同步执行。
+		/Listeners   监听器
+		/Policies		策略类
+		/Providers		服务提供者，提供者的register方法被调用，然后，boot方法被调用,继承Illuminate\Support\ServiceProvider类
+			AuthServiceProvider
+				->$policies 属性来映射实体及管理该实体的策略类
+			EventServiceProvider.php
+				->$listen  属性包含了事件（键）和对应监听器（值）数组。
+				->$subcribe  属性来注册订阅者
+			...
+	/bootstrap		目录包含了少许文件用于框架的启动和自动载入配置，还有一个cache文件夹用于包含框架生成的启动文件以提高性能；
+	/config		配置
+		app.php	应用配置
+			->$providers	注册provider
+		broadcasting.php	事件广播配置
+		cache.php		缓存配置
+		auth.php 	用户认证配置
+		database.php 	数据库配置
+		filesystems.php		文件系统配置文件
+		
+		...
+	/database 	目录包含了数据迁移及填充文件，如果你喜欢的话还可以将其作为SQLite数据库存放目录；
+		/factories		
+		/migrations		//数据库迁移文件目录
+		/seeds			//数据库填充文件目录
+	/public			目录包含了前端控制器和资源文件（图片、js、css等）；
+		index.php	入口文件
+	/resources		目录包含了视图文件及原生资源文件（LESS、SASS、CoffeeScript），以及本地化文件；
+		/assets
+		/lang
+			/
+		/views		视图(模板)文件
+			/errors		错误视图
+			/vendor
+			welcome.blade.php
+	/storate		目录包含了编译过的Blade模板、基于文件的session、文件缓存，以及其它由框架生成的文件
+		/app
+		/framework
+		/logs		日志文件
+	/tests		目录包含自动化测试
+	/vendor		目录包含Composer依赖；
+	.env 	默认的参数赋值，被evn()调用
+3 routing
+	#Laravel中所有路由定义在/app/Http/routes.php文件中
+	2.1 基本使用
+		#常见的请求方式有GET和POST，自定义一个/hello请求：
+			Route::get('/hello',function(){
+				return "Hello Laravel[GET]!";
+			});
+		#可以使用Route门面上的match方法匹配多种请求方式：
+			Route::match(['get','post'],'/hello',function(){
+				return "Hello Laravel!";
+			});
+		#使用更方便的any方法匹配所有请求方式：
+			Route::any('/hello',function(){
+				return "Hello Laravel!";
+			});
+	2.2 路由参数使用
+		#必选参数(抛出MethodNotAllowedHttpException或NotFoundHttpException异常)
+			Route::get('/hello/{name}/by/{user}',function($name,$user){
+				return "Hello {$name} by {$user}!";
+			});
+		#可选参数
+			Route::get('/hello/{name?}',function($name="Laravel"){
+				return "Hello {$name}!";
+			});
+		#正则约束(抛出NotFoundHttpException异常)
+			Route::get('/hello/{name?}',function($name="Laravel"){
+				return "Hello {$name}!";
+			})->where('name','[A-Za-z]+');
+			Route::get('user/{id}/{name}', function ($id, $name) {
+			})->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
+		#全局范围内对参数进行条件约束，可以在RouteServiceProvider的boot方法中做如下定义：
+			public function boot(Router $router){
+				$router->pattern('name','[A-Za-z]+');
+				parent::boot($router);
+			}
+	2.3 路由命名
+		#使用as关键字来为路由命名：
+			Route::get('/hello/laravelacademy/{id}',['as'=>'academy',function($id){
+				return 'Hello LaravelAcademy '.$id.'！';
+			}]);
+		#使用route函数生成指向该路由的URL
+			Route::get('/testNamedRoute',function(){
+				return redirect()->route('academy',['id'=>1]);
+			});
+		#路由分组时路由命名方式:在Route门面的group方法中使用一个as关键字来指定该路由群组中所有路由的公共前缀，然后再在里面每个路由中使用as关键字为该路由命名。
+			Route::group(['as' => 'admin::'], function () {
+				Route::get('dashboard', ['as' => 'dashboard', function () {
+					//
+				}]);
+			});
+			Route::get('/testNamedRoute',function(){
+				return route('admin::dashboard');
+			});
+	2.4 路由分组()
+		2.4.1 中间件
+			$ php artisan make:middleware TestMiddleware //在/app/Http/Middleware目录下生成一个TestMiddleware.php文件
+			#编辑TestMiddleware类的handle方法如下：
+				public function handle($request, Closure $next)
+				{
+					if($request->input('age')<18)
+						return redirect()->route('refuse');
+					return $next($request);
+				}
+			#打开/app/Http/Kernal.php文件，新增TestMiddleware到Kernel的$routeMiddleware属性
+				Route::group(['middleware'=>'test'],function(){
+					Route::get('/write/laravelacademy',function(){
+						//使用Test中间件
+					});
+					Route::get('/update/laravelacademy',function(){
+					   //使用Test中间件
+					});
+				});
+				Route::get('/age/refuse',['as'=>'refuse',function(){
+					return "未成年人禁止入内！";
+				}]);
+		2.4.2 命名空间
+			#routes.php中的定义的控制器位于App\Http\Controllers命名空间下
+				Route::group(['namespace' => 'LaravelAcademy'], function(){
+					// 控制器在 "App\Http\Controllers\LaravelAcademy" 命名空间下
+					Route::group(['namespace' => 'DOCS'], function()
+					{
+						// 控制器在 "App\Http\Controllers\LaravelAcademy\DOCS" 命名空间下
+					});
+				});
+		2.4.3 子域名
+			#子域名可以通过domain关键字来设置
+				Route::group(['domain'=>'{service}.laravel.app'],function(){
+					Route::get('/write/laravelacademy',function($service){
+						return "Write FROM {$service}.laravel.app";
+					});
+				});
+		2.4.4 路由前缀
+			#可以通过在group方法中设置prefix属性来指定前缀：
+				Route::group(['prefix'=>'laravelacademy'],function(){
+					Route::get('write',function(){
+						return "Write LaravelAcademy";
+					});
+				});	
+			#可以通过/laravelacademy/write访问对应的操作
+	2.5 路由分组
+		2.5.1 避免CSRF(跨站请求伪造,Cross-site request forgery）
+			#Laravel提供了一个全局帮助函数csrf_token来获取该Token值
+			<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+			#该段代码等同于全局帮助函数csrf_field的输出：<?php echo csrf_field(); ?>
+			#在Blade模板引擎中还可以使用如下方式调用：{!! csrf_field() !!}
+		2.5.1 从CSRF验证中排除指定URL
+			#在VerifyCsrfToken（app/Http/Middleware/VerifyCsrfToken.php）中间件中将要排除的请求URL添加到$except属性数组中
+		2.5.2 X-CSRF-Token及其使用
+			#使用Ajax提交POST表单，我们可以将Token设置在meta中：
+				<meta name="csrf-token" content="{{ csrf_token() }}">
+			#然后在全局Ajax中使用这种方式设置X-CSRF-Token请求头并提交：
+				$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+4 middleware
+	3.1 定义中间件
+		$ php artisan make:middleware OldMiddleware	//这个命令会在app/Http/Middleware目录下创建一个新的中间件类OldMiddleware
+		#个中间件是否请求前还是请求后执行取决于中间件本身(在 $next($request); 前后 )
+	3.2 注册中间件	
+		3.2.1 全局中间件
+			#将相应的中间件类放到app/Http/Kernel.php的数组属性$middleware中
+		3.2.2 分配中间件到路由
+			#在app/Http/Kernel.php文件中分配给该中间件一个简写的key，在路由选项数组中使用$middleware键来指定中间件：
+		3.2.3 中间件参数
+			#中间件参数会在$next参数之后传入中间件
+			public function handle($request, Closure $next, $role){//
+				return $next($request);
+			}
+			#中间件参数可以在定义路由时通过：分隔中间件名和参数名来指定，多个中间件参数可以通过逗号分隔：
+			Route::put('post/{id}', ['middleware' => 'role:editor', function ($id) {   }]);
+	3.3 可终止的中间件
+		#指定义了terminate方法的中间件，terminate方法会在一次请求生命周期的末尾执行一些操作。
+5 Controller
+	5.1 
+		$ php artisan make:controller PhotoController 命令建立控制器
+		#控制器存放在app/Http/Controllers目录中。
+		#控制器继承自Laravel自带的控制器基类Controller
+		#定义指向该控制器动作的路由：
+		#控制器命名空间相对于App\Http\Controllers
+			Route::get('foo', 'Namespace\ControllerName@methodName');
+		#帮助函数action很方便地为控制器动作生成对应的URL：
+			$url = action('Namespace\ControllerName@methodName');
+		#帮助函数route来为已命名的控制器路由生成对应的URL：
+			$url = route('routeName');
+		#控制器中间件,在控制器的构造函数中使用 middleware 方法你可以很轻松的分配中间件给该控制器。
+	5.2 route
+		5.2.1 只定义部分资源路由
+			声明资源路由时可以指定该路由处理的动作子集：
+			Route::resource('photo', 'PhotoController',
+							['only' => ['index', 'show']]);
+			Route::resource('photo', 'PhotoController',
+							['except' => ['create', 'store', 'update', 'destroy']]);
+		5.2.2 命名资源路由，我们可以通过传入names数组来覆盖这些默认的名字：
+			Route::resource('photo', 'PhotoController',
+							['names' => ['create' => 'photo.build']]);
+		5.2.3 嵌套资源，在路由声明中使用“.”嵌套资源：
+			Route::resource('photos.comments', 'PhotoCommentController');
+			该路由将注册一个嵌套的资源，使用URL访问方式如下：
+			photos/{photos}/comments/{comments}.
+		5.2.4 在默认资源路由之外添加额外的路由到资源控制器，应该在调用Route::resource之前定义这些路由；
+			Route::get('photos/popular', 'PhotoController@method');
+			Route::resource('photos', 'PhotoController');
+	5.2 隐式控制器
+		#使用Route::controller方法定义一个路由，控制器方法名应该以HTTP请求方法开头：
+			第一个参数是控制器处理的baseURI，
+			第二个参数是控制器的类名：
+			第三个参数命名该控制器中的一些路由
+			Route::controller('users','UserController',['getShow' => 'user.show',]);
+	5.3 路由缓存
+		php artisan route:cache		//生成路由缓存
+		php artisan route:clear		//移除缓存路由文件
+6 Request
+	6.1 方法：Laravel的Illuminate\Http\Request继承自Symfony\Component\HttpFoundation\Request类
+		$request->path();	//返回请求的URI
+		$request->url();	//获取完整的URL
+		$request->method();	//返回请求的HTTP请求方式
+		$request->isMethod('post');	//验证HTTP请求方式
+		$request->is('admin/*');	//方法允许你验证进入的请求是否与给定模式匹配。使用该方法时可以使用*通配符
+		$request->input('name', 'Sally');	//获取输入,如果请求输入值在当前请求未出现时第二个参数将会被返回
+		$request->has('name');		//判断输入值是否出现
+		$request->all();		//获取所有输入数据
+		$request->only('username', 'password');		//获取输入的部分数据
+		$request->except('credit_card');
+		$request->flash();	//将当前输入存放到一次性session（所谓的一次性指的是从session中取出数据中，对应数据会从session中销毁）中，在下一次请求时数据依然有效：
+		$request->flashOnly('username', 'email');	//将输入数据子集存放到session中：
+		$request->flashExcept('password');
+		redirect('form')->withInput();	//一次性存储输入并重定向到前一页
+		redirect('form')->withInput($request->except('password'));
+		$request->old('username');	//取出上次请求的输入数据
+		$request->cookie('name');	//请求中取出Cookies
+		$request->file('photo');	//获取上传的文件
+		$request->hasFile('photo');	//判断文件在请求中是否存在
+		$request->file('photo')->isValid();//验证文件是否上传成功
+		$request->file('photo')->move($destinationPath, $fileName);//保存上传的文件
+	
+7 response 	
+	7.1 Response实例继承自Symfony\Component\HttpFoundation\Response类
+	7.2 create
+		response($content, $status)->header('Content-Type', $value);});//帮助函数response
+		response()->view('hello', $data)->header('Content-Type', $type);//返回一个视图作为响应内容
+		response()->json(['name' => 'Abigail', 'state' => 'CA']); 	//JSON响应
+		response()->download($pathToFile, $name, $headers);			//文件下载
+		#重定向响应是Illuminate\Http\RedirectResponse类的实例
+		redirect('home/dashboard');	//重定向
+		redirect()->route('login',[1]);	//如果路由中有参数，可以将其作为第二个参数传递到route方法：
+		back()->withInput();		//返回前一个URL
+		redirect()->action('HomeController@index');	//重定向到控制器动作
+		redirect('dashboard')->with('status', 'Profile updated!'); //带一次性Session数据的重定向
+		$response->header('Content-Type', $type);		//添加一系列响应头 
+		$response->withCookie(cookie('name', 'value', $minutes));	创建一个cookie
+		$response->withCookie(cookie()->forever('name', 'value'));	//创建一个长期有效的cookie
+		$response->withCookie($name, $value, $minutes, $path, $domain, $secure, $httpOnly);	//创建一个长期有效的cookie
+		redirect()->intended('dashboard');//intended方法将会将用户重定向到登录之前用户想要访问的URL，在目标URL无效的情况下备用URI将会传递给该方法。
+	7.3 响应宏
+		#使用Illuminate\Contracts\Routing\ResponseFactory实现上的macro方法定义一个自定义的响应并且在多个路由和控制器中复用
+	7.4 view(不带参数的view时，将会返回一个Illuminate\Contracts\View\Factory实例)
+		#视图存放在resources/views/
+		view('greeting', ['name' => 'James']);	//帮助函数view
+		#视图还可以嵌套在resources/views的子目录中，用“.”号来引用嵌套视图
+		view('admin.profile', $data);	//resources/views/admin/profile.php
+		view()->exists('emails.customer');	//判断视图是否存在
+		view('greeting')->with('name', 'Victoria');//with方法添加独立的数据片段到视图
+		#在服务提供者的boot方法中调用share方法,在所有视图之间共享数据片段
+		#视图Composer,视图Composers是当视图被渲染时的回调或类方法。
+			添加该服务提供者到配置文件config/app.php的providers数组中。
+		
+		
+8 Tmplate(Blade)
+	#Blade视图文件使用.blade.php文件扩展并存放在resources/views目录下。
+	8.1 指令
+		@section	//定义了一个内容的片段,注入内容到布局的片段中
+		@yield		//显示给定片段的内容。
+		@extends	//指定子页面所继承的布局
+		@parent		//追加（而非覆盖）内容到布局中
+		@include	//在一个视图中包含另一个Blade视图
+		@inject		//服务注入,第一个参数是服务将要被放置到的变量名，第二个参数是要解析的服务类名或接口名
+	8.2 数据显示(两个花括号,已经经过PHP的htmlentities函数处理)
+		{{ csrf_token() }}			//避免CSRF
+		{{ old('username') }}		//取出上次请求的输入数据
+		{{ session('status') }}		//
+		# 用@忽略Blade解释：Hello, @{{ name }}.
+		{!! $name !!}	//跳过PHP的htmlentities函数处理
+	8.3 If语句:@if, @elseif, @else, @endif, @unless
+			@if (count($records) === 1)
+				I have one record!
+			@elseif (count($records) > 1)
+				I have multiple records!
+			@else
+				I don't have any records!
+			@endif
+	8.4 循环
+		for
+			@for ($i = 0; $i < 10; $i++)
+				The current value is {{ $i }}
+			@endfor
+		foreach
+			@foreach ($users as $user)
+				<p>This is user {{ $user->id }}</p>
+			@endforeach
+		forelse
+			@forelse ($users as $user)
+				<li>{{ $user->name }}</li>
+			@empty
+				<p>No users</p>
+			@endforelse
+		while
+			@while (true)
+				<p>I'm looping forever.</p>
+			@endwhile
+	8.5 注释:
+			{{-- This comment will not be present in the rendered HTML --}}
+	8.6 扩展Blade
+			directive方法来注册一个指令。
+			
+9 database
+	#配置文件config/database.php
+	9.1 
+		DB::connection('foo')->select(...);
+		DB::connection()->getPdo();	//获取原生的PDO实例
+		#CURD
+			DB::select('select * from users where active = ?', [1]);
+			DB::select('select * from users where id = :id', ['id' => 1]);
+			DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle']);
+			DB::update('update users set votes = 100 where name = ?', ['John']);
+			DB::delete('delete from users');
+			DB::statement('drop table users');
+		#transaction
+			DB::transaction(function () {
+				DB::table('users')->update(['votes' => 1]);
+				DB::table('posts')->delete();
+			});	//自动事物
+			DB::beginTransaction();
+			DB::rollBack();
+			DB::commit();
+		#查询构建器
+			DB::table('users')->get();	//显示用户列表
+			DB::table('users')->lists('title', 'name');	//获取包含单个列值的数组
+			DB::table('users')->where('name', 'John')->first();	//获取一行
+			DB::table('users')->chunk(100, function($users){ });	//获取组块结果集
+			DB::table('users')->distinct()->get();	//强制查询返回不重复的结果集：
+			DB::table('users')->select('name', 'email as user_email')->get();//指定查询子句
+		#聚合函数ount, max, min, avg, sum
+			DB::table('users')->count();
+			DB::table('orders')->max('price');
+		#原生表达式DB::raw()
+			DB::table('users')
+				 ->select(DB::raw('count(*) as user_count, status'))
+				 ->where('status', '<>', 1)
+				 ->groupBy('status')
+				 ->get();
+		#内连接（等值连接）
+			DB::table('users')
+				->join('contacts', 'users.id', '=', 'contacts.user_id')
+				->join('orders', 'users.id', '=', 'orders.user_id')
+				->select('users.*', 'contacts.phone', 'orders.price')
+				->get();
+		#左连接
+			DB::table('users')
+				->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+				->get();
+		#连接
+			DB::table('users')
+			->join('contacts', 
+			function ($join){$join->on('users.id', '=', 'contacts.user_id')->orOn(...);}
+			)->get();
+			DB::table('users')
+			->join('contacts', 
+				function ($join) {$join->on('users.id', '=', 'contacts.user_id')
+				->where('contacts.user_id', '>', 5);}
+			)->get();
+		#联合（Union）
+			$first = DB::table('users')
+				->whereNull('first_name');
+			$users = DB::table('users')
+				->whereNull('last_name')
+				->union($first)
+				->get();
+		#Where
+			DB::table('users')->where('votes', '=', 100)->orWhere('name', 'John')->get();//=可省略
+			DB::table('users')->whereBetween('votes', [1, 100])->get();
+			DB::table('users')->whereNotBetween('votes', [1, 100])->get();
+			DB::table('users')->whereIn('id', [1, 2, 3])->get();
+			DB::table('users')->whereNotIn('id', [1, 2, 3])->get();
+			DB::table('users')->whereNull('updated_at')->get();
+			DB::table('users')->whereNotNull('updated_at')->get();
+			DB::table('users')
+            ->where('name', '=', 'John')
+            ->orWhere(function ($query) {
+                $query->where('votes', '>', 100)
+                      ->where('title', '<>', 'Admin');
+            })->get();//select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+			DB::table('users')
+            ->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                      ->from('orders')
+                      ->whereRaw('orders.user_id = users.id');
+            })->get();//select * from users where exists (select 1 from orders where orders.user_id = users.id)
+		#排序、分组、限定
+			DB::table('users')->orderBy('name', 'desc')->get();
+			DB::table('users')->groupBy('account_id')->having('account_id', '>', 100)->get();
+			DB::table('orders')
+                ->select('department', DB::raw('SUM(price) as total_sales'))
+                ->groupBy('department')
+                ->havingRaw('SUM(price) > 2500')
+                ->get();
+			DB::table('users')->skip(10)->take(5)->get();
+		#插入（Insert）
+			DB::table('users')->insert([
+				['email' => 'taylor@example.com', 'votes' => 0],
+				['email' => 'dayle@example.com', 'votes' => 0]
+			]);
+			DB::table('users')->insertGetId(
+				['email' => 'john@example.com', 'votes' => 0]
+			);//使用insertGetId方法来插入记录将会返回ID值：
+		#更新（Update）
+			DB::table('users')
+				->where('id', 1)
+				->update(['votes' => 1]);
+			DB::table('users')->increment('votes', 5);
+			DB::table('users')->decrement('votes', 5);
+		#删除（Delete）
+			DB::table('users')->delete();
+			DB::table('users')->where('votes', '<', 100)->delete();
+			DB::table('users')->truncate();//清除整张表,并将自增ID置为0
+		#锁
+			DB::table('users')->where('votes', '>', 100)->sharedLock()->get();
+			DB::table('users')->where('votes', '>', 100)->lockForUpdate()->get();
+		#创建表
+			Schema::create('users', function ($table) {
+				$table->increments('id');
+			});
+			Schema::hasTable('users');//检查表是否存在
+			Schema::hasColumn('users', 'email');////检查列是否存在
+			Schema::connection('foo')->create('users', function ($table) {
+				$table->increments('id');
+			});//连接
+			Schema::create('users', function ($table) {
+				$table->engine = 'InnoDB';
+				$table->increments('id');
+			});//存储引擎
+			Schema::rename($from, $to);//重命名表
+			Schema::drop('users');Schema::dropIfExists('users');//删除表
+			Schema::table('users', function ($table) {
+				$table->string('email');
+			});//创建列
+			#可用的列类型
+				$table->bigIncrements('id');	自增ID，类型为bigint
+				$table->bigInteger('votes');	等同于数据库中的BIGINT类型
+				$table->binary('data');	等同于数据库中的BLOB类型
+				$table->boolean('confirmed');	等同于数据库中的BOOLEAN类型
+				$table->char('name', 4);	等同于数据库中的CHAR类型
+				$table->date('created_at');	等同于数据库中的DATE类型
+				$table->dateTime('created_at');	等同于数据库中的DATETIME类型
+				$table->decimal('amount', 5, 2);	等同于数据库中的DECIMAL类型，带一个精度和范围
+				$table->double('column', 15, 8);	等同于数据库中的DOUBLE类型，带精度, 总共15位数字，小数点后8位.
+				$table->enum('choices', ['foo', 'bar']);	等同于数据库中的 ENUM类型
+				$table->float('amount');	等同于数据库中的 FLOAT 类型
+				$table->increments('id');	数据库主键自增ID
+				$table->integer('votes');	等同于数据库中的 INTEGER 类型
+				$table->json('options');	等同于数据库中的 JSON 类型
+				$table->jsonb('options');	等同于数据库中的 JSONB 类型
+				$table->longText('description');	等同于数据库中的 LONGTEXT 类型
+				$table->mediumInteger('numbers');	等同于数据库中的 MEDIUMINT类型
+				$table->mediumText('description');	等同于数据库中的 MEDIUMTEXT类型
+				$table->morphs('taggable');	添加一个 INTEGER类型的 taggable_id 列和一个 STRING类型的 taggable_type列
+				$table->nullableTimestamps();	和 timestamps()一样但不允许 NULL值.
+				$table->rememberToken();	添加一个 remember_token 列： VARCHAR(100) NULL.
+				$table->smallInteger('votes');	等同于数据库中的 SMALLINT 类型
+				$table->softDeletes();	新增一个 deleted_at 列 用于软删除.
+				$table->string('email');	等同于数据库中的 VARCHAR 列  .
+				$table->string('name', 100);	等同于数据库中的 VARCHAR，带一个长度
+				$table->text('description');	等同于数据库中的 TEXT 类型
+				$table->time('sunrise');	等同于数据库中的 TIME类型
+				$table->tinyInteger('numbers');	等同于数据库中的 TINYINT 类型
+				$table->timestamp('added_on');	等同于数据库中的 TIMESTAMP 类型
+				$table->timestamps();	添加 created_at 和 updated_at列.
+			Schema::table('users', function ($table) {
+				$table->string('email')->nullable();
+			});//列修改器
+				->first()	将该列置为表中第一个列 (仅适用于MySQL)
+				->after('column')	将该列置于另一个列之后 (仅适用于MySQL)
+				->nullable()	允许该列的值为NULL
+				->default($value)	指定列的默认值
+				->unsigned()	设置 integer 列为 UNSIGNED
+			#在修改列之前，确保已经将doctrine/dbal依赖添加到composer.json文件
+			Schema::table('users', function ($table) {
+				$table->string('name', 50)->change();//
+				$table->string('name', 50)->nullable()->change();
+				$table->renameColumn('from', 'to');//重命名列
+				$table->dropColumn('votes');//删除列
+				$table->dropColumn(['votes', 'avatar', 'location']);
+			});
+			#创建索引
+			$table->string('email')->unique();//创建索引
+			$table->unique('email');//定义列之后创建索引
+			$table->index(['account_id', 'created_at']);//创建混合索引：
+			$table->primary('id');	添加主键索引
+			$table->primary(['first', 'last']);	添加混合索引
+			$table->unique('email');	添加唯一索引
+			$table->index('state');	添加普通索引
+			$table->dropPrimary('users_id_primary');	从 “users”表中删除主键索引
+			$table->dropUnique('users_email_unique');	从 “users”表中删除唯一索引
+			$table->dropIndex('geo_state_index');	从 “geo”表中删除普通索引
+			# 外键约束
+			Schema::table('posts', function ($table) {
+				$table->integer('user_id')->unsigned();
+				$table->foreign('user_id')->references('id')->on('users');
+				$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+				$table->dropForeign('posts_user_id_foreign');
+			});
+	9.2 迁移
+		#make:migration来创建一个新的迁移,(新的迁移位于database/migrations目录下)
+		#迁移类包含了两个方法：up和down。
+		#up方法用于新增表，列或者索引到数据库，而down方法就是up方法的反操作。
+	9.3 填充器	
+		#make:seeder生成一个填充器(填充器都位于database/seeders目录)
+		#一个填充器类默认只包含一个方法：run()
+		#可以使用帮助函数factory来插入记录到数据库。
+		#call方法执行额外的填充类
+	9.4 Eloquent ORM
+		#Eloquent模型继承自Illuminate\Database\Eloquent\Model类。
+		$ php artisan make:model Model/User		//定义模型
+		$ php artisan make:model User --migration	//生成数据库迁移
+		$ php artisan make:model User -m			//生成数据库迁移
+		#属性
+		public $timestamps = false; = 'id'; //关闭created_at和updated_at属性
+		public $incrementing = false;       //
+		protected $dates=['start_time'];    //类型为time的属性
+		protected $table = 'my_flights';    //定义表名
+		protected $primaryKey = 'id';   //定义主键
+		protected $dateFormat = 'U';    //定义时间解析格式
+		protected $fillable = ['name']; //设置Flight模型上的name属性可以被赋值：
+		protected $guarded = ['price']; //$guarded属性包含你不想被赋值的属性数组。
+		protected $guarded = array('id', 'account_id'); //设置guarded属性
+		protected $connection = 'connection-name';
+		#查询
+		ModelName::all();   //all()方法返回模型表的所有结果
+		ModelName::where('votes', '>', 100)->orderBy('name', 'desc')->take(10)->get()   //get()
+		ModelName::chunk(200, function ($flights) {foreach ($flights as $flight) {}});  //chunk方法会获取一个“组块”的Eloquent模型
+		ModelName::find(1); //获取单个模型/聚合
+		ModelName::on('connection-name')->find(1);
+		ModelName::where('active', 1)->first(); //获取单个模型/聚合
+		ModelName::findOrFail(1);   //找不到的时候抛出异常
+		ModelName::firstOrCreate(['name' => 'Flight 10']);  //尝试在数据库中查找匹配的记录，如果没有找到，则返回一个的模型实例。
+		ModelName::firstOrNew(['name' => 'Flight 10']);
+		ModelName::where('active', 1)->count();
+		ModelName::where('active', 1)->max('price');
+			whereIn('id', array(1, 2, 3))
+			whereNotIn('id', array(1, 2, 3))
+			whereRaw('age > ? and votes = 100', array(25))
+			whereNull('updated_at')
+			whereBetween('votes', array(1, 100))
+			where('name', 'regex', new MongoRegex("/.*doe/i"))
+			where('tags', 'size', 3)
+			where('roles', 'all', array('moderator', 'author'))
+			where('name', 'regexp', '/.*doe/i'))
+			where('name', 'not regexp', '/.*doe/i'))
+			where('age', 'type', 2)	//https://docs.mongodb.com/manual/reference/operator/query/type/#op._S_type
+			where('age', 'mod', array(10, 0))
+			orderBy('name', 'desc')
+			orWhere()
+			groupBy('title')
+			oldest() and latest()
+			limit($value)
+			offset($value)
+			skip($value)
+			get()
+		ModelName::distinct('name')->get()
+		ModelName::distinct()->get(array('name'))
+		#基本插入,基本更新:设置模型的属性，然后调用save方法：
+		
+		#Insert, Update, 
+		User::create(array('name' => 'John'));
+		$user = new User;
+		$user->name = 'John';
+		$user->save();
+		
+		#Delete
+		
+		
+		ModelName::find(1)->delete();//删除模型
+		ModelName::destroy(array(1, 2, 3));//destroy(1, 2, 3);
+		App\Flight::destroy([1, 2, 3]);//通过主键删除模型
+		#软删除:设置一个deleted_at属性并插入数据库，使用模型上的Illuminate\Database\Eloquent\SoftDeletestrait并添加deleted_at列到$dates属性
+		$flight->trashed();//判断给定模型实例是否被软删除
+		App\Flight::withTrashed()->where('account_id', 1)->get();//查询包含软删除模型
+		App\Flight::onlyTrashed()->where('airline_id', 1)->get();//只获取软删除模型
+		$flight->restore();//恢复软删除模型
+		$flight->forceDelete();//永久删除模型
+		#要定义一个作用域，只需要简单的在Eloquent模型方法前加上一个scope前缀
+			在查询模型的时候调用作用域方法不需要加上scope前缀
+		#动态作用域
+			public function scopeOfType($query, $type){
+				return $query->where('type', $type);
+			}
+			User::ofType('admin')->get();
+		#事件:creating, created, updating, updated, saving, saved,deleting, deleted, restoring, restored
+			class AppServiceProvider extends ServiceProvider{
+						public function boot(){
+				User::creating(function ($user) {
+					if ( ! $user->isValid()) {
+						return false;
+					}
+				});
+			}
+		#关联关系
+			一对一
+			class User extends Model{
+				public function phone(){
+					return $this->hasOne('App\Phone', 'foreign_key', 'local_key');;//hasOne方法的第一个参数是关联模型的名称
+				}
+			}
+			User::find(1)->phone;
+			class Phone extends Model{
+				public function user(){
+					return $this->belongsTo('App\User', 'foreign_key', 'other_key');//
+				}
+			}
+			 一对多
+			return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
+			return $this->belongsTo('App\Post', 'foreign_key', 'other_key');
+			多对多
+			return $this->belongsToMany('App\Role', 'user_roles', 'user_id', 'role_id');
+			return $this->belongsToMany('App\User');
+			#获取中间表的列:使用模型上的pivot属性访问中间表：$role->pivot->created_at;
+			return $this->belongsToMany('App\Role')->withPivot('column1', 'column2');//指定privot表包含额外的属性
+			return $this->belongsToMany('App\Role')->withTimestamps();//包含created_at和updated_at时间戳
+			return $this->hasManyThrough('App\Post', 'App\User', 'country_id', 'user_id');//hasManyThrough关联提供远层的一对多
+				//第一个传递到hasManyThrough方法的参数是最终我们希望访问的模型的名称，第二个参数是中间模型名称,第三个参数是中间模型的外键名，第四个参数是最终模型的外键名。
+			#多态关联
+			return $this->morphTo();
+			return $this->morphMany('App\Photo', 'imageable');
+			return $this->morphToMany('App\Tag', 'taggable');
+			return $this->morphedByMany('App\Post', 'taggable');
+			Post::has('comments', '>=', 3)->get();//has()查询已存在的关联关系
+			#使用whereHas和orWhereHas方法将where条件放到has查询上
+			$posts = Post::whereHas('comments', function ($query) {
+				$query->where('content', 'like', 'foo%');
+			})->get();
+			#使用with方法指定应该被渴求式加载的关联关系
+				$books = App\Book::with('author')->get();
+				foreach ($books as $book) {
+					echo $book->author->name;
+				}
+			#插入关联模型
+			User::find(1)->roles()->save($role, ['expires' => $expires]);//save():第二个参数接收额外的中间表属性
+			$post->comments()->saveMany([
+				new App\Comment(['message' => 'A new comment.']),
+				new App\Comment(['message' => 'Another comment.']),
+			]);//saveMany方法：保存多个关联模型，
+			$comment = $post->comments()->create(['message' => 'A new comment.',]);//create方法:接收原生PHP数组
+			#更新belongsTo关联:associate
+				$user->account()->associate($account);
+			#移除belongsTo关联:dissociate
+				$user->account()->dissociate();
+			#附加/分离
+			$user->roles()->attach($roleId, ['expires' => $expires]);//attach,附加关联关系到模型
+			$user->roles()->detach($roleId);//detach,从指定用户中移除角色
+			$user->roles()->detach();//从指定用户移除所有角色,attach和detach还接收数组形式的ID作为输入：
+			同步:$user->roles()->sync([1, 2, 3]);
+			#触发父级时间戳,添加包含关联关系名称的touches属性到子模型
+				protected $touches = ['post'];
+		#集合(Illuminate\Support\Collection)
+			#创建集合:$collection = collect([1, 2, 3]);
+			#可用方法(详情:http://laravelacademy.org/post/178.html)
+				all()			//简单返回集合表示的底层数组
+				chunk($num)		//将一个集合分割成多个小尺寸的小集合
+				collapse()		//将一个多维数组集合收缩成一个一维数组
+				contains()		//判断集合是否包含一个给定项,接受值，键值对，回调函数
+				count()			//返回集合中所有项的数目
+				diff($array)	//将集合和另一个集合或原生PHP数组作比较
+				each(function)	//迭代集合中的数据项并传递每个数据项到给定回调,接受回调函数,回调返回false将会终止循环
+				filter(function)//通过给定回调过滤集合，只有通过给定测试的数据项才会保留下来,相反的方法是reject
+				first()			//返回通过测试集合的第一个元素
+				flatten()		//将多维度的集合变成一维的
+				flip()			//将集合的键值做交换
+				forget($key)	//通过键从集合中移除数据项
+				forPage($page,$num)//返回新的包含给定页数数据项的集合
+				get($key,$default)//返回给定键的数据项，如果不存在，返回null或默认值或回调函数
+				groupBy($key|function)//通过给定键/回调函数分组集合数据项
+				has()			//判断给定键是否在集合中存在
+				implode()		//连接集合中的数据项。其参数取决于集合中数据项的类型。()
+				intersect()		//返回两个集合的交集
+				isEmpty()		//集合为空的话isEmpty方法返回true；否则返回false：
+				keyBy()			//将指定键的值作为集合的键,可以传递自己的回调
+				keys()			//返回所有集合的键
+				last()			//返回通过测试的集合的最后一个元素
+				map(function)	//遍历集合并传递每个值给给定回调。该回调可以修改数据项并返回，从而生成一个新的经过修改的集合,它并不修改所调用的实例。如果你想要改变原来的集合，使用transform方法。
+				merge($collection)//合并给定数组到集合
+				pluck($key)		//为给定键获取所有集合值
+				pop()			//移除并返回集合中最后面的数据项
+				prepend()		//添加数据项到集合开头
+				pull($key)		//通过键从集合中移除并返回数据项
+				push()			//附加数据项到集合结尾
+				put($key,$value)//在集合中设置给定键和值
+				random()		//从集合中返回随机数据项,你可以传递一个整型数据到random函数，如果该整型数值大于1，将会返回一个集合
+				reduce(function,$start)//用于减少集合到单个值，传递每个迭代结果到随后的迭代,可以通过传递第二个参数到reduce来指定其初始值
+				reject()		//使用给定回调过滤集合，该回调应该为所有它想要从结果集合中移除的数据项返回true
+				reverse()		//将集合数据项的顺序颠倒
+				search($value,$boolean)//为给定值查询集合，如果找到的话返回对应的键，如果没找到，则返回false,要使用严格比较，传递true作为第二个参数到该方法
+				shift()			//从集合中移除并返回第一个数据项
+				shuffle()		//随机打乱集合中的数据项	
+				slice($start,$long,$boolean)//从给定索开始返回集合的一个切片,想要保持原有的键，可以传递第三个参数true到该方法
+				sort()			//对集合进行排序,需要更加高级的排序，你可以使用自己的算法传递一个回调给sort方法。
+				sortBy($key|function)//通过给定键对集合进行排序
+				sortByDesc($key|function)//和 sortBy用法相同，不同之处在于按照相反顺序进行排序。
+				splice($start,$size,$collection)//在从给定位置开始移除并返回数据项切片,第三个参数来包含新的数据项来替代从集合中移除的数据项
+				sum($key|function)//返回集合中所有数据项的和：
+				take()			//使用指定数目的数据项返回一个新的集合
+				toArray()		//将集合转化为一个原生的PHP数组
+				toJson()		//将集合转化为JSON
+				transform()		//迭代集合并对集合中每个数据项调用给定回调
+				unique()		//返回集合中所有的唯一数据项
+				values()		//使用重置为连续整型数字的键返回新的集合
+				where()			//通过给定键值对过滤集合
+				whereLoose()	//在比较值的时候使用松散约束
+				zip()			//在于集合的值相应的索引处合并给定数组的值
+			#自定义集合:重写模型上的newCollection方法
+		#访问器&修改器
+			#要定义一个访问器，需要在模型中创建一个getFooAttribute方法，其中Foo是你想要访问的字段名（使用驼峰式命名规则）。
+			#要定义一个修改器，需要在模型中定义setFooAttribute方法，其中Foo是你想要访问的字段（使用驼峰式命名规则）。
+			#protected $dates = ['created_at', 'updated_at', 'disabled_at'];//应该被调整为日期的属性
+			#模型中的$casts属性提供了便利方法转换属性到通用数据类型。
+				protected $casts = ['is_admin' => 'boolean',];//is_admin属性在被访问时总是被转换为boolean，即使底层存储在数据库中的值是integer
+		#序列化
+			#toArray方法:转化模型及其加载的关联关系为数组
+				User::with('roles')->first()->toArray();
+			#toJson方法:转化模型为JSON
+				User::find(1)->toJson();
+			#在JSON中隐藏属性:在定义模型加一个$hidden属性,隐藏关联关系，使用关联关系的方法名
+				protected $hidden = ['password'];
+			#使用visible属性定义属性显示的白名单：
+				protected $hidden = ['password'];
+			#追加值到JSON:
+				定义一个访问器:public function getIsAdminAttribute(){return $this->attributes['admin'] == 'yes';}
+				添加字段名到模型的appends属性:protected $appends = ['is_admin'];
+10 用户认证
+	10.1 基本认证
+		配置文件:config/auth.php
+		建立模型:例，App/User.php (implements AuthenticatableContract,AuthorizableContract,CanResetPasswordContract)
+		配置路由:
+			// 认证路由...
+			Route::get('auth/login', 'Auth\AuthController@getLogin');
+			Route::post('auth/login', 'Auth\AuthController@postLogin');
+			Route::get('auth/logout', 'Auth\AuthController@getLogout');
+			// 注册路由...
+			Route::get('auth/register', 'Auth\AuthController@getRegister');
+			Route::post('auth/register', 'Auth\AuthController@postRegister');
+		建立视图(这些视图位于resources/views/auth目录)：
+				登录视图是resources/views/auth/login.blade.php，
+				注册视图是resources/views/auth/register.blade.php。
+		认证(这些视图位于app/Http/Controllers/Auth/AuthController.php):
+			protected $redirectPath = '/dashboard';//进行认证成功后跳转路由
+			protected $loginPath = '/login';//进行认证失败后后跳转路由
+			protected function validator(array $data){}//表单验证
+			protected function create(array $data){}//生成用户
+			登录失败次数限制:Illuminate\Foundation\Auth\ThrottlesLogins
+		获取认证用户:
+			$user = Auth::user();//
+			$request->user();//返回认证用户实例...
+			Auth::check();//判断当前用户是否通过认证
+			Route::get('profile', ['middleware' => 'auth','uses' => 'ProfileController@show']);//路由保护
+		手动认证用户:
+			Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1]);//attempt()
+			Auth::logout();//logout
+		记住用户(users表必须包含remember_token字段):
+			Auth::attempt(['email' => $email, 'password' => $password], $remember)//第二个参数到attempt方法
+			Auth::viaRemember();//判断用户是否使用“记住我”cookie进行认证
+		认证用户实例(用户实例必须是Illuminate\Contracts\Auth\Authenticatable的实现):
+			Auth::login($user);//
+			Auth::loginUsingId(1);//loginUsingId方法接收认证用户的主键作为参数
+			Auth::once($credentials);//once方法在一次性认证用户中应用，而不存储任何session和cookie
+		基于HTTP的基本认证:	
+			首先要在路由中加上auth.basic中间件：
+				Route::get('profile', ['middleware' => 'auth.basic', function() { }]);	
+			FastCGI上注意点：需要在.htaccess文件加入如下内容：
+				RewriteCond %{HTTP:Authorization} ^(.+)$
+				RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+		无状态的HTTP基本认证：	
+			定义一个调用onceBasic方法的中间件。
+		重置密码
+			验证App\User模型实现了Illuminate\Contracts\Auth\CanResetPassword;
+			生成重置令牌表迁移(放在database/migrations目录):php artisan migrate
+			配置路由:
+				// 密码重置链接请求路由...
+				Route::get('password/email', 'Auth\PasswordController@getEmail');
+				Route::post('password/email', 'Auth\PasswordController@postEmail');
+				// 密码重置路由...
+				Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+				Route::post('password/reset', 'Auth\PasswordController@postReset');
+			建立视图：
+				resources/views/auth/password.blade.php（action="/password/email"）
+				resources/views/emails/password.blade.php（该视图将会获取包含密码重置令牌的$token变量，用于和用户重置密码请求进行匹配）
+				resources/views/auth/reset.blade.php（action="/password/reset"）
+				protected $redirectTo = '/dashboard';//密码重置跳转链接	
+	10.2 社会化登录认证	
+		在composer.json文件中添加依赖：composer require laravel/socialite
+		配置文件config/app.php中注册Laravel\Socialite\SocialiteServiceProvider，
+			在app配置文件中添加Socialite门面到aliases数组
+		配置文件config/services.php
+		使用：
+			Socialite::driver('github')->redirect();//将用户重定向到GitHub认证页面.
+			Socialite::driver('github')->user();//从GitHub获取用户信息.
+			Socialite::driver('github')->scopes(['scope1', 'scope2'])->redirect();//设置”作用域”，该方法将会重写已存在的所有作用域
+	10.3 添加自定义认证驱动
+		在服务提供者的boot方法中调用Auth门面上的extend方法：
+			Auth::extend('riak', function($app) {
+				return new RiakUserProvider($app['riak.connection']);
+			});// 返回Illuminate\Contracts\Auth\UserProvider实例...
+		在配置文件config/auth.php中切换到新的驱动
+		#Illuminate\Contracts\Auth\UserProvider实现只负责从持久化存储系统中获取Illuminate\Contracts\Auth\Authenticatable实现
+		实现UserProvider及Authenticatable
+11 用户授权
+	11.1 定义权限，在AuthServiceProvider的boot()中使用Illuminate\Auth\Access\Gate类定义“权限”：
+		$gate->define('update-post', function ($user, $post){return $user->id === $post->user_id;});
+		$gate->define('update-post', 'PostPolicy@update');
+	11.2 检查权限	
+		# Gate门面:check(), allows(), denies()	//Gate会自动附加当前用户到传递给回调的参数
+			Gate::denies('update-post', $post);//检查权限,allows方法和denies方法是相对的,check 方法是allows方法的别名
+			Gate::forUser($user)->allows('update-post', $post);//forUser方法,为指定用户检查权限
+		#接收多个参数
+			Gate::define('delete-comment', function ($user, $post, $comment) {});
+			Gate::allows('delete-comment', [$post, $comment])
+		#通过User模型:can() , cannot()
+			$request->user()->cannot('update-post', $post);//
+		#在Blade模板引擎中检查:@can @else @endcan
+			@can('update-post', $post)
+				<!-- The Current User Can Update The Post -->
+			@else
+				<!-- The Current User Can't Update The Post -->
+			@endcan
+		#在表单请求中检查
+			public function authorize(){
+				$postId = $this->route('post');
+				return Gate::allows('update', Post::findOrFail($postId));
+			}
+	11.3 策略类
+		创建策略类(app/Policies目录):php artisan make:policy PostPolicy
+		AuthServiceProvider包含了一个policies属性来映射实体及管理该实体的策略类:
+			protected $policies = [Post::class => PostPolicy::class,];
+		为授权的每个权限添加方法:
+			public function update(User $user, Post $post){return $user->id === $post->user_id;}
+		使用Gate门面，User模型，@can指令或者帮助函数policy检查策略:
+			policy($post)->update($user, $post);
+	11.4 控制器授权
+		$this->authorize('update', $post);//若authorize方法判断授权失败，将会抛出HttpException
+		$this->authorizeForUser($user, 'update', $post);//authorizeForUser方法用于授权非当前用户
+12 Artisan 控制台
+	12.1 命令：
+		php artisan list	//查看所有可用的Artisan命令
+		php artisan help migrate	//显示命令描述及命令参数和选项。
+		php artisan make:console SendEmails --command=emails:send	//构建自己的命令(app/Console/Commands目录,可以自己选择存放位置),--command选项可用于分配终端命令名
+	12.2 命令结构,
+		#可以在命令控制器的构造函数中注入任何依赖
+		protected $signature = 'email:send {user} {--queue=default}';//控制台命令名称,定义期望输入,
+		#用户提供的参数和选项都包含在大括号里
+			protected $signature = 'email:send {user} {--queue=default}';//选项前面有两个短划线（–）
+			protected $signature = 'email:send {user}';//必须参数
+			protected $signature = 'email:send {user?}';//可选参数值
+			protected $signature = 'email:send {user=foo}';//带默认值的选项参数
+			protected $signature = 'email:send
+				{user : The ID of the user}
+				{--queue= : Whether the job should be queued}';// 输入描述
+		protected $description = 'Send drip e-mails to a user';//控制台命令描述,调用list显示命令的时候会被用到
+		public function handle(){}	//执行控制台命令
+	12.3 输入输出
+		$this->argument();//以数组形式获取所有参数值
+		$this->argument('user');//argument方法：获取参数的值
+		$this->option();//获取所有选项
+		$this->option('queue');//获取指定选项
+		$this->ask('What is your name?');//ask 方法将会使用给定问题提示用户，接收输入
+		$this->secret('What is the password?');//secret方法和ask方法类似,用户输入在终端对他们而言是不可见的
+		$this->confirm('Do you wish to continue? [y|N]');//confirm方法,让用户确认,
+		$this->anticipate('What is your name?', ['Taylor', 'Dayle']);//anticipate方法可用于为可能的选项提供自动完成功能
+		$this->choice('What is your name?', ['Taylor', 'Dayle'], false);//choice方法:给用户预定义的选择
+		#输出使用info, comment, question 和 error方法，每个方法都会使用相应的ANSI颜色以作标识。
+		$this->error('Something went wrong!');//显示一条信息消息给用户
+		#table 方法使输出多行/列格式的数据:
+			$headers = ['Name', 'Email'];
+			$users = App\User::all(['name', 'email'])->toArray();
+			$this->table($headers, $users);
+		#进度条
+			$this->output->progressStart(count($users));//定义步数
+			$this->output->progressAdvance();//前进一格
+			$this->output->progressFinish();//停止该进度条
+	12.4 注册命令
+		protected $commands = ['App\Console\Commands\SendEmails',];//在app/Console/Kernel.php中注册命令
+		#使用Artisan门面上的call方法来代码调用命令
+			Artisan::call('email:send', ['user' => 1, '--queue' => 'default']);
+		#使用Artisan上的queue方法将Artisan命令放到队列中
+			Artisan::queue('email:send', ['user' => 1, '--queue' => 'default']);
+		#指定不接收字符串的选项值,可以传递布尔值true或false
+			Artisan::call('migrate:refresh', ['--force' => true,]);
+		#call方法从一个已存在的Artisan命令中调用其它命令
+			$this->call('email:send', ['user' => 1, '--queue' => 'default']);
+			$this->callSilent('email:send', ['user' => 1, '--queue' => 'default']);//调用其它控制台命令并阻止其所有输出
+13 缓存
+	13.1 
+		#缓存配置位于config/cache.php
+14 加密
+	14.1
+		#在config/app.php配置文件中设置key选项为32位随机字符串
+		#使用Crypt门面对数据进行加密,所有加密值都使用OpenSSL和AES-256-CBC密码进行加密
+		#使用Crypt::encrypt()方法加密,使用Crypt::decrypt()方法进行解密
+	14.2 Hash 
+		#Hash门面上的make方法散列存储密码
+			Hash::make($request->newPassword);
+		#使用全局的帮助函数bcrypt:bcrypt('plain-text');
+		#check方法允许你验证给定原生字符串和给定哈希是否相等
+			Hash::check('plain-text', $hashedPassword)
+		#needsRehash方法允许你判断哈希计算器使用的工作因子在上次密码被哈希后是否发生改变
+			Hash::needsRehash($hashed)							
+15 错误&日志(Monolog)
+	15.10	
+		#配置文件config/app.php中的debug配置选项控制浏览器显示的错误详情数量。
+		#在开发环境，值为true。在生产环境，该值应该被设置为false
+		#Laravel支持日志方法single, daily, syslog 和 errorlog。
+		#异常都由类App\Exceptions\Handler处理：
+			$dontReport属性包含一个不会被记录的异常类型数组
+			report()方法用于记录异常并将其发送给外部服务
+			render方法负责将给定异常转化为发送给浏览器的HTTP响应
+		#HTTP异常使用abort():
+			abort(403, 'Unauthorized action.');	
+		#自定义HTTP错误页面:resources/views/errors/404.blade.php
+		#使用Log门面编写日志信息到日志中:
+			Log::emergency($error);
+			Log::alert($error);
+			Log::critical($error);
+			Log::error($error);
+			Log::warning($error);
+			Log::notice($error);
+			Log::info($error);
+			Log::debug($error);
+		#访问底层Monolog实例:
+			$monolog = Log::getMonolog();
+16 事件
+	16.1 
+		#事件类通常存放在app/Events目录，监听器存放在app/Listeners。
+		#注册事件/监听器:EventServiceProvider中的listen属性包含了事件（键）和对应监听器（值）数组。
+		php artisan event:generate //会生成罗列在EventServiceProvider中的所有事件和监听器
+	16.2 	
+		#事件类是一个处理与事件相关的简单数据容器
+		#事件监听器在handle方法中接收事件实例，可以在构造器中类型提示任何需要的依赖
+		#监听器中默认导入Illuminate\Queue\InteractsWithQueue
+		#停止事件被传播到其它监听器，你可以通过从监听器的handle方法中返回false来实现
+	16.3 事件监听器队列	
+		#监听器类实现ShouldQueue接口
+		#手动访问队列:使用监听器中默认导入的Illuminate\Queue\InteractsWithQueue的delete和release方法
+		#触发事件，使用Event门面，传递一个事件实例到fire方法：
+			Event::fire(new PodcastWasPurchased($podcast));
+		#还可以使用全局的帮助函数event来触发事件：
+			event(new PodcastWasPurchased($podcast));
+	16.4 广播事件
+		#事件广播配置选项存放在config/broadcasting.php配置文件中
+		#事件广播需要以下两个依赖：
+			Pusher: pusher/pusher-php-server ~2.0
+			Redis: predis/predis ~1.0
+		#事件类上实现Illuminate\Contracts\Broadcasting\ShouldBroadcast接口:
+			broadcastOn()方法应该返回事件广播”频道“名称数组
+			public function broadcastOn(){return ['user.'.$this->user->id];}//获取事件广播频道
+		#添加broadcastWith方法到事件，该方法应该返回你想要通过事件广播的数组数据
+			public function broadcastWith(){return ['user' => $this->user->id];}//获取广播数据
+	16.5 事件订阅
+		#事件订阅者是指那些在类本身中订阅到多个事件的类
+		#订阅者定义一个subscribe方法，该方法中传入一个事件分发器实例
+		#使用EventServiceProvider上的$subcribe属性来注册订阅者
+			protected $subscribe = ['App\Listeners\UserEventListener',];//要注册的订阅者
+17 帮助函数
+	#(详情：http://laravelacademy.org/post/205.html)
+	17.1 数组函数
+		array_add($array,$key,$value)//添加给定键值对到数组，如果给定键不存在的话
+		array_divide($array)//返回两个数组，一个包含原数组的所有键，另外一个包含原数组的所有值
+		array_dot($array)//使用”.“号将将多维数组转化为一维数组
+		array_except($array,$key)//从数组中移除给定键值对
+		array_first($array,$callback,$default))//返回通过测试数组的第一个元素
+		array_flatten($array)//将多维数组转化为一维数组：
+		array_forget($array,'$key1.$key2')//使用”.“号从嵌套数组中移除给定键值对：
+		array_get($array,'$key1.$key2',$default)//使用”.“号从嵌套数组中获取值
+		array_only($array,[$key1,$key2])//只从给定数组中返回指定键值对
+		array_pluck($array,'$key1.$key2')//从数组中返回给定键对应的键值对列表
+		array_pull($array,$key)//从数组中返回并移除键值对
+		array_set($array,'$key1.$key2',200)//在嵌套数组中使用”.“号设置值
+		array_sort($array,$callback)//通过给定闭包的结果对数组进行排序
+		array_sort_recursive($array)//使用sort函数对数组进行递归排序
+		array_where($callbac)//使用给定闭包对数组进行过滤：
+		head($array)//返回给定数组的第一个元素
+		last($array)//返回给定数组的最后一个元素
+	17.2 路径函数
+		app_path()//返回app目录的绝对路径,可以使用app_path函数为相对于app目录的给定文件生成绝对路径
+		base_path()//返回项目根目录的绝对路径,可以使用base_path函数为相对于应用目录的给定文件生成绝对路径
+		config_path()//返回应用配置目录的绝对路径
+		database_path()//返回应用数据库目录的绝对路径
+		public_path()//返回public目录的绝对路径
+		storage_path()//返回storage目录的绝对路径
+	17.3 字符串函数
+		camel_case()//将给定字符串转化为按驼峰式命名规则的字符串
+		class_basename()//返回给定类移除命名空间后的类名
+		e()//在给定字符串上运行htmlentities
+		ends_with()//判断给定字符串是否以给定值结尾
+		snake_case()//将给定字符串转化为下划线分隔的字符串
+		str_limit()//限制输出字符串的数目，该方法接收一个字符串作为第一个参数以及该字符串最大输出字符数作为第二个参数：
+		starts_with()//判断给定字符串是否以给定值开头
+		str_contains()//判断给定字符串是否包含给定值：
+		str_finish()//添加字符到字符串结尾
+		str_is()//判断给定字符串是否与给定模式匹配，星号可用于表示通配符
+		str_plural()//将字符串转化为复数形式，该函数当前只支持英文
+		str_random()//通过指定长度生成随机字符串
+		str_singular()//将字符串转化为单数形式，该函数目前只支持英文
+		str_slug()//将给定字符串生成URL友好的格式
+		studly_case()//将给定字符串转化为单词开头字母大写的格式
+		trans()//使用本地文件翻译给定语言行
+		trans_choice()//翻译带拐点的给定语言行
+	17.4 URL函数
+		action()//为给定控制器动作生成URL，你不需要传递完整的命名空间到该控制器，传递相对于命名空间App\Http\Controllers的类名即可
+		asset()//使用当前请求的scheme（HTTP或HTTPS）为前端资源生成一个URL
+		secure_asset()//使用HTTPS为前端资源生成一个URL
+		route()//为给定命名路由生成一个URL,如果该路由接收参数，你可以将其作为第二个参数传递进来
+		url()//为给定路径生成绝对路径
+	17.5 其它函数
+		auth()//返回一个认证器实例，为方便起见你可以用其取代Auth门面
+		back()//生成重定向响应到用户前一个位置
+		bcrypt()//使用Bcrypt对给定值进行哈希，你可以用其替代Hash门面
+		config()//获取配置变量的值，配置值可以通过使用”.”号访问，包含文件名以及你想要访问的选项。如果配置选项不存在的话默认值将会被指定并返回
+		csrf_field()//生成一个包含CSRF令牌值的HTML隐藏域
+		csrf_token()//获取当前CSRF令牌的值
+		elixir()//获取带版本号的Elixir文件路径
+		env()//获取环境变量值或返回默认值
+		event()//分发给定事件到对应监听器
+		factory()//为给定类、名称和数量创建模型工厂构建器，可用于测试或数据填充
+		method_field()//生成包含HTTP请求方法的HTML隐藏域
+		old()//获取一次性存放在session中的值
+		redirect()//返回重定向器实例进行重定向
+		response()//创建一个响应实例或者获取响应工厂实例
+		value()//返回给定的值，然而，如果你传递一个闭包到该函数，该闭包将会被执行并返回执行结果
+		view()//获取一个视图实例
+		with()//返回给定的值，该函数在方法链中特别有用，别的地方就没什么用了
+18 本地化
+	#应用中支持多种语言
+	#语言字符串存放在resources/lang目录中	
+19 验证
+	#Laravel的控制器基类使用ValidatesRequests，其validate方法接收一个HTTP请求输入数据和验证规则
+		$this->validate($request, [
+			'title' => 'required|unique:posts|max:255',
+			'author.description' => 'required',//“嵌套”参数
+		]);
+	#验证错误,Laravel将会自动将用户重定向回上一个位置。
+	#所有视图中存在一个$errors变量，是一个Illuminate\Support\MessageBag实例
+		@foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+        @endforeach
+	#AJAX请求&验证:Laravel生成一个包含验证错误信息的JSON响应。该JSON响应会带上一个HTTP状态码422。	
+	#手动创建验证器:使用Validator门面的make方法	
+		$validator = Validator::make($request->all(), 
+		['title' => 'required|unique:posts|max:255',]);
+        if ($validator->fails()) {
+            return redirect('post/create')
+			->withErrors($validator, 'login')
+			//withErrors方法将错误数据一次性存放到session,第二个参数用于区分单个页面上多个表单
+			->withInput();}
+		#可以从$errors变量中访问命名的MessageBag实例
+		{{ $errors->login->first('email') }}
+	#使用验证器实例上的after方法，允许你在验证完成后添加回调
+		$validator = Validator::make(...);
+		$validator->after(function($validator) {
+			if ($this->somethingElseIsInvalid()) {
+				$validator->errors()->add('field', 'Something is wrong with this field!');
+			}
+		});
+		if ($validator->fails()) {
+			//
+		}
+	#表单请求验证
+		php artisan make:request StoreBlogPostRequest	//创建表单验证类
+		#生成的类位于app/Http/Requests目录下，添加验证规则到rules方法
+		public function rules(){
+			return [
+				'title' => 'required|unique:posts|max:255',
+				'body' => 'required',
+			];
+		}
+		#在控制器中调用
+			public function store(StoreBlogPostRequest $request){
+				// The incoming request is valid...
+			}
+	#自定义一次性错误格式
+		在文件顶部导入Illuminate\Contracts\Validation\Validator类
+		重写请求基类（App\Http\Requests\Request）中的formatErrors方法
+		protected function formatErrors(Validator $validator){
+			return $validator->errors()->all();
+		}
+	#处理错误信息:Validator实例上的errors方法返回一个Illuminate\Support\MessageBag实例
+		$validator->errors()->first('email');//first()获取指定字段的第一条错误信息
+		$messages->get('email')//get()获取指定字段的所有错误信息数组
+		$messages->all()//all()获取所有字段的所有错误信息
+		$messages->has('email')//has()判断消息中是否存在某字段的错误信息
+		$messages->first('email', '<p>:message</p>');//获取指定格式的错误信息
+		$messages->all('<li>:message</li>');获取指定格式的所有错误信息
+	#自定义信息:传递自定义信息作为第三方参数给Validator::make方法	
+		$messages = ['required' => 'The :attribute field is required.',];
+		$validator = Validator::make($input, $rules, $messages);
+		//在本例中，:attribute占位符将会被验证时实际的字段名替换
+20，队列
+	20.1，配置：config/queue.php
+	20.2，队列驱动：
+	    数据库：
+	        php artisan queue:table     #生成创建该表的迁移
+	        php artisan migrate         #迁移
+	    Amazon SQS: aws/aws-sdk-php ~3.0
+        Beanstalkd: pda/pheanstalk ~3.0
+        Redis: predis/predis ~1.0
+    20.3，任务类
+        生成: command: php artisan make:job SendReminderEmail
+        结构:
+            class SendReminderEmail extends Job implements ShouldQueue
+            {
+                public function __construct(User $user)//构造传参
+                {
+                    $this->user = $user;
+                }
+                public function handle(Mailer $mailer)//执行队列
+                {
+
+                }
+            }
+            最大尝试次数：通过Artisan任务queue:listen或queue:work上的--tries开关来定义
+            检查尝试运行次数：$this->attempts()
+            手动释放任务: $this->release(10)
+    20.4，推送任务到队列
+        引入 DispatchesJobs Trait：$this->dispatch(new SendReminderEmail($user));
+		全局dispatch方法：dispatch(new App\Jobs\PerformTask);
+		为任务指定队列： (new SendReminderEmail($user))->onQueue('emails');[Illuminate\Bus\Queueable trait]
+		延迟任务: (new SendReminderEmail($user))->delay(60);
+		回调：Queue::after(function(){}) 方法允许你在队列任务执行成功后注册一个要执行的回调函数。
+		失败处理：Queue::failing();
+    20.5，运行队列监听器
+        php artisan queue:listen
+        php artisan queue:listen #指定监听器使用哪个队列连接：
+        php artisan queue:listen --queue=high,low 设置队列优先级
+        php artisan queue:listen --timeout=60 指定任务超时参数(以秒为单位)
+        php artisan queue:listen --sleep=5 指定队列睡眠时间（以秒为单位）
+        php artisan queue:work connection --daemon --sleep=3 --tries=3 后台队列监听器
+        php artisan queue:restart 重启所有worker,应用代码中的更改
+    20.6, 处理失败任务
+        配置:config/queue.php
+        迁移:php artisan queue:failed-table
+        查看:php artisan queue:failed
+        重试一个ID为5的失败任务:php artisan queue:retry 5
+        重试所有失败任务:php artisan queue:retry all
+        删除一个失败任务:php artisan queue:forget 5
+        删除所有失败任务:php artisan queue:flush
+
+
+* ServiceProvider
+	#服务提供者继承自Illuminate\Support\ServiceProvider类
+	#提供者调用register(),然后调用boot()
+	#通过配置文件config/app.php中providers数组进行注册
+	#延迟加载服务提供者:设置defer属性为true并定义一个provides方法，该方法返回该提供者注册的服务容器绑定：
+	#在一个服务提供者中，可以通过$this->app变量访问容器，
+	$this->app->bind()方法注册一个绑定，第一个参数是注册的类名或接口名称，第二个参数是返回类的实例的闭包：
+	$this->app->singleton()方法绑定一个只需要解析一次的类或接口到容器，然后接下来对容器的调用将会返回同一个实例
+	$this->app->instance()方法绑定一个已存在的对象实例到容器，随后对容器的调用将总是返回给定的实例	
+	$this->app->tag(['SpeedReport', 'MemoryReport'], 'reports');	// 标签	
+	$app->tagged('reports')	//解析标签
+	$this->app->make('FooBar');	//解析对象
+	#容器事件
+	$this->app->resolving(function ($object, $app) {
+		// 容器解析所有类型对象时调用
+	});
+	$this->app->resolving(function (FooBar $fooBar, $app) {
+		// 容器解析“FooBar”对象时调用
+	});
+	
+* 契约（Contracts）
+	#Laravel的契约是指框架提供的一系列定义核心服务的接口。
+	#使用契约：在被解析的类的构造函数中类型提示该契约接口。
+	契约列表：
+		契约											引用门面
+		Illuminate\Contracts\Auth\Guard					Auth
+		Illuminate\Contracts\Auth\PasswordBroker		Password
+		Illuminate\Contracts\Bus\Dispatcher				Bus
+		Illuminate\Contracts\Broadcasting\Broadcaster	
+		Illuminate\Contracts\Cache\Repository			Cache
+		Illuminate\Contracts\Cache\Factory				Cache::driver()
+		Illuminate\Contracts\Config\Repository			Config
+		Illuminate\Contracts\Container\Container		App
+		Illuminate\Contracts\Cookie\Factory				Cookie
+		Illuminate\Contracts\Cookie\QueueingFactory		Cookie::queue()
+		Illuminate\Contracts\Encryption\Encrypter		Crypt
+		Illuminate\Contracts\Events\Dispatcher			Event
+		Illuminate\Contracts\Filesystem\Cloud	
+		Illuminate\Contracts\Filesystem\Factory			File
+		Illuminate\Contracts\Filesystem\Filesystem		File
+		Illuminate\Contracts\Foundation\Application		App
+		Illuminate\Contracts\Hashing\Hasher				Hash
+		Illuminate\Contracts\Logging\Log				Log
+		Illuminate\Contracts\Mail\MailQueue				Mail::queue()
+		Illuminate\Contracts\Mail\Mailer				Mail
+		Illuminate\Contracts\Queue\Factory				Queue::driver()
+		Illuminate\Contracts\Queue\Queue				Queue
+		Illuminate\Contracts\Redis\Database				Redis
+		Illuminate\Contracts\Routing\Registrar			Route
+		Illuminate\Contracts\Routing\ResponseFactory	Response
+		Illuminate\Contracts\Routing\UrlGenerator		URL
+		Illuminate\Contracts\Support\Arrayable	
+		Illuminate\Contracts\Support\Jsonable	
+		Illuminate\Contracts\Support\Renderable	
+		Illuminate\Contracts\Validation\Factory			Validator::make()
+		Illuminate\Contracts\Validation\Validator	
+		Illuminate\Contracts\View\Factory				View::make()
+		Illuminate\Contracts\View\View	
+* 门面（Facades）
+	#继承自Illuminate\Support\Facades\Facade基类
+	#在Laravel应用的上下文中，门面就是一个提供访问容器中对象的类。
+	#门面类需要实现一个方法：getFacadeAccessor，该方法的工作就是返回服务容器绑定类的别名，
+	#门面类列表：
+		门面				类										服务容器绑定别名
+		App					Illuminate\Foundation\Application		app
+		Artisan				Illuminate\Console\Application			artisan
+		Auth				Illuminate\Auth\AuthManager				auth
+		Auth (Instance)		Illuminate\Auth\Guard	
+		Blade				Illuminate\View\Compilers\BladeCompiler	blade.compiler
+		Bus					Illuminate\Contracts\Bus\Dispatcher	
+		Cache				Illuminate\Cache\Repository				cache
+		Config				Illuminate\Config\Repository			config
+		Cookie				Illuminate\Cookie\CookieJar				cookie
+		Crypt				Illuminate\Encryption\Encrypter			encrypter
+		DB					Illuminate\Database\DatabaseManager		db
+		DB (Instance)		Illuminate\Database\Connection	
+		Event				Illuminate\Events\Dispatcher			events
+		File				Illuminate\Filesystem\Filesystem		files
+		Hash				Illuminate\Contracts\Hashing\Hasher		hash
+		Input				Illuminate\Http\Request					request
+		Lang				Illuminate\Translation\Translator		translator
+		Log					Illuminate\Log\Writer					log
+		Mail				Illuminate\Mail\Mailer					mailer
+		Password			Illuminate\Auth\Passwords\PasswordBroker auth.password
+		Queue				Illuminate\Queue\QueueManager			queue
+		Queue (Instance)	Illuminate\Queue\QueueInterface	
+		Queue (Base Class)	Illuminate\Queue\Queue	
+		Redirect			Illuminate\Routing\Redirector			redirect
+		Redis				Illuminate\Redis\Database				redis
+		Request				Illuminate\Http\Request					request
+		Response			Illuminate\Contracts\Routing\ResponseFactory	
+		Route				Illuminate\Routing\Router				router
+		Schema				Illuminate\Database\Schema\Blueprint	
+		Session				Illuminate\Session\SessionManager		session
+		Session (Instance)	Illuminate\Session\Store	
+		Storage				Illuminate\Contracts\Filesystem\Factory	filesystem
+		URL					Illuminate\Routing\UrlGenerator			url
+		Validator			Illuminate\Validation\Factory			validator
+		Validator(Instance) Illuminate\Validation\Validator	
+		View				Illuminate\View\Factory					view
+		View (Instance)		Illuminate\View\View	
+* mongo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

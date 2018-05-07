@@ -6,7 +6,7 @@
 namespace LanguageStatement\LanguageExtension\Reflection;
 
 
-class ReflectionExtension extends \ReflectionExtension
+class ReflectionExtension extends \ReflectionExtension implements \Reflector
 {
     //final private void __clone ( void )
     public function __construct($name){parent::__construct($name);}
