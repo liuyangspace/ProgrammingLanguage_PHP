@@ -70,6 +70,10 @@ register:http://idea.lanyus.com/
     Alt + Insert	代码自动生成，如生成对象的 set / get 方法，构造函数，toString() 等 （必备）
     Alt + F1 + 1            定位当前文件所在 Project 组件窗口中的位置。
     Ctrl + Alt + T          代码环绕处理（异常，选择循环结构，注释。。。）
+    Ctrl + shift + Enter    光标移至下行
+    Ctrl + shift + ↑↓(方向健)    光标所在行 下移/上移
+    Ctrl + y                删除光标所在行
+    Ctrl + d                复制光标所在行
 
     Ctrl + F	在当前文件进行文本查找 （必备）
     Ctrl + R	在当前文件进行文本替换 （必备）

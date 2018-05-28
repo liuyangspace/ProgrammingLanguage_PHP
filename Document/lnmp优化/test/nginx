@@ -1,0 +1,26 @@
+
+1, nginx 性能测试计划
+
+
+测试工具：jmeter 4.0
+环境：  jdk 8
+
+服务机：
+    IP: 10.254.17.184
+    内存：  8G
+    CPU核数: 8
+    nginx/1.8.0
+测试机：
+    IP：10.254.17.185
+    内存：  8G
+    CPU核数: 8
+
+    5000 threads : CPU 20%，RAM 3G
+        Samples	Average	Median	90% Line	95% Line	99% Line	Min	Max	    Error %	Throughput	Received KB/sec	Sent KB/sec
+        900000	20	    3	    48	        88	        263	        0	1768	0.00%	27959.86206	7371.88	        3604.2
+    10000 threads : 服务机 CPU 20%，RAM 3G
+        Samples	Average	Median	90% Line	95% Line	99% Line	Min	Max	    Error %	Throughput	Received KB/sec	Sent KB/sec
+        1800000	19	    2	    46	        81	        209	        0	1147	0.00%	39060.80465	10298.8	        5035.18
+    20000 threads : 服务机 CPU 20%，RAM 3G
+        Samples	Average	Median	90% Line	95% Line	99% Line	Min	Max	    Error %	Throughput  Received KB/sec	Sent KB/sec
+        1200000	18	    2	    35	        74	        247	        0	7065	0.00%	33961.62337 8954.72	        4377.87

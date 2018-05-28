@@ -155,9 +155,5 @@ class PHPDataType
 }
 
 /**
- * Created by PhpStorm.
- * User: liuyang
- * Git: https://github.com/liuyangspace
- * Date: 2016/12/9
- * Time: 10:32
+ *
  */

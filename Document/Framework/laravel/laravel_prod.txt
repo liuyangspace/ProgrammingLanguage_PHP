@@ -15,6 +15,7 @@ Laravel 5 性能优化技巧
 8.	为数据集书写缓存逻辑
 9.	使用即时编译器（JIT），如：HHVM、OpCache
 10.	前端资源合并 Elixir
+11. 精简 路由，中间件，服务 注册
 1. 配置信息缓存
     使用以下 Artisan 自带命令，把 config 文件夹里所有配置信息合并到一个文件里，减少运行时文件的载入数量：
     php artisan config:cache
@@ -65,4 +66,12 @@ Laravel 5 性能优化技巧
 10. 前端资源合并
     作为优化的标准，一个页面只应该加载一个 CSS 和 一个 JS 文件，并且文件要能方便走 CDN，需要文件名随着修改而变化。
     Laravel Elixir 提供了一套简便实用的方案，详细请见文档：Laravel Elixir 文档。
-
+11. 关闭非必须 路由，中间件
+    根据不同服务（页面，后台，接口）精简 服务，中间间，路由 注册等
+    中间件:
+        /app/Http/Kernel.php
+    服务注册:
+        /config/app.php
+    路由:
+        /app/Providers/RouteServiceProvider.php 或
+        /app/Http/routes.php
