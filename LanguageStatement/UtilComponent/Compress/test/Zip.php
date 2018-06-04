@@ -4,7 +4,7 @@
  */
 
 namespace LanguageStatement\UtilComponent\Compress\test;
-require_once __DIR__.'/../Zip.php';
+require_once __DIR__ . '/../Zip.php';
 
 $zip=zip_open('test.zip');
 while($zipEntry=zip_read($zip)){
