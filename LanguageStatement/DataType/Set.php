@@ -2,7 +2,6 @@
 /**
  * 集合
  *  本集合兼容所有数据类型元素,SplObjectStorage 适用于纯对象元素的集合(效率高)
- * ( SplObjectStorage 参见 LanguageExtension/SPL/DataStructure/SplObjectStorage)
  * set 特征：
  *  存储的是无序的，不重复(值不相等，类型互异,对象非同一实例)的数据。大小可变。
  * 用例：
@@ -20,6 +19,9 @@
  *  调试：$set->export();var_dump($set);
  * Reference:
  *
+ * SPL:
+ * @see \SplObjectStorage
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplObjectStorage
  */
 
 namespace LanguageStatement\DataType;

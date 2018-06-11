@@ -13,6 +13,9 @@
  *  类型变换：$queue->toArray();$queue->__toString();
  * Reference:
  *
+ * SPL:
+ * @see \SplQueue
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplQueue
  */
 
 namespace LanguageStatement\DataType;

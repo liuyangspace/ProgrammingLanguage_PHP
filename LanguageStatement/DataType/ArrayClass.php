@@ -2,7 +2,6 @@
 /**
  * php基础数据(结构)类型：
  * Array 数组(大小可变)
- * SplFixedArray 数组(大小固定)  (参见LanguageExtension/SPL/DataStructure/SplFixedArray)
  *  比较：
  *      具有较少成员的数组较小，
  *      如果运算数 1 中的键不存在于运算数 2 中则数组无法比较，
@@ -22,7 +21,10 @@
  *      $array = []
  *      $array[0] = ''
  * Reference:
- *  http://php.net/manual/zh/language.types.array.php
+ * @link http://php.net/manual/zh/language.types.array.php
+ * SPL:
+ * @see \SplFixedArray 数组(大小固定)
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplFixedArray
  */
 
 namespace LanguageStatement\DataType;

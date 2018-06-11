@@ -35,9 +35,9 @@
  *  use:闭包可以从父作用域中继承变量。任何此类变量都应该用 use 语言结构传递进去。
  *  闭包的父作用域是定义该闭包的函数（不一定是调用它的函数）。
  * Reference:
- *  http://php.net/manual/zh/language.types.callable.php
- *  http://php.net/manual/zh/language.functions.php
- *  http://php.net/manual/zh/book.funchand.php
+ * @link http://php.net/manual/zh/language.types.callable.php
+ * @link http://php.net/manual/zh/language.functions.php
+ * @link http://php.net/manual/zh/book.funchand.php
  */
 
 namespace LanguageStatement\DataType;

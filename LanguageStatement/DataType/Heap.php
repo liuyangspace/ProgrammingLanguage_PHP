@@ -4,6 +4,10 @@
  * (SplHeap 参见 LanguageExtension/SPL/DataStructure/SplHeap)
  *
  * 最大堆，最小堆
+ * Reference:
+ * SPL:
+ * @see \SplHeap
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplHeap
  */
 
 namespace LanguageStatement\DataType;

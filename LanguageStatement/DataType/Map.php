@@ -7,7 +7,9 @@
  * 用例：
  *
  * Reference:
- *
+ * SPL:
+ * @see \SplObjectStorage
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplObjectStorage
  */
 
 namespace LanguageStatement\DataType;

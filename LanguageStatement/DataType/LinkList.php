@@ -1,7 +1,6 @@
 <?php
 /**
  * 链表
- * ( SplDoublyLinkedList 参见 LanguageExtension/SPL/DataStructure/SplDoublyLinkedList)
  * list 特征：
  *  物理存储单元上非连续、非顺序
  *  顺序访问(区别于数组，字典的随机访问)线性排列,添加，删除，较快
@@ -11,7 +10,9 @@
  *      ->setNext('c')->setValue('c1')
  *      ->setNext('d')->setValue('d1');
  * Reference:
- *
+ * SPL:
+ * @see \SplDoublyLinkedList
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplDoublyLinkedList
  */
 
 namespace LanguageStatement\DataType;

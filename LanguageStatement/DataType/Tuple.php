@@ -9,7 +9,9 @@
  *  echo $tuple[0],
  *  // $tuple[1]=2; throw a exception
  * Reference:
- *
+ * SPL:
+ * @see \SplFixedArray
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplFixedArray
  */
 
 namespace LanguageStatement\DataType;

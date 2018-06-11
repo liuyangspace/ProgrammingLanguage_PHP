@@ -2,15 +2,16 @@
 /**
  * 枚举
  *  定义 一组指定名称的常量(重复时，仅第一个常量名有效)，大小不可改变
- *  (SplFixedArray 参见 LanguageExtension/SPL/DataStructure/SplFixedArray)
  *  可用于限定取值
  * 用例：
  *  $enum=new Enum('A','B','C','A');
  *  $a=A;
  *  echo $enum->get($a);
- *
+ * Reference:
  * SPL:
- *  SplEnum
+ * @see \SplEnum
+ * @see \SplFixedArray
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplFixedArray
  */
 
 namespace LanguageStatement\DataType;

@@ -1,16 +1,17 @@
 <?php
 /**
  * 图
- * (参见 SplFixedArray,SplObjectStorage LanguageExtension/SPL/DataStructure)
  * Graph 特征：
  *  存储结构:邻接矩阵,邻接表,十字链表
  *  遍历:深度优先遍历(DFS),广度优先遍历(BFS)
  *  分类：有向 无向 有环 无环
  *
  * 用例：
- *
  * Reference:
- *
+ * SPL:
+ * @see \SplFixedArray
+ * @see \SplObjectStorage
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure
  */
 
 namespace LanguageStatement\DataType;

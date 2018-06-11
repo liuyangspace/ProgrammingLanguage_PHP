@@ -1,7 +1,6 @@
 <?php
 /**
  * 栈
- * (SplStack 参见 LanguageExtension/SPL/DataStructure/SplStack)
  * stack 特征：
  *  后进先出,大小可变 (LIFO)
  * 用例：
@@ -14,6 +13,9 @@
  *  类型变换：$tuple->toArray();$tuple->__toString()
  * Reference:
  *
+ * SPL:
+ * @see \SplStack
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplStack
  */
 
 namespace LanguageStatement\DataType;

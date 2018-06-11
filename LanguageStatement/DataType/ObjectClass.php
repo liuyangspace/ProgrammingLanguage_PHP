@@ -74,9 +74,9 @@
  *  PHP 7 开始支持匿名类: new class("Grid") extends \stdClass {}
  *
  * Reference:
- *  http://php.net/manual/zh/language.types.object.php
- *  http://php.net/manual/zh/language.oop5.php
- *  http://php.net/manual/zh/book.reflection.php
+ * @link http://php.net/manual/zh/language.types.object.php
+ * @link http://php.net/manual/zh/language.oop5.php
+ * @link http://php.net/manual/zh/book.reflection.php
  */
 
 namespace LanguageStatement\DataType;

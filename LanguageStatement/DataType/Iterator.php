@@ -3,12 +3,14 @@
  * 迭代器
  * Iterator 特征：
  *  实现了Iterator接口可用foreach遍历
- *  (SplFixedArray 参见 LanguageExtension/SPL/DataStructure/SplFixedArray)
  * 用例：
  *  $iterator=new Iterator([1,2,3]);
  *  foreach( $iterator as $v ){}
  * Reference:
- *
+ * SPL:
+ * @see \Iterator
+ * @see \SplFixedArray
+ * @see \LanguageStatement\LanguageExtension\SPL\DataStructure\SplFixedArray
  */
 
 namespace LanguageStatement\DataType;
