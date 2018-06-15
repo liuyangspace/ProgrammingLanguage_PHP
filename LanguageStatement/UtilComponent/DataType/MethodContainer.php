@@ -35,7 +35,7 @@ trait MethodContainer
      *
      * @param  string    $name
      * @param  callable  $method
-     * @return void|false
+     * @return bool
      */
     public static function addMethod($name, callable $method)
     {

@@ -27,7 +27,4 @@ class SOAP
     public static function is_soap_fault($object){return is_soap_fault($object);}//Checks if a SOAP call has failed
     public static function use_soap_error_handler($handler=true){return use_soap_error_handler($handler);}//Set whether to use the SOAP error handler
 
-
-
-
 }
