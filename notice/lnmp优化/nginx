@@ -1,0 +1,82 @@
+
+1,配置优化
+    1.1, 主配置（/etc/nginx/nginx.conf）:
+        # 指定NginxWorker进程运行用户以及用户组，默认由nobody账号运行
+        user  nginx;
+        # 指定Nginx要开启的进程数。每个进程平均耗费10MB~12MB内存。根据经验，一般指定一个进程足够了，如果是多核CPU，建议指定和CPU的数量一样多的进程数即可。
+        worker_processes  24;
+        # 用来定义全局错误日志文件。日志输出级别有debug、info、notice、warn、error、crit，debug输出日志最详细，crit最少
+        error_log  /hwdata/log/nginx/error.log warn;
+        # pid 指定进程id的存储文件位置。
+        pid        /var/run/nginx.pid;
+        # 用来设定Nginx的工作模式及连接数上限
+        worker_rlimit_nofile 51200; # 打开文件的资源限制
+        events {
+            # use 是个事件模块指令，用来指定Nginx的工作模式。支持的工作模式有：select、poll、kqueue、epoll、rtsig和/dev/poll。
+            # 其中select和poll都是标准的工作模式，kqueue和epoll中高效的工作模式，不同的是epoll用在Linux平台上，而kqueue用
+            # 在BSD系统中。对于Linux系统，epoll工作模式是首选。
+            use epoll;
+            # 也是个事件模块指令，用于定义Nginx每个进程的最大连接数，默认是1024。
+            worker_connections  8192;
+        }
+
+
+        http {
+            include       /etc/nginx/mime.types;
+            default_type  application/octet-stream;
+            log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                              '$status $body_bytes_sent "$http_referer" '
+                              '"$http_user_agent" "$http_x_forwarded_for"';
+            access_log  /hwdata/log/nginx/access.log  main;
+            sendfile        on;
+            #tcp_nopush     on;
+            client_max_body_size  10M;
+            keepalive_timeout  65;
+
+            # 缓存代理
+            proxy_temp_path /dev/shm/temp_dir/;
+            proxy_cache_path /dev/shm/cache/ levels=1:2 keys_zone=cache_one:200m inactive=1d max_size=6g;
+            # 压缩，HttpGzip模块配置
+            gzip  on;           # 开启gzip压缩，实时压缩输出数据流。
+            gzip_min_length 1k; # 设置允许压缩的页面最小字节数，页面字节数从header头的Content-Length中获取。默认值是0，
+                                # 不管页面多大都进行压缩。建议设置成大于1k的字节数，小于1K可能会越压越大。
+            gzip_buffers    4  16k; # 表示申请4个单位为16k的内存作为压缩结果流缓存，默认值是申请与原始数据大小相同的内存空间来存储gzip压缩结果。
+            gzip_http_version   1.1; # 设置识别HTTP协议版本，默认是1.1
+            gzip_comp_level     2;  # 指定gzip压缩比，1压缩比最小，处理速度最快；9压缩比最大，传输速度快，但处理最慢，也比较消耗CPU资源。
+            gzip_types  text/plain application/x-javascript text/css application/xml; # 指定压缩的类型，无论是否指定，“text/html”类型总是会被压缩的。
+            gzip_vary   on;         # 可以让前端的缓存服务器缓存经过gzip压缩的页面
+
+            include /etc/nginx/conf.d/*.conf;
+        }
+
+2, 系统优化
+    vi /etc/sysctl.conf
+    让sysctl.conf生效: sysctl -p
+    ulimit -n 50000
+
+    net.ipv4.tcp_max_tw_buckets = 6000          # 选项用来设定timewait的数量，默认是180000，这里设为6000。
+    net.ipv4.ip_local_port_range = 1024 65000   # 选项用来设定允许系统打开的端口范围。
+    net.ipv4.tcp_tw_recycle = 1                 # 选项用于设置启用timewait快速回收
+    net.ipv4.tcp_tw_reuse = 1                   # 选项用于设置开启重用，允许将TIME-WAIT sockets重新用于新的TCP连接。
+    net.ipv4.tcp_syncookies = 1                 # 选项用于设置开启SYN Cookies，当出现SYN等待队列溢出时，启用cookies进行处理。
+    net.core.somaxconn = 262144                 # 选项的默认值是128，这个参数用于调节系统同时发起的tcp连接数，在高并发的请求中，
+                                                    默认的值可能会导致链接超时或者重传，因此，需要结合并发请求数来调节此值。
+    net.core.netdev_max_backlog = 262144        # 选项表示当每个网络接口接收数据包的速率比内核处理这些包的速度快时，允许发送到队列的数据包的最大数目
+    net.ipv4.tcp_max_orphans = 262144           # 选项用于设定系统中最多有多少个TCP套接字不被关联到任何一个用户文件句柄上。
+                                                    如果超过这个数字，孤立连接将立即被复位并打印出警告信息。这个限制只是为了防止简单的Dos攻击。
+                                                    不过过分依靠这个限制甚至人为减小这个值，更多的情况下应该增加这个值。
+    net.ipv4.tcp_max_syn_backlog = 262144       # 选项用于记录那些尚未收到客户端确认信息的连接请求的最大值。对于有128MB内存的系统而方，
+                                                    此参数的默认值是1024，对小内存的系统则是128。
+    net.ipv4.tcp_synack_retries = 1             # 参数的值决定了内核放弃连接之前发送SYN+ACK包的数量。
+    net.ipv4.tcp_syn_retries = 1                # 选项表示在内核放弃建立连接之前发送的SYN包的数量
+    net.ipv4.tcp_fin_timeout = 1                #  选项决定了套接字保持在FIN-WAIT-2状态的时间。默认值是60秒。正确设置这个
+                                                    值非常重要，有时即使一个负载很小的Web服务器，也会出现大量的死套接定而产生内存溢出的风险。
+    net.ipv4.tcp_keepalive_time = 30            # 选项表示当keepalive启用的时候，TCP发送keepalive消息的频度。默认值是2（单位是小时）
+
+3，编译安装过程优化，减小Nginx编译后的文件大小
+    # 在编译之前，修改相关源码，取消debug模式。
+    在Nginx源码文件被解压后，找到源码目录下的auto/cc/gcc文件，在其中找到如下字段：
+        [html] view plain copy
+        # debug
+        # CFLAGS="$CFLAGS -g"
+    注释掉这两行，即可取消debug模式。

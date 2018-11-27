@@ -1,0 +1,19 @@
+
+PHP 异常结构
+
+Exception
+    ErrorException
+    LogicException
+        BadFunctionCallException
+            BadMethodCallException
+        DomainException
+        InvalidArgumentException
+        LengthException
+        OutOfRangeException
+    RuntimeException
+        OutOfBoundsException
+        OverflowException
+        RangeException
+        UnderflowException
+        UnexpectedValueException
+

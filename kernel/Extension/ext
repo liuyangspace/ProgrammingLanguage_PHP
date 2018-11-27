@@ -1,0 +1,8 @@
+
+build php extension
+
+1,
+    cd /path/to/php-src
+    php ext/ext_skel.php --ext extension_name
+    php ext_skel.php --help
+    ./buildconf; ./configure --enable-extension_name; make

@@ -1,0 +1,771 @@
+Symfony 1.4
+home：http://symfony.com/legacy
+API: http://www.symfony-project.org/api/1_4/sfPager
+
+1 get&install
+	check configuration:http://sf-to.org/1.4/check.php
+	$ php check_configuration.php
+	$ tar zxpf symfony-1.4.0.tgz
+2 command
+	#进入symfony1.4解压目录
+	$ symfony -h 查看命令
+	$ symfony -V 查看版本
+	$ symfony cache:clear	//清空缓存
+	$ symfony generate:project jobeet --orm=Doctrine 建立名为jobeet，orm为Doctrin的工程(在当前目录下)
+	$ symfony generate:app frontend		建立名为frontend的应用
+							--escaping-strategy: Enables or disables output escaping
+							--csrf-secret: Enables session tokens in forms
+	$ symfony generate:module frontend article(模块名)//在frontend应用下生成article模块
+	$ symfony doctrine:build-schema			从数据库中生成ymal
+	$ symfony doctrine:build --model		建模
+	$ symfony doctrine:build --sql			生成sql语句
+	$ symfony doctrine:insert-sql			创建表
+	$ symfony doctrine:data-load			插入数据(在data/fixtures/ 目录配置yml文件)
+	$ symfony doctrine:data-dump 	//导出数据
+	$ symfony doctrine:build --all --and-load 生成你的表单、过滤器、模型，删除你的数据库并重新创建所有数据表
+	$ symfony doctrine:generate-module --with-show --non-verbose-templates frontend job JobeetJob 自动生成一个给定的模型的模块，并提供基本的操作功能
+	$ symfony doctrine:generate-module frontend news news --with-show //生成前台
+	$ symfony doctrine:generate-admin backend news  //生成后台curd操作
+	$ symfony plugin:publish-assets   //美化后台
+	
+3 file&dir Symfony的根树结构及描述
+	apps/		包含了项目的应用，一个应用对应一个文件夹
+		app_name/
+			config/		The application configuration files
+				security.yml	访问权限配置
+				view.yml		模板配置
+				filters.yml
+				...
+			lib/		The application libraries and classes,这下面的类会自动加载
+			modules/	The application code (MVC)
+				module_name/
+					actions/	The module actions
+						actions.class.php
+					templates/	The module templates
+			templates/	The global template files
+	batch/		包含用于命令行执行或者调度的PHP代码
+	cache/		缓存文件夹，需要777的权限
+	config/		保存项目的基本配置
+		doctrine/
+			schema.yml
+		mondongo/
+			mondongo.yml
+		ProjectConfiguration.class.php	//插件注册
+		database.php  //数据库配置
+		...
+	data/		存放项目的数据文件，比如数据库结构、创建数据表的SQL文件，或者SQLite的数据库文件等
+		fixtures/ 	初始化的加载数据
+	doc/		存放项目文档，包括你自己的文档和PHPDoc产生的文档
+	lib/		数据模型
+		form/
+		model/
+			doctrine/
+	log/		日志文件夹，需要777权限
+	plugins/	存放在应用中安装的插件
+	test/		单元和共性测试
+	web/		WEB服务的根
+		index.php 			生产环境入口
+		index_dev.php 		开发环境入口
+4 Route
+	4.1 
+		$ php symfony app:routes frontend job_edit    //Route Debugging
+	4.1 
+		默认路由：入口文件/ModelName/ActionName/*,例：/job/show/id/1
+	4.2 
+		url_for('job/show?id='.$job->getId())
+		(详细配置：http://symfony.com/legacy/doc/reference/1_4/en/10-Routing#chapter_10_sub_column)
+		#Routing.yml
+			job_show_user:
+			  url:   /job/:company/:location/:id/:position
+			  class:   sfPropelRoute
+			  options: { model: JobeetJob, type: object }
+			  param: { module: job, action: show }
+			  requirements:
+				id: \d+		#参数格式
+				sf_method: [get]  #请求方法
+		#url_for()
+			// 传class
+			url_for(array('sf_route' => 'job_show_user', 'sf_subject' => $job));
+			//use the route name by prefixing it by @:
+			url_for('@default?module=job&action=show&id='.$job->getId())
+		#Action
+			$this->job = $this->getRoute()->getObject();
+5 Request
+	5.1 sfWebRequest	
+		getMethod()			$_SERVER['REQUEST_METHOD']
+		getUri()			$_SERVER['REQUEST_URI']
+		getReferer()		$_SERVER['HTTP_REFERER']
+		getHost()			$_SERVER['HTTP_HOST']
+		getLanguages()		$_SERVER['HTTP_ACCEPT_LANGUAGE']
+		getCharsets()		$_SERVER['HTTP_ACCEPT_CHARSET']
+		isXmlHttpRequest()	$_SERVER['X_REQUESTED_WITH'] == 'XMLHttpRequest'
+		getHttpHeader()		$_SERVER
+		getCookie()			$_COOKIE
+		isSecure()			$_SERVER['HTTPS']
+		getFiles()			$_FILES
+		getGetParameter()	$_GET
+		getPostParameter()	$_POST
+		getUrlParameter()	$_SERVER['PATH_INFO']
+		getRemoteAddress()	$_SERVER['REMOTE_ADDR']
+		getParameter($name)	$_REQUEST[$name]/$_SERVER[$name]
+		getScriptName()		前端控制器路径与名称'myapp_dev.php'
+		getLanguages()		可接受语言的列表 Array( [0] => fr [1] => fr_FR [2] => en_US [3] => en )
+		getCharsets()		可接受字符集的列表 Array( [0] => ISO-8859-1 [1] => UTF-8 [2] => * )	
+		getAcceptableContentTypes() 可接受内容类型数组
+	5.2 Request Parameters
+		hasParameter('foo')	//参数是否在请求中有
+		getParameter('foo') //指定参数的值
+		getParameterHolder()->getAll()//所有请求参数的数组
+	5.3 session
+		#设置
+			apps/myapp/config/factories.yml
+			all:
+			   storage:
+				 class: sfSessionStorage
+				 param:
+				   session_name: my_cookie_name
+			#Changing the Server Session Storage, in apps/myapp/config/factories.yml
+			all:
+			   storage:
+				 class: sfMySQLSessionStorage
+				 param:
+				   db_table: SESSION_TABLE_NAME       # Name of the table storing the sessions
+				   database: DATABASE_CONNECTION      # Name of the database connection to use
+			#Changing Session Lifetime
+			default:
+			   .settings:
+				 timeout:      1800            # Session lifetime in seconds		
+6 Controller
+	6.1 上下文
+		#可以在代码的任何位置放置sfContext::getInstance()。
+		sfContext::getInstance()->getController()//sfController：控制器对象
+		sfContext::getInstance()->getRequest()//sfRequest: 请求对象
+		sfContext::getInstance()->getResponse()//sfResponse: 响应对象
+		sfContext::getInstance()->getUser()//sfUser: 用户Session对象
+		sfContext::getInstance()->getDatabaseConnection()//sfDatabaseConnection: 数据库链接
+		sfContext::getInstance()->getLogger()//sfLogger：日志对象
+		sfContext::getInstance()->getI18N()//sfI18N: 国际化对象
+		sfContext::getInstance()->getConfiguration()->loadHelpers(array('Curl'));
+	6.2 方法：
+		#preExecute()与postExecute()方法是一个模块中多个动作共同的东西。在调用executeAction()之前和之后执行。
+		#session
+			$this->getUser();//获取session
+			$this->getUser()->setAttribute($name, $value);  //设置session
+			$this->getUser()->getAttribute($name,$default); //获取session
+			$this->getUser()->getAttributeHolder()->remove($name);
+			$this->getUser()->getAttributeHolder()->clear();		
+			$this->setFlash($name, $value);	//该方法是短暂属性，仅在下一页有效
+			$this->getFlash($name);
+		#request
+			$this->getRequest();
+			$this->getRequestParameter('password');
+			$this->getModuleName();	//获取Model名
+			$this->getActionName(); //获取Action名
+		#response	
+			$this->forward(‘otherModule’,’otherAction’);// 向前（Forwards）方式
+			$this->redirect(‘otherModule/otherAction’);//重定向（Redirection）方式
+			$this->redirect(‘http://www.google.cn’);
+			forwardIf()
+			forwardUnless()
+			forward404If()
+			forward404Unless()
+			redirectIf()
+			redirectUnless()
+			$this->renderText($text);
+			$this->renderPartial($Partial,Array $param);
+			$this->renderComponent($Component,Array $param);
+		#tmplate
+			$this->setLayout('my_layout');//访问自定义布局
+			$this->setLayout(false);//视图不需要布局（比如存文字页面或者RSS，AJAX默认没有布局）
+			$this->getResponse();
+			$this->disableCSRFProtection();//关闭CSRFProtection
+			$this->setTemplate('myCustomTemplate');//特定模板，
+			return sfView::SUCCESS;//调用一个默认视图(默认动作)，将寻找actionNameSuccess.php的模板
+			return sfView::ERROR;//将查找actionNameError.php模板
+			return 'MyResult';//将查找actionNameMyResult.php模板
+			return sfView::NONE;//关闭模板调用
+			return $this->renderText("<html><body>Hello, World!</body></html>");HTML代码可以直接在动作中输出
+			return sfView::HEADER_ONLY;//发送空的响应但包含定义的头信息（特别是X-JSON头）
+		#Retrieving framework core objects
+			$request     = $this->getRequest();
+			$userSession = $this->getUser();
+			$response    = $this->getResponse();
+			$controller  = $this->getController();
+			$context     = $this->getContext();
+		#设置变量传到模板
+			$this->setVar('foo', 'bar');
+			$this->foo = 'bar';            // Shorter version
+	6.3 ActionName	
+		#validateActionName是验证方法，是ActionName被请求的第一个查找方法，如果不存在则直接执行动作方法。
+		#handleErrorActionName方法，如果验证失败则查找此方法，如果不存在则Error模板被显示
+		#executeActionName是动作方法，对于动作他必须存在。
+7 Response 
+	7.1 响应方法
+		$response = $this->getResponse();
+		// HTTP 头
+		$response->setContentType('text/xml');
+		$response->setHttpHeader('Content-Language', 'en');
+		$response->setStatusCode(403);
+		$response->addVaryHttpHeader('Accept-Language');
+		$response->addCacheControlHttpHeader('no-cache');
+		// Cookies
+		$response->setCookie($name, $content, $expire, $path, $domain);
+		// 元数据和页面头
+		$response->addMeta('robots', 'NONE');
+		$response->addMeta('keywords', 'foo bar');
+		$response->addHttpMeta('cache-control', 'public');
+		$response->setTitle('My FooBar Page');
+		$response->addStyleSheet('custom_style');
+		$response->addJavaScript('custom_behavior');
+		//多次设定一个存在的键将覆盖先前的，可以通过把第三个参数设置为false来追加
+		$response->addHttpMeta('accept-language', 'fr', false);
+8 Template
+	sfConfig::set('sf_escaping_strategy', false);//消除模板对数组的转义
+	8.1 助手方法
+		#助手方法是返回HTML代码并使用在模板中的PHP函数。
+			<?php echo input_tag('nickname') ?> => <input type="text" name="nickname" id="nickname" value="" />
+		#use_helper()方法加载助手方法分组,
+			<?php use_helper(‘Text’,’Javascript’)  ?>
+		#一些助手默认在任何模板中均可访问（无需声明），包括下面的助手组：
+			Helper：实际就是use_helper()方法自己的声明
+			Tag：基本标签助手，可以被每个助手使用
+				<?php echo tag('input', array('name' => 'foo', 'type' => 'text')) ?>
+				=> <input name="foo" type="text" />
+				<?php echo content_tag('textarea', 'dummy content', 'name=foo') ?>
+				=> <textarea name="foo">dummy content</textarea>
+			Url：链接和URL管理助手
+				<?php echo link_to('click me', 'mymodule/myaction') ?>
+				=> <a href="/route/to/myaction">click me</a>  // Depends on the routing settings
+			Asset：组装HTML的头部分，并且提供了到外部Assets（images、JS和CSS等）的简单链接。
+				<?php echo image_tag('myimage', 'alt=foo size=200x100') ?>
+				=> <img src="/images/myimage.png" alt="foo" width="200" height="100"/>
+				<?php echo javascript_include_tag('myscript') ?>
+				=> <script language="JavaScript" type="text/javascript" src="/js/myscript.js"></script>
+				<?php echo stylesheet_tag('style') ?>
+				=> <link href="/stylesheets/style.css" media="screen" rel="stylesheet"type="text/css" />
+			Partial：允许包入片段代码
+			Cache：操纵缓存代码片段
+			Form：表单输入助手
+		#自定义助手：文件放在apps/myapp/lib/hleper目录，可以自动被Use_helper(‘Myhelp’)方法包含进来。
+		#默认被加载的助手定义在settings.yml文件中，打开并修改standard_helpers选项。
+		#在模板之外使用助手：sfLoader::loadHelpers($helpers)，变量$helpers是助手组名或者助手组数组。
+	8.2 代码片段
+		8.2.1 Partials
+			#局部模板位于templates目录，以_开头
+			include_partial(‘ob/list’,array(‘name’=>’值’));//在其他模板中包含局部模板:
+		8.2.2 组件
+			#组件的逻辑部分在继承自sfComponets(复数)的类中，在action/components.class.php文件中。
+			#组件的表现部分就是一个Partial。
+			#sfComponets类的方法有execute开始
+			#比较：
+				约定				动作				组件
+				逻辑文件名称		actions.class.php	components.class.php
+				逻辑类继承自		sfActions			sfComponents
+				方法命名			executeMyAction()	executeMyComponent()
+				表现不分文件名		myActionSuccess.php	_myComponent.php
+			#组件类也可以有第二种写法，就是一个组件一个文件，继承自sfComponent(单数)类。
+			#示例：
+				组件类：modules/news/actions/components.class.php
+				Partial：modules/news/templates/_headlines.php
+				在模板中使用组件：<?php include_component('news', 'headlines', array('foo' => 'bar')) ?>
+		8.2.3 插槽（slots）
+			#定义
+				#slot代码放在slot()和end_slot()
+				#Slot助手之间的代码在模板的上下文中执行，也就是说可以访问动作中定义的所有变量
+				
+			# 使用
+				has_slot('sidebar')
+				include_slot('sidebar')
+		8.2.4 组件插槽
+			include_component_slot('sidebar') 
+			#视图配置:myapp/config/view.yml
+				default:
+				  components:
+					sidebar:  [bar, default] #barComponets类（在bar模块中）之executeDefault()方法
+			#组件的定义： modules/bar/actions/components.class.php
+				class barComponents extends sfComponents{
+				  public function executeUser(){
+					$current_user = $this->getUser()->getCurrentUser();
+					$c = new Criteria();
+					$c->add(ArticlePeer::AUTHOR_ID, $current_user->getId());
+					$this->nb_articles = ArticlePeer::doCount($c);
+					$this->current_user = $current_user;
+				  }
+				}		
+			#组件插槽使用		
+								
+	8.3 变量
+		$sf_context：全部的上下文对象（sfContext实例）
+		$sf_request：请求对象（sfRequest实例）
+		$sf_params：请求参数
+		$sf_user：但前用户Session对象（sfUser实例）
+		$sf_user->getAttribute($name)		//获取session
+		$sf_flash->has('guanli_yonghu')		//获取短暂属性
+		$sf_flash->get('guanli_yonghu')		//
+		$sf_request->getParameter('action') //获取request并获取方法名
+	8.4 视图配置（View Configuration）
+		8.4.1 View.yml配置文件
+			editSuccess:	#模块视图的名字
+			  metas:
+				title: Edit your profile
+			#级联准则
+				在apps/myapp/modules/mymodule/config/view.yml，per-view设定至应用到一个视图并覆盖模块级设置。
+				在apps/myapp/modules/mymodule/config/view.yml，all: 设置应用到模块中的所有动作并覆盖应用级设置。
+				在apps/myapp/config/view.yml，default: 设定应用到整个应用的所有模块的所有动作。
+			#应用级的设定：
+				#apps/myapp/config/view.yml
+					default:
+					  http_metas:
+						content-type: text/html
+					  metas:
+						title:        symfony project
+						robots:       index, follow
+						description:  symfony project
+						keywords:     symfony, project
+						language:     en
+					  stylesheets: [-main, special]		#在低级别设定中的文件前加一个减号删除一个在高级别中定义的文件
+					  javascripts: [-*]		#删除所有的使用
+					  has_layout: false	#有些视图不需要布局（比如存文字页面或者RSS，AJAX默认没有布局）
+					  layout: layout #访问自定义布局
+				#使用
+					<?php include_http_metas() ?>
+					<?php include_metas() ?>
+					<?php include_title() ?>
+					<?php include_stylesheets() ?>
+					<?php include_javascripts() ?>
+		8.4.2 输出避让（Escaping）
+			#通过文件避让myapp/config/setting.yml
+				all:
+				  .settings:  #默认对输出的每个变量添加htmlentities()方法
+					escaping_strategy: both
+					escaping_method:   ESC_ENTITIES
+			#模板中使用$sf_data对象避让:
+				echo $sf_data->get('test');
+			#输出原始数据:
+				$sf_data->getRaw('sf_content')。
+			#避让后的变量成了sfOutputEscaperArrayDecorator类的对象
+				sfConfig::set('sf_escaping_strategy', false);//关闭避让
+	8.5 layout
+		#configuration:(view.yml)
+			has_layout:     true
+			layout:         layout
+		#application:
+			<?php echo $sf_content ?>  //$sf_content contains the HTML generated by the action
+9 Config
+	9.1 ymal格式
+		#YAML通过缩进来反映结构
+		#如果参数是字符串或者是以空格开始或结束或包含了特殊字符，那么就用单引号（’）括起来。
+		#可以使用>和|加上缩进在多行定义一个长字符串
+			accomplishment: >
+			  Mark set a major league
+			  home run record in 1998.
+		#数组需要用方括号包起来或者使用-扩展
+			# 短语法格式
+			players: [ Mark McGwire, Sammy Sosa, Ken Griffey ]
+			# 扩展语法格式
+			players:
+			  - Mark McGwire
+			  - Sammy Sosa
+		#键值对数组使用大括号包起来，每一对格式 key: value，在：后加上一个以上的空格，扩展格式需要缩进	  
+			mail: { webmaster: webmaster@example.com, contact: contact@example.com }
+			mail:
+			  webmaster: webmaster@example.com
+			  contact:   contact@example.com
+		#布尔类型可以是 on, 1, true; off, 0, false
+		#YAML文件中调用其它配置文件中定义的参数，使用%将被调用参数名称包围起来。				
+	9.1 sfConfig类
+		#apps/myapp/config/
+		 sfConfig::get('filename_key', $default_value);// 获取设定
+		 sfConfig::set('filename_key', $value);// 定义或覆盖设定
+		#参数名称被分成几个部分，用_连接起来，前缀不同表达的意义也不同：
+			Sf_(setting.yml)
+			app_(app.yml)
+			mod_(module.yml)
+			sf_i18n_(i18n)
+			sf_logging_(logging.yml)
+		#列：
+			#app.yml内容
+			all:
+			  version:        1.5
+			#访问权限配置	
+			sfConfig::get('app_version');					
+10 数据库	
+	10.1 mysql读写分离
+		
+
+	
+11 doctrine
+	11.1 配置
+		#config/database.yml
+		all:
+		  doctrine:
+			class: sfDoctrineDatabase
+			param:
+			  dsn:      mysql:host=localhost;dbname=test
+			  username: root
+			  password: 123456
+	11.2 command:
+		$ symfony doctrine:build-schema			从数据库中生成ymal
+		$ symfony doctrine:build --model		建模
+		$ symfony doctrine:build --sql			生成sql语句
+		$ symfony doctrine:insert-sql			创建表
+		$ symfony doctrine:data-load			插入数据(在data/fixtures/ 目录配置yml文件)
+		$ symfony doctrine:data-dump 	//导出数据
+		$ symfony doctrine:build --all --and-load 生成你的表单、过滤器、模型，删除你的数据库并重新创建所有数据表
+		$ symfony doctrine:generate-module --with-show --non-verbose-templates frontend job JobeetJob 自动生成一个给定的模型的模块，并提供基本的操作功能
+		$ symfony configure:database --env=dev "mysql:host=localhost;dbname=blog_dev" root mYsEcret
+	11.3 yml 模型(详细：http://symfony.com/legacy/doc/doctrine/1_2/en/04-Schema-Files)
+		#设置为true将会是Doctrine自动判断并在models中定义表之间的关系.
+		detect_relations: true
+		Article: 
+		  actAs: [Timestampable] 
+		  connection: doctrine
+		  tableName: blog_article
+		  options:
+			type: MyISAM
+			collate: utf8_unicode_ci
+			charset: utf8
+		  columns: 
+			id: 
+			  type: integer 
+			  primary: true 
+			  autoincrement: true 
+			title: string(255) 
+			content: clob 
+			user_id: integer 
+			relations: 
+			  User: onDelete: CASCADE foreignAlias: Articles
+		  indexes:
+			username_index:
+			  fields: [username]
+			  type: unique
+		#模型属性：
+			actAs:
+			connection:
+			tableName:
+			options：
+			columns:
+			relations:
+			indexes:
+		#列参数有以下几种：
+			type：列类型分boolean, integer, double, float, decimal, string(size), date, time, timestamp, blob, 和 clob(text).
+			notnull：布尔值。 如果这个列是必须的话就设置为true。
+			length：支持长度的列类型的列长度或者大小。
+			scale：十进制小数位数（大小也需要定义）
+			default：默认值。
+			unsigned:布尔值
+			primary：布尔值。 如果是主键就设为true。
+			autoincrement：布尔值。 如果是integer并需要自动增长的话就设为true。
+			sequence：数据库的序列名用来给需要autoIncrement列使用（例如，PostgreSQL和Oracle）。
+			unique：布尔值。如果这列值应该是唯一的就设为true。
+			fixed: 
+	11.4 
+		#执行SQL语句
+			$con=Doctrine_Manager::getInstance()->connection()//
+			$st=$con->execute("your?sql");
+			$result=$st->fetchAll();
+		#连接
+			Doctrine::getTable('ModelName')	//获取表连接
+			Doctrine_Core::getTable('ModelName')->createQuery('asName')//建立查询,参数为目标表别名
+			Doctrine_Query::create()->from('ModelName')
+			Doctrine_Query::create()->update('User u')[->set('u.username', '?', 'jwage')]
+		#查询
+			find($id|$array)	//通过主键查询
+			findBy*($value)		
+			findOneBy*($value)
+			
+			#DQL(Doctrine_Query::create())
+			select('col1,col2,count(id) as myid')	//field条件
+			addSelect('u.email_address')
+			from('User u, u.Phonenumber p')
+			addFrom('u.Phonenumber p')
+			leftJoin(‘a.Model2 m’)
+			innerJoin(‘a.Model2 m’)
+			distinct($flag = true)
+			where('field = ?', $value)		//绑定where参数
+				andWhere('field = ?', $value)
+				andWhereIn('field = ?', $value)
+				andWhereNotIn('u.id', array(1, 2, 3))		
+				orWhere('field = ?', $value)		
+				orWhereIn('u.id', array(1, 2, 3))
+				orWhereNotIn('u.id', array(1, 2, 3))
+				whereNotIn('u.id', array(1, 2, 3))	
+			orderBy('field ASC')			//绑定orderBy条件
+			addOrderBy(‘acolumn DESC’)
+			offset(offset)
+			limit(20)						//limi()
+			groupBy('u.id')
+			addGroupBy('u.username')
+			having('num_phonenumbers > 0')
+			addHaving('u.username = ?', 'jwage')
+			
+			execute()						//获取结果集
+			fetchOne()						//返回第一个对象
+			etchArray()						//获取结果数组
+			count()							//获取记录数
+			getSqlQuery();					//获取sql语句
+		#增删
+			$user = new User();	//创建
+			$user = Doctrine::getTable('ModelName')->find($id);//查找
+			$user->username='username';	//赋值
+			$user->fromAarray(array('username' => 'myuser',));//赋值
+			$user->save();		//本地化
+			Doctrine_Manager::connection()->flush();//所有未保存的数据将会得到保存。 Doctrine 会执行一个事务。
+			$user->delete();	//删除
+		#结果
+		
+		
+12 Mondongo(mongodb orm)
+	12.1 安装插件
+		symfony plugin:install -s beta sfMondongoPlugin
+		#注册插件（config/ProjectConfiguration.class.php）
+		public function setup()
+		{
+			$this->enablePlugins('sfMondongoPlugin');
+		}
+	12.1 配置
+		#config/database.yml
+		all:
+		  mondongo:
+			class: sfMondongoDatabase
+			param:
+			  server: mongodb://127.0.0.1:27017/admin:admin
+			  database: testdb
+	12.2 
+		#基本
+			$mongo = $this->getMondongo();	//获取连接
+			$users = $mongo->getRepository("User");//传入Model
+			$users->find($querys,$fields);//$querys过滤，$fields列名
+			$users->findOne($querys,$fields);
+				$cursor=$users->find($querys)
+				$cursor->sort(array('字段'=>-1));//(-1倒序，1正序)
+				$cursor->skip(100);//跳过部分记录
+				$cursor->limit(100);//只显示100行
+				$cursor->hasNext()
+				$cursor->getNext()
+				$array= iterator_to_array($cursor);
+			$users->findOneById(new MongoId($id));
+			$users=new User();	
+			$users->save();
+			$users->delete();
+		#CURD
+			#select
+			$mongo = $this->getMondongo();	//获得MONGO对象,这是不分页调用
+			$users = $mongo->getRepository("User");	//连接表
+			$query = array( "username" => "张三" );	//查询条件
+			$result = $users->find($query);	//获取结果，返回对象集合
+			#add
+			$user=new User();//建立
+			$user->setUsername('张三');//赋值
+			$user->save();//持久化
+			#update
+			$id = $this->getRequestParameter('id');
+			$mongo = $this->getMondongo();
+			$users = $mongo->getRepository("User")->findOneById(new MongoId($id));
+			$users->setUsername($this->getRequestParameter('username'));
+			$users->save();
+			#delete
+			$mongo = $this->getMondongo();
+			$users = $mongo->getRepository("User");
+			$id=$this->getRequestParameter('id');
+			$query=array('_id'=>new MongoId($id));
+			$users->findOne($query)->delete();
+		#分页
+			$pager = new sfMondongoPager('User', 10);
+			$pager->setFindOptions(array(
+				'query' => array( "username" => "张三" ), 
+				'sort' => array('username' => 1)
+			));
+			$pager->setPage($request->getParameter('page', 1));
+			$pager->init();
+			$pager->getResults();//结果集，可foreach
+			$pager->getPage();//当前页数
+			$pager->getLastPage();//最大页数
+			$pager->getPreviousPage();//上一页数
+			$pager->getNextPage();//下一页数
+			
+			
+		#查询语法:
+			= 		$querys = array("name"=>"shian");
+			>		$querys = array("number"=>array('$gt' => 5))
+			>=		$querys = array("number"=>array('$gte' => 2));
+			<		$querys = array("number"=>array('$lt' => 5));
+			<=		$querys = array("number"=>array('$lte' => 2));
+			>= & <=	$querys = array("number"=>array('$gt' => 1,'$lt' => 9));
+			!=		$querys = array("number"=>array('$ne' => 9));
+			in 		$querys = array("number"=>array('$in' => array(1,2,9)));
+			not in	$querys = array("number"=>array('$nin' => array(1,2,9)));
+			preg	$querys = array("name" => new MongoRegex("/shi/$i"));//使用正则查询
+			or 		$querys = array('id' => array('$or' => array(array('id'=>2),array('id'=>9))))//where id = 2 or id = 9
+			like	$querys = array('name' => new MongoRegex("/.*bar.*/i"))
+			orderBy	$querys = array('sort'=>array('name'=>1))//order by name asc
+			orderBy	$querys = array('sort'=>array('name'=>-1))//order by name desc
+			//limit 	$querys = array('limit'=>array('offset'=>0,'rows'=>2))//limit 0,2
+			limit	$querys = array('limit'=>2,'skip'=>0)//limit 0,2	//"title":{$regex:"1"}
+			in_array $querys = array('alias'=>array('$elemMatch'=>array('$in'=>array('传说第三季'))))//in_array('传说第三季',$alias)
+			array_in_array $querys = array('fruit'=>array('$all'=>[1,2]))//fruit 既包含1又包含2
+13 Filter
+	13.1 
+		#过滤器均继承自sfFilter类并且都包含了execute()方法
+			 public function execute ($filterChain){
+				// 在动作之前执行的代码   
+				$filterChain->execute();// 执行下一个过滤器
+				// 在动作之后执行的代码
+			}
+		#过滤器链在/myapp/config/filters.yml文件中定义
+	13.2 自定义过滤器
+		#Filter类文件放在项目的lib文件夹可以充分利用symfony提供的自动加载特性。
+		#在execute()方法中使用sfFilter类的isFirstCall()方法保证只执行一次
+		#过滤器不直接访问请求和用户对象，需要使用context对象获取：
+			 $request = $this->getContext()->getRequest();
+		#过滤器创建后还必须进行激活，在apps/myapp/config/filters.yml文件中：
+			remember:                 # Filters need a unique name
+			  class: rememberFilter
+			  param:
+				cookie_name: MyWebSite
+				condition:   %APP_ENABLE_REMEMBER_ME%
+		#自定义过滤器中的参数可以在过滤器代码中使用getParameter方法获取：
+			$this->getParameter('cookie_name')；
+		#要是过滤器执行，记得在应用的app.yml中加入：
+			all:
+			  enable_remember_me: on
+		
+		
+		
+14 认证&授权
+	14.1 配置
+		#app配置：app/my_app/config/security.yml
+		#局部配置: app/my_app/modules/my_module/config/security.yml
+		home:		#方法名
+			is_secure: true		#是否开启权限验证
+			credentials: home_power   #凭证
+			#credentials: [ admin, publisher ]           # admin 和 publisher
+			#credentials: [[ admin, superuser ]]         # admin 或者 superuser
+			#每次添加新的[]，凭证之间的关系在AND和OR之间切换，这样可以创建及其复杂的凭证组合关系
+		#跳转配置：apps/myapp/config/settings.yml
+			#用户已登录并且凭证符合则动作能执行
+			#如果用户没有登录则转向默认登录动作
+			#如果用户已登录但凭证不符合则会转向默认的安全动作
+			all:
+			  .actions:
+				login_module:           default
+				login_action:           login
+				secure_module:          default
+				secure_action:          secure
+	14.2 授权
+		$this->getUser()->setAuthenticated(true);	//设置用户为已认证
+		$this->getUser()->addCredentials('foo', 'admin');    //添加多个凭证
+		$this->getUser()->hasCredential('foo');         //判断是否具有凭证
+		$this->getUser()->hasCredential(array('foo', 'admin')); //判断是否具有多个凭证
+	14.2 取消授权
+		$this->getUser()->setAuthenticated(false);	//设置用户为未认证
+		$this->getUser()->removeCredential('foo');	//删除凭证
+		$this->getUser()->clearCredentials();   //删除所有凭证 (被用在注销处理过程中)
+		$this->getUser()->shutdown();		//用户退出
+15 form	
+	15.1 
+	#使用form_tag()助手创建表单:
+		<?php echo form_tag('test/save') ?>
+	15.2 
+		#定义
+			class ContactForm extends sfForm	//继承
+			{
+			  public function configure()
+			  {
+				unset(	// 禁用编辑的字段（不显示）
+				  $this['created_at'], $this['updated_at'],
+				  $this['expires_at'], $this['is_activated']
+				);
+				$this->useFields(array('category_id', 'type'));//隐藏域
+				$this->setWidgets(array(	//字段
+				  'email'   => new sfWidgetFormInputText(),
+				  'message' => new sfWidgetFormTextarea(),
+				));
+				$this->setValidators(array(		//验证
+				  'email'   => new sfValidatorEmail(),
+				  'message' => new sfValidatorString(array('max_length' => 255)),
+				));
+				$this->widgetSchema['type'] = new sfWidgetFormChoice(array(	//选择框
+				  'choices'  =>  array(
+						'full-time' => 'Full time',
+						'part-time' => 'Part time',
+						'freelance' => 'Freelance',
+					  ),
+				  'expanded' => true,
+				));
+				$this->widgetSchema['logo'] = new sfWidgetFormInputFile(array(	//文件
+				'label' => 'Company logo',
+				));
+				$this->mergeForm(new AnotherForm());	//合并
+				$this->embedForm('name', new AnotherForm());	//嵌入
+			  }
+			}
+		#Doctrine Forms
+			//生成命令
+				$ symfony doctrine:build --forms
+			//停用
+				SomeModel:
+				  options:
+					symfony:
+					  form: false
+					  filter: false
+		#示例：
+			// lib/form/doctrine/JobeetJobForm.class.php
+			class JobeetJobForm extends BaseJobeetJobForm
+			{
+			  public function configure()
+			  {
+				unset(
+				  $this['created_at'], $this['updated_at'],
+				  $this['expires_at'], $this['is_activated']
+				);
+				$this->validatorSchema['email'] = new sfValidatorAnd(array(
+				  $this->validatorSchema['email'],
+				  new sfValidatorEmail(),
+				));
+				$this->widgetSchema['type'] = new sfWidgetFormChoice(array(
+				  'choices'  => Doctrine_Core::getTable('JobeetJob')->getTypes(),
+				  'expanded' => true,
+				));
+				$this->validatorSchema['type'] = new sfValidatorChoice(array(
+				  'choices' => array_keys(Doctrine_Core::getTable('JobeetJob')->getTypes()),
+				));
+				$this->widgetSchema['logo'] = new sfWidgetFormInputFile(array(
+				  'label' => 'Company logo',
+				));
+				$this->widgetSchema->setLabels(array(
+				  'category_id'    => 'Category',
+				  'is_public'      => 'Public?',
+				  'how_to_apply'   => 'How to apply?',
+				));
+				$this->validatorSchema['logo'] = new sfValidatorFile(array(
+				  'required'   => false,
+				  'path'       => sfConfig::get('sf_upload_dir').'/jobs',
+				  'mime_types' => 'web_images',
+				));
+				$this->widgetSchema->setHelp('is_public', 'Whether the job can also be published on affiliate websites or not.');
+			  }
+			}
+		#应用：
+			#模板中：
+			use_javascripts_for_form()，//helpers include JavaScript
+			use_stylesheets_for_form() 	//helpers include JavaScript .
+			form_tag_for($form, '@job')	//生成表单,不包括</form>，需手动生成
+			echo $form					//输出模板
+			echo $form['company']		//输出模板中的单个元素
+			render()					//Renders the form (equivalent to the output ofecho $form)
+			renderHiddenFields()		//Renders the hidden fields
+			hasErrors()					//Returns true if the form has some errors
+			hasGlobalErrors()			//Returns true if the form has global errors
+			getGlobalErrors()			//Returns an array of global errors
+			renderGlobalErrors()		//Renders the global errors
+			renderRow()					//Renders the field row
+			render()					//Renders the field widget
+			renderLabel()				//Renders the field label
+			renderError()				//Renders the field error messages if any
+			renderHelp()				//Renders the field help message
+			#例：
+				<?php foreach ($form as $widget): ?>
+				  <?php echo $widget->renderRow() ?>
+				<?php endforeach ?>
+		#Action

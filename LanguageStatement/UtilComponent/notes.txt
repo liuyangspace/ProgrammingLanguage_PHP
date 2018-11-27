@@ -1,9 +1,0 @@
-其他扩展工具（详情参见最新的PHP官方手册）：
-
-OAuth,SOAP,WDDX,XSL
-
-pthreads,Gearman 进程，多线程操作
-Semaphore, Shared Memory  内存操作
-Gopher gopher服务器连接
-LDAP Lightweight Directory Access Protocol，
-Event ？？？

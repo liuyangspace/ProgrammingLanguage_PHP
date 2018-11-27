@@ -1,0 +1,31 @@
+
+PHP src
+
+Source:http://php.net/downloads.php
+git:
+    https://git.php.net/repository/php-src.git
+    git://github.com/php/php-src.git
+
+1,php
+    1.1，PHP引擎实现:
+        官方: Zend引擎
+        facebook: hiphop
+        IBM: JVM,Project Zero
+        #不同实现下编写的扩展不能通用。
+    1.2，SAPI(Server Application Programming Interface)
+        #PHP对各个服务器抽象
+        cli
+        fpm
+        CGI/FASTCGI
+        Apache
+        embed ( 嵌入式 )
+2,编译
+    编译器生成器：
+        词法:
+            lex
+            flex
+            re2c
+        语法:
+            yacc
+            bison
+            Lemon

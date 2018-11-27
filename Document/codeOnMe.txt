@@ -1,2 +1,0 @@
-利用数组代替选择：
-	$valueMapShow=['up'=>'上架','down'=>'下架']，$valueMapShow['up'];
