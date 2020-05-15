@@ -1,0 +1,91 @@
+
+script
+
+# 目前编程语言可以分为两大类: 编译型语言(C/C++, .NET, Java),解释型语言(PHP, Javascript, Ruby, Python).编译器(compiler)或解释器(interpreter).
+
+1, 脚本的编译执行
+    # PHP在读取到脚本文件后首先对代码进行词法分析，PHP的词法分析器是通过lex生成的， 词法规则文件在$PHP_SRC/Zend/zend_language_scanner.l，
+        这一阶段lex会会将源代码按照词法规则切分一个一个的标记(token)。
+    # 将代码切分为一个个的标记后, PHP使用bison生成语法分析器， 规则见$PHP_SRC/Zend/zend_language_parser.y.bison根据规则进行相应的处理，
+        如果代码找不到匹配的规则，也就是语法错误时Zend引擎会停止，并输出错误信息。
+    # 在匹配到相应的语法规则后，Zend引擎还会进行编译， 将代码编译为opcode， 完成后，Zend引擎会执行这些opcode， 在执行opcode的过程中还有
+        可能会继续重复进行编译-执行，例如执行eval，include/require等语句， 因为这些语句还会包含或者执行其他文件或者字符串中的脚本。
+
+2, opcode
+    # PHP的opcode就是Zend虚拟机中的指令。
+    # 在PHP实现内部，opcode由如下的结构体表示：
+        struct _zend_op {
+            opcode_handler_t handler;   // 执行该opcode时调用的处理函数
+            znode result;               // 保存该指令执行完成后的结果
+            znode op1;
+            znode op2;
+            ulong extended_value;       // 保存其他更多的信息
+            uint lineno;
+            zend_uchar opcode;          // opcode代码
+        };
+        例如如下代码是在编译器遇到print语句的时候进行编译的函数:
+            void zend_do_print(znode *result，const znode *arg TSRMLS_DC)       // 创建一条zend_op
+            {
+                zend_op *opline = get_next_op(CG(active_op_array) TSRMLS_CC);
+                opline->result.op_type = IS_TMP_VAR;                            // 将返回值的类型设置为临时变量(IS_TMP_VAR)
+                opline->result.u.var = get_temporary_variable(CG(active_op_array));
+                opline->opcode = ZEND_PRINT;                                    // 指定opcode为ZEND_PRINT
+                opline->op1 = *arg;                                             // 将参数赋值给这条opcode的第一个操作数
+                SET_UNUSED(opline->op2);
+                *result = opline->result;
+            }
+    # PHP脚本编译为opcode保存在op_array中，其内部存储的结构如下：
+        struct _zend_op_array {
+            /* Common elements */
+            zend_uchar type;
+            char *function_name;  // 如果是用户定义的函数则，这里将保存函数的名字
+            zend_class_entry *scope;
+            zend_uint fn_flags;
+            union _zend_function *prototype;
+            zend_uint num_args;
+            zend_uint required_num_args;
+            zend_arg_info *arg_info;
+            zend_bool pass_rest_by_reference;
+            unsigned char return_reference;
+            /* END of common elements */
+
+            zend_bool done_pass_two;
+            zend_uint *refcount;
+            zend_op *opcodes;  // opcode数组
+            zend_uint last，size;
+            zend_compiled_variable *vars;
+            int last_var，size_var;
+            // ...
+        }
+    # 在执行的时候由下面的execute函数执行：
+        ZEND_API void execute(zend_op_array *op_array TSRMLS_DC)
+        {
+            // ... 循环执行op_array中的opcode或者执行其他op_array中的opcode
+        }
+    # PHP有三种方式来进行opcode的处理:CALL，SWITCH和GOTO，PHP默认使用CALL的方式，也就是函数调用的方式， 由于opcode执行是每个PHP程序频繁
+        需要进行的操作，可以使用SWITCH或者GOTO的方式来分发， 通常GOTO的效率相对会高一些，不过效率是否提高依赖于不同的CPU。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

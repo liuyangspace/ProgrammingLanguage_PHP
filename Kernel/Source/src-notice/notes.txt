@@ -5,6 +5,9 @@ Source:http://php.net/downloads.php
 git:
     https://git.php.net/repository/php-src.git
     git://github.com/php/php-src.git
+see:
+    http://www.php-internals.com
+    https://github.com/reeze/tipi
 
 1,php
     1.1，PHP引擎实现:

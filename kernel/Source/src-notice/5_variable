@@ -1,0 +1,206 @@
+
+variable
+
+PHP变量的值存储到以下所示zval结构体中。 zval结构体定义在Zend/zend.h文件，其结构如下：
+    typedef struct _zval_struct zval;
+    struct _zval_struct {
+        zvalue_value value;         // 存储变量的值
+        zend_uchar type;            // 变量具体的类型
+        zend_uint refcount__gc;     // 引用计数，默认 1
+        zend_uchar is_ref__gc;      // 表示是否为引用，默认 0
+    }; // 在PHP5.3之后，引入了新的垃圾收集机制，引用计数和引用的字段名改为refcount__gc和is_ref__gc。在此之前为refcount和is__ref。
+    # value结构如下:
+        typedef union _zvalue_value {
+            long lval;					/* long value */
+            double dval;				/* double value */
+            struct {
+                char *val;
+                int len;
+            } str;
+            HashTable *ht;				/* hash table value */
+            zend_object_value obj;
+            zend_ast *ast;
+        } zvalue_value;
+    # type 值可以为:IS_NULL、IS_BOOL、IS_LONG、IS_DOUBLE、IS_STRING、IS_ARRAY、IS_OBJECT和IS_RESOURCE 之一。
+    # 各种类型的数据会使用不同的方法来进行变量值的存储，其对应赋值方式如下：
+        # 一般类型
+            boolean       ZVAL_BOOL   布尔型/整型的变量值存储于(zval).value.lval中，其类型也会以相应的IS_*进行存储。Z_TYPE_P(z)=IS_BOOL/LONG;  Z_LVAL_P(z)=((b)!=0);
+            integer       ZVAL_LONG
+            float         ZVAL_DOUBLE
+            null          ZVAL_NULL   NULL值的变量值不需要存储，只需要把(zval).type标为IS_NULL。Z_TYPE_P(z)=IS_NULL;
+            resource      ZVAL_RESOURCE 资源类型的存储与其他一般变量无异，但其初始化及存取实现则不同。 Z_TYPE_P(z) = IS_RESOURCE;  Z_LVAL_P(z) = l;
+        # 字符串String
+            struct {
+                char *val;
+                int len;
+            } str;
+        # 对象Object
+            PHP的对象是一种复合型的数据，使用一种zend_object_value的结构体来存放。其定义如下：
+            typedef struct _zend_object_value {
+                zend_object_handle handle;  //  unsigned int类型，EG(objects_store).object_buckets的索引
+                zend_object_handlers *handlers;
+            } zend_object_value;
+            PHP用EG(objects_store)保存运行时所有被创建的对象
+        # 数组Array
+            数组存于 HashTable *ht 中，由哈希表实现。
+            # 依次给数组添加元素时，元素之间是有先后顺序的
+            # Zend为了保存数据之间的关系使用了双向列表来链接同一个槽位的数据元素.
+            # PHP中的哈希表实现在Zend/zend_hash.c中,结构体用于保存整个哈希表需要的基本信息，而Bucket结构体用于保存具体的数据内容，如下：
+                typedef struct _hashtable {
+                    uint nTableSize;            // hash Bucket的大小，最小为8，以2x增长。
+                    uint nTableMask;            // nTableSize-1 ， 索引取值的优化
+                    uint nNumOfElements;        // hash Bucket中当前存在的元素个数，count()函数会直接返回此值
+                    ulong nNextFreeElement;     // 下一个数字索引的位置
+                    Bucket *pInternalPointer;   // 当前遍历的指针（foreach比for快的原因之一）
+                    Bucket *pListHead;          // 存储数组头元素指针
+                    Bucket *pListTail;          // 存储数组尾元素指针
+                    Bucket **arBuckets;         // 存储hash数组
+                    dtor_func_t pDestructor;    // 在删除元素时执行的回调函数，用于资源的释放
+                    zend_bool persistent;       // 指出了Bucket内存分配的方式。如果persisient为TRUE，则使用操作系统本身的内存分配函数为Bucket分配内存，否则使用PHP的内存分配函数。
+                    unsigned char nApplyCount;  // 标记当前hash Bucket被递归访问的次数（防止多次递归）
+                    zend_bool bApplyProtection; // 标记当前hash桶允许不允许多次访问，不允许时，最多只能递归3次
+                #if ZEND_DEBUG
+                    int inconsistent;
+                #endif
+                } HashTable;
+            # 哈希表的初始化函数:
+                ZEND_API int _zend_hash_init(HashTable *ht, uint nSize, hash_func_t pHashFunction, dtor_func_t pDestructor, zend_bool persistent ZEND_FILE_LINE_DC) {
+                    uint i = 3;
+                    //...
+                    if (nSize >= 0x80000000) {
+                        /* prevent overflow */
+                        ht->nTableSize = 0x80000000;
+                    } else {
+                        while ((1U << i) < nSize) {
+                            i++;
+                        }
+                        ht->nTableSize = 1 << i;
+                    }
+                    // ...
+                    ht->nTableMask = ht->nTableSize - 1;
+                    /* Uses ecalloc() so that Bucket* == NULL */
+                    if (persistent) {
+                        tmp = (Bucket **) calloc(ht->nTableSize, sizeof(Bucket *));
+                        if (!tmp) {
+                            return FAILURE;
+                        }
+                        ht->arBuckets = tmp;
+                    } else {
+                        tmp = (Bucket **) ecalloc_rel(ht->nTableSize, sizeof(Bucket *));
+                        if (tmp) {
+                            ht->arBuckets = tmp;
+                        }
+                    }
+                    return SUCCESS;
+                }
+            # 哈希表数据的槽位数据结构体：
+                typedef struct bucket {
+                    ulong h;                    // 对char *key进行hash后的值，或者是用户指定的数字索引值
+                    uint nKeyLength;            // hash关键字的长度，如果数组索引为数字，此值为0
+                    void *pData;                // 指向value，一般是用户数据的副本，如果是指针数据，则指向pDataPtr
+                    void *pDataPtr;             // 如果是指针数据，此值会指向真正的value，同时上面pData会指向此值
+                    struct bucket *pListNext;   // 整个hash表的下一元素
+                    struct bucket *pListLast;   // 整个哈希表该元素的上一个元素
+                    struct bucket *pNext;       // 存放在同一个hash Bucket内的下一个元素
+                    struct bucket *pLast;       // 同一个哈希bucket的上一个元素
+                    char arKey[1];              // 保存当前值所对于的key字符串，这个字段只能定义在最后，实现变长结构体
+                } Bucket;
+                # PHP数组中如果索引字符串可以被转换成数字也会被转换成数字索引.
+            # 哈希表插入新元素时申请空间的代码
+                p = (Bucket *) pemalloc(sizeof(Bucket) - 1 + nKeyLength, ht->persistent);
+                if (!p) {
+                  return FAILURE;
+                }
+                memcpy(p->arKey, arKey, nKeyLength);
+            # PHP中 通过 调用_zend_hash_add_or_update函数完成 数组元素的添加和更新
+            # more: http://nikic.github.io/2012/03/28/Understanding-PHPs-internal-array-implementation.html
+    变量的生命周期:
+        ZE 对 源码 进行词法和语法的分析之后，生成具体的opcode。
+        opcode被execute函数(Zend/zend_vm_execute.h:46)解释执行。
+        变量赋值操作在ZEND_ASSIGN_SPEC_CV_CONST_HANDLER()函数中进行:
+            ZEND_ASSIGN_SPEC_CV_CONST_HANDLER中进行一些变量类型的判断并在内存中分配一个zval，然后将变量的值存储其中.
+            变量名和指向这个zval的指针，存储于符号表内。
+            # ZE执行的过程中，有四个全局的变量，这些变量都是用于ZE运行时所需信息的存储：
+                zend_compiler_globals    *compiler_globals;     //_zend_compiler_globals 编译时信息，包括函数表等
+                zend_executor_globals    *executor_globals;     //_zend_executor_globals 执行时信息
+                php_core_globals         *core_globals;         //_php_core_globals 主要存储php.ini内的信息
+                sapi_globals_struct      *sapi_globals;         //_sapi_globals_struct SAPI的信息
+            变量名及指针主要存储于_zend_executor_globals的符号表中，_zend_executor_globals的结构这样的：
+                struct _zend_executor_globals {
+                    ...
+                    /* symbol table cache */
+                    HashTable *symtable_cache[SYMTABLE_CACHE_SIZE];
+                    HashTable **symtable_cache_limit;
+                    HashTable **symtable_cache_ptr;
+                    zend_op **opline_ptr;
+                    HashTable *active_symbol_table;     /* active symbol table */
+                    HashTable symbol_table;             /* main symbol table */
+                    HashTable included_files;           /* files already included */
+                    ...
+                }
+
+PHP常量:
+    内部结构(Zend/zend_constants.h):
+        typedef struct _zend_constant {
+            zval value; /* zval结构，PHP内部变量的存储结构，在第一小节有说明 */
+            int flags;  /* 常量的类型标记如 CONST_PERSISTENT | CONST_CS */
+            char *name; /* 常量名称 */
+            uint name_len;
+            int module_number;  /* 模块号 */
+        } zend_constant;
+    php通过define定义常量，在Zend/zend_builtin_functions.c文件中定义了此函数的实现，部分源码如下：
+        /* {{{ proto bool define(string constant_name, mixed value, boolean case_insensitive=false) Define a new constant */
+        ZEND_FUNCTION(define) {
+            char *name;
+            int name_len;
+            zval *val;
+            zval *val_free = NULL;
+            zend_bool non_cs = 0; //  第三个参数的临时存储变量
+            int case_sensitive = CONST_CS; //  是否大小写敏感，默认为1
+            zend_constant c;
+            if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sz|b", &name, &name_len, &val, &non_cs) == FAILURE) {
+                    return;
+            }
+            if(non_cs) { //  输入为真，大小写不敏感
+                case_sensitive = 0;
+            }
+            ... // 值类型判断和处理
+            c.value = *val;
+            zval_copy_ctor(&c.value);
+            if (val_free) {
+                zval_ptr_dtor(&val_free);
+            }
+            c.flags = case_sensitive; // 赋值给结构体字段
+            c.name = zend_strndup(name, name_len);
+            c.name_len = name_len+1;
+            c.module_number = PHP_USER_CONSTANT;
+            if (zend_register_constant(&c TSRMLS_CC) == SUCCESS) {
+                RETURN_TRUE;
+            } else {
+                RETURN_FALSE;
+            }
+        }
+    魔术常量:
+        PHP和其扩展提供了大量的预定义常量，如 __LINE__, __FILE__.PHP内核会在词法解析时将这些常量的内容赋值进行替换，而不是在运行时进行分析。
+
+预定义变量:
+    # PHP脚本执行的时候，用户全局变量(在用户空间显式定义的变量)会保存在一个HashTable数据类型的符号表(symbol_table)中。例如:$_GET，$_POST，$_SERVER，$_FILES等变量
+    # $GLOBALS : 以cgi模式为例说明$GLOBALS的初始化,从cgi_main.c文件main函数开始。整个调用顺序如下所示：
+        [main() -> php_request_startup() -> zend_activate() -> init_executor() ]
+    # $_GET、$_COOKIE、$_SERVER、$_ENV、$_FILES、$_REQUEST : 这六个变量都是通过如下的调用序列进行初始化。
+        [main() -> php_request_startup() -> php_hash_environment() ]
+
+静态变量:
+    # PHP中静态变量可以分为：
+        静态全局变量，PHP中的全局变量也可以理解为静态全局变量，因为除非明确unset释放，在程序运行过程中始终存在。
+        静态局部变量，也就是在函数内定义的静态变量，函数在执行时对变量的操作会保持到下一次函数被调用。
+        静态成员变量，这是在类中定义的静态变量，和实例变量相对应，静态成员变量可以在所有实例中共享。
+    # Zend为每个函数(准确的说是zend_op_array)分配了一个私有的符号表来保存该函数的静态变量。
+    # PHP静态变量实现如下:
+        词法分析: Zend/zend_language_scanner.l文件，搜索 static关键字。
+        语法分析: 在词法分析找到token后，通过这个token，在Zend/zend_language_parser.y文件中查找。
+        语法分析器 调用 zend_do_fetch_static_variable函数生成opcode，
+        在Zend/zend_vm_opcodes.h文件中查看相应opcode的执行函数: ZEND_FETCH_W_SPEC_CV_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
+
+
+
